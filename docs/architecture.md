@@ -1,0 +1,25 @@
+# Kiến trúc và dữ liệu
+
+`App.jsx` điều phối UI → `game/state.js` chuyển trạng thái thuần → localStorage hoặc `services/firebase.js` cho I/O cloud. `PwaControls.jsx` điều phối install/update; Vite PWA sinh manifest và Workbox service worker lúc build.
+
+## Schema v1
+
+```js
+{ version: 1, realm: 0, qi: 0, stones: 30, herbs: 0, journeys: 0 }
+```
+
+`realm` là index 0–4, qi không vượt `100 * (realm + 1)`; số nguyên không âm có giới hạn. Local key `loan-gioi:save:v1`. Firestore thêm `updatedAt` từ server timestamp tại `players/{uid}/saves/main`.
+
+## Đồng bộ
+
+Bản local là nguồn chơi hiện tại. Không tự pull khi startup. Upload ghi đè bản cloud cùng UID; download yêu cầu xác nhận và thay local nếu schema hợp lệ. Không subscription realtime; tránh vòng lặp đồng bộ và phí ghi theo click. Nếu cần realtime sau này, thêm subscription có cleanup và cơ chế revision/conflict trước khi nối UI.
+
+Auth anonymous tạo khi người chơi chọn cloud action. Cùng origin/browser giữ phiên; không dùng anonymous làm giải pháp đăng nhập đa thiết bị. Firebase config thiếu → nút cloud disabled. Lỗi SDK → UI thông báo, local tiếp tục hoạt động. Anonymous Auth và rules phải được bật/deploy trên dịch vụ thật.
+
+## Giới hạn prototype
+
+Client có thể sửa tiến độ; rules hiện tại chỉ kiểm tra ownership/schema, không chứng minh phần thưởng hợp lệ. Trước PvP/giao dịch/leaderboard, dùng server transaction/Cloud Functions và command validation. Chưa có chức năng reset/delete UI, chat, multiplayer, analytics, cloud migration hoặc RTDB presence.
+
+## Offline/PWA
+
+Workbox precache HTML/CSS/JS/icon. Không runtime-cache Firebase API. localStorage không phải backup bảo đảm; trình duyệt có thể xóa dữ liệu. Bản build production trên HTTPS cần được kiểm tra install và cold reload offline thực tế trước phát hành.
