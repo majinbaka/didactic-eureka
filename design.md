@@ -20,7 +20,9 @@ Tiêu đề dùng serif có hỗ trợ tiếng Việt; nội dung dùng system s
 
 ## Bố cục
 
-Desktop: header thương hiệu/trạng thái/cài PWA; tiêu đề chương; ba cột hồ sơ 220px, cảnh game linh hoạt, địa điểm 250px. Dưới cảnh là linh khí, thanh tiến độ, ba hành động và nhật ký trạng thái. Tablet: hai cột, địa điểm xuống hàng. Mobile dưới 650px: cảnh/gameplay trước, hồ sơ và địa điểm sau; nút xếp dọc, vùng chạm tối thiểu 44px.
+Ưu tiên mobile: một viewport game dọc chứa cảnh pixel, HUD hồ sơ/tài nguyên phía trên và bảng thao tác cùng navigation phía dưới. Điện thoại dùng toàn chiều rộng và `100svh`, tính safe-area; màn hình thấp được phép cuộn để giữ vùng chạm và nội dung. Desktop/tablet căn giữa khung dọc tối đa 480px, không tách nút khỏi game. Hồ sơ, bản đồ và cài đặt mở bằng dialog trong game, hỗ trợ Escape, focus và đóng để trở về cảnh. Không thêm cơ chế di chuyển giả.
+
+HUD và bảng thao tác có nền xanh rừng đậm để đọc rõ; nút cạnh vuông, viền ngà/đồng và bóng cứng theo phong cách pixel. Cảnh CSS kéo dài phía sau HUD; địa điểm chưa mở vẫn là thông tin. Ba hành động nằm cùng hàng trong tầm ngón tay, menu bốn mục sát đáy. Cài PWA và cloud save nằm trong cài đặt.
 
 ## Thành phần và trạng thái
 

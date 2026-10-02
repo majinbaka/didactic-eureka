@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { loadLocalSave, qiRequired, realms, saveLocal, transition } from './game/state'
 import { firebaseConfigured, uploadSave, downloadSave } from './services/firebase'
 import PwaControls from './components/PwaControls'
@@ -8,6 +8,14 @@ const places = [
   { name: 'Rừng Trúc U Minh', detail: 'Bí cảnh · Sắp khai mở', mark: '竹' },
   { name: 'Cổ Thành Vô Danh', detail: 'Thương hội · Sắp khai mở', mark: '門' },
 ]
+function GameSheet({ title, onClose, children }) {
+  const ref = useRef(null)
+  useEffect(() => { ref.current.showModal() }, [])
+  return <dialog ref={ref} className="game-sheet" onCancel={onClose} onClick={(event) => { if (event.target === event.currentTarget) onClose() }}>
+    <div className="sheet-heading"><h2>{title}</h2><button aria-label="Đóng bảng" onClick={onClose}>✕</button></div>
+    <div className="sheet-content">{children}</div>
+  </dialog>
+}
 function PixelScene() {
   return <div className="scene" role="img" aria-label="Đạo sĩ áo xanh dưới cổng đền, núi xa và hoa anh đào trong cảnh pixel">
     <div className="sun" /><div className="mountain far" /><div className="mountain near" />
@@ -17,12 +25,13 @@ function PixelScene() {
     <div className="lantern left" /><div className="lantern right" />
     <div className="ground" /><div className="path" /><div className="grass g1" /><div className="grass g2" />
     <div className="cultivator"><div className="hair" /><div className="face" /><div className="robe" /><div className="belt" /><div className="feet" /></div>
-    <span className="scene-label">THANH VÂN SƠN · BÌNH MINH</span>
+    <div className="pond" /><div className="stones" /><div className="petals" /><span className="character-name">Vô Danh</span>
   </div>
 }
 export default function App() {
   const [state, setState] = useState(loadLocalSave)
   const [notice, setNotice] = useState('Đạo hữu, một hành trình mới đang chờ.')
+  const [sheet, setSheet] = useState(null)
   const [busy, setBusy] = useState(false)
   const [online, setOnline] = useState(navigator.onLine)
   useEffect(() => {
@@ -50,15 +59,30 @@ export default function App() {
   }
   const required = qiRequired(state.realm)
   const canAdvance = state.qi >= required && state.realm < realms.length - 1
-  return <div className="app-shell">
-    <header><a className="brand" href="/">LG<span>LOẠN GIỚI<small>TU TIÊN KÝ</small></span></a><div className="header-right"><span className="connection">● {online ? 'Đang trực tuyến' : 'Chơi offline'}</span><PwaControls /></div></header>
-    <main>
-      <div className="intro"><div><p className="eyebrow">CHƯƠNG I / KHỞI NGUYÊN</p><h1>Tu Tiên Loạn Giới<span>Một niệm khởi. Vạn giới sinh.</span></h1></div><span className="edition">BẢN KHỞI TẠO <b>0.1</b></span></div>
-      <div className="game-layout">
-        <aside className="panel profile"><p className="eyebrow">ĐẠO HỮU</p><div className="avatar">青</div><h2>Vô Danh</h2><p className="muted">Lữ khách đến từ dị giới</p><span className="realm">{realms[state.realm]} · Sơ kỳ</span><div className="divider" /><div className="stat"><span>Linh thạch</span><b>◆ {state.stones}</b></div><div className="stat"><span>Linh thảo</span><b>✦ {state.herbs}</b></div><div className="stat"><span>Lịch luyện</span><b>{state.journeys} chuyến</b></div><div className="divider" /><p className="small">Tiến độ tự lưu trên thiết bị.</p><button className="quiet full" disabled={!firebaseConfigured || busy || !online} onClick={() => sync('upload')}>{busy ? 'Đang kết nối…' : '↑ Lưu lên mây'}</button><button className="quiet full" disabled={!firebaseConfigured || busy || !online} onClick={() => { if (window.confirm('Thay tiến độ hiện tại bằng bản lưu trên mây?')) sync('download') }}>↓ Tải bản lưu trên mây</button><p className="small">{firebaseConfigured ? 'Firebase đã cấu hình · tài khoản khách' : 'Chế độ local · chưa kết nối Firebase'}</p></aside>
-        <section className="world"><PixelScene /><div className="panel cultivation"><div className="section-heading"><div><p className="eyebrow">CON ĐƯỜNG TRƯỜNG SINH</p><h2>Tĩnh tâm tu luyện</h2></div><span className="qi-label">{state.qi} / {required} linh khí</span></div><progress value={state.qi} max={required} aria-label="Tiến độ linh khí" /><div className="actions"><button className="primary" disabled={busy} onClick={() => act('cultivate')}>✧ Tu luyện <small>+10 linh khí</small></button><button disabled={busy} onClick={() => act('explore')}>⚔ Lịch luyện <small>Thu thập tài nguyên</small></button><button disabled={!canAdvance || busy} onClick={() => act('breakthrough')}>↑ Đột phá <small>{state.realm === realms.length - 1 ? 'Đạt giới hạn demo' : 'Đủ linh khí để tiến cấp'}</small></button></div><p className="notice" role="status" aria-live="polite">{notice}</p></div></section>
-        <aside className="panel locations"><p className="eyebrow">VẠN GIỚI ĐỒ</p><h2>Dấu chân lữ khách</h2>{places.map((place) => <div className={`place ${place.active ? 'active' : ''}`} key={place.name}><span className="place-mark">{place.mark}</span><div><h3>{place.name}</h3><p>{place.detail}</p></div></div>)}<div className="lore"><span>世界</span><p>“Khi ranh giới giữa các cõi rạn vỡ, người phàm cũng có thể chạm tới trời cao.”</p></div><p className="small">Prototype: tu luyện, lịch luyện và đột phá. Các vùng mới sẽ được bổ sung.</p></aside>
-      </div>
-    </main><footer><span>TU TIÊN LOẠN GIỚI</span><span>Pixel world · Một hành trình không vội</span></footer>
-  </div>
+  return <main className="app-shell">
+    <section className="game-screen" aria-label="Tu Tiên Loạn Giới">
+      <PixelScene />
+      <header className="game-hud">
+        <button className="player-card" onClick={() => setSheet('profile')} aria-label="Mở hồ sơ Vô Danh">
+          <span className="portrait" aria-hidden="true">青</span><span><strong>Vô Danh</strong><small>{realms[state.realm]} · Sơ kỳ</small></span>
+        </button>
+        <button className="menu-button" onClick={() => setSheet('settings')} aria-label="Mở cài đặt">☰</button>
+        <div className="resource-bar"><span><i>◆</i> {state.stones}<small>Linh thạch</small></span><span><i>✦</i> {state.herbs}<small>Linh thảo</small></span><span className="connection"><i className={online ? 'online' : ''}>●</i> {online ? 'Online' : 'Offline'}<small>Tự lưu trên máy</small></span></div>
+      </header>
+      <div className="location-banner"><span className="location-diamond">山</span><div><h1>Thanh Vân Sơn</h1><p>ĐẠO TRƯỜNG · BÌNH MINH</p></div></div>
+      <div className="world-caption"><span>CHƯƠNG I</span><p>Một niệm khởi. Vạn giới sinh.</p></div>
+      <section className="control-deck" aria-label="Điều khiển đạo trường">
+        <p className="notice" role="status" aria-live="polite"><span aria-hidden="true">✧</span> {notice}</p>
+        <div className="qi-heading"><span>Linh khí <b>{realms[state.realm]}</b></span><strong>{state.qi}<span> / {required}</span></strong></div>
+        <progress value={state.qi} max={required} aria-label="Tiến độ linh khí" />
+        <div className="actions"><button className="primary" disabled={busy} onClick={() => act('cultivate')}><span className="action-icon">✧</span>Tu luyện<small>+10 linh khí</small></button><button disabled={busy} onClick={() => act('explore')}><span className="action-icon">⚔</span>Lịch luyện<small>Thu thập</small></button><button disabled={!canAdvance || busy} onClick={() => act('breakthrough')}><span className="action-icon">⇧</span>Đột phá<small>{state.realm === realms.length - 1 ? 'Giới hạn demo' : canAdvance ? 'Sẵn sàng' : 'Chưa đủ linh khí'}</small></button></div>
+        <nav className="bottom-nav" aria-label="Menu game"><span className="nav-current" aria-current="page"><span>⌂</span>Đạo trường</span><button onClick={() => setSheet('map')}><span>▧</span>Bản đồ</button><button onClick={() => setSheet('profile')}><span>♙</span>Đạo hữu</button><button onClick={() => setSheet('settings')}><span>⚙</span>Cài đặt</button></nav>
+      </section>
+      {sheet && <GameSheet title={{ profile: 'Đạo hữu', map: 'Vạn giới đồ', settings: 'Cài đặt' }[sheet]} onClose={() => setSheet(null)}>
+        {sheet === 'profile' && <><div className="profile-heading"><span className="portrait">青</span><div><h3>Vô Danh</h3><p>{realms[state.realm]} · Sơ kỳ</p></div></div><div className="stat"><span>Linh thạch</span><b>◆ {state.stones}</b></div><div className="stat"><span>Linh thảo</span><b>✦ {state.herbs}</b></div><div className="stat"><span>Lịch luyện</span><b>{state.journeys} chuyến</b></div><p className="small">Lữ khách đến từ dị giới. Hành trình bắt đầu tại Thanh Vân Sơn.</p></>}
+        {sheet === 'map' && <>{places.map(place => <div className={`place ${place.active ? 'active' : ''}`} key={place.name}><span className="place-mark">{place.mark}</span><div><h3>{place.name}</h3><p>{place.detail}</p></div><span className="place-state">{place.active ? 'Đang ở đây' : 'Chưa mở'}</span></div>)}<p className="small">Các vùng mới sẽ được bổ sung trong những phiên bản sau.</p></>}
+        {sheet === 'settings' && <><p className="eyebrow">TU TIÊN LOẠN GIỚI · 0.1</p><PwaControls /><div className="divider" /><h3>Bản lưu</h3><p className="small">Tiến độ tự lưu trên thiết bị. {firebaseConfigured ? 'Lưu mây sử dụng tài khoản khách.' : 'Chế độ local · chưa kết nối Firebase.'}</p><button className="full" disabled={!firebaseConfigured || busy || !online} onClick={() => sync('upload')}>{busy ? 'Đang kết nối…' : '↑ Lưu lên mây'}</button><button className="full" disabled={!firebaseConfigured || busy || !online} onClick={() => { if (window.confirm('Thay tiến độ hiện tại bằng bản lưu trên mây?')) sync('download') }}>↓ Tải bản lưu trên mây</button><p className="small sync-notice" role="status">{notice}</p></>}
+      </GameSheet>}
+    </section>
+  </main>
 }
