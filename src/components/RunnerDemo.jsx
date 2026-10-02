@@ -2,6 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, stepRun } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 
+const SCENERY_ASSETS = {
+  background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
+  objects: '/assets/scenery/underworld-bamboo-v1/forest-objects-atlas.webp',
+}
+const OBJECT_COLUMNS = 4
+const OBJECT_ROWS = 2
+
 function drawCharacter(ctx, image, frame, x, y, facing) {
   if (!image?.complete || !image.naturalWidth) return
   const sourceX = (frame % CHARACTER_ATLAS.columns) * CHARACTER_ATLAS.cell
@@ -11,70 +18,68 @@ function drawCharacter(ctx, image, frame, x, y, facing) {
   ctx.restore()
 }
 
-function drawBamboo(ctx, x, base, height, tone, alpha = 1) {
-  const trunks = ['#416348', '#4f7450', '#64855a']
+function drawObject(ctx, image, index, x, base, width, height, alpha = 1) {
+  if (!image?.complete || !image.naturalWidth) return
+  const cellWidth = image.naturalWidth / OBJECT_COLUMNS
+  const cellHeight = image.naturalHeight / OBJECT_ROWS
+  const sourceX = (index % OBJECT_COLUMNS) * cellWidth
+  const sourceY = Math.floor(index / OBJECT_COLUMNS) * cellHeight
   ctx.save(); ctx.globalAlpha = alpha
-  ctx.fillStyle = trunks[tone]
-  ctx.fillRect(Math.round(x), base - height, 12, height)
-  ctx.fillStyle = '#263f35'
-  for (let y = base - 28; y > base - height; y -= 42) ctx.fillRect(Math.round(x) - 2, y, 16, 5)
-  ctx.fillStyle = tone === 2 ? '#789866' : '#587b55'
-  for (let y = base - 55, side = 1; y > base - height + 15; y -= 55, side *= -1) {
-    ctx.fillRect(Math.round(x + (side > 0 ? 10 : -38)), y, 40, 8)
-    ctx.fillRect(Math.round(x + (side > 0 ? 28 : -42)), y - 8, 20, 8)
-  }
+  ctx.drawImage(image, sourceX, sourceY, cellWidth, cellHeight, Math.round(x - width / 2), Math.round(base - height), width, height)
   ctx.restore()
 }
 
-function drawGroundDetail(ctx, detail, x, ground) {
-  ctx.save(); ctx.translate(Math.round(x), ground); ctx.scale(detail.scale, detail.scale)
-  if (detail.kind === 'stone') {
-    ctx.fillStyle = '#778274'; ctx.fillRect(-12, -11, 24, 11); ctx.fillStyle = '#9aa28b'; ctx.fillRect(-7, -15, 14, 5); ctx.fillStyle = '#435444'; ctx.fillRect(7, -7, 9, 7)
-  } else if (detail.kind === 'pebbles') {
-    ctx.fillStyle = '#879083'; ctx.fillRect(-13, -6, 8, 5); ctx.fillRect(1, -9, 10, 7); ctx.fillRect(15, -5, 6, 4)
-  } else if (detail.kind === 'grass') {
-    ctx.fillStyle = '#294735'; ctx.fillRect(-13, -12, 5, 12); ctx.fillRect(-3, -19, 5, 19); ctx.fillRect(7, -14, 5, 14)
-  } else {
-    ctx.fillStyle = '#6e8b58'; ctx.fillRect(-3, -19, 7, 19); ctx.fillRect(4, -16, 11, 6); ctx.fillRect(-12, -11, 11, 6)
+function drawGroundDetail(ctx, image, detail, x, ground) {
+  const objects = {
+    stone: { index: 4, width: 68, height: 68 },
+    pebbles: { index: 5, width: 62, height: 48 },
+    grass: { index: 3, width: 58, height: 58 },
+    'bamboo-shoot': { index: 2, width: 52, height: 68 },
   }
-  ctx.restore()
+  const object = objects[detail.kind]
+  drawObject(ctx, image, object.index, x, ground + 4, object.width * detail.scale, object.height * detail.scale)
+}
+
+function drawBackground(ctx, image, width, height, camera) {
+  if (!image?.complete || !image.naturalWidth) {
+    ctx.fillStyle = '#6f8b76'; ctx.fillRect(0, 0, width, height)
+    return
+  }
+  const scale = height / image.naturalHeight
+  const tileWidth = image.naturalWidth * scale
+  const offset = -(((camera * .055) % tileWidth) + tileWidth) % tileWidth
+  for (let x = offset - tileWidth; x < width + tileWidth; x += tileWidth) {
+    ctx.drawImage(image, Math.round(x), 0, Math.ceil(tileWidth), height)
+  }
 }
 
 function draw(ctx, s, width, height, input, sprites) {
   const ground = height - 64
   const camera = s.x - width * .32
-  ctx.fillStyle = '#b8c7a1'; ctx.fillRect(0, 0, width, height)
-  const moonCycle = width + 180
-  const moonX = ((width * .72 - camera * .025) % moonCycle + moonCycle) % moonCycle - 90
-  ctx.fillStyle = '#d8d3a4'; ctx.fillRect(moonX, 38, 44, 44)
-  ctx.fillStyle = '#71866d'
-  const ridgeOffset = -(((camera * .08) % 260) + 260) % 260
-  for (let x = ridgeOffset - 100; x < width + 160; x += 260) {
-    ctx.beginPath(); ctx.moveTo(x, ground); ctx.lineTo(x + 100, ground - 150); ctx.lineTo(x + 230, ground); ctx.fill()
-  }
-  ctx.fillStyle = '#3b614e'; ctx.fillRect(0, ground - 156, width, 156)
+  drawBackground(ctx, sprites.background, width, height, camera)
   const farStart = Math.floor((camera * .28 - 100) / 150)
-  for (let i = farStart; i <= farStart + Math.ceil(width / 150) + 2; i++) drawBamboo(ctx, i * 150 - camera * .28, ground, 185 + Math.abs(i % 3) * 28, Math.abs(i) % 3, .55)
+  for (let i = farStart; i <= farStart + Math.ceil(width / 150) + 2; i++) {
+    const height = 205 + Math.abs(i % 3) * 24
+    drawObject(ctx, sprites.objects, Math.abs(i) % 2, i * 150 - camera * .28, ground + 5, height * .48, height, .46)
+  }
   const startChunk = Math.floor((camera - 100) / SCENERY_CHUNK)
   const endChunk = Math.ceil((camera + width + 100) / SCENERY_CHUNK)
   for (let i = startChunk; i <= endChunk; i++) {
     const chunk = sceneryForChunk(i)
-    drawBamboo(ctx, i * SCENERY_CHUNK + chunk.bambooOffset - camera, ground, chunk.bambooHeight, chunk.bambooTone)
+    drawObject(ctx, sprites.objects, chunk.bambooTone % 2, i * SCENERY_CHUNK + chunk.bambooOffset - camera, ground + 5, chunk.bambooHeight * .5, chunk.bambooHeight)
   }
-  ctx.fillStyle = '#789263'; ctx.fillRect(0, ground, width, 8)
-  ctx.fillStyle = '#354c3a'; ctx.fillRect(0, ground + 8, width, 56)
-  ctx.fillStyle = '#192e2b'
-  for (let x = -camera % 64; x < width; x += 64) ctx.fillRect(x, ground + 24, 48, 8)
+  const groundGradient = ctx.createLinearGradient(0, ground, 0, height)
+  groundGradient.addColorStop(0, '#647648e8'); groundGradient.addColorStop(.18, '#344632f2'); groundGradient.addColorStop(1, '#172923')
+  ctx.fillStyle = groundGradient; ctx.fillRect(0, ground, width, height - ground)
+  ctx.fillStyle = '#98a66b'; ctx.fillRect(0, ground, width, 4)
   for (let i = startChunk; i <= endChunk; i++) {
     const chunk = sceneryForChunk(i)
-    for (const detail of chunk.details) drawGroundDetail(ctx, detail, i * SCENERY_CHUNK + detail.offset - camera, ground + 4)
+    for (const detail of chunk.details) drawGroundDetail(ctx, sprites.objects, detail, i * SCENERY_CHUNK + detail.offset - camera, ground + 4)
   }
   for (const t of s.targets) {
     if (!t.hp) continue
     const x = t.x - camera
-    ctx.fillStyle = '#574b62'; ctx.fillRect(x + 8, ground - 80, 48, 72)
-    ctx.fillStyle = '#a4a0a5'; ctx.fillRect(x, ground - 64, 64, 16)
-    ctx.fillStyle = '#edbd72'; ctx.fillRect(x + 20, ground - 56, 8, 8); ctx.fillRect(x + 40, ground - 56, 8, 8)
+    drawObject(ctx, sprites.objects, t.hp === 3 ? 6 : 7, x + 32, ground + 5, 92, 116)
     ctx.fillStyle = '#dfbc7c'; ctx.fillRect(x + 8, ground - 96, t.hp * 16, 4)
   }
   const animation = selectCharacterAnimation(s, input)
@@ -84,17 +89,24 @@ function draw(ctx, s, width, height, input, sprites) {
 }
 export default function RunnerDemo({ onBack }) {
   const canvas = useRef(null), run = useRef(createRun()), input = useRef({ move: 0 }), gesture = useRef(null)
-  const sprites = useRef({ character: null })
+  const sprites = useRef({ character: null, background: null, objects: null })
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
   useEffect(() => {
-    const character = new Image()
-    sprites.current = { character }
-    const loaded = () => { if (character.naturalWidth) setSpriteStatus('ready') }
+    const character = new Image(), background = new Image(), objects = new Image()
+    sprites.current = { character, background, objects }
+    let loadedCount = 0
+    const loaded = () => { loadedCount += 1; if (loadedCount === 3) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
     character.onerror = failed
     character.src = CHARACTER_ATLAS.image
+    background.onload = loaded
+    background.onerror = failed
+    background.src = SCENERY_ASSETS.background
+    objects.onload = loaded
+    objects.onerror = failed
+    objects.src = SCENERY_ASSETS.objects
     let frame, last = 0
     const tick = now => {
       const dt = Math.min((now - (last || now)) / 1000, .035); last = now
@@ -123,7 +135,7 @@ export default function RunnerDemo({ onBack }) {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { character.onload = character.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { for (const image of [character, background, objects]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [])
   const hold = (field, value) => ({ onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current[field] = value }, onPointerUp: () => { input.current[field] = field === 'move' ? 0 : false }, onPointerCancel: () => { input.current[field] = field === 'move' ? 0 : false }, onClick: e => { if (e.detail === 0) { input.current[field] = value; if (field !== 'jump') setTimeout(() => { input.current[field] = field === 'move' ? 0 : false }, 180) } } })
   const holdJump = { onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current.jump = true; input.current.up = true }, onPointerUp: () => { input.current.up = false }, onPointerCancel: () => { input.current.up = false } }
@@ -131,7 +143,7 @@ export default function RunnerDemo({ onBack }) {
   return <main className="runner-shell">
     <header className="runner-header"><div><p className="eyebrow">PHÒNG THỬ NGHIỆM / 01</p><h1>Tu Tiên <span>Loạn Giới</span></h1></div><button onClick={onBack}>Đạo trường ↗</button></header>
     <section className="runner-frame" aria-label="Bản mẫu hành động đi ngang">
-      {spriteStatus !== 'ready' && <p role="status">{spriteStatus === 'error' ? 'Không tải được hình nhân vật. Hãy tải lại trang để thử lại.' : 'Đang tải hình nhân vật…'}</p>}
+      {spriteStatus !== 'ready' && <p role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
       <div className="runner-hud"><span><b>VÔ DANH</b><small>SPRITE 128 × 128</small></span><span className="demo-badge">BẢN MẪU</span><span>{hits} / 12 <small>ĐÒN TRÚNG</small></span></div>
       <canvas ref={canvas} tabIndex={0} aria-label="Sân tập. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để bắn."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
