@@ -53,4 +53,4 @@ Phiên 3–10 phút; tutorial qua nhiệm vụ nhỏ; không pay-to-win trong b�
 
 ## Sample hành động đi ngang
 
-Bản mẫu riêng có chạy, nhảy, lướt và bắn đạn thời gian thực. Có bốn bia đứng yên, mỗi bia chịu ba đòn; không gây sát thương cho người chơi. Tốc độ chạy 240px/s, lướt 780px/s trong 0,18s, bắn cách nhau 0,22s. Đây là thử nghiệm điều khiển, chưa phải map/nội dung chiến đấu hoàn chỉnh. Trạng thái chỉ nằm trong phiên, không thưởng tài nguyên hay thay schema save. Sprite placeholder ô 128×128 từ lưới nội bộ 32×32.
+Bản mẫu riêng có đi bộ, chạy, nhảy, bay, lướt và bắn đạn thời gian thực; nhân vật còn có các animation xin chào, gãi đầu, ngủ gật, ngồi, bò, bị thương và nằm đất gục ngã. Có bốn bia đứng yên, mỗi bia chịu ba đòn; không gây sát thương cho người chơi. Tốc độ đi 240px/s, chạy 390px/s, lướt 780px/s trong 0,18s, bắn cách nhau 0,22s. Đây là thử nghiệm điều khiển, chưa phải map/nội dung chiến đấu hoàn chỉnh. Trạng thái chỉ nằm trong phiên, không thưởng tài nguyên hay thay schema save. Nhân vật dùng hai atlas modular base body và quần áo 20×20 ô, mỗi ô 128×128px, cùng index frame.

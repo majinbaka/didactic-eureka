@@ -1,0 +1,147 @@
+{
+  "version": 2,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 20,
+  "rows": 20,
+  "sheetWidth": 2560,
+  "sheetHeight": 2560,
+  "frameCount": 62,
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "fps": 6,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "fps": 10,
+      "loop": true
+    },
+    "run": {
+      "frames": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "fps": 14,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "fps": 12,
+      "loop": true
+    },
+    "fly": {
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "fps": 10,
+      "loop": true
+    },
+    "hello": {
+      "frames": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "fps": 7,
+      "loop": true
+    },
+    "scratch": {
+      "frames": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "fps": 7,
+      "loop": true
+    },
+    "doze": {
+      "frames": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "fps": 4,
+      "loop": true
+    },
+    "sit": {
+      "frames": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "fps": 4,
+      "loop": true
+    },
+    "crawl": {
+      "frames": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "hurt": {
+      "frames": [
+        52,
+        53,
+        54,
+        55
+      ],
+      "fps": 10,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "fps": 8,
+      "loop": false
+    }
+  },
+  "reservedCells": 338
+}
