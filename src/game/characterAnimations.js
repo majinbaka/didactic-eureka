@@ -1,4 +1,4 @@
-import atlas from '../../public/assets/characters/modular-v1/atlas.json' with { type: 'json' }
+import atlas from './characterAtlas.json' with { type: 'json' }
 
 export const CHARACTER_ATLAS = {
   cell: atlas.cellWidth,

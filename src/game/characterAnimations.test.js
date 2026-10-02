@@ -5,6 +5,8 @@ import { animationFrame, CHARACTER_ANIMATIONS, selectCharacterAnimation } from '
 
 test('animation lookup follows the packaged atlas frame sequences', () => {
   const manifest = JSON.parse(readFileSync(new URL('../../public/assets/characters/modular-v1/atlas.json', import.meta.url)))
+  const bundledManifest = JSON.parse(readFileSync(new URL('./characterAtlas.json', import.meta.url)))
+  assert.deepEqual(bundledManifest, manifest, 'Bundled and downloadable atlas metadata must match')
   for (const [name, animation] of Object.entries(CHARACTER_ANIMATIONS)) {
     for (let step = 0; step < animation.frames.length * 3; step++) {
       const frame = animationFrame(name, (step + .01) / animation.fps)

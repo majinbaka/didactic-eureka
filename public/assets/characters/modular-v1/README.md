@@ -16,6 +16,6 @@ Có 16 key pose cho các trạng thái idle, đi bộ, chạy, nhảy, bay, xin 
 
 `outfitExposedSkin` trong manifest xác định vùng đầu/bàn tay còn lộ ra khi mặc bộ áo này ở các tư thế thấp. Renderer clip lớp body theo các vùng này trước khi vẽ outfit để phần thân/chân bị che không lộ ngoài viền trang phục. Nếu hiển thị base body riêng, vẽ nguyên frame, không dùng mask trang phục. Outfit mới cần metadata che phủ riêng.
 
-Chạy `python3 scripts/build_character_atlas.py` từ root repo (cần Pillow). Script cũ trong thư mục này chỉ chuyển đến packer mới. Source board và prompt sửa nằm tại `art/characters/modular-v1/`; giữ ngoài public để không đưa chúng vào bộ cache PWA. Preview ghép lớp dùng cùng quy tắc che phủ như trong game.
+Chạy `python3 scripts/build_character_atlas.py` từ root repo (cần Pillow). Packer xuất cùng metadata vào `atlas.json` và `src/game/characterAtlas.json`; code import bản trong `src`, test kiểm tra hai bản giống nhau. Script cũ trong thư mục này chỉ chuyển đến packer mới. Source board và prompt sửa nằm tại `art/characters/modular-v1/`; giữ ngoài public để không đưa chúng vào bộ cache PWA. Preview ghép lớp dùng cùng quy tắc che phủ như trong game.
 
 Nguồn: tạo bằng công cụ ImageGen tích hợp của Codex theo yêu cầu trong repo; không dùng asset bên thứ ba. Hai lớp được yêu cầu căn theo cùng reference; cần rà lại từng pixel khi mở rộng animation.

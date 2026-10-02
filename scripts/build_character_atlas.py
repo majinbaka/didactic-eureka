@@ -128,7 +128,9 @@ def build():
         'animations': {name: {'frames': frames, 'fps': fps, 'loop': loop}
                        for name, (frames, fps, loop) in ANIMATIONS.items()},
     }
-    (OUTPUT / 'atlas.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    metadata = json.dumps(manifest, indent=2) + '\n'
+    (OUTPUT / 'atlas.json').write_text(metadata)
+    (ROOT / 'src/game/characterAtlas.json').write_text(metadata)
     print('Packed 16 raster keyposes with the original idle frame; 384 cells reserved.')
 
 
