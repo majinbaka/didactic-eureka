@@ -50,3 +50,7 @@ Theo lượt, ba hành động cơ bản: công kích, công pháp, phòng thủ
 ## Trải nghiệm và phạm vi
 
 Phiên 3–10 phút; tutorial qua nhiệm vụ nhỏ; không pay-to-win trong bản định hướng ban đầu. PWA hỗ trợ chơi local offline. Tài khoản liên kết và sync đa thiết bị thuộc giai đoạn sau. Quyết định còn mở: chiến đấu theo lượt hay thời gian thực, cơ chế offline, hệ phái, lịch sự kiện và monetize.
+
+## Sample hành động đi ngang
+
+Bản mẫu riêng có chạy, nhảy, lướt và bắn đạn thời gian thực. Có bốn bia đứng yên, mỗi bia chịu ba đòn; không gây sát thương cho người chơi. Tốc độ chạy 240px/s, lướt 780px/s trong 0,18s, bắn cách nhau 0,22s. Đây là thử nghiệm điều khiển, chưa phải map/nội dung chiến đấu hoàn chỉnh. Trạng thái chỉ nằm trong phiên, không thưởng tài nguyên hay thay schema save. Sprite placeholder ô 128×128 từ lưới nội bộ 32×32.

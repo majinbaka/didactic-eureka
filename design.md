@@ -41,3 +41,7 @@ Giữ focus ring, sử dụng button thật, progress có nhãn, không chỉ d�
 ## Tiêu chí nghiệm thu
 
 Không tràn ngang tại 360px, 768px, 1440px; nhãn không bị cắt tiếng Việt; mọi thao tác dùng bàn phím được; loading không cho gửi nhiều yêu cầu; thiết kế offline phản ánh trạng thái thật. Tài liệu mô tả mục tiêu; code hiện tại là nguyên mẫu có thể tiếp tục tinh chỉnh.
+
+## Bản mẫu hành động đi ngang
+
+Màn hình mặc định là sân tập ngang, lấy cảm hứng nhịp hành động platformer như Mega Man, dùng asset nội bộ và palette xanh rừng/ngà/đồng. Khung mở rộng tối đa 1180px, canvas responsive, sprite vẽ trên lưới 32×32 và phóng 4 lần trong ô 128×128. Map và tạo hình hiện chỉ là placeholder. Chạm sân tập để bắn; vuốt ngang để lướt, lên để nhảy; nút giữ trái/phải và bắn hỗ trợ nhiều ngón tay. Bàn phím A/D hoặc mũi tên, W/↑ nhảy, J/Space bắn. Nút Đạo trường giữ quyền truy cập prototype cũ và bản lưu.

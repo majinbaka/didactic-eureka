@@ -30,7 +30,7 @@ npm run preview
 - Nút lưu/tải Firestore dùng tài khoản anonymous, chỉ bật khi có cấu hình.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
-Đây là prototype gameplay, chưa có chiến đấu, di chuyển bản đồ, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
+Màn hình mặc định có sample đi ngang: chạy, nhảy, lướt và bắn bia bằng chạm/vuốt hoặc bàn phím; sprite placeholder 128px. Nút Đạo trường mở prototype tu luyện cũ. Chưa có map hoàn chỉnh, chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
 
 ## Firebase
 
