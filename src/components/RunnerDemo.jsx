@@ -2,18 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { createRun, stepRun, WORLD } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 
-function drawCharacter(ctx, image, frame, x, y, facing, exposedSkin) {
+function drawCharacter(ctx, image, frame, x, y, facing) {
   if (!image?.complete || !image.naturalWidth) return
   const sourceX = (frame % CHARACTER_ATLAS.columns) * CHARACTER_ATLAS.cell
   const sourceY = Math.floor(frame / CHARACTER_ATLAS.columns) * CHARACTER_ATLAS.cell
   ctx.save(); ctx.translate(Math.round(x), Math.round(y)); ctx.scale(facing, 1)
-  if (exposedSkin) {
-    ctx.beginPath()
-    for (const [left, top, right, bottom] of exposedSkin) {
-      ctx.rect(left - CHARACTER_ATLAS.anchor.x, top - CHARACTER_ATLAS.anchor.y, right - left, bottom - top)
-    }
-    ctx.clip()
-  }
   ctx.drawImage(image, sourceX, sourceY, 128, 128, -CHARACTER_ATLAS.anchor.x, -CHARACTER_ATLAS.anchor.y, 128, 128)
   ctx.restore()
 }
@@ -39,25 +32,22 @@ function draw(ctx, s, width, height, input, sprites) {
   }
   const animation = selectCharacterAnimation(s, input)
   const frame = animationFrame(animation, s.action ? s.actionTime : s.time)
-  if (sprites.body?.naturalWidth && sprites.outfit?.naturalWidth) {
-    drawCharacter(ctx, sprites.body, frame, s.x - camera + 64, ground - s.y, s.facing, CHARACTER_ATLAS.outfitExposedSkin[frame])
-    drawCharacter(ctx, sprites.outfit, frame, s.x - camera + 64, ground - s.y, s.facing)
-  }
+  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, ground - s.y, s.facing)
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
 export default function RunnerDemo({ onBack }) {
   const canvas = useRef(null), run = useRef(createRun()), input = useRef({ move: 0 }), gesture = useRef(null)
-  const sprites = useRef({ body: null, outfit: null })
+  const sprites = useRef({ character: null })
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
   useEffect(() => {
-    const body = new Image(), outfit = new Image()
-    sprites.current = { body, outfit }
-    const loaded = () => { if (body.naturalWidth && outfit.naturalWidth) setSpriteStatus('ready') }
+    const character = new Image()
+    sprites.current = { character }
+    const loaded = () => { if (character.naturalWidth) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
-    body.onload = outfit.onload = loaded
-    body.onerror = outfit.onerror = failed
-    body.src = CHARACTER_ATLAS.body; outfit.src = CHARACTER_ATLAS.outfit
+    character.onload = loaded
+    character.onerror = failed
+    character.src = CHARACTER_ATLAS.image
     let frame, last = 0
     const tick = now => {
       const dt = Math.min((now - (last || now)) / 1000, .035); last = now
@@ -86,7 +76,7 @@ export default function RunnerDemo({ onBack }) {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { body.onload = outfit.onload = body.onerror = outfit.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { character.onload = character.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [])
   const hold = (field, value) => ({ onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current[field] = value }, onPointerUp: () => { input.current[field] = field === 'move' ? 0 : false }, onPointerCancel: () => { input.current[field] = field === 'move' ? 0 : false }, onClick: e => { if (e.detail === 0) { input.current[field] = value; if (field !== 'jump') setTimeout(() => { input.current[field] = field === 'move' ? 0 : false }, 180) } } })
   const holdJump = { onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current.jump = true; input.current.up = true }, onPointerUp: () => { input.current.up = false }, onPointerCancel: () => { input.current.up = false } }

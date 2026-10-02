@@ -4,9 +4,7 @@ export const CHARACTER_ATLAS = {
   cell: atlas.cellWidth,
   columns: atlas.columns,
   anchor: atlas.anchor || { x: 64, y: 116 },
-  outfitExposedSkin: atlas.outfitExposedSkin || {},
-  body: '/assets/characters/modular-v1/base-body-sheet-20x20.png',
-  outfit: '/assets/characters/modular-v1/outfit-jade-sheet-20x20.png',
+  image: atlas.image,
 }
 
 export const CHARACTER_ANIMATIONS = atlas.animations

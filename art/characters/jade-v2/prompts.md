@@ -1,0 +1,7 @@
+# Nhân vật mặc sẵn trang phục
+
+Tạo bằng công cụ ImageGen tích hợp ngày 2026-10-02. Reference: contact sheet modular-v1 nội bộ của project. Một nhân vật hoàn chỉnh trong mỗi frame; không còn ghép body và áo khi render.
+
+## Prompt
+
+Use case: identity-preserve. Asset type: finished pixel game character spritesheet replacing separate body and clothes layers. Edit the reference board into a COMPLETE dressed character sheet: same jade wrap tunic, ivory long sash, forest trousers, brown boots; add black hair in a small topknot, clearly readable dark eyes, nose and small mouth to EVERY pose (closed eyes for doze and collapse). Repair anatomy and clothing together so no limbs protrude incorrectly. Crisp detailed pixel art, no blur. Actual transparent background, no shadow or text or grid lines. Exactly 4 columns and 4 rows of equal cells on a square canvas. One full character per cell with generous transparent gutters and consistent body scale. Keep pose order row-major: idle facing right; walk A right; walk B right; run A right; run B right; jump right knees tucked; horizontal fly right; wave A right; wave B right; scratch head A right; scratch head B right; doze standing right; sit facing right; crawl right; hurt crouch right; collapse lying right with face visible. All characters including hair, hands, shoes entirely within their cell. Each is a single integrated illustration, not separate clothing layers. Keep head visible with recognizable facial features and hair even in low poses.

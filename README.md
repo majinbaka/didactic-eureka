@@ -30,7 +30,7 @@ npm run preview
 - Nút lưu/tải Firestore dùng tài khoản anonymous, chỉ bật khi có cấu hình.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
-Màn hình mặc định có sample đi ngang: đi/chạy, nhảy, bay, lướt và bắn bia bằng chạm/vuốt hoặc bàn phím; nhân vật dùng hai lớp raster body/quần áo 128px và các nút tư thế. Frame đứng giữ ảnh gốc, các trạng thái khác dùng bộ 16 key pose ngắn, chưa phải animation nhiều frame đầy đủ. Nút Đạo trường mở prototype tu luyện cũ. Chưa có map hoàn chỉnh, chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
+Màn hình mặc định có sample đi ngang: đi/chạy, nhảy, bay, lướt và bắn bia bằng chạm/vuốt hoặc bàn phím; nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Bộ 16 key pose cùng các nút tư thế chưa phải animation nhiều frame đầy đủ. Nút Đạo trường mở prototype tu luyện cũ. Chưa có map hoàn chỉnh, chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
 
 ## Firebase
 
