@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, stepRun } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
+import { joystickInput } from '../game/runnerControls'
 
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
@@ -90,8 +91,10 @@ function draw(ctx, s, width, height, input, sprites) {
 export default function RunnerDemo({ onBack }) {
   const canvas = useRef(null), run = useRef(createRun()), input = useRef({ move: 0 }), gesture = useRef(null)
   const sprites = useRef({ character: null, background: null, objects: null })
+  const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
+  const [joystickView, setJoystickView] = useState(null)
   useEffect(() => {
     const character = new Image(), background = new Image(), objects = new Image()
     sprites.current = { character, background, objects }
@@ -138,7 +141,29 @@ export default function RunnerDemo({ onBack }) {
     return () => { for (const image of [character, background, objects]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [])
   const hold = (field, value) => ({ onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current[field] = value }, onPointerUp: () => { input.current[field] = field === 'move' ? 0 : false }, onPointerCancel: () => { input.current[field] = field === 'move' ? 0 : false }, onClick: e => { if (e.detail === 0) { input.current[field] = value; if (field !== 'jump') setTimeout(() => { input.current[field] = field === 'move' ? 0 : false }, 180) } } })
-  const holdJump = { onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current.jump = true; input.current.up = true }, onPointerUp: () => { input.current.up = false }, onPointerCancel: () => { input.current.up = false } }
+  const holdJump = { onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current.jump = true; input.current.up = true }, onPointerUp: () => { input.current.up = false }, onPointerCancel: () => { input.current.up = false }, onClick: e => { if (e.detail === 0) input.current.jump = true } }
+  const updateJoystick = e => {
+    const active = joystick.current
+    if (!active || active.pointerId !== e.pointerId) return
+    const mapped = joystickInput(e.clientX - active.clientX, e.clientY - active.clientY)
+    input.current.move = mapped.move
+    input.current.run = mapped.run
+    setJoystickView({ x: active.x, y: active.y, knobX: mapped.knobX, knobY: mapped.knobY })
+  }
+  const startJoystick = e => {
+    e.preventDefault()
+    const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.setPointerCapture(e.pointerId)
+    joystick.current = { pointerId: e.pointerId, clientX: e.clientX, clientY: e.clientY, x: e.clientX - rect.left, y: e.clientY - rect.top }
+    setJoystickView({ x: e.clientX - rect.left, y: e.clientY - rect.top, knobX: 0, knobY: 0 })
+  }
+  const stopJoystick = e => {
+    if (joystick.current?.pointerId !== e.pointerId) return
+    joystick.current = null
+    input.current.move = 0
+    input.current.run = false
+    setJoystickView(null)
+  }
   const trigger = action => () => { input.current.action = action }
   return <main className="runner-shell">
     <header className="runner-header"><div><p className="eyebrow">PHÒNG THỬ NGHIỆM / 01</p><h1>Tu Tiên <span>Loạn Giới</span></h1></div><button onClick={onBack}>Đạo trường ↗</button></header>
@@ -150,7 +175,14 @@ export default function RunnerDemo({ onBack }) {
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
       <div className="arena-label">RỪNG TRÚC U MINH <span>Đường rừng sinh cảnh liên tục · Di chuyển · Nhảy · Công kích</span></div>
     </section>
-    <section className="runner-controls" aria-label="Điều khiển"><div className="direction-pad"><button aria-label="Đi sang trái" {...hold('move', -1)}>◀</button><button aria-label="Đi sang phải" {...hold('move', 1)}>▶</button><button {...hold('run', true)}>» <span>Chạy</span></button></div><p>CHẠM ĐỂ BẮN<br /><span>Vuốt ngang để lướt · Vuốt lên để nhảy</span></p><div className="combat-pad"><button {...holdJump}>↑ <span>Nhảy</span></button><button onClick={() => { input.current.flyToggle = true }}>☁ <span>Bay</span></button><button className="fire-button" {...hold('fire', true)}>✦ <span>Bắn</span></button></div></section>
+    <section className="runner-controls" aria-label="Điều khiển">
+      <div className="joystick-zone" role="group" aria-label="Giữ rồi vuốt sang trái hoặc phải để di chuyển. Vuốt xa để chạy." tabIndex={0}
+        onPointerDown={startJoystick} onPointerMove={updateJoystick} onPointerUp={stopJoystick} onPointerCancel={stopJoystick}>
+        <span className="joystick-hint" aria-hidden="true">GIỮ &amp; VUỐT<small>Di chuyển</small></span>
+        {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
+      </div>
+      <div className="combat-pad"><button {...holdJump}>↑ <span>Nhảy</span></button><button onClick={() => { input.current.flyToggle = true }}>☁ <span>Bay</span></button><button className="fire-button" {...hold('fire', true)}>✦ <span>Bắn</span></button></div>
+    </section>
     <section className="pose-controls" aria-label="Tư thế nhân vật">
       <button onClick={trigger('hello')}>Xin chào</button><button onClick={trigger('scratch')}>Gãi đầu</button><button onClick={trigger('doze')}>Ngủ gật</button><button onClick={trigger('sit')}>Ngồi</button><button onClick={trigger('crawl')}>Bò</button><button onClick={trigger('hurt')}>Bị thương</button><button onClick={trigger('collapse')}>Gục ngã</button>
     </section>
