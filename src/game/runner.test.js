@@ -1,16 +1,21 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createRun, stepRun, WORLD } from './runner.js'
-test('movement stays in arena and jump lands', () => {
+import { createRun, sceneryForChunk, stepRun } from './runner.js'
+test('movement continues in both directions and jump lands', () => {
   let s = createRun()
   s = stepRun(s, { move: -1 }, 1)
-  assert.equal(s.x, 0)
+  assert.equal(s.x, -140)
   s = stepRun(s, { move: 1 }, 20)
-  assert.equal(s.x, WORLD - 128)
+  assert.equal(s.x, 4660)
   s = stepRun(s, { jump: true }, .016)
   assert.ok(s.y > 0)
   for (let i = 0; i < 100; i++) s = stepRun(s, {}, .016)
   assert.equal(s.y, 0)
+})
+test('procedural scenery is stable and varies between chunks', () => {
+  assert.deepEqual(sceneryForChunk(42), sceneryForChunk(42))
+  assert.notDeepEqual(sceneryForChunk(42), sceneryForChunk(43))
+  assert.ok(sceneryForChunk(-3).details.length >= 2)
 })
 test('three shots destroy a target and preserve input state', () => {
   let s = createRun(); s.x = 350
