@@ -12,11 +12,13 @@ Tu luyện → đạt linh khí → đột phá → mở bí cảnh → lịch l
 
 | Hành động demo | Kết quả |
 | --- | --- |
-| Tu luyện | +10 linh khí, giới hạn bằng ngưỡng |
+| Tu luyện | Tăng linh khí và tu vi của mọi linh căn sở hữu; đa linh căn tu chậm hơn |
 | Lịch luyện | +8 linh thạch, +1 linh thảo, +1 chuyến |
-| Đột phá | Linh khí đủ ngưỡng, tăng cảnh giới, reset linh khí |
+| Đột phá | Cần đủ linh khí/vật phẩm; có tỷ lệ thất bại và tụt cảnh giới |
 
-Cảnh giới: Luyện Khí → Trúc Cơ → Kim Đan → Nguyên Anh → Hóa Thần. Ngưỡng demo `100 × (realmIndex + 1)`. Chưa có thất bại đột phá, stamina, cooldown, offline income, tiêu hao tài nguyên hoặc cân bằng kinh tế. Không triển khai các cơ chế đó ngầm khi chưa xác định thiết kế.
+Cảnh giới: Luyện Khí → Trúc Cơ → Kim Đan → Nguyên Anh → Hóa Thần. Ngưỡng `100 × (realmIndex + 1)`. Phàm nhân random 1–5 linh căn Kim/Mộc/Thủy/Hỏa/Thổ (45%/30%/15%/7%/3%). Mỗi lần tu luyện tăng mọi hành sở hữu theo `max(2, floor((10 + Ngộ tính - 1) / số linh căn))`.
+
+Đột phá tốn linh thạch/linh thảo lần lượt 20/2, 45/5, 90/10, 180/20 với tỷ lệ thành công 85%, 70%, 55%, 40%. Thất bại mất vật phẩm, linh khí về 0 và từ Trúc Cơ trở lên tụt một cảnh giới; thành công nhận 2 điểm Căn cốt/Ngộ tính/Thân pháp.
 
 ## Thế giới và màn hình
 

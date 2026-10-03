@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, stepRun } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
+import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
@@ -32,6 +33,25 @@ const ACTION_PAGES = [
     { id: 'hello', label: 'Chào', animation: 'hello', elapsed: .3 },
   ],
 ]
+
+const ATTRIBUTE_LABELS = { canCot: ['Căn cốt', '+10 máu'], ngoTinh: ['Ngộ tính', '+ tu luyện'], thanPhap: ['Thân pháp', '+ chiến đấu'] }
+
+function ProgressPanel({ mode, progress, notice, onAction, onClose }) {
+  const cost = breakthroughCosts[progress.realm]
+  return <section className="cultivation-panel" aria-label={mode === 'roots' ? 'Linh căn và tu luyện' : 'Hồ sơ và thuộc tính'}>
+    <header><strong>{mode === 'roots' ? 'LINH CĂN NGŨ HÀNH' : 'THUỘC TÍNH'}</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
+    {mode === 'stats' ? <>
+      <p className="panel-points">Điểm tự do <b>{progress.attributePoints}</b></p>
+      {Object.entries(ATTRIBUTE_LABELS).map(([id, [name, detail]]) => <div className="hud-attribute" key={id}><span><b>{name} · {progress.attributes[id]}</b><small>{detail}</small></span><button disabled={!progress.attributePoints} onClick={() => onAction({ type: 'increase-attribute', attribute: id })} aria-label={`Cộng ${name}`}>＋</button></div>)}
+      <button className="explore-action" onClick={() => onAction('explore')}>Lịch luyện <small>+8 ◆ · +1 dược</small></button>
+    </> : <>
+      <p className="root-summary">{progress.spiritRoots.length} linh căn · thời gian tu luyện ×{progress.spiritRoots.length}</p>
+      <div className="hud-elements">{elements.map(element => { const owned = progress.spiritRoots.includes(element.id); return <span className={`${owned ? 'owned ' : ''}element-${element.id}`} key={element.id}><b>{element.mark}</b><small>{owned ? `${element.name} ${progress.elementCultivation[element.id]}` : element.name}</small></span> })}</div>
+      <div className="panel-actions"><button onClick={() => onAction('cultivate')}>Nhập định <small>+{cultivationGain(progress)} linh khí/hành</small></button><button disabled={!cost || progress.qi < qiRequired(progress.realm) || progress.stones < cost.stones || progress.herbs < cost.herbs} onClick={() => onAction('breakthrough')}>Đột phá <small>{cost ? `${Math.round(cost.chance * 100)}% · ◆${cost.stones} · dược ${cost.herbs}` : 'Đã viên mãn'}</small></button></div>
+    </>}
+    <p className="panel-notice" role="status">{notice}</p>
+  </section>
+}
 
 function ActionSprite({ animation, elapsed = 0 }) {
   const frame = animationFrame(animation, elapsed)
@@ -130,6 +150,9 @@ export default function RunnerDemo() {
   const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
   const [joystickView, setJoystickView] = useState(null)
   const [actionPage, setActionPage] = useState(0)
+  const [progress, setProgress] = useState(loadLocalSave)
+  const [panel, setPanel] = useState(null)
+  const [notice, setNotice] = useState('Bấm vào HUD để mở tu luyện và cộng chỉ số.')
   const [portrait, setPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches)
   const enterLandscape = async () => {
     try {
@@ -223,15 +246,29 @@ export default function RunnerDemo() {
     else if (action === 'fly') input.current.flyToggle = true
     else input.current.action = action
   }
+  const progressAction = action => {
+    const next = transition(progress, action)
+    if (next === progress) { setNotice(action === 'breakthrough' ? 'Chưa đủ linh khí hoặc vật phẩm.' : 'Chưa có điểm thuộc tính.'); return }
+    setProgress(next); saveLocal(next)
+    if (action === 'cultivate') setNotice(`Mọi linh căn sở hữu +${cultivationGain(progress)} tu vi.`)
+    else if (action === 'explore') setNotice('Lịch luyện nhận 8 linh thạch và 1 linh dược.')
+    else if (action === 'breakthrough') setNotice(next.realm > progress.realm ? 'Đột phá thành công! Nhận 2 điểm thuộc tính.' : `Đột phá thất bại${progress.realm ? ', tụt một cảnh giới' : ''}.`)
+    else setNotice('Đã cộng một điểm thuộc tính.')
+  }
+  const requiredQi = qiRequired(progress.realm)
   return <main className="runner-shell">
     <section className="runner-frame" aria-label="Bản mẫu hành động đi ngang">
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
-      <div className="runner-hud"><span><b>VÔ DANH</b><small>SPRITE 128 × 128</small></span><span className="demo-badge">BẢN MẪU</span><span>{hits} / 12 <small>ĐÒN TRÚNG</small></span></div>
+      <div className="runner-hud cultivation-hud">
+        <button className="hud-avatar" onClick={() => setPanel(panel === 'stats' ? null : 'stats')} aria-label="Mở hồ sơ và cộng chỉ số"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>{realms[progress.realm]}</small></span></button>
+        <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ · TU LUYỆN</small></button></div>
+      </div>
+      {panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
       <canvas ref={canvas} tabIndex={0} aria-label="Sân tập. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để đánh."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
       <div className="arena-label">RỪNG TRÚC U MINH <span>Di chuyển · Nhảy · Công kích</span></div>
-      <p className="runner-status" role="status">{cleared ? 'Hoàn tất sân tập!' : 'Bia tập chịu ba đòn.'}</p>
+      <p className="runner-status" role="status">{cleared ? 'Hoàn tất sân tập!' : `${hits}/12 đòn trúng · Bia chịu ba đòn.`}</p>
       <button className="restart-button" aria-label="Chơi lại sân tập" onClick={() => { run.current = createRun(); input.current = { move: 0 } }}>↻</button>
       <div className="game-pwa"><PwaControls /></div>
       <div className="runner-controls" aria-label="Điều khiển">

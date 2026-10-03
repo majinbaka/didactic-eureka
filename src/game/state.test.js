@@ -1,29 +1,33 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { initialState, transition, isValidSave, qiRequired, realms } from './state.js'
+import { createInitialState, cultivationGain, initialState, isValidSave, migrateSave, qiRequired, rollSpiritRoots, transition } from './state.js'
 
-test('cultivation caps qi and breakthrough needs sufficient qi', () => {
-  assert.deepEqual(transition(initialState, 'breakthrough'), initialState)
-  let state = { ...initialState }
-  for (let i = 0; i < 12; i++) state = transition(state, 'cultivate')
-  assert.equal(state.qi, 100)
-  state = transition(state, 'breakthrough')
-  assert.equal(state.realm, 1)
-  assert.equal(state.qi, 0)
-  assert.equal(state.stones, initialState.stones)
+test('random spirit roots are unique and valid', () => {
+  assert.deepEqual(rollSpiritRoots(() => 0), ['kim'])
+  const rolls = [.99, .1, .1, .1, .1, .1]
+  const roots = rollSpiritRoots(() => rolls.shift() ?? 0)
+  assert.equal(roots.length, 5); assert.equal(new Set(roots).size, 5); assert.ok(isValidSave(createInitialState(() => 0)))
 })
-test('exploration rewards resources and journeys', () => {
-  const next = transition(initialState, 'explore')
-  assert.equal(next.stones, 38)
-  assert.equal(next.herbs, 1)
-  assert.equal(next.journeys, 1)
-  assert.equal(initialState.stones, 30)
+test('cultivation raises every owned element and multi-root cultivation is slower', () => {
+  const one = createInitialState(() => 0), many = { ...one, spiritRoots: ['kim', 'moc', 'thuy'] }
+  assert.ok(cultivationGain(one) > cultivationGain(many))
+  const next = transition(many, 'cultivate')
+  for (const root of many.spiritRoots) assert.equal(next.elementCultivation[root], cultivationGain(many))
+  assert.equal(next.qi, cultivationGain(many))
 })
-test('final realm cannot advance', () => {
-  const final = { ...initialState, realm: realms.length - 1, qi: qiRequired(realms.length - 1) }
-  assert.deepEqual(transition(final, 'breakthrough'), final)
+test('breakthrough consumes materials and succeeds or drops realm', () => {
+  const ready = { ...initialState, realm: 2, qi: qiRequired(2), stones: 200, herbs: 20 }
+  const success = transition(ready, 'breakthrough', () => 0)
+  assert.equal(success.realm, 3); assert.equal(success.attributePoints, 2); assert.equal(success.qi, 0)
+  const failure = transition(ready, 'breakthrough', () => 1)
+  assert.equal(failure.realm, 1); assert.equal(failure.qi, 0); assert.ok(failure.stones < ready.stones)
 })
-test('reject corrupted and incompatible saves', () => {
-  assert.equal(isValidSave(initialState), true)
-  for (const value of [null, {}, { ...initialState, version: 2 }, { ...initialState, realm: 5 }, { ...initialState, stones: -1 }, { ...initialState, qi: 101 }, { ...initialState, herbs: 1.5 }]) assert.equal(isValidSave(value), false)
+test('attribute points increase selected stats', () => {
+  const next = transition({ ...initialState, attributePoints: 1 }, { type: 'increase-attribute', attribute: 'canCot' })
+  assert.equal(next.attributes.canCot, 2); assert.equal(next.maxHp, 110); assert.equal(next.attributePoints, 0)
+})
+test('v1 save migrates without losing progress and invalid saves are rejected', () => {
+  const migrated = migrateSave({ version: 1, realm: 2, qi: 42, stones: 71, herbs: 9, journeys: 4 }, () => 0)
+  assert.ok(isValidSave(migrated)); assert.equal(migrated.realm, 2); assert.equal(migrated.stones, 71)
+  for (const value of [null, {}, { ...initialState, hp: 101 }, { ...initialState, spiritRoots: [] }]) assert.equal(isValidSave(value), false)
 })

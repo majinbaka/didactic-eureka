@@ -2,13 +2,16 @@
 
 `App.jsx` điều phối UI → `game/state.js` chuyển trạng thái thuần → localStorage hoặc `services/firebase.js` cho I/O cloud. `PwaControls.jsx` điều phối install/update; Vite PWA sinh manifest và Workbox service worker lúc build.
 
-## Schema v1
+## Schema v2
 
 ```js
-{ version: 1, realm: 0, qi: 0, stones: 30, herbs: 0, journeys: 0 }
+{ version: 2, realm: 0, qi: 0, stones: 30, herbs: 2, journeys: 0,
+  hp: 100, maxHp: 100, attributePoints: 0,
+  attributes: { canCot: 1, ngoTinh: 1, thanPhap: 1 },
+  spiritRoots: ['kim'], elementCultivation: { kim: 0, moc: 0, thuy: 0, hoa: 0, tho: 0 } }
 ```
 
-`realm` là index 0–4, qi không vượt `100 * (realm + 1)`; số nguyên không âm có giới hạn. Local key `loan-gioi:save:v1`. Firestore thêm `updatedAt` từ server timestamp tại `players/{uid}/saves/main`.
+`realm` là index 0–4, qi không vượt `100 * (realm + 1)`; số nguyên không âm có giới hạn. Local key `loan-gioi:save:v2`; v1 local/cloud được migration giữ nguyên tiến độ cũ và bổ sung trường mới. Firestore thêm `updatedAt` từ server timestamp tại `players/{uid}/saves/main`.
 
 ## Đồng bộ
 
