@@ -28,6 +28,6 @@ export function prologuePhase(x, mazeSolved = false) {
 
 export function resolveMaze(choice) {
   return choice === 'left'
-    ? { solved: true, message: 'Bóng nắng xác nhận Sinh môn. Những thân trúc tách ra, để lộ đường lên Linh Phong!' }
-    : { solved: false, message: 'Trúc giáp khép chặt! Đây là Tử môn. Bạn lùi lại trước bia đá để quan sát bóng nắng.' }
+    ? { outcome: 'summit', solved: true, message: 'Bóng nắng xác nhận Sinh môn. Những thân trúc tách ra, để lộ đường lên Linh Phong!' }
+    : { outcome: 'dream', solved: false, message: 'Trúc giáp khép chặt. Bóng tối ập xuống như một cơn ác mộng…' }
 }

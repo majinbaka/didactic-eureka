@@ -1,5 +1,11 @@
 export const SCENERY_CHUNK = 320
 const ACTION_DURATION = { hello: 1.4, scratch: 1.4, doze: 3, sit: 3, crawl: 2.2, hurt: .4, collapse: Infinity }
+const RACERS = [
+  { id: 'female', name: 'Linh Nhi', x: 56, lane: -10, speed: 372, rhythm: .7 },
+  { id: 'bald-monk', name: 'Minh Không', x: 22, lane: 7, speed: 356, rhythm: 1.9 },
+  { id: 'strongman', name: 'Thiết Sơn', x: -18, lane: 15, speed: 342, rhythm: 3.1 },
+  { id: 'elder', name: 'Bạch Tùng', x: -58, lane: -2, speed: 365, rhythm: 4.4 },
+]
 
 function seededValue(index, salt = 0) {
   let value = Math.imul(index ^ (salt * 374761393), 668265263)
@@ -23,10 +29,14 @@ export function sceneryForChunk(index) {
   }
 }
 export function createRun() {
-  return { x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0, shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })) }
+  return {
+    x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0,
+    racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x })),
+    shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })),
+  }
 }
 export function stepRun(state, input, dt) {
-  const s = { ...state, shots: state.shots.map(b => ({ ...b })), targets: state.targets.map(t => ({ ...t })) }
+  const s = { ...state, racers: state.racers.map(racer => ({ ...racer })), shots: state.shots.map(b => ({ ...b })), targets: state.targets.map(t => ({ ...t })) }
   s.time += dt
   s.cooldown = Math.max(0, s.cooldown - dt)
   s.dash = Math.max(0, s.dash - dt)
@@ -42,6 +52,11 @@ export function stepRun(state, input, dt) {
   if (input.dash) s.dash = .18
   const speed = s.action === 'crawl' ? 90 : input.run ? 390 : 240
   s.x += (canMove ? (s.dash ? s.facing * 780 : (input.move || 0) * speed) : 0) * dt
+  for (const [index, racer] of s.racers.entries()) {
+    const stride = Math.sin(s.time * 1.7 + racer.rhythm) * 22
+    const nextX = racer.x + Math.max(250, racer.speed + stride) * dt
+    racer.x = Math.min(nextX, s.x + 150 + index * 72)
+  }
   if (s.flying) {
     s.y = Math.max(40, Math.min(260, s.y + ((input.up ? 1 : 0) - (input.down ? 1 : 0)) * 220 * dt))
     if (!input.up && !input.down) s.y = Math.max(72, s.y + Math.sin(s.time * 4) * 12 * dt)

@@ -22,7 +22,7 @@ Cảnh giới: Luyện Khí → Trúc Cơ → Kim Đan → Nguyên Anh → Hóa 
 
 ## Chương mở đầu: Trúc Linh Phong
 
-Người chơi tỉnh dậy tại Rừng Trúc U Tinh dưới chân Thái Huyền Tông, mang phế linh căn và đặt mục tiêu giành một trong năm vị trí Nội môn. Sau hiệu lệnh của trưởng lão, chương gồm ba nhịp chơi: vượt Trúc Diệp Cương Phong bằng di chuyển/nhảy/lướt; đọc bia đá và chọn Sinh môn bên trái dựa theo bóng nắng; vượt uy áp và chạy lên đỉnh Linh Phong. Chọn sai cửa không làm mất tiến độ lâu dài, chỉ đưa nhân vật trở lại trước bia để thử lại. Hoàn thành chương khóa năm vị trí đầu tiên và xác lập việc bái nhập tiên môn; người chơi có thể chủ động chơi lại chương.
+Người chơi tỉnh dậy tại Rừng Trúc U Tinh dưới chân Thái Huyền Tông, mang phế linh căn và đặt mục tiêu giành một trong năm vị trí Nội môn. Sau hiệu lệnh của trưởng lão, Vô Danh chạy đua cùng bốn thí sinh dùng các bộ nhân vật nội bộ: Linh Nhi, Minh Không, Thiết Sơn và Bạch Tùng. Chương gồm ba nhịp chơi: vượt Trúc Diệp Cương Phong bằng di chuyển/nhảy/lướt; đọc bia đá và chọn Sinh môn bên trái dựa theo bóng nắng; vượt uy áp và chạy lên đỉnh Linh Phong. Chọn sai cửa làm Vô Danh tỉnh dậy, nhận ra lần thất bại vừa rồi chỉ là giấc mơ, rồi bắt đầu lại cuộc đua; không làm mất tiến độ tu luyện lâu dài. Hoàn thành chương khóa năm vị trí đầu tiên và xác lập việc bái nhập tiên môn; người chơi có thể chủ động chơi lại chương.
 
 ## Thế giới và màn hình
 

@@ -11,6 +11,9 @@ test('prologue advances from forest through maze to summit', () => {
 
 test('the shadow-facing left path is the only life gate', () => {
   assert.equal(resolveMaze('left').solved, true)
+  assert.equal(resolveMaze('left').outcome, 'summit')
   assert.equal(resolveMaze('middle').solved, false)
+  assert.equal(resolveMaze('middle').outcome, 'dream')
   assert.equal(resolveMaze('right').solved, false)
+  assert.equal(resolveMaze('right').outcome, 'dream')
 })

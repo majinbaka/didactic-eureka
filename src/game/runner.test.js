@@ -43,3 +43,13 @@ test('actions expire except for collapse', () => {
   s = stepRun(s, { action: 'collapse' }, 10)
   assert.equal(s.action, 'collapse')
 })
+test('four existing characters join the race and advance independently', () => {
+  const start = createRun()
+  assert.deepEqual(start.racers.map(racer => racer.id), ['female', 'bald-monk', 'strongman', 'elder'])
+  const next = stepRun(start, {}, 1)
+  assert.equal(start.racers[0].x, 156)
+  assert.ok(next.racers.every((racer, index) => racer.x > start.racers[index].x))
+  assert.equal(new Set(next.racers.map(racer => racer.x)).size, 4)
+  const waiting = Array.from({ length: 20 }).reduce(state => stepRun(state, {}, .25), next)
+  assert.ok(waiting.racers.every((racer, index) => racer.x <= waiting.x + 150 + index * 72))
+})
