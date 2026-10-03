@@ -33,9 +33,11 @@
     "run": {
       "frames": [
         3,
-        4
+        1,
+        4,
+        2
       ],
-      "fps": 10,
+      "fps": 12,
       "loop": true
     },
     "jump": {

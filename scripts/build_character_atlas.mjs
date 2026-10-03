@@ -38,7 +38,7 @@ const sheet = await sharp({ create: { width: 512, height: 512, channels: 4, back
 await writeFile(new URL('character-jade-sheet.png', output), sheet)
 await writeFile(new URL('preview-idle.png', output), frames[0])
 const animations = {
-  idle: [[0], 1, true], walk: [[1, 0, 2, 0], 8, true], run: [[3, 4], 10, true],
+  idle: [[0], 1, true], walk: [[1, 0, 2, 0], 8, true], run: [[3, 1, 4, 2], 12, true],
   jump: [[5], 1, true], fly: [[6], 1, true], hello: [[7, 8], 4, true],
   scratch: [[9, 10], 4, true], doze: [[0, 11, 11, 11], 2, true], sit: [[12], 1, true],
   crawl: [[13], 1, true], hurt: [[14], 1, false], collapse: [[14, 12, 15], 5, false],

@@ -23,6 +23,11 @@ test('idle and unknown animations use the complete standing frame', () => {
   assert.equal(animationFrame('collapse', 100), CHARACTER_ANIMATIONS.collapse.frames.at(-1))
 })
 
+test('run alternates full strides with gathered-leg transition poses', () => {
+  assert.deepEqual(CHARACTER_ANIMATIONS.run.frames, [3, 1, 4, 2])
+  assert.notEqual(CHARACTER_ANIMATIONS.run.frames[0], CHARACTER_ANIMATIONS.run.frames[2])
+})
+
 test('state selection keeps action poses and flight ahead of ground locomotion', () => {
   assert.equal(selectCharacterAnimation({ action: 'sit', flying: false, y: 0 }, { move: 1 }), 'sit')
   assert.equal(selectCharacterAnimation({ flying: true, y: 80 }, { move: 1 }), 'fly')

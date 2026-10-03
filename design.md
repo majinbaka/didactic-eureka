@@ -20,14 +20,14 @@ Tiêu đề dùng serif có hỗ trợ tiếng Việt; nội dung dùng system s
 
 ## Bố cục
 
-Ưu tiên mobile ngang: sân chơi chiếm toàn bộ viewport, tính safe-area và không có khối giao diện bên ngoài. HUD, joystick, cụm Đánh/Lướt/Bay/Nhảy và chơi lại đều phủ trong cảnh. PWA khai báo `fullscreen` và `landscape`; trình duyệt chặn khóa hướng tự động sẽ hiện lớp bắt buộc một lần chạm để xin fullscreen/khóa ngang, đồng thời vẫn yêu cầu người chơi xoay máy nếu API không được hỗ trợ. Desktop dùng cùng bố cục toàn màn hình. Không thêm cơ chế di chuyển giả.
+Ưu tiên mobile ngang: sân chơi chiếm toàn bộ viewport, tính safe-area và không có khối giao diện bên ngoài. HUD, joystick, cụm động tác phân trang và chơi lại đều phủ trong cảnh. PWA khai báo `fullscreen` và `landscape`; trình duyệt chặn khóa hướng tự động sẽ hiện lớp bắt buộc một lần chạm để xin fullscreen/khóa ngang, đồng thời vẫn yêu cầu người chơi xoay máy nếu API không được hỗ trợ. Desktop dùng cùng bố cục toàn màn hình. Không thêm cơ chế di chuyển giả.
 
-HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút có viền ngà/đồng và bóng cứng theo phong cách pixel. Cụm hành động bên phải gồm bốn nút tròn Đánh/Lướt/Bay/Nhảy xếp lưới 2×2, có khoảng hở cố định để không chồng lên nhau trên màn hình ngang thấp. Mỗi nút dùng key pose tương ứng lấy trực tiếp từ spritesheet nhân vật thay cho ký hiệu Unicode; joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
+HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút có viền ngà/đồng và bóng cứng theo phong cách pixel. Cụm hành động bên phải là lưới 3×3 gồm tám nút động tác và một nút Đổi cố định ở góc trên bên phải. Nút Đổi chuyển giữa nhóm di chuyển/biểu cảm và nhóm tư thế thấp/bị thương; các thao tác chiến đấu thiết yếu được giữ ở cả hai trang. Mỗi nút dùng key pose tương ứng lấy trực tiếp từ spritesheet nhân vật thay cho ký hiệu Unicode; joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
 
 ## Thành phần và trạng thái
 
 - HUD: tên nhân vật, số đòn trúng và trạng thái sân tập.
-- Điều khiển: joystick cảm ứng bên trái; cụm Đánh, Lướt, Bay và Nhảy bên phải; toàn bộ nằm trong cảnh.
+- Điều khiển: joystick cảm ứng bên trái; cụm tám động tác có nút đổi trang bên phải; toàn bộ nằm trong cảnh.
 - Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
 - PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.
 

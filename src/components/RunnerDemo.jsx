@@ -10,15 +10,31 @@ const SCENERY_ASSETS = {
 }
 const OBJECT_COLUMNS = 4
 const OBJECT_ROWS = 2
-const ACTION_BUTTON_FRAMES = {
-  attack: animationFrame('hello', 0),
-  dash: animationFrame('run', 0.11),
-  fly: animationFrame('fly', 0),
-  jump: animationFrame('jump', 0),
-}
+const ACTION_PAGES = [
+  [
+    { id: 'attack', label: 'Phóng khí', animation: 'hello' },
+    { id: 'dash', label: 'Lướt', animation: 'run', elapsed: .1 },
+    { id: 'jump', label: 'Nhảy', animation: 'jump' },
+    { id: 'fly', label: 'Bay', animation: 'fly' },
+    { id: 'hello', label: 'Chào', animation: 'hello' },
+    { id: 'scratch', label: 'Gãi đầu', animation: 'scratch' },
+    { id: 'doze', label: 'Ngủ gật', animation: 'doze', elapsed: .6 },
+    { id: 'sit', label: 'Ngồi', animation: 'sit' },
+  ],
+  [
+    { id: 'attack', label: 'Phóng khí', animation: 'hello' },
+    { id: 'dash', label: 'Lướt', animation: 'run', elapsed: .1 },
+    { id: 'jump', label: 'Nhảy', animation: 'jump' },
+    { id: 'fly', label: 'Bay', animation: 'fly' },
+    { id: 'crawl', label: 'Bò', animation: 'crawl' },
+    { id: 'hurt', label: 'Bị thương', animation: 'hurt' },
+    { id: 'collapse', label: 'Gục ngã', animation: 'collapse', elapsed: .5 },
+    { id: 'hello', label: 'Chào', animation: 'hello', elapsed: .3 },
+  ],
+]
 
-function ActionSprite({ action }) {
-  const frame = ACTION_BUTTON_FRAMES[action]
+function ActionSprite({ animation, elapsed = 0 }) {
+  const frame = animationFrame(animation, elapsed)
   const column = frame % CHARACTER_ATLAS.columns
   const row = Math.floor(frame / CHARACTER_ATLAS.columns)
   return <b
@@ -113,6 +129,7 @@ export default function RunnerDemo() {
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
   const [joystickView, setJoystickView] = useState(null)
+  const [actionPage, setActionPage] = useState(0)
   const [portrait, setPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches)
   const enterLandscape = async () => {
     try {
@@ -175,8 +192,6 @@ export default function RunnerDemo() {
     frame = requestAnimationFrame(tick)
     return () => { for (const image of [character, background, objects]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [])
-  const hold = (field, value) => ({ onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current[field] = value }, onPointerUp: () => { input.current[field] = field === 'move' ? 0 : false }, onPointerCancel: () => { input.current[field] = field === 'move' ? 0 : false }, onClick: e => { if (e.detail === 0) { input.current[field] = value; if (field !== 'jump') setTimeout(() => { input.current[field] = field === 'move' ? 0 : false }, 180) } } })
-  const holdJump = { onPointerDown: e => { e.currentTarget.setPointerCapture(e.pointerId); input.current.jump = true; input.current.up = true }, onPointerUp: () => { input.current.up = false }, onPointerCancel: () => { input.current.up = false }, onClick: e => { if (e.detail === 0) input.current.jump = true } }
   const updateJoystick = e => {
     const active = joystick.current
     if (!active || active.pointerId !== e.pointerId) return
@@ -199,6 +214,15 @@ export default function RunnerDemo() {
     input.current.run = false
     setJoystickView(null)
   }
+  const triggerAction = action => {
+    if (action === 'attack') {
+      input.current.fire = true
+      setTimeout(() => { input.current.fire = false }, 180)
+    } else if (action === 'dash') input.current.dash = true
+    else if (action === 'jump') input.current.jump = true
+    else if (action === 'fly') input.current.flyToggle = true
+    else input.current.action = action
+  }
   return <main className="runner-shell">
     <section className="runner-frame" aria-label="Bản mẫu hành động đi ngang">
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
@@ -216,11 +240,16 @@ export default function RunnerDemo() {
           <span className="joystick-hint" aria-hidden="true">GIỮ &amp; VUỐT<small>Di chuyển</small></span>
           {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
         </div>
-        <div className="combat-pad" role="group" aria-label="Hành động chiến đấu">
-          <button className="combat-action combat-action--jump" aria-label="Nhảy" {...holdJump}><ActionSprite action="jump" /><span>Nhảy</span></button>
-          <button className="combat-action combat-action--fly" aria-label="Bật hoặc tắt bay" onClick={() => { input.current.flyToggle = true }}><ActionSprite action="fly" /><span>Bay</span></button>
-          <button className="combat-action combat-action--dash" aria-label="Lướt" onClick={() => { input.current.dash = true }}><ActionSprite action="dash" /><span>Lướt</span></button>
-          <button className="combat-action combat-action--attack" aria-label="Đánh" {...hold('fire', true)}><ActionSprite action="attack" /><span>Đánh</span></button>
+        <div className="combat-pad" role="group" aria-label={`Hành động, trang ${actionPage + 1} / ${ACTION_PAGES.length}`}>
+          {ACTION_PAGES[actionPage].map((action, index) => <button
+            key={action.id}
+            className={`combat-action combat-action--${action.id}${index >= 4 ? ' combat-action--utility' : ''}`}
+            aria-label={action.id === 'fly' ? 'Bật hoặc tắt bay' : action.label}
+            onClick={() => triggerAction(action.id)}
+          ><ActionSprite animation={action.animation} elapsed={action.elapsed} /><span>{action.label}</span></button>)}
+          <button className="combat-action combat-action--more" aria-label={`Mở trang động tác ${actionPage === 0 ? 2 : 1}`} aria-pressed={actionPage === 1} onClick={() => setActionPage(page => (page + 1) % ACTION_PAGES.length)}>
+            <b aria-hidden="true">{actionPage + 1}/{ACTION_PAGES.length}</b><span>Đổi</span>
+          </button>
         </div>
       </div>
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
