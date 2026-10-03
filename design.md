@@ -26,8 +26,7 @@ HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt đ�
 
 ## Thành phần và trạng thái
 
-- HUD đạo trường: avatar pixel, máu, linh thạch và linh khí đều là nút mở hồ sơ/chỉ số tương ứng. Hồ sơ cho cộng Căn cốt, Ngộ tính, Thân pháp bằng điểm nhận khi đột phá; bảng linh căn dùng năm màu riêng nhưng luôn kèm tên và Hán tự.
-- HUD sân tập: tên nhân vật, số đòn trúng và trạng thái sân tập.
+- HUD: tên nhân vật, số đòn trúng và trạng thái sân tập.
 - Điều khiển: joystick cảm ứng bên trái; cụm tám động tác có nút đổi trang bên phải; toàn bộ nằm trong cảnh.
 - Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
 - PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.

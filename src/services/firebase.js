@@ -1,4 +1,4 @@
-import { isValidSave, migrateSave } from '../game/state'
+import { isValidSave } from '../game/state'
 
 const config = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -37,10 +37,8 @@ export async function downloadSave() {
   const { getDoc } = await import('firebase/firestore')
   const snapshot = await getDoc(await saveDocument())
   if (!snapshot.exists()) return null
-  const data = snapshot.data()
-  const save = data.version === 1
-    ? migrateSave(data)
-    : (({ version, realm, qi, stones, herbs, journeys, hp, maxHp, attributePoints, attributes, spiritRoots, elementCultivation }) => ({ version, realm, qi, stones, herbs, journeys, hp, maxHp, attributePoints, attributes, spiritRoots, elementCultivation }))(data)
+  const { version, realm, qi, stones, herbs, journeys } = snapshot.data()
+  const save = { version, realm, qi, stones, herbs, journeys }
   if (!isValidSave(save)) throw new Error('Bản lưu trên mây không tương thích.')
   return save
 }
