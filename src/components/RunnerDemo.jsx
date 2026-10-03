@@ -10,6 +10,23 @@ const SCENERY_ASSETS = {
 }
 const OBJECT_COLUMNS = 4
 const OBJECT_ROWS = 2
+const ACTION_BUTTON_FRAMES = {
+  attack: animationFrame('hello', 0),
+  dash: animationFrame('run', 0.11),
+  fly: animationFrame('fly', 0),
+  jump: animationFrame('jump', 0),
+}
+
+function ActionSprite({ action }) {
+  const frame = ACTION_BUTTON_FRAMES[action]
+  const column = frame % CHARACTER_ATLAS.columns
+  const row = Math.floor(frame / CHARACTER_ATLAS.columns)
+  return <b
+    className="action-sprite"
+    aria-hidden="true"
+    style={{ backgroundImage: `url(${CHARACTER_ATLAS.image})`, backgroundPosition: `${column * 100 / (CHARACTER_ATLAS.columns - 1)}% ${row * 100 / (CHARACTER_ATLAS.columns - 1)}%` }}
+  />
+}
 
 function drawCharacter(ctx, image, frame, x, y, facing) {
   if (!image?.complete || !image.naturalWidth) return
@@ -200,10 +217,10 @@ export default function RunnerDemo() {
           {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
         </div>
         <div className="combat-pad" role="group" aria-label="Hành động chiến đấu">
-          <button className="combat-action combat-action--jump" aria-label="Nhảy" {...holdJump}><b aria-hidden="true">↑</b><span>Nhảy</span></button>
-          <button className="combat-action combat-action--fly" aria-label="Bật hoặc tắt bay" onClick={() => { input.current.flyToggle = true }}><b aria-hidden="true">☁</b><span>Bay</span></button>
-          <button className="combat-action combat-action--dash" aria-label="Lướt" onClick={() => { input.current.dash = true }}><b aria-hidden="true">➤</b><span>Lướt</span></button>
-          <button className="combat-action combat-action--attack" aria-label="Đánh" {...hold('fire', true)}><b aria-hidden="true">⚔</b><span>Đánh</span></button>
+          <button className="combat-action combat-action--jump" aria-label="Nhảy" {...holdJump}><ActionSprite action="jump" /><span>Nhảy</span></button>
+          <button className="combat-action combat-action--fly" aria-label="Bật hoặc tắt bay" onClick={() => { input.current.flyToggle = true }}><ActionSprite action="fly" /><span>Bay</span></button>
+          <button className="combat-action combat-action--dash" aria-label="Lướt" onClick={() => { input.current.dash = true }}><ActionSprite action="dash" /><span>Lướt</span></button>
+          <button className="combat-action combat-action--attack" aria-label="Đánh" {...hold('fire', true)}><ActionSprite action="attack" /><span>Đánh</span></button>
         </div>
       </div>
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">

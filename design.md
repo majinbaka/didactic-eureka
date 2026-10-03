@@ -22,7 +22,7 @@ Tiêu đề dùng serif có hỗ trợ tiếng Việt; nội dung dùng system s
 
 Ưu tiên mobile ngang: sân chơi chiếm toàn bộ viewport, tính safe-area và không có khối giao diện bên ngoài. HUD, joystick, cụm Đánh/Lướt/Bay/Nhảy và chơi lại đều phủ trong cảnh. PWA khai báo `fullscreen` và `landscape`; trình duyệt chặn khóa hướng tự động sẽ hiện lớp bắt buộc một lần chạm để xin fullscreen/khóa ngang, đồng thời vẫn yêu cầu người chơi xoay máy nếu API không được hỗ trợ. Desktop dùng cùng bố cục toàn màn hình. Không thêm cơ chế di chuyển giả.
 
-HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút có viền ngà/đồng và bóng cứng theo phong cách pixel. Cụm hành động bên phải mở theo hình nan quạt từ nút Đánh lớn ở góc: Lướt gần ngón cái, Bay và Nhảy mở dần lên-trái; joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
+HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút có viền ngà/đồng và bóng cứng theo phong cách pixel. Cụm hành động bên phải gồm bốn nút tròn Đánh/Lướt/Bay/Nhảy xếp lưới 2×2, có khoảng hở cố định để không chồng lên nhau trên màn hình ngang thấp. Mỗi nút dùng key pose tương ứng lấy trực tiếp từ spritesheet nhân vật thay cho ký hiệu Unicode; joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
 
 ## Thành phần và trạng thái
 
