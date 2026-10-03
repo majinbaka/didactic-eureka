@@ -186,7 +186,7 @@ export default function RunnerDemo() {
     <section className="runner-frame" aria-label="Bản mẫu hành động đi ngang">
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
       <div className="runner-hud"><span><b>VÔ DANH</b><small>SPRITE 128 × 128</small></span><span className="demo-badge">BẢN MẪU</span><span>{hits} / 12 <small>ĐÒN TRÚNG</small></span></div>
-      <canvas ref={canvas} tabIndex={0} aria-label="Sân tập. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để bắn."
+      <canvas ref={canvas} tabIndex={0} aria-label="Sân tập. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để đánh."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
       <div className="arena-label">RỪNG TRÚC U MINH <span>Di chuyển · Nhảy · Công kích</span></div>
@@ -199,7 +199,12 @@ export default function RunnerDemo() {
           <span className="joystick-hint" aria-hidden="true">GIỮ &amp; VUỐT<small>Di chuyển</small></span>
           {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
         </div>
-        <div className="combat-pad"><button {...holdJump}>↑ <span>Nhảy</span></button><button onClick={() => { input.current.flyToggle = true }}>☁ <span>Bay</span></button><button className="fire-button" {...hold('fire', true)}>✦ <span>Bắn</span></button></div>
+        <div className="combat-pad" role="group" aria-label="Hành động chiến đấu">
+          <button className="combat-action combat-action--jump" aria-label="Nhảy" {...holdJump}><b aria-hidden="true">↑</b><span>Nhảy</span></button>
+          <button className="combat-action combat-action--fly" aria-label="Bật hoặc tắt bay" onClick={() => { input.current.flyToggle = true }}><b aria-hidden="true">☁</b><span>Bay</span></button>
+          <button className="combat-action combat-action--dash" aria-label="Lướt" onClick={() => { input.current.dash = true }}><b aria-hidden="true">➤</b><span>Lướt</span></button>
+          <button className="combat-action combat-action--attack" aria-label="Đánh" {...hold('fire', true)}><b aria-hidden="true">⚔</b><span>Đánh</span></button>
+        </div>
       </div>
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
         <span aria-hidden="true">▭ ↻</span><h1 id="landscape-title">Chơi ở màn hình ngang</h1><p>Chạm để vào toàn màn hình và tự động xoay ngang.</p><button onClick={enterLandscape}>Vào game</button>

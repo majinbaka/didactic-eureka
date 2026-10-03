@@ -20,14 +20,14 @@ Tiêu đề dùng serif có hỗ trợ tiếng Việt; nội dung dùng system s
 
 ## Bố cục
 
-Ưu tiên mobile ngang: sân chơi chiếm toàn bộ viewport, tính safe-area và không có khối giao diện bên ngoài. HUD, joystick, cụm Nhảy/Bay/Bắn và chơi lại đều phủ trong cảnh. PWA khai báo `fullscreen` và `landscape`; trình duyệt chặn khóa hướng tự động sẽ hiện lớp bắt buộc một lần chạm để xin fullscreen/khóa ngang, đồng thời vẫn yêu cầu người chơi xoay máy nếu API không được hỗ trợ. Desktop dùng cùng bố cục toàn màn hình. Không thêm cơ chế di chuyển giả.
+Ưu tiên mobile ngang: sân chơi chiếm toàn bộ viewport, tính safe-area và không có khối giao diện bên ngoài. HUD, joystick, cụm Đánh/Lướt/Bay/Nhảy và chơi lại đều phủ trong cảnh. PWA khai báo `fullscreen` và `landscape`; trình duyệt chặn khóa hướng tự động sẽ hiện lớp bắt buộc một lần chạm để xin fullscreen/khóa ngang, đồng thời vẫn yêu cầu người chơi xoay máy nếu API không được hỗ trợ. Desktop dùng cùng bố cục toàn màn hình. Không thêm cơ chế di chuyển giả.
 
-HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút cạnh vuông, viền ngà/đồng và bóng cứng theo phong cách pixel. Ba hành động nằm cùng hàng trong tầm ngón tay, joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
+HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút có viền ngà/đồng và bóng cứng theo phong cách pixel. Cụm hành động bên phải mở theo hình nan quạt từ nút Đánh lớn ở góc: Lướt gần ngón cái, Bay và Nhảy mở dần lên-trái; joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
 
 ## Thành phần và trạng thái
 
 - HUD: tên nhân vật, số đòn trúng và trạng thái sân tập.
-- Điều khiển: joystick cảm ứng bên trái; Nhảy, Bay và Bắn bên phải; toàn bộ nằm trong cảnh.
+- Điều khiển: joystick cảm ứng bên trái; cụm Đánh, Lướt, Bay và Nhảy bên phải; toàn bộ nằm trong cảnh.
 - Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
 - PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.
 
@@ -41,4 +41,4 @@ Không tràn ngang tại 360px, 768px, 1440px; nhãn không bị cắt tiếng V
 
 ## Game hành động đi ngang
 
-Màn hình duy nhất là sân tập ngang toàn viewport, lấy cảm hứng nhịp hành động platformer như Mega Man, dùng asset nội bộ và palette xanh rừng/ngà/đồng. Canvas responsive, sprite raster trong ô 128×128. Mỗi frame chứa nhân vật hoàn chỉnh, gồm tóc đen búi nhỏ, mắt, mũi, miệng và trang phục xanh ngọc/đai ngà. Renderer vẽ một atlas liền thân 4×4 ô, không ghép body/quần áo và không dùng mask che da. Các pose có cùng tỷ lệ, neo chân `(64,116)`, hiển thị nearest-neighbor. Bộ hiện tại có 16 key pose, chưa phải animation nhiều frame hoàn chỉnh. Map dùng nền raster Rừng Trúc U Minh cùng atlas vật thể đồng bộ nét vẽ với nhân vật; nền cuộn parallax chậm, còn trúc, măng, cỏ, đá và bia tập sinh theo từng đoạn có seed ổn định để cuộn liên tục hai hướng. Asset cảnh giữ cạnh cứng, renderer tắt smoothing và chỉ lấy từ nguồn nội bộ được ghi lại trong thư mục `art/scenery`. Chạm sân tập để bắn; vuốt ngang để lướt, lên để nhảy. Joystick ẩn bên trái hiện tại điểm chạm khi giữ, vuốt trái/phải để đi và vuốt xa để chạy; các nút Nhảy, Bay, Bắn ở bên phải hỗ trợ nhiều ngón tay. Bàn phím A/D hoặc mũi tên, W/↑ nhảy, J/Space bắn.
+Màn hình duy nhất là sân tập ngang toàn viewport, lấy cảm hứng nhịp hành động platformer như Mega Man, dùng asset nội bộ và palette xanh rừng/ngà/đồng. Canvas responsive, sprite raster trong ô 128×128. Mỗi frame chứa nhân vật hoàn chỉnh, gồm tóc đen búi nhỏ, mắt, mũi, miệng và trang phục xanh ngọc/đai ngà. Renderer vẽ một atlas liền thân 4×4 ô, không ghép body/quần áo và không dùng mask che da. Các pose có cùng tỷ lệ, neo chân `(64,116)`, hiển thị nearest-neighbor. Bộ hiện tại có 16 key pose, chưa phải animation nhiều frame hoàn chỉnh. Map dùng nền raster Rừng Trúc U Minh cùng atlas vật thể đồng bộ nét vẽ với nhân vật; nền cuộn parallax chậm, còn trúc, măng, cỏ, đá và bia tập sinh theo từng đoạn có seed ổn định để cuộn liên tục hai hướng. Asset cảnh giữ cạnh cứng, renderer tắt smoothing và chỉ lấy từ nguồn nội bộ được ghi lại trong thư mục `art/scenery`. Chạm sân tập để đánh; vuốt ngang để lướt, lên để nhảy. Joystick ẩn bên trái hiện tại điểm chạm khi giữ, vuốt trái/phải để đi và vuốt xa để chạy; cụm nan quạt Đánh, Lướt, Bay, Nhảy ở bên phải hỗ trợ nhiều ngón tay. Bàn phím A/D hoặc mũi tên, W/↑ nhảy, J/Space đánh.
