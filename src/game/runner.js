@@ -23,7 +23,7 @@ export function sceneryForChunk(index) {
   }
 }
 export function createRun() {
-  return { x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0, shots: [], hits: 0, targets: [480, 860, 1240, 1600].map(x => ({ x, hp: 3 })) }
+  return { x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0, shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })) }
 }
 export function stepRun(state, input, dt) {
   const s = { ...state, shots: state.shots.map(b => ({ ...b })), targets: state.targets.map(t => ({ ...t })) }

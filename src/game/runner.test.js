@@ -18,7 +18,7 @@ test('procedural scenery is stable and varies between chunks', () => {
   assert.ok(sceneryForChunk(-3).details.length >= 2)
 })
 test('three shots destroy a target and preserve input state', () => {
-  let s = createRun(); s.x = 350
+  let s = createRun(); s.x = 430
   const before = structuredClone(s)
   s = stepRun(s, { fire: true }, .016)
   assert.deepEqual(before.shots, [])

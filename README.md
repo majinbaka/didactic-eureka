@@ -21,12 +21,12 @@ npm run build
 npm run preview
 ```
 
-## Bản khởi tạo có gì?
+## Bản game hiện có gì?
 
-- Sân chơi đi ngang toàn màn hình với cảnh pixel, không cần game engine.
+- Chương mở đầu “Trúc Linh Phong — Thử thách nhập môn” với thoại, vượt Rừng Trúc U Tinh, giải bia đá trận pháp và cuộc đua lên đỉnh núi.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
-Game có đi/chạy, nhảy, bay, lướt và đánh bia bằng chạm/vuốt hoặc bàn phím; cụm hành động mobile mở theo hình nan quạt từ nút Đánh ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có map hoàn chỉnh, chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
+Game có đi/chạy, nhảy, bay, lướt và phóng khí bằng chạm/vuốt hoặc bàn phím; cụm hành động mobile nằm ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
 
 ## Firebase
 

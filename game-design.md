@@ -8,9 +8,9 @@ Thể loại dự kiến: RPG tu tiên kết hợp khám phá và tiến triển
 
 ## Vòng lặp
 
-Tu luyện → đạt linh khí → đột phá → mở bí cảnh → lịch luyện/chiến đấu → thu tài nguyên → chế tạo/nâng kỹ năng → tiếp tục tu luyện. Bản khởi tạo chỉ có click tu luyện, thu thập demo và đột phá; các phần khác là kế hoạch.
+Tu luyện → đạt linh khí → đột phá → mở bí cảnh → lịch luyện/chiến đấu → thu tài nguyên → chế tạo/nâng kỹ năng → tiếp tục tu luyện. Bản hiện tại có tu luyện, lịch luyện, đột phá và chương nhập môn; các phần khác là kế hoạch.
 
-| Hành động demo | Kết quả |
+| Hành động | Kết quả |
 | --- | --- |
 | Tu luyện | Tăng linh khí và tu vi của mọi linh căn sở hữu; đa linh căn tu chậm hơn |
 | Lịch luyện | +8 linh thạch, +1 linh thảo, +1 chuyến |
@@ -20,10 +20,14 @@ Cảnh giới: Luyện Khí → Trúc Cơ → Kim Đan → Nguyên Anh → Hóa 
 
 Đột phá tốn linh thạch/linh thảo lần lượt 20/2, 45/5, 90/10, 180/20 với tỷ lệ thành công 85%, 70%, 55%, 40%. Thất bại mất vật phẩm, linh khí về 0 và từ Trúc Cơ trở lên tụt một cảnh giới; thành công nhận 2 điểm Căn cốt/Ngộ tính/Thân pháp.
 
+## Chương mở đầu: Trúc Linh Phong
+
+Người chơi tỉnh dậy tại Rừng Trúc U Tinh dưới chân Thái Huyền Tông, mang phế linh căn và đặt mục tiêu giành một trong năm vị trí Nội môn. Sau hiệu lệnh của trưởng lão, chương gồm ba nhịp chơi: vượt Trúc Diệp Cương Phong bằng di chuyển/nhảy/lướt; đọc bia đá và chọn Sinh môn bên trái dựa theo bóng nắng; vượt uy áp và chạy lên đỉnh Linh Phong. Chọn sai cửa không làm mất tiến độ lâu dài, chỉ đưa nhân vật trở lại trước bia để thử lại. Hoàn thành chương khóa năm vị trí đầu tiên và xác lập việc bái nhập tiên môn; người chơi có thể chủ động chơi lại chương.
+
 ## Thế giới và màn hình
 
 - Thanh Vân Sơn: điểm xuất phát, tu luyện và hồ sơ.
-- Rừng Trúc U Minh: bí cảnh linh thảo, yêu thú; dự kiến.
+- Rừng Trúc U Tinh: cửa quan nhập môn dưới chân tông môn; chương mở đầu đã có.
 - Cổ Thành Vô Danh: giao thương, nhiệm vụ; dự kiến.
 - Khe Nứt Loạn Giới: nội dung sau này, boss và câu chuyện.
 
@@ -53,6 +57,6 @@ Theo lượt, ba hành động cơ bản: công kích, công pháp, phòng thủ
 
 Phiên 3–10 phút; tutorial qua nhiệm vụ nhỏ; không pay-to-win trong bản định hướng ban đầu. PWA hỗ trợ chơi local offline. Tài khoản liên kết và sync đa thiết bị thuộc giai đoạn sau. Quyết định còn mở: chiến đấu theo lượt hay thời gian thực, cơ chế offline, hệ phái, lịch sự kiện và monetize.
 
-## Sample hành động đi ngang
+## Hành động đi ngang
 
-Bản mẫu riêng có đi bộ, chạy, nhảy, bay, lướt và đánh tầm xa thời gian thực trên đường Rừng Trúc U Minh cuộn liên tục hai hướng; nền rừng raster cuộn parallax, còn trúc, măng, cỏ, đá và sỏi từ atlas cảnh được sinh ổn định theo từng đoạn. Nhân vật còn có các animation xin chào, gãi đầu, ngủ gật, ngồi, bò, bị thương và nằm đất gục ngã. Có bốn bia gỗ từ cùng atlas cảnh, mỗi bia chịu ba đòn và đổi sang hình nứt sau khi trúng; bia không gây sát thương cho người chơi. Tốc độ đi 240px/s, chạy 390px/s, lướt 780px/s trong 0,18s, hai đòn cách nhau 0,22s. Đây là thử nghiệm điều khiển, chưa phải map/nội dung chiến đấu hoàn chỉnh. Trạng thái chỉ nằm trong phiên, không thưởng tài nguyên hay thay schema save. Nhân vật dùng một atlas liền thân 4×4 ô, mỗi ô 128×128px, có tóc, khuôn mặt và trang phục vẽ sẵn trong từng pose. Bộ hiện tại có 16 key pose; chưa phải chu kỳ animation nhiều frame đầy đủ. Chu kỳ chạy xen hai pose sải chân với hai pose chuyển tiếp thu chân/đổi chân từ bộ đi bộ để chuyển động đọc rõ hơn. Cụm điều khiển hiển thị tám động tác mỗi trang và dùng nút Đổi ở góc trên bên phải khi số hành động vượt quá chín nút.
+Màn chơi có đi bộ, chạy, nhảy, bay, lướt và đánh tầm xa thời gian thực trên đường Rừng Trúc U Tinh cuộn liên tục hai hướng; nền rừng raster cuộn parallax, còn trúc, măng, cỏ, đá và sỏi từ atlas cảnh được sinh ổn định theo từng đoạn. Nhân vật còn có các animation xin chào, gãi đầu, ngủ gật, ngồi, bò, bị thương và nằm đất gục ngã. Có bốn bia gỗ từ cùng atlas cảnh, mỗi bia chịu ba đòn và đổi sang hình nứt sau khi trúng; bia không gây sát thương cho người chơi. Tốc độ đi 240px/s, chạy 390px/s, lướt 780px/s trong 0,18s, hai đòn cách nhau 0,22s. Trạng thái chương chỉ nằm trong phiên, không thưởng tài nguyên hay thay schema save. Nhân vật dùng một atlas liền thân 4×4 ô, mỗi ô 128×128px, có tóc, khuôn mặt và trang phục vẽ sẵn trong từng pose. Bộ hiện tại có 16 key pose; chưa phải chu kỳ animation nhiều frame đầy đủ. Chu kỳ chạy xen hai pose sải chân với hai pose chuyển tiếp thu chân/đổi chân từ bộ đi bộ để chuyển động đọc rõ hơn. Cụm điều khiển hiển thị tám động tác mỗi trang và dùng nút Đổi ở góc trên bên phải khi số hành động vượt quá chín nút.

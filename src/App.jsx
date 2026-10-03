@@ -1,5 +1,5 @@
-import RunnerDemo from './components/RunnerDemo'
+import RunnerGame from './components/RunnerGame'
 
 export default function App() {
-  return <RunnerDemo />
+  return <RunnerGame />
 }

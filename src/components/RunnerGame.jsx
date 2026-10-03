@@ -3,6 +3,7 @@ import { createRun, sceneryForChunk, SCENERY_CHUNK, stepRun } from '../game/runn
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
+import { SUMMIT_GATE, mazeRiddle, openingScenes, prologuePhase, resolveMaze } from '../game/prologue'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
@@ -142,12 +143,18 @@ function draw(ctx, s, width, height, input, sprites) {
   drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, ground - s.y, s.facing)
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
-export default function RunnerDemo() {
+export default function RunnerGame() {
   const canvas = useRef(null), run = useRef(createRun()), input = useRef({ move: 0 }), gesture = useRef(null)
   const sprites = useRef({ character: null, background: null, objects: null })
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
-  const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
+  const [hits, setHits] = useState(0)
+  const [storyIndex, setStoryIndex] = useState(0)
+  const [storyStarted, setStoryStarted] = useState(false)
+  const [mazeSolved, setMazeSolved] = useState(false)
+  const [mazeMessage, setMazeMessage] = useState('')
+  const [phase, setPhase] = useState('forest')
+  const [playerX, setPlayerX] = useState(100)
   const [joystickView, setJoystickView] = useState(null)
   const [actionPage, setActionPage] = useState(0)
   const [progress, setProgress] = useState(loadLocalSave)
@@ -188,13 +195,14 @@ export default function RunnerDemo() {
     let frame, last = 0
     const tick = now => {
       const dt = Math.min((now - (last || now)) / 1000, .035); last = now
-      run.current = stepRun(run.current, input.current, dt)
+      const frozen = !storyStarted || prologuePhase(run.current.x, mazeSolved) === 'maze' || prologuePhase(run.current.x, mazeSolved) === 'complete'
+      run.current = frozen ? run.current : stepRun(run.current, input.current, dt)
       input.current.jump = false; input.current.dash = false; input.current.flyToggle = false; input.current.action = null
       const c = canvas.current, width = c.clientWidth, height = c.clientHeight
       if (c.width !== width || c.height !== height) { c.width = width; c.height = height }
       const context = c.getContext('2d'); context.imageSmoothingEnabled = false
       draw(context, run.current, width, height, input.current, sprites.current)
-      setHits(run.current.hits); setCleared(run.current.targets.every(t => !t.hp))
+      setHits(run.current.hits); setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, mazeSolved))
       frame = requestAnimationFrame(tick)
     }
     const key = (e, down) => {
@@ -214,7 +222,7 @@ export default function RunnerDemo() {
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
     return () => { for (const image of [character, background, objects]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
-  }, [])
+  }, [mazeSolved, storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
     if (!active || active.pointerId !== e.pointerId) return
@@ -256,20 +264,35 @@ export default function RunnerDemo() {
     else setNotice('Đã cộng một điểm thuộc tính.')
   }
   const requiredQi = qiRequired(progress.realm)
+  const story = openingScenes[storyIndex]
+  const advanceStory = () => {
+    if (storyIndex < openingScenes.length - 1) setStoryIndex(index => index + 1)
+    else setStoryStarted(true)
+  }
+  const chooseMaze = choice => {
+    const result = resolveMaze(choice)
+    setMazeMessage(result.message)
+    if (result.solved) setMazeSolved(true)
+  }
+  const restartChapter = () => {
+    run.current = createRun(); input.current = { move: 0 }
+    setStoryIndex(0); setStoryStarted(false); setMazeSolved(false); setMazeMessage(''); setPhase('forest'); setPlayerX(100)
+  }
   return <main className="runner-shell">
-    <section className="runner-frame" aria-label="Bản mẫu hành động đi ngang">
-      {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
+    <section className="runner-frame" aria-label="Trúc Linh Phong, chương mở đầu Tu Tiên Loạn Giới">
+      {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được cảnh Rừng Trúc. Hãy tải lại trang để thử lại.' : 'Đang tải Rừng Trúc U Tinh…'}</p>}
       <div className="runner-hud cultivation-hud">
         <button className="hud-avatar" onClick={() => setPanel(panel === 'stats' ? null : 'stats')} aria-label="Mở hồ sơ và cộng chỉ số"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>{realms[progress.realm]}</small></span></button>
         <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ · TU LUYỆN</small></button></div>
       </div>
       {panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
-      <canvas ref={canvas} tabIndex={0} aria-label="Sân tập. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để đánh."
+      <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để phóng khí."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
-      <div className="arena-label">RỪNG TRÚC U MINH <span>Di chuyển · Nhảy · Công kích</span></div>
-      <p className="runner-status" role="status">{cleared ? 'Hoàn tất sân tập!' : `${hits}/12 đòn trúng · Bia chịu ba đòn.`}</p>
-      <button className="restart-button" aria-label="Chơi lại sân tập" onClick={() => { run.current = createRun(); input.current = { move: 0 } }}>↻</button>
+      <div className="arena-label">TRÚC LINH PHONG <span>{phase === 'summit' ? 'Vân Tích Bộ · Bứt phá lên đỉnh' : 'Rừng Trúc U Tinh · Thử thách nhập môn'}</span></div>
+      {storyStarted && phase !== 'complete' && <div className="chapter-progress" aria-label="Tiến độ chương"><i style={{ width: `${Math.min(100, Math.max(0, (playerX - 100) / (SUMMIT_GATE - 100) * 100))}%` }} /></div>}
+      <p className="runner-status" role="status">{phase === 'forest' ? `${hits} đòn trúng · Vượt Trúc Diệp Cương Phong` : phase === 'summit' ? 'Uy áp Linh Phong · Tiến lên viên gạch cuối cùng!' : ''}</p>
+      <button className="restart-button" aria-label="Chơi lại chương mở đầu" onClick={restartChapter}>↻</button>
       <div className="game-pwa"><PwaControls /></div>
       <div className="runner-controls" aria-label="Điều khiển">
         <div className="joystick-zone" role="group" aria-label="Giữ rồi vuốt sang trái hoặc phải để di chuyển. Vuốt xa để chạy." tabIndex={0}
@@ -289,6 +312,19 @@ export default function RunnerDemo() {
           </button>
         </div>
       </div>
+      {!storyStarted && <section className="story-dialogue" role="dialog" aria-modal="true" aria-labelledby="story-title">
+        <p className="story-kicker">{story.speaker}</p><h1 id="story-title">{story.title}</h1><p className="story-text">{story.text}</p>
+        <footer><span>{storyIndex + 1} / {openingScenes.length}</span><button onClick={advanceStory}>{storyIndex === openingScenes.length - 1 ? 'Khai cuộc' : 'Tiếp tục'}</button></footer>
+      </section>}
+      {storyStarted && phase === 'maze' && <section className="story-dialogue maze-dialogue" role="dialog" aria-modal="true" aria-labelledby="maze-title">
+        <p className="story-kicker">{mazeRiddle.speaker}</p><h1 id="maze-title">{mazeRiddle.title}</h1><p className="story-text">{mazeRiddle.text}</p>
+        <div className="maze-choices">{mazeRiddle.choices.map(choice => <button key={choice.id} onClick={() => chooseMaze(choice.id)}><b>{choice.label}</b><small>{choice.hint}</small></button>)}</div>
+        {mazeMessage && <p className="maze-message" role="status">{mazeMessage}</p>}
+      </section>}
+      {phase === 'complete' && <section className="story-dialogue ending-dialogue" role="dialog" aria-modal="true" aria-labelledby="ending-title">
+        <p className="story-kicker">Trưởng lão Thái Huyền Tông</p><h1 id="ending-title">Trận pháp khép lại!</h1><p className="story-text">“Khóa năm vị trí đầu tiên!” Cột sáng vàng giội xuống bao bọc năm người thắng cuộc. Ta làm được rồi... con đường tu tiên của ta chính thức bắt đầu từ đây!</p>
+        <footer><span>Đã bái nhập Tiên môn</span><button onClick={restartChapter}>Chơi lại chương</button></footer>
+      </section>}
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
         <span aria-hidden="true">▭ ↻</span><h1 id="landscape-title">Chơi ở màn hình ngang</h1><p>Chạm để vào toàn màn hình và tự động xoay ngang.</p><button onClick={enterLandscape}>Vào game</button>
       </div>}
