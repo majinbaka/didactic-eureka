@@ -23,14 +23,10 @@ npm run preview
 
 ## Bản khởi tạo có gì?
 
-- Đạo trường responsive với cảnh pixel bằng CSS, không cần game engine.
-- Tu luyện +10 linh khí; lịch luyện +8 linh thạch và +1 linh thảo.
-- Đột phá khi đầy linh khí, 5 cảnh giới; tài nguyên demo chưa có chức năng tiêu hao.
-- Tự lưu localStorage, kiểm tra phiên bản/dữ liệu khi đọc.
-- Nút lưu/tải Firestore dùng tài khoản anonymous, chỉ bật khi có cấu hình.
+- Sân chơi đi ngang toàn màn hình với cảnh pixel, không cần game engine.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
-Màn hình mặc định có sample đi ngang: đi/chạy, nhảy, bay, lướt và bắn bia bằng chạm/vuốt hoặc bàn phím; nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Bộ 16 key pose cùng các nút tư thế chưa phải animation nhiều frame đầy đủ. Nút Đạo trường mở prototype tu luyện cũ. Chưa có map hoàn chỉnh, chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
+Game có đi/chạy, nhảy, bay, lướt và bắn bia bằng chạm/vuốt hoặc bàn phím; nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có map hoàn chỉnh, chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
 
 ## Firebase
 

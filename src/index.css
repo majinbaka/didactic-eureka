@@ -25,3 +25,44 @@
 .joystick-base i{position:absolute;left:50%;top:50%;width:32px;height:32px;margin:-16px 0 0 -16px;border:2px solid #f4ddaa;border-radius:50%;background:#b8bd83;box-shadow:3px 3px #0a1d18}
 .combat-pad{display:flex;align-items:center;gap:10px}
 @media(max-width:600px){.runner-controls{grid-template-columns:minmax(112px,1fr) auto;gap:10px}.joystick-zone{min-height:88px}.combat-pad{gap:6px}}
+
+/* Full-screen game shell: every interactive surface stays inside the arena. */
+html,body,#root{width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+body{background:#101d1c}
+.runner-shell{width:100%;height:100%;max-width:none;margin:0;padding:0;overflow:hidden}
+.runner-frame{width:100%;height:100%;border:0;box-shadow:none;overflow:hidden;background:#132c30}
+.runner-frame canvas{width:100%;height:100%;min-height:0}
+.runner-hud{position:absolute;z-index:3;top:max(8px,env(safe-area-inset-top));right:auto;bottom:auto;left:max(12px,env(safe-area-inset-left));width:min(330px,calc(100% - 84px));padding:8px 12px;border:1px solid #718368;background:#142923cc;box-shadow:3px 3px #091b18aa;pointer-events:none}
+.arena-label{z-index:2;top:max(10px,env(safe-area-inset-top));bottom:auto;left:50%;transform:translateX(-50%);white-space:nowrap;text-shadow:0 2px #091b18}
+.runner-status{position:absolute;z-index:2;top:calc(max(8px,env(safe-area-inset-top)) + 58px);left:50%;transform:translateX(-50%);padding:3px 9px;background:#142923aa;color:#e7e9db;font-size:10px;pointer-events:none}
+.restart-button{position:absolute;z-index:4;top:max(10px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:46px;height:46px;min-height:0;padding:0;font-size:24px;background:#142923dd}
+.game-pwa{position:absolute;z-index:4;top:max(10px,env(safe-area-inset-top));right:calc(max(12px,env(safe-area-inset-right)) + 54px)}
+.game-pwa .pwa-controls{display:flex;justify-content:flex-end;gap:6px}.game-pwa button{min-height:46px;padding:6px 9px;background:#142923dd;font-size:10px}.game-pwa p{position:absolute;top:52px;right:0;width:240px;padding:8px;background:#142923ee;font-size:10px}.game-pwa .small{position:absolute;top:52px;right:0;white-space:nowrap;padding:4px 7px;background:#142923cc;font-size:9px}
+.runner-loading{position:absolute;z-index:5;inset:0;display:grid;place-items:center;padding:24px;background:#142923;color:#dfbc7c;text-align:center}
+.runner-controls{position:absolute;z-index:3;inset:auto max(12px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));display:grid;grid-template-columns:minmax(150px,34vw) auto;align-items:end;gap:24px;margin:0;pointer-events:none}
+.runner-controls>*{pointer-events:auto}
+.joystick-zone{height:clamp(76px,24vh,124px);min-height:0;border-color:#d9c68299;background:#14292380}
+.combat-pad{align-items:flex-end}
+.runner-controls button{width:clamp(52px,9vw,72px);height:clamp(52px,15vh,72px);min-height:44px;background:#1b332ed9;backdrop-filter:blur(2px)}
+.runner-controls .fire-button{width:clamp(64px,11vw,88px)}
+.landscape-gate{display:none}
+
+@media(max-height:520px){
+  .runner-hud{right:auto;max-width:230px;padding:6px 9px;font-size:11px}.runner-hud .demo-badge{display:none}
+  .arena-label{font-size:9px}.arena-label span{display:none}.runner-status{top:44px}
+  .runner-controls{grid-template-columns:minmax(140px,30vw) auto;gap:12px}
+  .joystick-zone{height:clamp(68px,26vh,100px)}
+  .runner-controls button{height:clamp(48px,20vh,68px)}
+}
+
+@media(max-width:800px){.arena-label{display:none}}
+@media(max-width:600px){
+  .runner-controls{grid-template-columns:minmax(84px,1fr) auto;gap:6px}
+  .runner-controls button{width:48px}.runner-controls .fire-button{width:58px}
+  .combat-pad{gap:4px}.runner-hud{font-size:10px}.runner-hud small{font-size:7px}.game-pwa{display:none}
+}
+
+@media(hover:none) and (pointer:coarse) and (orientation:portrait){
+  .landscape-gate{position:fixed;z-index:20;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(24px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-left));background:#101d1cf5;text-align:center}
+  .landscape-gate>span{font-size:52px;color:#dfbc7c}.landscape-gate h1{font:700 24px Georgia,serif;color:#f1ead4}.landscape-gate p{max-width:300px;color:#aebfa9}.landscape-gate button{margin-top:8px;background:#dfbc7c;color:#192b26;border-color:#f4ddaa}
+}

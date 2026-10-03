@@ -9,7 +9,7 @@ export default defineConfig({
     manifest: {
       id: '/', name: 'Tu Tiên Loạn Giới', short_name: 'Loạn Giới',
       description: 'Hành trình tu tiên giữa những thế giới rạn vỡ.',
-      lang: 'vi', start_url: '/', scope: '/', display: 'standalone',
+      lang: 'vi', start_url: '/', scope: '/', display: 'fullscreen', orientation: 'landscape',
       theme_color: '#142924', background_color: '#101d1c',
       icons: [
         { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

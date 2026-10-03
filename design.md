@@ -20,18 +20,15 @@ Tiêu đề dùng serif có hỗ trợ tiếng Việt; nội dung dùng system s
 
 ## Bố cục
 
-Ưu tiên mobile: một viewport game dọc chứa cảnh pixel, HUD hồ sơ/tài nguyên phía trên và bảng thao tác cùng navigation phía dưới. Điện thoại dùng toàn chiều rộng và `100svh`, tính safe-area; màn hình thấp được phép cuộn để giữ vùng chạm và nội dung. Desktop/tablet căn giữa khung dọc tối đa 480px, không tách nút khỏi game. Hồ sơ, bản đồ và cài đặt mở bằng dialog trong game, hỗ trợ Escape, focus và đóng để trở về cảnh. Không thêm cơ chế di chuyển giả.
+Ưu tiên mobile ngang: sân chơi chiếm toàn bộ viewport, tính safe-area và không có khối giao diện bên ngoài. HUD, joystick, cụm Nhảy/Bay/Bắn và chơi lại đều phủ trong cảnh. PWA khai báo `fullscreen` và `landscape`; trình duyệt chặn khóa hướng tự động sẽ hiện lớp bắt buộc một lần chạm để xin fullscreen/khóa ngang, đồng thời vẫn yêu cầu người chơi xoay máy nếu API không được hỗ trợ. Desktop dùng cùng bố cục toàn màn hình. Không thêm cơ chế di chuyển giả.
 
-HUD và bảng thao tác có nền xanh rừng đậm để đọc rõ; nút cạnh vuông, viền ngà/đồng và bóng cứng theo phong cách pixel. Cảnh CSS kéo dài phía sau HUD; địa điểm chưa mở vẫn là thông tin. Ba hành động nằm cùng hàng trong tầm ngón tay, menu bốn mục sát đáy. Cài PWA và cloud save nằm trong cài đặt.
+HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt để đọc rõ mà không tách khỏi cảnh; nút cạnh vuông, viền ngà/đồng và bóng cứng theo phong cách pixel. Ba hành động nằm cùng hàng trong tầm ngón tay, joystick ở phía đối diện để hỗ trợ nhiều ngón tay.
 
 ## Thành phần và trạng thái
 
-- Hồ sơ: tên, cảnh giới, tài nguyên, trạng thái lưu và điều khiển cloud.
-- Đạo trường: cảnh pixel decor, mô tả accessible; không có tương tác di chuyển ở prototype.
-- Tu luyện: primary; lịch luyện: secondary; đột phá: disabled khi thiếu linh khí hoặc đạt giới hạn demo.
-- Địa điểm chưa mở: thẻ thông tin, không giả làm nút.
-- Cloud chưa cấu hình/offline/đang tải: nút disabled kèm diễn giải.
-- Lỗi lưu/mạng: thông báo tiếng Việt trong vùng `aria-live`; không làm mất bản local.
+- HUD: tên nhân vật, số đòn trúng và trạng thái sân tập.
+- Điều khiển: joystick cảm ứng bên trái; Nhảy, Bay và Bắn bên phải; toàn bộ nằm trong cảnh.
+- Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
 - PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.
 
 ## Khả năng tiếp cận
@@ -42,6 +39,6 @@ Giữ focus ring, sử dụng button thật, progress có nhãn, không chỉ d�
 
 Không tràn ngang tại 360px, 768px, 1440px; nhãn không bị cắt tiếng Việt; mọi thao tác dùng bàn phím được; loading không cho gửi nhiều yêu cầu; thiết kế offline phản ánh trạng thái thật. Tài liệu mô tả mục tiêu; code hiện tại là nguyên mẫu có thể tiếp tục tinh chỉnh.
 
-## Bản mẫu hành động đi ngang
+## Game hành động đi ngang
 
-Màn hình mặc định là sân tập ngang, lấy cảm hứng nhịp hành động platformer như Mega Man, dùng asset nội bộ và palette xanh rừng/ngà/đồng. Khung mở rộng tối đa 1180px, canvas responsive, sprite raster trong ô 128×128. Mỗi frame chứa nhân vật hoàn chỉnh, gồm tóc đen búi nhỏ, mắt, mũi, miệng và trang phục xanh ngọc/đai ngà. Renderer vẽ một atlas liền thân 4×4 ô, không ghép body/quần áo và không dùng mask che da. Các pose có cùng tỷ lệ, neo chân `(64,116)`, hiển thị nearest-neighbor. Bộ hiện tại có 16 key pose, chưa phải animation nhiều frame hoàn chỉnh. Map dùng nền raster Rừng Trúc U Minh cùng atlas vật thể đồng bộ nét vẽ với nhân vật; nền cuộn parallax chậm, còn trúc, măng, cỏ, đá và bia tập sinh theo từng đoạn có seed ổn định để cuộn liên tục hai hướng. Asset cảnh giữ cạnh cứng, renderer tắt smoothing và chỉ lấy từ nguồn nội bộ được ghi lại trong thư mục `art/scenery`. Chạm sân tập để bắn; vuốt ngang để lướt, lên để nhảy. Joystick ẩn bên trái hiện tại điểm chạm khi giữ, vuốt trái/phải để đi và vuốt xa để chạy; các nút Nhảy, Bay, Bắn ở bên phải hỗ trợ nhiều ngón tay. Bàn phím A/D hoặc mũi tên, W/↑ nhảy, J/Space bắn. Nút Đạo trường giữ quyền truy cập prototype cũ và bản lưu.
+Màn hình duy nhất là sân tập ngang toàn viewport, lấy cảm hứng nhịp hành động platformer như Mega Man, dùng asset nội bộ và palette xanh rừng/ngà/đồng. Canvas responsive, sprite raster trong ô 128×128. Mỗi frame chứa nhân vật hoàn chỉnh, gồm tóc đen búi nhỏ, mắt, mũi, miệng và trang phục xanh ngọc/đai ngà. Renderer vẽ một atlas liền thân 4×4 ô, không ghép body/quần áo và không dùng mask che da. Các pose có cùng tỷ lệ, neo chân `(64,116)`, hiển thị nearest-neighbor. Bộ hiện tại có 16 key pose, chưa phải animation nhiều frame hoàn chỉnh. Map dùng nền raster Rừng Trúc U Minh cùng atlas vật thể đồng bộ nét vẽ với nhân vật; nền cuộn parallax chậm, còn trúc, măng, cỏ, đá và bia tập sinh theo từng đoạn có seed ổn định để cuộn liên tục hai hướng. Asset cảnh giữ cạnh cứng, renderer tắt smoothing và chỉ lấy từ nguồn nội bộ được ghi lại trong thư mục `art/scenery`. Chạm sân tập để bắn; vuốt ngang để lướt, lên để nhảy. Joystick ẩn bên trái hiện tại điểm chạm khi giữ, vuốt trái/phải để đi và vuốt xa để chạy; các nút Nhảy, Bay, Bắn ở bên phải hỗ trợ nhiều ngón tay. Bàn phím A/D hoặc mũi tên, W/↑ nhảy, J/Space bắn.

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, stepRun } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
+import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
@@ -88,13 +89,30 @@ function draw(ctx, s, width, height, input, sprites) {
   drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, ground - s.y, s.facing)
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
-export default function RunnerDemo({ onBack }) {
+export default function RunnerDemo() {
   const canvas = useRef(null), run = useRef(createRun()), input = useRef({ move: 0 }), gesture = useRef(null)
   const sprites = useRef({ character: null, background: null, objects: null })
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0), [cleared, setCleared] = useState(false)
   const [joystickView, setJoystickView] = useState(null)
+  const [portrait, setPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches)
+  const enterLandscape = async () => {
+    try {
+      if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.()
+      await screen.orientation?.lock?.('landscape')
+    } catch {
+      // Browser mobile có thể không hỗ trợ khóa hướng; lớp portrait vẫn hướng dẫn xoay máy.
+    }
+    setPortrait(window.matchMedia('(orientation: portrait)').matches)
+  }
+  useEffect(() => {
+    const orientation = window.matchMedia('(orientation: portrait)')
+    const updateOrientation = () => setPortrait(orientation.matches)
+    orientation.addEventListener('change', updateOrientation)
+    screen.orientation?.lock?.('landscape').catch(() => {})
+    return () => orientation.removeEventListener('change', updateOrientation)
+  }, [])
   useEffect(() => {
     const character = new Image(), background = new Image(), objects = new Image()
     sprites.current = { character, background, objects }
@@ -164,29 +182,28 @@ export default function RunnerDemo({ onBack }) {
     input.current.run = false
     setJoystickView(null)
   }
-  const trigger = action => () => { input.current.action = action }
   return <main className="runner-shell">
-    <header className="runner-header"><div><p className="eyebrow">PHÒNG THỬ NGHIỆM / 01</p><h1>Tu Tiên <span>Loạn Giới</span></h1></div><button onClick={onBack}>Đạo trường ↗</button></header>
     <section className="runner-frame" aria-label="Bản mẫu hành động đi ngang">
-      {spriteStatus !== 'ready' && <p role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
+      {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được hình ảnh sân tập. Hãy tải lại trang để thử lại.' : 'Đang tải hình ảnh sân tập…'}</p>}
       <div className="runner-hud"><span><b>VÔ DANH</b><small>SPRITE 128 × 128</small></span><span className="demo-badge">BẢN MẪU</span><span>{hits} / 12 <small>ĐÒN TRÚNG</small></span></div>
       <canvas ref={canvas} tabIndex={0} aria-label="Sân tập. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để bắn."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
-      <div className="arena-label">RỪNG TRÚC U MINH <span>Đường rừng sinh cảnh liên tục · Di chuyển · Nhảy · Công kích</span></div>
-    </section>
-    <section className="runner-controls" aria-label="Điều khiển">
-      <div className="joystick-zone" role="group" aria-label="Giữ rồi vuốt sang trái hoặc phải để di chuyển. Vuốt xa để chạy." tabIndex={0}
-        onPointerDown={startJoystick} onPointerMove={updateJoystick} onPointerUp={stopJoystick} onPointerCancel={stopJoystick}>
-        <span className="joystick-hint" aria-hidden="true">GIỮ &amp; VUỐT<small>Di chuyển</small></span>
-        {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
+      <div className="arena-label">RỪNG TRÚC U MINH <span>Di chuyển · Nhảy · Công kích</span></div>
+      <p className="runner-status" role="status">{cleared ? 'Hoàn tất sân tập!' : 'Bia tập chịu ba đòn.'}</p>
+      <button className="restart-button" aria-label="Chơi lại sân tập" onClick={() => { run.current = createRun(); input.current = { move: 0 } }}>↻</button>
+      <div className="game-pwa"><PwaControls /></div>
+      <div className="runner-controls" aria-label="Điều khiển">
+        <div className="joystick-zone" role="group" aria-label="Giữ rồi vuốt sang trái hoặc phải để di chuyển. Vuốt xa để chạy." tabIndex={0}
+          onPointerDown={startJoystick} onPointerMove={updateJoystick} onPointerUp={stopJoystick} onPointerCancel={stopJoystick}>
+          <span className="joystick-hint" aria-hidden="true">GIỮ &amp; VUỐT<small>Di chuyển</small></span>
+          {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
+        </div>
+        <div className="combat-pad"><button {...holdJump}>↑ <span>Nhảy</span></button><button onClick={() => { input.current.flyToggle = true }}>☁ <span>Bay</span></button><button className="fire-button" {...hold('fire', true)}>✦ <span>Bắn</span></button></div>
       </div>
-      <div className="combat-pad"><button {...holdJump}>↑ <span>Nhảy</span></button><button onClick={() => { input.current.flyToggle = true }}>☁ <span>Bay</span></button><button className="fire-button" {...hold('fire', true)}>✦ <span>Bắn</span></button></div>
+      {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
+        <span aria-hidden="true">▭ ↻</span><h1 id="landscape-title">Chơi ở màn hình ngang</h1><p>Chạm để vào toàn màn hình và tự động xoay ngang.</p><button onClick={enterLandscape}>Vào game</button>
+      </div>}
     </section>
-    <section className="pose-controls" aria-label="Tư thế nhân vật">
-      <button onClick={trigger('hello')}>Xin chào</button><button onClick={trigger('scratch')}>Gãi đầu</button><button onClick={trigger('doze')}>Ngủ gật</button><button onClick={trigger('sit')}>Ngồi</button><button onClick={trigger('crawl')}>Bò</button><button onClick={trigger('hurt')}>Bị thương</button><button onClick={trigger('collapse')}>Gục ngã</button>
-    </section>
-    <footer className="runner-footer"><p role="status">{cleared ? 'Hoàn tất sân tập! Thử lại để tiếp tục.' : 'Bia tập có 3 điểm chịu đòn. Hãy thử chạy, nhảy và bắn.'}</p><button onClick={() => { run.current = createRun(); input.current = { move: 0 } }}>↻ Thử lại</button></footer>
-    <p className="keyboard-hint">BÀN PHÍM: A/D đi · SHIFT chạy · W nhảy · F bay · ↓ hạ · J bắn · H/G/N/S/C/T/X tư thế</p>
   </main>
 }
