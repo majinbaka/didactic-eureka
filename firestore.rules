@@ -5,13 +5,30 @@ service cloud.firestore {
       function owner() { return request.auth != null && request.auth.uid == uid; }
       function valid() {
         let d = request.resource.data;
-        return d.keys().hasAll(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'updatedAt'])
-          && d.keys().hasOnly(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'updatedAt'])
-          && d.version == 1 && d.realm is int && d.realm >= 0 && d.realm <= 4
+        return d.keys().hasAll(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
+          && d.keys().hasOnly(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
+          && d.version == 2 && d.realm is int && d.realm >= 0 && d.realm <= 4
           && d.qi is int && d.qi >= 0 && d.qi <= 100 * (d.realm + 1)
           && d.stones is int && d.stones >= 0 && d.stones <= 1000000000
           && d.herbs is int && d.herbs >= 0 && d.herbs <= 1000000000
           && d.journeys is int && d.journeys >= 0 && d.journeys <= 1000000000
+          && d.hp is int && d.hp >= 0 && d.hp <= d.maxHp
+          && d.maxHp is int && d.maxHp >= 1 && d.maxHp <= 1000000000
+          && d.attributePoints is int && d.attributePoints >= 0 && d.attributePoints <= 1000000000
+          && d.attributes.keys().hasAll(['canCot', 'ngoTinh', 'thanPhap'])
+          && d.attributes.keys().hasOnly(['canCot', 'ngoTinh', 'thanPhap'])
+          && d.attributes.canCot is int && d.attributes.canCot >= 1
+          && d.attributes.ngoTinh is int && d.attributes.ngoTinh >= 1
+          && d.attributes.thanPhap is int && d.attributes.thanPhap >= 1
+          && d.spiritRoots is list && d.spiritRoots.size() >= 1 && d.spiritRoots.size() <= 5
+          && d.spiritRoots.hasOnly(['kim', 'moc', 'thuy', 'hoa', 'tho'])
+          && d.elementCultivation.keys().hasAll(['kim', 'moc', 'thuy', 'hoa', 'tho'])
+          && d.elementCultivation.keys().hasOnly(['kim', 'moc', 'thuy', 'hoa', 'tho'])
+          && d.elementCultivation.kim is int && d.elementCultivation.kim >= 0
+          && d.elementCultivation.moc is int && d.elementCultivation.moc >= 0
+          && d.elementCultivation.thuy is int && d.elementCultivation.thuy >= 0
+          && d.elementCultivation.hoa is int && d.elementCultivation.hoa >= 0
+          && d.elementCultivation.tho is int && d.elementCultivation.tho >= 0
           && d.updatedAt == request.time;
       }
       allow read, delete: if owner();

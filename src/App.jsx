@@ -1,5 +1,5 @@
-import RunnerDemo from './components/RunnerDemo'
+import CultivationApp from './CultivationApp'
 
 export default function App() {
-  return <RunnerDemo />
+  return <CultivationApp />
 }
