@@ -1,7 +1,8 @@
 import { stepRun } from './runner.js'
 
-export const MAZE_GATE = 1500
-export const SUMMIT_GATE = 3000
+export const TRIAL_DISTANCE_SCALE = 20
+export const MAZE_GATE = 1500 * TRIAL_DISTANCE_SCALE
+export const SUMMIT_GATE = 3000 * TRIAL_DISTANCE_SCALE
 
 export const openingScenes = [
   { speaker: 'Vô Danh · Nội tâm', title: 'Tỉnh giác giữa Rừng Trúc U Tinh', text: 'Gió lạnh quá... Cuối cùng cũng tới được Rừng Trúc U Tinh rồi sao?' },
@@ -13,21 +14,21 @@ export const openingScenes = [
 export const trigrams = ['Càn', 'Đoài', 'Ly', 'Chấn', 'Tốn', 'Khảm', 'Cấn', 'Khôn']
 export const directions = ['Bắc', 'Đông Bắc', 'Đông', 'Đông Nam', 'Nam', 'Tây Nam', 'Tây', 'Tây Bắc']
 export const puzzles = [
-  { title: 'Phong Trúc Quan Trắc', gate: 1500, seconds: 20,
+  { title: 'Phong Trúc Quan Trắc', gate: 1500 * TRIAL_DISTANCE_SCALE, seconds: 20,
     context: 'Mây mù bao phủ ba lối rẽ. Trúc ma quỷ chắn đường, bia đá tỏa ánh xanh lục.',
     poem: 'Trúc hư tâm dĩ hữu tiết, phong quá bất lưu thanh.\nSinh môn nằm ở nơi ngọn trúc nghiêng theo bóng nắng,\nLạc bước vào Tử môn, ngàn trượng trúc giáp sẽ giam cầm.',
     clue: 'Mặt trời ở Đông → bóng cây ngả Tây. Gió từ Nam sang Bắc → đỉnh trúc nghiêng Bắc. Hãy phân biệt bóng nắng với hướng gió.',
     choices: ['A. Cửa Đông (Chấn - Mộc)', 'B. Cửa Tây (Đoài - Thủy) · Bên trái', 'C. Cửa Bắc (Khảm - Phong)'], answer: 1,
     explanation: 'Sinh môn ở phía Tây, theo bóng nắng buổi sáng.',
     penalty: 'Rễ trúc giam 5 giây, trừ 10 giây đếm ngược và tụt 2 hạng (tối đa hạng 5).' },
-  { title: 'Ngũ Hành Tương Sinh', gate: 2100, seconds: 15,
+  { title: 'Ngũ Hành Tương Sinh', gate: 2100 * TRIAL_DISTANCE_SCALE, seconds: 15,
     context: 'Đầm lầy phủ rêu độc. Năm thạch trụ Kim · Mộc · Thủy · Hỏa · Thổ nhô lên giữa sương mù.',
     poem: 'Thanh trúc thuộc Mộc, nhờ Thủy mà tươi tốt.\nHỏa diệt Mộc tàn, Kim đâm Mộc gãy.\nMuốn mượn lối đi, hãy dẫm lên ngón chân Tương Sinh, né tránh đường Tương Khắc.',
     clue: 'Bắt đầu: MỘC → Ô 1 → Ô 2 → Thoát: ĐỈNH NÚI. Chọn đường nhảy an toàn cho Mộc.',
     choices: ['A. Thủy → Kim', 'B. Thủy → Mộc', 'C. Hỏa → Thổ'], answer: 1,
     explanation: 'Thủy sinh Mộc, Mộc đồng hành với Mộc. Kim khắc Mộc; Hỏa thiêu Mộc.',
     penalty: 'Độc Bão giảm 20% tốc độ di chuyển trong 10 giây chạy tiếp theo.' },
-  { title: 'Âm Dương Bát Quái', gate: 2700, seconds: 10,
+  { title: 'Âm Dương Bát Quái', gate: 2700 * TRIAL_DISTANCE_SCALE, seconds: 10,
     context: 'Bậc đá đỉnh núi đã gần kề. Uy áp dồn dập tràn qua đĩa Bát Quái hai vòng.',
     poem: 'Nhật vi Dương, Nguyệt vi Âm.\nBình minh ló rạng, Dương thịnh Âm suy.\nXoay đĩa Bát Quái: Định hướng Khảm - Càn, mở đường Vạn Thọ!',
     clue: 'Buổi sáng: Dương khí tăng. Suối Trúc sau lưng chảy về phía Nam. Cá Dương trắng chầu Càn; Khảm trùng hướng suối.',

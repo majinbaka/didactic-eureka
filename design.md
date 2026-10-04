@@ -26,7 +26,7 @@ HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt đ�
 
 ## Thành phần và trạng thái
 
-- HUD: cụm góc trên trái gồm portrait pixel của nhân vật hiện tại, cảnh giới, máu, linh thạch và linh khí. Bấm avatar/máu/linh thạch mở bảng cộng chỉ số; bấm linh khí mở linh căn, tu luyện và đột phá. Bảng nổi gọn trong sân chơi ngang, không che joystick hay cụm hành động.
+- HUD: cụm góc trên trái gồm portrait pixel của nhân vật hiện tại, nút túi hành trang nhỏ ngay dưới avatar, cảnh giới, máu, linh thạch và linh khí. Nút hành trang chỉ dùng icon túi pixel và có nhãn trợ năng. Bấm avatar/máu/linh thạch mở bảng cộng chỉ số; bấm linh khí mở linh căn, tu luyện và đột phá. Bảng nổi gọn trong sân chơi ngang, không che joystick hay cụm hành động.
 - Điều khiển: joystick cảm ứng bên trái; cụm tám động tác có nút đổi trang bên phải; toàn bộ nằm trong cảnh.
 - Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
 - PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.
@@ -45,7 +45,7 @@ Màn hình chính là chương mở đầu ngang toàn viewport, dùng asset n�
 
 ## Hành trang
 
-Nút Hành trang mở bảng cuộn trong sân chơi. Mỗi vật phẩm có tên, loại thời hạn, số viên/lượt hoặc trạng thái hiệu lực, mô tả, nút dùng/kích hoạt và giá mua bằng linh thạch. Nút vô hiệu kèm lý do bằng chữ khi đầy chỉ số, hết vật phẩm, thiếu tiền hoặc đã sở hữu. Thông báo kết quả dùng vùng status, lỗi localStorage được hiển thị. Bảng giữ palette xanh rừng/ngà/đồng; màn hình hẹp đặt nút dưới HUD để không che chỉ số.
+Nút túi pixel nhỏ ngay dưới avatar mở bảng Hành trang cuộn trong sân chơi. Mỗi vật phẩm có tên, loại thời hạn, số viên/lượt hoặc trạng thái hiệu lực, mô tả, nút dùng/kích hoạt và giá mua bằng linh thạch. Nút vô hiệu kèm lý do bằng chữ khi đầy chỉ số, hết vật phẩm, thiếu tiền hoặc đã sở hữu. Thông báo kết quả dùng vùng status, lỗi localStorage được hiển thị. Bảng giữ palette xanh rừng/ngà/đồng.
 
 ## Vật cản đi cảnh
 

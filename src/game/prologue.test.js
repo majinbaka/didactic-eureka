@@ -1,14 +1,17 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createTrial, answerTrial, tickTrial, prologuePhase, puzzles, stepTrialRun } from './prologue.js'
+import { createTrial, answerTrial, tickTrial, prologuePhase, puzzles, stepTrialRun, SUMMIT_GATE, TRIAL_DISTANCE_SCALE } from './prologue.js'
 import { createRun } from './runner.js'
 
 test('all three gates are required before completion', () => {
+  assert.equal(TRIAL_DISTANCE_SCALE, 20)
+  assert.deepEqual(puzzles.map(puzzle => puzzle.gate), [30000, 42000, 54000])
+  assert.equal(SUMMIT_GATE, 60000)
   for (let stage = 0; stage < 3; stage++) {
     assert.equal(prologuePhase(puzzles[stage].gate, stage), 'maze')
-    assert.equal(prologuePhase(3000, stage), 'maze')
+    assert.equal(prologuePhase(SUMMIT_GATE, stage), 'maze')
   }
-  assert.equal(prologuePhase(3000, 3), 'complete')
+  assert.equal(prologuePhase(SUMMIT_GATE, 3), 'complete')
 })
 test('correct answers advance in order, both bagua alignments required', () => {
   let trial = { ...createTrial(), active: true }
@@ -34,8 +37,8 @@ test('poison lasts ten travel seconds and final failure knocks back fifty metres
   assert.equal(poisoned.slow, 10)
   assert.equal(tickTrial(poisoned, createRun(), 1).trial.slow, 10)
   assert.equal(tickTrial({ ...poisoned, active: false }, createRun(), 1).trial.slow, 9)
-  const failed = answerTrial({ ...base, stage: 2 }, { ...createRun(), x: 2700 }, null)
-  assert.equal(failed.run.x, 2200)
+  const failed = answerTrial({ ...base, stage: 2 }, { ...createRun(), x: puzzles[2].gate }, null)
+  assert.equal(failed.run.x, puzzles[2].gate - 500)
   assert.equal(failed.trial.active, false)
 })
 test('timeout applies penalty once and rearms timer; gate clamps overshoot', () => {
@@ -44,8 +47,8 @@ test('timeout applies penalty once and rearms timer; gate clamps overshoot', () 
     assert.equal(result.trial.remaining, puzzles[stage].seconds)
     assert.match(result.trial.message, /Hết giờ/)
   }
-  const entered = tickTrial(createTrial(), { ...createRun(), x: 1510 }, .02)
-  assert.equal(entered.run.x, 1500)
+  const entered = tickTrial(createTrial(), { ...createRun(), x: puzzles[0].gate + 10 }, .02)
+  assert.equal(entered.run.x, puzzles[0].gate)
   assert.equal(entered.trial.active, true)
 })
 
