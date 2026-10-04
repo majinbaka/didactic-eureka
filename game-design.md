@@ -72,3 +72,7 @@ Hành trang mua bằng linh thạch, lưu cùng tiến độ tu luyện. Khởi 
 | Ngộ Đạo Ngọc | Vĩnh viễn | 80 | Sở hữu duy nhất; kích hoạt +2 vào mỗi lần tu luyện cho linh khí và mọi linh căn |
 
 Không tiêu hao khi máu/linh khí đầy. Hiệu quả hồi bị chặn ở ngưỡng tối đa; hồ lô không tăng tu vi linh căn. Ngọc không mất sau đột phá thất bại, tải lại hay chơi lại chương và không cộng dồn qua nhiều lần kích hoạt. Vật phẩm tác động chỉ số tu luyện lâu dài, chưa tác động chuyển động/chướng ngại trong chương nhập môn. Không có cooldown hay ngẫu nhiên khi dùng/mua.
+
+## Vật cản trong chương nhập môn
+
+Tám khối đá cố định cao 48/64/112px trên đường từ rừng tới đỉnh núi. Hai cụm bậc tăng từ 48 lên 112px cần nhảy nối tiếp; các cửa bia đá và điểm bắt đầu để trống. Nhân vật bị chặn ở hai bên khi đi, chạy, bò hoặc lướt; nhảy đáp lên mặt đá, nhảy tiếp từ mặt đá và rơi khi bước khỏi mép. Bay vẫn dùng được nhưng phải lên cao hơn mặt đá để vượt. Bốn thí sinh tự nhảy và chịu cùng va chạm. Vật cản không gây mất máu và không thay đổi save. Độc Bão giảm tốc trước bước va chạm để không đẩy nhân vật xuyên đá.

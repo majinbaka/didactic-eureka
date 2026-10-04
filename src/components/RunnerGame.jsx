@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { createRun, sceneryForChunk, SCENERY_CHUNK } from '../game/runner'
+import { createRun, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
@@ -153,14 +153,27 @@ function draw(ctx, s, width, height, input, sprites) {
     drawObject(ctx, sprites.objects, t.hp === 3 ? 6 : 7, x + 32, ground + 5, 92, 116)
     ctx.fillStyle = '#dfbc7c'; ctx.fillRect(x + 8, ground - 96, t.hp * 16, 4)
   }
+  for (const obstacle of OBSTACLES) {
+    const x = Math.round(obstacle.x - camera), top = ground - obstacle.height
+    if (x + obstacle.width < 0 || x > width) continue
+    ctx.fillStyle = '#283d36'; ctx.fillRect(x, top, obstacle.width, obstacle.height)
+    ctx.fillStyle = '#647969'; ctx.fillRect(x + 4, top + 6, obstacle.width - 8, obstacle.height - 10)
+    ctx.fillStyle = '#82917b'; ctx.fillRect(x, top, obstacle.width, 6)
+    ctx.fillStyle = '#b7c493'; ctx.fillRect(x + 4, top, obstacle.width - 8, 3)
+    ctx.fillStyle = '#40594a'
+    for (let row = 20; row < obstacle.height; row += 24) {
+      ctx.fillRect(x + 4, top + row, obstacle.width - 8, 3)
+      ctx.fillRect(x + (row % 48 ? 24 : 48), top + row - 14, 3, 14)
+    }
+  }
   const rivalFrame = animationFrame('run', s.time)
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
     const x = racer.x - camera + 64
     if (x < -128 || x > width + 128) continue
-    drawCharacter(ctx, sprites.rivals[racer.id], rivalFrame, x, ground + racer.lane, 1)
+    drawCharacter(ctx, sprites.rivals[racer.id], racer.y > 0 ? animationFrame('jump', s.time) : rivalFrame, x, ground - racer.y + racer.lane, 1)
     ctx.font = '10px system-ui'; ctx.textAlign = 'center'
-    ctx.fillStyle = '#10241edb'; ctx.fillRect(Math.round(x - 31), ground + racer.lane - 119, 62, 15)
-    ctx.fillStyle = '#f1ead4'; ctx.fillText(racer.name, Math.round(x), ground + racer.lane - 108)
+    ctx.fillStyle = '#10241edb'; ctx.fillRect(Math.round(x - 31), ground - racer.y + racer.lane - 119, 62, 15)
+    ctx.fillStyle = '#f1ead4'; ctx.fillText(racer.name, Math.round(x), ground - racer.y + racer.lane - 108)
   }
   const animation = selectCharacterAnimation(s, input)
   const frame = animationFrame(animation, s.action ? s.actionTime : s.time)
@@ -340,12 +353,12 @@ export default function RunnerGame() {
       </div>
       <button className="inventory-toggle" aria-expanded={panel === 'items'} onClick={() => { setNotice(''); setPanel(panel === 'items' ? null : 'items') }}>Hành trang</button>
       {panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
-      <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để phóng khí."
+      <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy qua hoặc lên bậc đá, F để bay, J hoặc Space để phóng khí."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
       <div className="arena-label">TRÚC LINH PHONG <span>{phase === 'summit' ? 'Vân Tích Bộ · Bứt phá lên đỉnh' : 'Rừng Trúc U Tinh · Thử thách nhập môn'}</span></div>
       {storyStarted && phase !== 'complete' && <div className="chapter-progress" aria-label="Tiến độ chương"><i style={{ width: `${Math.min(100, Math.max(0, (playerX - 100) / (SUMMIT_GATE - 100) * 100))}%` }} /></div>}
-      <p className="runner-status" role="status">{storyStarted && `Hạng ${rank}/5 · ${trial.slow > 0 ? `Độc Bão ${Math.ceil(trial.slow)}s · ` : ''}`}{trial.message} {phase === 'forest' ? `${hits} đòn trúng · Vượt Trúc Diệp Cương Phong` : phase === 'summit' ? 'Uy áp Linh Phong · Tiến lên viên gạch cuối cùng!' : ''}</p>
+      <p className="runner-status" role="status">{storyStarted && `Hạng ${rank}/5 · ${trial.slow > 0 ? `Độc Bão ${Math.ceil(trial.slow)}s · ` : ''}`}{trial.message} {phase === 'forest' ? `${hits} đòn trúng · W / nút Nhảy · Vượt bậc đá` : phase === 'summit' ? 'Uy áp Linh Phong · Tiến lên viên gạch cuối cùng!' : ''}</p>
       <button className="restart-button" aria-label="Chơi lại chương mở đầu" onClick={restartChapter}>↻</button>
       <div className="game-pwa"><PwaControls /></div>
       <div className="runner-controls" aria-label="Điều khiển">

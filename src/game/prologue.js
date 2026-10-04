@@ -75,7 +75,5 @@ export function tickTrial(trial, run, dt) {
 }
 
 export function stepTrialRun(run, input, dt, trial) {
-  const next = stepRun(run, input, dt)
-  if (trial.slow > 0) next.x = run.x + (next.x - run.x) * .8
-  return next
+  return stepRun(run, { ...input, speedScale: trial.slow > 0 ? .8 : 1 }, dt)
 }

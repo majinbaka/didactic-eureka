@@ -1,4 +1,47 @@
 export const SCENERY_CHUNK = 320
+// World-space rectangles, matching the solid silhouettes drawn by the renderer.
+export const OBSTACLES = [
+  { x: 400, width: 80, height: 48 },
+  { x: 740, width: 96, height: 64 },
+  { x: 1080, width: 72, height: 48 },
+  { x: 1152, width: 112, height: 112 },
+  { x: 1730, width: 96, height: 64 },
+  { x: 2350, width: 80, height: 48 },
+  { x: 2430, width: 112, height: 112 },
+  { x: 2850, width: 80, height: 64 },
+]
+const HALF_BODY = 18
+const overlaps = (x, obstacle) => x + 64 + HALF_BODY > obstacle.x && x + 64 - HALF_BODY < obstacle.x + obstacle.width
+export const isSupported = state => state.y === 0 || OBSTACLES.some(o => overlaps(state.x, o) && Math.abs(state.y - o.height) < .001)
+
+function moveBody(body, velocity, dt, input = {}) {
+  // Small physics steps prevent running/dashing through walls and missing ledges.
+  const steps = Math.max(1, Math.ceil(dt / (1 / 120)))
+  const delta = dt / steps
+  for (let i = 0; i < steps; i++) {
+    const previousY = body.y
+    if (body.flying) {
+      body.y = Math.max(40, Math.min(260, body.y + ((input.up ? 1 : 0) - (input.down ? 1 : 0)) * 220 * delta))
+      if (!input.up && !input.down) body.y = Math.max(72, body.y + Math.sin(body.time * 4) * 12 * delta)
+    } else if (!isSupported(body) || body.vy > 0) {
+      body.vy -= 1450 * delta
+      body.y += body.vy * delta
+    }
+    if (body.y <= previousY) {
+      const floor = OBSTACLES.filter(o => overlaps(body.x, o) && previousY >= o.height && body.y <= o.height)
+        .reduce((height, o) => Math.max(height, o.height), 0)
+      if (body.y <= floor) { body.y = floor; body.vy = 0 }
+    }
+    let nextX = body.x + velocity * delta
+    for (const o of OBSTACLES) {
+      if (body.y >= o.height) continue
+      const right = body.x + 64 + HALF_BODY, left = body.x + 64 - HALF_BODY
+      if (velocity > 0 && right <= o.x && nextX + 64 + HALF_BODY > o.x) nextX = Math.min(nextX, o.x - 64 - HALF_BODY)
+      if (velocity < 0 && left >= o.x + o.width && nextX + 64 - HALF_BODY < o.x + o.width) nextX = Math.max(nextX, o.x + o.width - 64 + HALF_BODY)
+    }
+    body.x = nextX
+  }
+}
 const ACTION_DURATION = { hello: 1.4, scratch: 1.4, doze: 3, sit: 3, crawl: 2.2, hurt: .4, collapse: Infinity }
 const RACERS = [
   { id: 'female', name: 'Linh Nhi', x: 56, lane: -10, speed: 372, rhythm: .7 },
@@ -31,7 +74,7 @@ export function sceneryForChunk(index) {
 export function createRun() {
   return {
     x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0,
-    racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x })),
+    racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x, y: 0, vy: 0 })),
     shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })),
   }
 }
@@ -48,21 +91,17 @@ export function stepRun(state, input, dt) {
   if (input.flyToggle) { s.flying = !s.flying; s.vy = 0; if (!s.flying) s.y = Math.max(0, s.y) }
   const canMove = !s.action || s.action === 'crawl'
   if (input.move && canMove) s.facing = Math.sign(input.move)
-  if (input.jump && s.y === 0 && !s.flying && canMove) s.vy = 540
+  if (input.jump && isSupported(s) && !s.flying && canMove) s.vy = 540
   if (input.dash) s.dash = .18
   const speed = s.action === 'crawl' ? 90 : input.run ? 390 : 240
-  s.x += (canMove ? (s.dash ? s.facing * 780 : (input.move || 0) * speed) : 0) * dt
+  moveBody(s, (canMove ? (s.dash ? s.facing * 780 : (input.move || 0) * speed) : 0) * (input.speedScale ?? 1), dt, input)
   for (const [index, racer] of s.racers.entries()) {
     const stride = Math.sin(s.time * 1.7 + racer.rhythm) * 22
-    const nextX = racer.x + Math.max(250, racer.speed + stride) * dt
-    racer.x = Math.min(nextX, s.x + 150 + index * 72)
-  }
-  if (s.flying) {
-    s.y = Math.max(40, Math.min(260, s.y + ((input.up ? 1 : 0) - (input.down ? 1 : 0)) * 220 * dt))
-    if (!input.up && !input.down) s.y = Math.max(72, s.y + Math.sin(s.time * 4) * 12 * dt)
-  } else {
-    s.y = Math.max(0, s.y + s.vy * dt)
-    s.vy = s.y > 0 ? s.vy - 1450 * dt : 0
+    const speed = Math.max(250, racer.speed + stride)
+    if (isSupported(racer) && OBSTACLES.some(o => o.height > racer.y && o.x >= racer.x + 82 && o.x - (racer.x + 82) < 90)) racer.vy = 540
+    const limit = Math.max(racer.x, s.x + 150 + index * 72)
+    moveBody(racer, dt > 0 ? Math.max(0, Math.min(speed, (limit - racer.x) / dt)) : 0, dt)
+    racer.x = Math.min(racer.x, limit)
   }
   if (input.fire && !s.cooldown && s.action !== 'collapse') {
     s.shots.push({ x: s.x + 64 + s.facing * 48, y: s.y + 62, dir: s.facing })

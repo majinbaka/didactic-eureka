@@ -1,3 +1,4 @@
+import { isSupported } from './runner.js'
 import atlas from './characterAtlas.json' with { type: 'json' }
 
 export const CHARACTER_ATLAS = {
@@ -20,7 +21,7 @@ export function animationFrame(name, elapsed) {
 export function selectCharacterAnimation(state, input = {}) {
   if (state.action) return state.action
   if (state.flying) return 'fly'
-  if (state.y > 0) return 'jump'
+  if (state.y > 0 && !isSupported(state)) return 'jump'
   if (input.move) return input.run || state.dash > 0 ? 'run' : 'walk'
   return 'idle'
 }

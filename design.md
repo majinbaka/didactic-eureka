@@ -46,3 +46,7 @@ Màn hình chính là chương mở đầu ngang toàn viewport, dùng asset n�
 ## Hành trang
 
 Nút Hành trang mở bảng cuộn trong sân chơi. Mỗi vật phẩm có tên, loại thời hạn, số viên/lượt hoặc trạng thái hiệu lực, mô tả, nút dùng/kích hoạt và giá mua bằng linh thạch. Nút vô hiệu kèm lý do bằng chữ khi đầy chỉ số, hết vật phẩm, thiếu tiền hoặc đã sở hữu. Thông báo kết quả dùng vùng status, lỗi localStorage được hiển thị. Bảng giữ palette xanh rừng/ngà/đồng; màn hình hẹp đặt nút dưới HUD để không che chỉ số.
+
+## Vật cản đi cảnh
+
+Các khối đá rêu có viền sáng ở mặt trên và thân đá đặc, vẽ bằng Canvas theo palette rừng. Hình vẽ khớp vùng va chạm; đá trang trí từ atlas vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua và bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.
