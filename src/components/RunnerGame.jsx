@@ -495,7 +495,6 @@ export default function RunnerGame() {
       <div className="arena-label">TRÚC LINH PHONG <span>{phase === 'summit' ? 'Vân Tích Bộ · Bứt phá lên đỉnh' : 'Rừng Trúc U Tinh · Thử thách nhập môn'}</span></div>
       {storyStarted && phase !== 'complete' && <div className="chapter-progress" aria-label="Tiến độ chương"><i style={{ width: `${Math.min(100, Math.max(0, (playerX - 100) / (SUMMIT_GATE - 100) * 100))}%` }} /></div>}
       <p className="runner-status" role="status">{storyStarted && `Hạng ${rank}/5 · ${trial.slow > 0 ? `Độc Bão ${Math.ceil(trial.slow)}s · ` : ''}`}{trial.message} {phase === 'forest' ? `${hits} đòn trúng · W / nút Nhảy · Vượt bậc đá` : phase === 'summit' ? 'Uy áp Linh Phong · Tiến lên viên gạch cuối cùng!' : ''}</p>
-      <button className="restart-button" aria-label="Chơi lại chương mở đầu" onClick={restartChapter}>↻</button>
       <div className="game-pwa"><PwaControls /></div>
       <div className="runner-controls" aria-label="Điều khiển">
         <div className="joystick-zone" role="group" aria-label="Giữ rồi vuốt sang trái hoặc phải để di chuyển. Vuốt xa để chạy." tabIndex={0}
