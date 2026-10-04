@@ -1,8 +1,9 @@
 import { collectNearby, createStageCollectibles } from './collectibles.js'
 
 export const SCENERY_CHUNK = 320
+export const JUMP_VELOCITY = 580
 // World-space rectangles, matching the solid silhouettes drawn by the renderer.
-export const OBSTACLES = [
+const OPENING_OBSTACLES = [
   { x: 400, width: 80, height: 48 },
   { x: 740, width: 96, height: 64 },
   { x: 1080, width: 72, height: 48 },
@@ -12,6 +13,16 @@ export const OBSTACLES = [
   { x: 2430, width: 112, height: 112 },
   { x: 2850, width: 80, height: 64 },
 ]
+const TRIAL_LANDMARKS = [30000, 42000, 54000, 60000]
+const isClearOfLandmark = x => TRIAL_LANDMARKS.every(landmark => Math.abs(x - landmark) > 520)
+const LONG_PATH_OBSTACLES = Array.from({ length: 72 }, (_, index) => {
+  const x = 3400 + index * 760 + (index % 4) * 95
+  if (!isClearOfLandmark(x)) return null
+  if (index % 3 === 1) return { x, width: 112, height: 108, bottom: 68, kind: 'floating' }
+  const height = index % 5 === 0 ? 112 : index % 2 === 0 ? 64 : 48
+  return { x, width: height === 112 ? 112 : 80 + (index % 2) * 16, height }
+}).filter(Boolean)
+export const OBSTACLES = [...OPENING_OBSTACLES, ...LONG_PATH_OBSTACLES]
 const HALF_BODY = 18
 const overlaps = (x, obstacle) => x + 64 + HALF_BODY > obstacle.x && x + 64 - HALF_BODY < obstacle.x + obstacle.width
 export const isSupported = state => state.y === 0 || OBSTACLES.some(o => overlaps(state.x, o) && Math.abs(state.y - o.height) < .001)
@@ -36,7 +47,8 @@ function moveBody(body, velocity, dt, input = {}) {
     }
     let nextX = body.x + velocity * delta
     for (const o of OBSTACLES) {
-      if (body.y >= o.height) continue
+      const obstacleBottom = o.bottom ?? 0
+      if (body.y >= o.height || body.y < obstacleBottom) continue
       const right = body.x + 64 + HALF_BODY, left = body.x + 64 - HALF_BODY
       if (velocity > 0 && right <= o.x && nextX + 64 + HALF_BODY > o.x) nextX = Math.min(nextX, o.x - 64 - HALF_BODY)
       if (velocity < 0 && left >= o.x + o.width && nextX + 64 - HALF_BODY < o.x + o.width) nextX = Math.max(nextX, o.x + o.width - 64 + HALF_BODY)
@@ -96,7 +108,7 @@ export function stepRun(state, input, dt) {
   if (input.flyToggle) { s.flying = !s.flying; s.vy = 0; if (!s.flying) s.y = Math.max(0, s.y) }
   const canMove = !s.action || s.action === 'crawl'
   if (input.move && canMove) s.facing = Math.sign(input.move)
-  if (input.jump && isSupported(s) && !s.flying && canMove) s.vy = 540
+  if (input.jump && isSupported(s) && !s.flying && canMove) s.vy = JUMP_VELOCITY
   if (input.dash) s.dash = .18
   const speed = s.action === 'crawl' ? 90 : input.run ? 390 : 240
   const move = input.move || (s.actionMove > 0 ? s.facing : 0)
@@ -107,7 +119,7 @@ export function stepRun(state, input, dt) {
   for (const racer of s.racers) {
     const stride = Math.sin(s.time * 1.7 + racer.rhythm) * 22
     const speed = Math.max(175, racer.speed + stride)
-    if (isSupported(racer) && OBSTACLES.some(o => o.height > racer.y && o.x >= racer.x + 82 && o.x - (racer.x + 82) < 90)) racer.vy = 540
+    if (isSupported(racer) && OBSTACLES.some(o => o.height > racer.y && o.x >= racer.x + 82 && o.x - (racer.x + 82) < 90)) racer.vy = JUMP_VELOCITY
     moveBody(racer, speed, dt)
   }
   if (input.fire && !s.cooldown && s.action !== 'collapse') {

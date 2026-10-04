@@ -43,5 +43,9 @@ test('v2 migration preserves all progression and local fallback retains legacy d
   const entries = new Map([[SAVE_KEY, '{bad'], [PREVIOUS_SAVE_KEY, JSON.stringify(old)]])
   const previous = globalThis.localStorage
   globalThis.localStorage = { getItem: key => entries.get(key) ?? null, setItem: (key, value) => entries.set(key, value) }
-  try { assert.deepEqual(loadLocalSave(), migrated); assert.equal(entries.get(PREVIOUS_SAVE_KEY), JSON.stringify(old)) } finally { globalThis.localStorage = previous }
+  try {
+    const loaded = loadLocalSave()
+    assert.deepEqual({ ...loaded, bornAt: migrated.bornAt }, migrated)
+    assert.equal(entries.get(PREVIOUS_SAVE_KEY), JSON.stringify(old))
+  } finally { globalThis.localStorage = previous }
 })

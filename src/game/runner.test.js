@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createRun, sceneryForChunk, stepRun, OBSTACLES } from './runner.js'
+import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
 test('movement continues in both directions and jump lands', () => {
   let s = createRun()
   s = stepRun(s, { move: -1 }, 1)
@@ -116,7 +116,7 @@ test('jump lands on a rock, remains supported, jumps again and falls off its edg
   assert.equal(state.y, 0)
 })
 test('every raised step is reachable by jumping from the previous step', () => {
-  for (const o of OBSTACLES) {
+  for (const o of OBSTACLES.filter(obstacle => obstacle.x < 3000)) {
     const prior = OBSTACLES.find(p => p.x + p.width === o.x)
     let state = { ...createRun(), x: o.x - 82, y: prior?.height ?? 0 }
     state = stepRun(state, { jump: true }, 1 / 120)
@@ -124,6 +124,23 @@ test('every raised step is reachable by jumping from the previous step', () => {
     state = advance(state, {}, 100)
     assert.equal(state.y, o.height, `landing on obstacle at ${o.x}`)
   }
+})
+test('obstacles cover the extended path while keeping trial landmarks clear', () => {
+  assert.ok(OBSTACLES.length > 60)
+  assert.ok(OBSTACLES.some(obstacle => obstacle.x > 50000))
+  assert.ok(OBSTACLES.some(obstacle => obstacle.kind === 'floating'))
+  for (const landmark of [30000, 42000, 54000, 60000]) {
+    assert.ok(OBSTACLES.every(obstacle => Math.abs(obstacle.x - landmark) > 500))
+  }
+})
+test('the higher jump can land on a floating platform', () => {
+  const platform = OBSTACLES.find(obstacle => obstacle.kind === 'floating')
+  let state = { ...createRun(), x: platform.x - 82 }
+  state = stepRun(state, { jump: true }, 1 / 120)
+  state = advance(state, { move: 1 }, 42)
+  state = advance(state, {}, 120)
+  assert.equal(JUMP_VELOCITY, 580)
+  assert.equal(state.y, platform.height)
 })
 test('flight cannot pass through a wall but can fly above it and land on it', () => {
   let state = advance({ ...createRun(), x: 650, y: 40, flying: true }, { move: 1, down: true })

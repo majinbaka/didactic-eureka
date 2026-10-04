@@ -50,7 +50,9 @@ Nút túi pixel nhỏ ngay dưới avatar mở bảng Hành trang cuộn trong s
 
 ## Vật cản đi cảnh
 
-Các khối đá rêu dùng atlas raster riêng, đồng bộ nét pixel, ánh sáng và palette với nhân vật cùng Rừng Trúc U Minh. Bốn silhouette đá thấp, vừa, cao hẹp và cao rộng được co đúng vùng va chạm; mặt trên ngang, cạnh đứng và thân đá liền tới chân giúp người chơi đọc chính xác nơi có thể đứng. Đá trang trí từ atlas cảnh vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua và bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.
+Renderer làm tròn biên từng ô atlas và chừa inset trong suốt để đá và hình nộm không lấy thừa pixel của ô kế bên.
+
+Các khối đá rêu dùng atlas raster riêng, đồng bộ nét pixel, ánh sáng và palette với nhân vật cùng Rừng Trúc U Minh. Bốn silhouette đá thấp, vừa, cao hẹp và cao rộng được co đúng vùng va chạm; mặt trên ngang, cạnh đứng và thân đá liền tới chân giúp người chơi đọc chính xác nơi có thể đứng. Đá trang trí từ atlas cảnh vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua, bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp và bệ đá rêu lơ lửng có mặt đứng được. Vật cản phủ dọc tuyến 60.000px nhưng chừa vùng bia đá và cổng đích. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.
 
 ## Linh vật trên đường chạy
 
