@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
-import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
+import { animationFrame, characterBaseline, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, characterAge, characterLifespan, createInitialState, cultivationGain, elements, loadLocalSave, qiRecoveryRate, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
@@ -253,14 +253,15 @@ function draw(ctx, s, width, height, input, sprites) {
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
     const x = racer.x - camera + 64
     if (x < -128 || x > width + 128) continue
-    drawCharacter(ctx, sprites.rivals[racer.id], racer.y > 0 ? animationFrame('jump', s.time) : rivalFrame, x, ground - racer.y + racer.lane, 1)
+    const baseline = characterBaseline(racer, ground)
+    drawCharacter(ctx, sprites.rivals[racer.id], racer.y > 0 ? animationFrame('jump', s.time) : rivalFrame, x, baseline, 1)
     ctx.font = '10px system-ui'; ctx.textAlign = 'center'
-    ctx.fillStyle = '#10241edb'; ctx.fillRect(Math.round(x - 31), ground - racer.y + racer.lane - 119, 62, 15)
-    ctx.fillStyle = '#f1ead4'; ctx.fillText(racer.name, Math.round(x), ground - racer.y + racer.lane - 108)
+    ctx.fillStyle = '#10241edb'; ctx.fillRect(Math.round(x - 31), baseline - 119, 62, 15)
+    ctx.fillStyle = '#f1ead4'; ctx.fillText(racer.name, Math.round(x), baseline - 108)
   }
   const animation = selectCharacterAnimation(s, input)
   const frame = animationFrame(animation, s.action ? s.actionTime : s.time)
-  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, ground - s.y, s.facing)
+  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, characterBaseline(s, ground), s.facing)
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
 export default function RunnerGame() {

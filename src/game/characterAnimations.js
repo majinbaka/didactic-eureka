@@ -18,6 +18,10 @@ export function animationFrame(name, elapsed) {
   return animation.frames[frame]
 }
 
+export function characterBaseline(state, ground) {
+  return ground - Math.max(0, state.y || 0)
+}
+
 export function selectCharacterAnimation(state, input = {}) {
   if (state.action) return state.action
   if (state.flying) return 'fly'

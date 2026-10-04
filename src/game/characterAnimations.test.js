@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { animationFrame, CHARACTER_ANIMATIONS, selectCharacterAnimation } from './characterAnimations.js'
+import { animationFrame, characterBaseline, CHARACTER_ANIMATIONS, selectCharacterAnimation } from './characterAnimations.js'
 
 test('animation lookup follows the packaged atlas frame sequences', () => {
   const manifest = JSON.parse(readFileSync(new URL('../../public/assets/characters/jade-v2/atlas.json', import.meta.url)))
@@ -34,6 +34,12 @@ test('state selection keeps action poses and flight ahead of ground locomotion',
   assert.equal(selectCharacterAnimation({ y: 30 }, { move: 1 }), 'jump')
   assert.equal(selectCharacterAnimation({ y: 0 }, { move: 1, run: true }), 'run')
   assert.equal(selectCharacterAnimation({ y: 0 }, { move: 1 }), 'walk')
+})
+
+test('all grounded characters share the ground baseline regardless of visual lane', () => {
+  assert.equal(characterBaseline({ y: 0, lane: -10 }, 500), 500)
+  assert.equal(characterBaseline({ y: 0, lane: 15 }, 500), 500)
+  assert.equal(characterBaseline({ y: 64, lane: -10 }, 500), 436)
 })
 
 test('complete character atlas has transparent gutters and populated frames', async () => {
