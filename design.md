@@ -49,4 +49,4 @@ Nút Hành trang mở bảng cuộn trong sân chơi. Mỗi vật phẩm có tê
 
 ## Vật cản đi cảnh
 
-Các khối đá rêu có viền sáng ở mặt trên và thân đá đặc, vẽ bằng Canvas theo palette rừng. Hình vẽ khớp vùng va chạm; đá trang trí từ atlas vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua và bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.
+Các khối đá rêu dùng atlas raster riêng, đồng bộ nét pixel, ánh sáng và palette với nhân vật cùng Rừng Trúc U Minh. Bốn silhouette đá thấp, vừa, cao hẹp và cao rộng được co đúng vùng va chạm; mặt trên ngang, cạnh đứng và thân đá liền tới chân giúp người chơi đọc chính xác nơi có thể đứng. Đá trang trí từ atlas cảnh vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua và bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.

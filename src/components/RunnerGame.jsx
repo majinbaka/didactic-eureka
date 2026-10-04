@@ -10,6 +10,7 @@ import PwaControls from './PwaControls'
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
   objects: '/assets/scenery/underworld-bamboo-v1/forest-objects-atlas.webp',
+  obstacles: '/assets/scenery/forest-obstacles-v1/obstacles-atlas.webp',
 }
 const RIVAL_CHARACTERS = {
   female: '/assets/characters/female-v1/character-female-v1-sheet.png',
@@ -19,6 +20,12 @@ const RIVAL_CHARACTERS = {
 }
 const OBJECT_COLUMNS = 4
 const OBJECT_ROWS = 2
+const OBSTACLE_SPRITES = {
+  low: { x: 45, y: 285, width: 545, height: 220 },
+  medium: { x: 670, y: 205, width: 545, height: 300 },
+  tallNarrow: { x: 170, y: 665, width: 300, height: 500 },
+  tallWide: { x: 660, y: 635, width: 570, height: 530 },
+}
 const ACTION_PAGES = [
   [
     { id: 'attack', label: 'Phóng khí', animation: 'hello' },
@@ -111,6 +118,19 @@ function drawGroundDetail(ctx, image, detail, x, ground) {
   drawObject(ctx, image, object.index, x, ground + 4, object.width * detail.scale, object.height * detail.scale)
 }
 
+function drawObstacle(ctx, image, obstacle, x, top) {
+  if (!image?.complete || !image.naturalWidth) return
+  const key = obstacle.height >= 100
+    ? (obstacle.width < 90 ? 'tallNarrow' : 'tallWide')
+    : (obstacle.height <= 48 ? 'low' : 'medium')
+  const sprite = OBSTACLE_SPRITES[key]
+  ctx.drawImage(
+    image,
+    sprite.x, sprite.y, sprite.width, sprite.height,
+    x, top, obstacle.width, obstacle.height,
+  )
+}
+
 function drawBackground(ctx, image, width, height, camera) {
   if (!image?.complete || !image.naturalWidth) {
     ctx.fillStyle = '#6f8b76'; ctx.fillRect(0, 0, width, height)
@@ -156,15 +176,7 @@ function draw(ctx, s, width, height, input, sprites) {
   for (const obstacle of OBSTACLES) {
     const x = Math.round(obstacle.x - camera), top = ground - obstacle.height
     if (x + obstacle.width < 0 || x > width) continue
-    ctx.fillStyle = '#283d36'; ctx.fillRect(x, top, obstacle.width, obstacle.height)
-    ctx.fillStyle = '#647969'; ctx.fillRect(x + 4, top + 6, obstacle.width - 8, obstacle.height - 10)
-    ctx.fillStyle = '#82917b'; ctx.fillRect(x, top, obstacle.width, 6)
-    ctx.fillStyle = '#b7c493'; ctx.fillRect(x + 4, top, obstacle.width - 8, 3)
-    ctx.fillStyle = '#40594a'
-    for (let row = 20; row < obstacle.height; row += 24) {
-      ctx.fillRect(x + 4, top + row, obstacle.width - 8, 3)
-      ctx.fillRect(x + (row % 48 ? 24 : 48), top + row - 14, 3, 14)
-    }
+    drawObstacle(ctx, sprites.obstacles, obstacle, x, top)
   }
   const rivalFrame = animationFrame('run', s.time)
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
@@ -219,11 +231,11 @@ export default function RunnerGame() {
     return () => orientation.removeEventListener('change', updateOrientation)
   }, [])
   useEffect(() => {
-    const character = new Image(), background = new Image(), objects = new Image()
+    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image()
     const rivals = Object.fromEntries(Object.keys(RIVAL_CHARACTERS).map(id => [id, new Image()]))
-    sprites.current = { character, background, objects, rivals }
+    sprites.current = { character, background, objects, obstacles, rivals }
     let loadedCount = 0
-    const assetCount = 3 + Object.keys(rivals).length
+    const assetCount = 4 + Object.keys(rivals).length
     const loaded = () => { loadedCount += 1; if (loadedCount === assetCount) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
@@ -235,6 +247,9 @@ export default function RunnerGame() {
     objects.onload = loaded
     objects.onerror = failed
     objects.src = SCENERY_ASSETS.objects
+    obstacles.onload = loaded
+    obstacles.onerror = failed
+    obstacles.src = SCENERY_ASSETS.obstacles
     for (const [id, image] of Object.entries(rivals)) {
       image.onload = loaded
       image.onerror = failed
@@ -276,7 +291,7 @@ export default function RunnerGame() {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { for (const image of [character, background, objects, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { for (const image of [character, background, objects, obstacles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
