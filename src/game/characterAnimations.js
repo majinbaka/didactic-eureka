@@ -1,4 +1,4 @@
-import { contactInset, isSupported } from './runner.js'
+import { isSupported } from './runner.js'
 import atlas from './characterAtlas.json' with { type: 'json' }
 
 export const CHARACTER_ATLAS = {
@@ -18,8 +18,12 @@ export function animationFrame(name, elapsed) {
   return animation.frames[frame]
 }
 
-export function characterBaseline(state, ground) {
-  return ground - Math.max(0, state.y || 0) + contactInset(state)
+export function characterFootInset(frame) {
+  return frame === 9 || frame === 11 ? 2 : 1
+}
+
+export function characterBaseline(state, ground, frame = 0) {
+  return ground - Math.max(0, state.y || 0) + characterFootInset(frame)
 }
 
 export function selectCharacterAnimation(state, input = {}) {

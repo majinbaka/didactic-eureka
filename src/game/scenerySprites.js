@@ -28,6 +28,12 @@ export const OBSTACLE_SPRITES = {
   },
 }
 
+export const FLOATING_OBSTACLE_SPRITES = {
+  'spirit-slab': { atlas: 'floating', x: 8, y: 35, width: 240, height: 85 },
+  'moss-rock': { atlas: 'classic', ...OBSTACLE_SPRITES.classic.low },
+  'jade-crag': { atlas: 'v2', ...OBSTACLE_SPRITES.v2.tallNarrow },
+}
+
 export const DECORATIVE_VARIANT_SPRITES = {
   'variant-pebbles': { x: 23, y: 416, width: 210, height: 88 },
   'variant-fern': { x: 279, y: 358, width: 209, height: 146 },

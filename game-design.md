@@ -91,4 +91,4 @@ Tám khối đá mở đầu cao 48/64/112px và hơn 60 vật cản sinh ổn �
 
 Hai bộ đá rêu được xen kẽ theo tuyến để tránh lặp hình; crop runtime loại toàn bộ gutter trong suốt để mặt vẽ trùng mặt va chạm. Sỏi, dương xỉ, măng trúc và đèn đá vỡ v2 là scenery thuần, người chơi đi xuyên qua được và không được dùng silhouette giống bệ đứng.
 
-Đường dài còn sinh năm loại vật cản có kích thước thực khác nhau: bó trúc `168×42`, gốc cây `100×78`, bệ đèn đá `72×104`, xà cổng đổ `184×72` và chòi trúc `84×110`px. Mỗi loại khai báo điểm mặt đứng và độ lún chân 1–3px; đây chỉ là hiệu chỉnh renderer khi đang được hỗ trợ, không nới hitbox, không đổi độ cao nhảy và không tích lũy vào trạng thái gameplay.
+Đường dài còn sinh năm loại vật cản có kích thước thực khác nhau: bó trúc `168×42`, gốc cây `100×78`, bệ đèn đá `72×104`, xà cổng đổ `184×72` và chòi trúc `84×110`px. Ba loại bệ lơ lửng là phiến linh thạch `144×51`, đá rêu `104×48` và mỏm ngọc `78×72`px, được đặt ở cao độ 76–106px và xuất hiện cả trong đoạn đầu. Crop ảnh bắt đầu đúng tại pixel mặt đứng; đáy chân từng pose được căn riêng vào collider, không đổi hitbox, độ cao nhảy hay trạng thái gameplay.

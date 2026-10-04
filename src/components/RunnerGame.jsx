@@ -6,7 +6,7 @@ import { breakthroughCosts, characterAge, characterLifespan, createInitialState,
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
-import { DECORATIVE_VARIANT_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from '../game/scenerySprites'
+import { DECORATIVE_VARIANT_SPRITES, FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from '../game/scenerySprites'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
@@ -188,8 +188,11 @@ function drawGroundDetail(ctx, image, variantImage, detail, x, ground) {
 
 function drawObstacle(ctx, image, variantImage, typeImage, floatingImage, obstacle, x, top) {
   if (obstacle.kind === 'floating') {
-    if (!floatingImage?.complete || !floatingImage.naturalWidth) return
-    ctx.drawImage(floatingImage, x, top, obstacle.width, obstacle.height - obstacle.bottom)
+    const sprite = FLOATING_OBSTACLE_SPRITES[obstacle.sprite]
+    const sources = { floating: floatingImage, classic: image, v2: variantImage }
+    const source = sources[sprite?.atlas]
+    if (!sprite || !source?.complete || !source.naturalWidth) return
+    ctx.drawImage(source, sprite.x, sprite.y, sprite.width, sprite.height, x, top, obstacle.width, obstacle.height - obstacle.bottom)
     return
   }
   const typeSprite = OBSTACLE_TYPE_SPRITES[obstacle.sprite]
@@ -282,15 +285,16 @@ function draw(ctx, s, width, height, input, sprites) {
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
     const x = racer.x - camera + 64
     if (x < -128 || x > width + 128) continue
-    const baseline = characterBaseline(racer, ground)
-    drawCharacter(ctx, sprites.rivals[racer.id], racer.y > 0 ? animationFrame('jump', s.time) : rivalFrame, x, baseline, 1)
+    const frame = racer.y > 0 ? animationFrame('jump', s.time) : rivalFrame
+    const baseline = characterBaseline(racer, ground, frame)
+    drawCharacter(ctx, sprites.rivals[racer.id], frame, x, baseline, 1)
     ctx.font = '10px system-ui'; ctx.textAlign = 'center'
     ctx.fillStyle = '#10241edb'; ctx.fillRect(Math.round(x - 31), baseline - 119, 62, 15)
     ctx.fillStyle = '#f1ead4'; ctx.fillText(racer.name, Math.round(x), baseline - 108)
   }
   const animation = selectCharacterAnimation(s, input)
   const frame = animationFrame(animation, s.action ? s.actionTime : s.time)
-  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, characterBaseline(s, ground), s.facing)
+  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, characterBaseline(s, ground, frame), s.facing)
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
 export default function RunnerGame() {

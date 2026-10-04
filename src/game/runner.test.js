@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { contactInset, createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
-import { OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from './scenerySprites.js'
+import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
+import { FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from './scenerySprites.js'
 test('movement continues in both directions and jump lands', () => {
   let s = createRun()
   s = stepRun(s, { move: -1 }, 1)
@@ -143,20 +143,15 @@ test('obstacles cover the extended path while keeping trial landmarks clear', ()
   assert.ok(OBSTACLES.length > 60)
   assert.ok(OBSTACLES.some(obstacle => obstacle.x > 50000))
   assert.ok(OBSTACLES.some(obstacle => obstacle.kind === 'floating'))
+  const floatingTypes = new Set(OBSTACLES.filter(obstacle => obstacle.kind === 'floating').map(obstacle => obstacle.sprite))
+  assert.deepEqual(floatingTypes, new Set(['spirit-slab', 'moss-rock', 'jade-crag']))
+  assert.ok(OBSTACLES.filter(obstacle => obstacle.kind === 'floating' && obstacle.x < 4200).length >= 3)
   const obstacleTypes = new Set(OBSTACLES.map(obstacle => obstacle.sprite).filter(Boolean))
   assert.ok(['bamboo-log', 'tree-stump', 'lantern-plinth', 'torii-beam', 'watch-post'].every(type => obstacleTypes.has(type)))
   assert.ok(new Set(OBSTACLES.map(obstacle => `${obstacle.width}x${obstacle.height}`)).size >= 8)
   for (const landmark of [30000, 42000, 54000, 60000]) {
     assert.ok(OBSTACLES.every(obstacle => Math.abs(obstacle.x - landmark) > 500))
   }
-})
-test('grounded characters sink visually by at most three pixels for each surface type', () => {
-  for (const obstacle of OBSTACLES.filter(item => item.contactInset)) {
-    const state = { ...createRun(), x: obstacle.x - 64 + obstacle.width / 2, y: obstacle.height }
-    assert.equal(contactInset(state), obstacle.contactInset)
-    assert.ok(contactInset(state) >= 1 && contactInset(state) <= 3)
-  }
-  assert.equal(contactInset(createRun()), 0)
 })
 test('the higher jump can land on a floating platform', () => {
   const platform = OBSTACLES.find(obstacle => obstacle.kind === 'floating')
@@ -189,6 +184,17 @@ test('walkable obstacle crops begin exactly at their visible top surface', async
       return data[offset] > 8
     }).some(Boolean)
     assert.ok(surfaceHasPixel, `${name} must paint its declared walkable surface`)
+  }
+  const floatingPaths = {
+    floating: '../../public/assets/scenery/floating-obstacle-v1/floating-platform.webp',
+    classic: `../../public${OBSTACLE_ATLASES.classic}`,
+    v2: `../../public${OBSTACLE_ATLASES.v2}`,
+  }
+  for (const [name, sprite] of Object.entries(FLOATING_OBSTACLE_SPRITES)) {
+    const path = new URL(floatingPaths[sprite.atlas], import.meta.url)
+    const { data, info } = await sharp(path.pathname).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    const surfaceHasPixel = Array.from({ length: sprite.width }, (_, localX) => data[((sprite.y * info.width + sprite.x + localX) * 4) + 3] > 8).some(Boolean)
+    assert.ok(surfaceHasPixel, `${name} crop must begin on its visible walkable surface`)
   }
 })
 test('flight cannot pass through a wall but can fly above it and land on it', () => {

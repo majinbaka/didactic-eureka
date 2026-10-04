@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { animationFrame, characterBaseline, CHARACTER_ANIMATIONS, selectCharacterAnimation } from './characterAnimations.js'
+import { animationFrame, characterBaseline, characterFootInset, CHARACTER_ANIMATIONS, selectCharacterAnimation } from './characterAnimations.js'
 
 test('animation lookup follows the packaged atlas frame sequences', () => {
   const manifest = JSON.parse(readFileSync(new URL('../../public/assets/characters/jade-v2/atlas.json', import.meta.url)))
@@ -36,11 +36,13 @@ test('state selection keeps action poses and flight ahead of ground locomotion',
   assert.equal(selectCharacterAnimation({ y: 0 }, { move: 1 }), 'walk')
 })
 
-test('all grounded characters share the ground baseline regardless of visual lane', () => {
-  assert.equal(characterBaseline({ y: 0, lane: -10 }, 500), 500)
-  assert.equal(characterBaseline({ y: 0, lane: 15 }, 500), 500)
-  assert.equal(characterBaseline({ y: 64, lane: -10 }, 500), 436)
-  assert.equal(characterBaseline({ x: 700, y: 64, lane: 15 }, 500), 438)
+test('all grounded characters place the painted foot on the physical surface', () => {
+  assert.equal(characterBaseline({ y: 0, lane: -10 }, 500, 0), 501)
+  assert.equal(characterBaseline({ y: 0, lane: 15 }, 500, 9), 502)
+  assert.equal(characterBaseline({ y: 64, lane: -10 }, 500, 0), 437)
+  assert.equal(characterBaseline({ x: 700, y: 64, lane: 15 }, 500, 11), 438)
+  assert.equal(characterFootInset(9), 2)
+  assert.equal(characterFootInset(0), 1)
 })
 
 test('complete character atlas has transparent gutters and populated frames', async () => {
@@ -52,15 +54,17 @@ test('complete character atlas has transparent gutters and populated frames', as
   assert.equal(info.height, manifest.sheetHeight)
   for (let frame = 0; frame < manifest.frameCount; frame++) {
     let painted = 0
+    let lowestPaintedY = -1
     for (let y = 0; y < manifest.cellHeight; y++) {
       for (let x = 0; x < manifest.cellWidth; x++) {
         const px = frame % manifest.columns * manifest.cellWidth + x
         const py = Math.floor(frame / manifest.columns) * manifest.cellHeight + y
         const alpha = data[(py * info.width + px) * 4 + 3]
-        if (alpha > 8) painted++
+        if (alpha > 8) { painted++; lowestPaintedY = Math.max(lowestPaintedY, y) }
         if (x === 0 || y === 0 || x === 127 || y >= manifest.anchor.y) assert.equal(alpha, 0, `Frame ${frame} clips its gutter/ground`)
       }
     }
     assert.ok(painted > 500, `Frame ${frame} must contain a complete pose`)
+    assert.equal(lowestPaintedY + characterFootInset(frame), manifest.anchor.y, `Frame ${frame} foot must meet its baseline`)
   }
 })

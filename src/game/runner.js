@@ -12,6 +12,9 @@ const OPENING_OBSTACLES = [
   { x: 2350, width: 80, height: 48, sprite: 'carved-low', contactInset: 2 },
   { x: 2430, width: 112, height: 112, sprite: 'classic-tall-wide', contactInset: 1 },
   { x: 2850, width: 80, height: 64, sprite: 'classic-medium', contactInset: 1 },
+  { x: 3150, width: 144, height: 92, bottom: 41, kind: 'floating', sprite: 'spirit-slab' },
+  { x: 3540, width: 104, height: 76, bottom: 28, kind: 'floating', sprite: 'moss-rock' },
+  { x: 3900, width: 78, height: 106, bottom: 34, kind: 'floating', sprite: 'jade-crag' },
 ]
 const PATH_OBSTACLE_TYPES = [
   { sprite: 'bamboo-log', width: 168, height: 42, contactInset: 2 },
@@ -20,23 +23,23 @@ const PATH_OBSTACLE_TYPES = [
   { sprite: 'torii-beam', width: 184, height: 72, contactInset: 3 },
   { sprite: 'watch-post', width: 84, height: 110, contactInset: 2 },
 ]
+const FLOATING_OBSTACLE_TYPES = [
+  { sprite: 'spirit-slab', width: 144, height: 92, bottom: 41 },
+  { sprite: 'moss-rock', width: 104, height: 76, bottom: 28 },
+  { sprite: 'jade-crag', width: 78, height: 106, bottom: 34 },
+]
 const TRIAL_LANDMARKS = [30000, 42000, 54000, 60000]
 const isClearOfLandmark = x => TRIAL_LANDMARKS.every(landmark => Math.abs(x - landmark) > 520)
 const LONG_PATH_OBSTACLES = Array.from({ length: 72 }, (_, index) => {
-  const x = 3400 + index * 760 + (index % 4) * 95
+  const x = 4400 + index * 760 + (index % 4) * 95
   if (!isClearOfLandmark(x)) return null
-  if (index % 4 === 3) return { x, width: 112, height: 108, bottom: 68, kind: 'floating', contactInset: 2 }
+  if (index % 4 === 3) return { x, kind: 'floating', ...FLOATING_OBSTACLE_TYPES[index % FLOATING_OBSTACLE_TYPES.length] }
   return { x, ...PATH_OBSTACLE_TYPES[index % PATH_OBSTACLE_TYPES.length] }
 }).filter(Boolean)
 export const OBSTACLES = [...OPENING_OBSTACLES, ...LONG_PATH_OBSTACLES]
 const HALF_BODY = 18
 const overlaps = (x, obstacle) => x + 64 + HALF_BODY > obstacle.x && x + 64 - HALF_BODY < obstacle.x + obstacle.width
 export const isSupported = state => state.y === 0 || OBSTACLES.some(o => overlaps(state.x, o) && Math.abs(state.y - o.height) < .001)
-export const supportingObstacle = state => state.y > 0
-  ? OBSTACLES.filter(o => overlaps(state.x, o) && Math.abs(state.y - o.height) < .001)
-    .sort((a, b) => b.height - a.height)[0] || null
-  : null
-export const contactInset = state => Math.min(3, supportingObstacle(state)?.contactInset || 0)
 
 function moveBody(body, velocity, dt, input = {}) {
   // Small physics steps prevent running/dashing through walls and missing ledges.
