@@ -40,6 +40,7 @@ test('all grounded characters share the ground baseline regardless of visual lan
   assert.equal(characterBaseline({ y: 0, lane: -10 }, 500), 500)
   assert.equal(characterBaseline({ y: 0, lane: 15 }, 500), 500)
   assert.equal(characterBaseline({ y: 64, lane: -10 }, 500), 436)
+  assert.equal(characterBaseline({ x: 700, y: 64, lane: 15 }, 500), 438)
 })
 
 test('complete character atlas has transparent gutters and populated frames', async () => {

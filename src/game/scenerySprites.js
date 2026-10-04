@@ -1,6 +1,16 @@
 export const OBSTACLE_ATLASES = {
   classic: '/assets/scenery/forest-obstacles-v1/obstacles-atlas.webp',
   v2: '/assets/scenery/forest-object-variants-v2/variants-atlas.webp',
+  types: '/assets/scenery/forest-obstacle-types-v3/types-atlas.webp',
+}
+
+export const OBSTACLE_TYPE_SPRITES = {
+  'bamboo-log': { x: 12, y: 215, width: 296, height: 97, surface: 28 },
+  'tree-stump': { x: 332, y: 110, width: 296, height: 202, surface: 8 },
+  'broken-stairs': { x: 652, y: 56, width: 296, height: 256, surface: 37 },
+  'lantern-plinth': { x: 61, y: 336, width: 197, height: 296, surface: 11 },
+  'torii-beam': { x: 332, y: 517, width: 296, height: 115, surface: 5 },
+  'watch-post': { x: 693, y: 336, width: 214, height: 296, surface: 56 },
 }
 
 export const OBSTACLE_SPRITES = {

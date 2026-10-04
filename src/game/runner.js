@@ -4,28 +4,39 @@ export const SCENERY_CHUNK = 320
 export const JUMP_VELOCITY = 580
 // World-space rectangles, matching the solid silhouettes drawn by the renderer.
 const OPENING_OBSTACLES = [
-  { x: 400, width: 80, height: 48, variant: 'classic' },
-  { x: 740, width: 96, height: 64, variant: 'v2' },
-  { x: 1080, width: 72, height: 48 },
-  { x: 1152, width: 112, height: 112, variant: 'v2' },
-  { x: 1730, width: 96, height: 64 },
-  { x: 2350, width: 80, height: 48, variant: 'v2' },
-  { x: 2430, width: 112, height: 112 },
-  { x: 2850, width: 80, height: 64 },
+  { x: 400, width: 80, height: 48, sprite: 'classic-low', contactInset: 1 },
+  { x: 740, width: 96, height: 64, sprite: 'carved-medium', contactInset: 2 },
+  { x: 1080, width: 72, height: 48, sprite: 'classic-low', contactInset: 1 },
+  { x: 1152, width: 112, height: 112, sprite: 'carved-tall-wide', contactInset: 2 },
+  { x: 1730, width: 96, height: 64, sprite: 'classic-medium', contactInset: 1 },
+  { x: 2350, width: 80, height: 48, sprite: 'carved-low', contactInset: 2 },
+  { x: 2430, width: 112, height: 112, sprite: 'classic-tall-wide', contactInset: 1 },
+  { x: 2850, width: 80, height: 64, sprite: 'classic-medium', contactInset: 1 },
+]
+const PATH_OBSTACLE_TYPES = [
+  { sprite: 'bamboo-log', width: 168, height: 42, contactInset: 2 },
+  { sprite: 'tree-stump', width: 100, height: 78, contactInset: 2 },
+  { sprite: 'lantern-plinth', width: 72, height: 104, contactInset: 2 },
+  { sprite: 'torii-beam', width: 184, height: 72, contactInset: 3 },
+  { sprite: 'watch-post', width: 84, height: 110, contactInset: 2 },
 ]
 const TRIAL_LANDMARKS = [30000, 42000, 54000, 60000]
 const isClearOfLandmark = x => TRIAL_LANDMARKS.every(landmark => Math.abs(x - landmark) > 520)
 const LONG_PATH_OBSTACLES = Array.from({ length: 72 }, (_, index) => {
   const x = 3400 + index * 760 + (index % 4) * 95
   if (!isClearOfLandmark(x)) return null
-  if (index % 3 === 1) return { x, width: 112, height: 108, bottom: 68, kind: 'floating' }
-  const height = index % 5 === 0 ? 112 : index % 2 === 0 ? 64 : 48
-  return { x, width: height === 112 ? 112 : 80 + (index % 2) * 16, height, variant: index % 4 < 2 ? 'v2' : 'classic' }
+  if (index % 4 === 3) return { x, width: 112, height: 108, bottom: 68, kind: 'floating', contactInset: 2 }
+  return { x, ...PATH_OBSTACLE_TYPES[index % PATH_OBSTACLE_TYPES.length] }
 }).filter(Boolean)
 export const OBSTACLES = [...OPENING_OBSTACLES, ...LONG_PATH_OBSTACLES]
 const HALF_BODY = 18
 const overlaps = (x, obstacle) => x + 64 + HALF_BODY > obstacle.x && x + 64 - HALF_BODY < obstacle.x + obstacle.width
 export const isSupported = state => state.y === 0 || OBSTACLES.some(o => overlaps(state.x, o) && Math.abs(state.y - o.height) < .001)
+export const supportingObstacle = state => state.y > 0
+  ? OBSTACLES.filter(o => overlaps(state.x, o) && Math.abs(state.y - o.height) < .001)
+    .sort((a, b) => b.height - a.height)[0] || null
+  : null
+export const contactInset = state => Math.min(3, supportingObstacle(state)?.contactInset || 0)
 
 function moveBody(body, velocity, dt, input = {}) {
   // Small physics steps prevent running/dashing through walls and missing ledges.

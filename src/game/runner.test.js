@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
-import { OBSTACLE_ATLASES, OBSTACLE_SPRITES } from './scenerySprites.js'
+import { contactInset, createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
+import { OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from './scenerySprites.js'
 test('movement continues in both directions and jump lands', () => {
   let s = createRun()
   s = stepRun(s, { move: -1 }, 1)
@@ -126,15 +126,37 @@ test('every raised step is reachable by jumping from the previous step', () => {
     assert.equal(state.y, o.height, `landing on obstacle at ${o.x}`)
   }
 })
+test('every distinct path obstacle type is reachable from the ground', () => {
+  const samples = new Map()
+  for (const obstacle of OBSTACLES.filter(item => item.sprite && item.x >= 3000)) {
+    if (!samples.has(obstacle.sprite)) samples.set(obstacle.sprite, obstacle)
+  }
+  for (const [type, obstacle] of samples) {
+    let state = { ...createRun(), x: obstacle.x - 82 }
+    state = stepRun(state, { jump: true }, 1 / 120)
+    state = advance(state, { move: 1 }, 40)
+    state = advance(state, {}, 120)
+    assert.equal(state.y, obstacle.height, `landing on ${type}`)
+  }
+})
 test('obstacles cover the extended path while keeping trial landmarks clear', () => {
   assert.ok(OBSTACLES.length > 60)
   assert.ok(OBSTACLES.some(obstacle => obstacle.x > 50000))
   assert.ok(OBSTACLES.some(obstacle => obstacle.kind === 'floating'))
-  assert.ok(OBSTACLES.some(obstacle => obstacle.variant === 'classic'))
-  assert.ok(OBSTACLES.some(obstacle => obstacle.variant === 'v2'))
+  const obstacleTypes = new Set(OBSTACLES.map(obstacle => obstacle.sprite).filter(Boolean))
+  assert.ok(['bamboo-log', 'tree-stump', 'lantern-plinth', 'torii-beam', 'watch-post'].every(type => obstacleTypes.has(type)))
+  assert.ok(new Set(OBSTACLES.map(obstacle => `${obstacle.width}x${obstacle.height}`)).size >= 8)
   for (const landmark of [30000, 42000, 54000, 60000]) {
     assert.ok(OBSTACLES.every(obstacle => Math.abs(obstacle.x - landmark) > 500))
   }
+})
+test('grounded characters sink visually by at most three pixels for each surface type', () => {
+  for (const obstacle of OBSTACLES.filter(item => item.contactInset)) {
+    const state = { ...createRun(), x: obstacle.x - 64 + obstacle.width / 2, y: obstacle.height }
+    assert.equal(contactInset(state), obstacle.contactInset)
+    assert.ok(contactInset(state) >= 1 && contactInset(state) <= 3)
+  }
+  assert.equal(contactInset(createRun()), 0)
 })
 test('the higher jump can land on a floating platform', () => {
   const platform = OBSTACLES.find(obstacle => obstacle.kind === 'floating')
@@ -158,6 +180,15 @@ test('walkable obstacle crops begin exactly at their visible top surface', async
       assert.ok(edgeHasPixel(0), `${atlasName}/${name} must touch the collision top`)
       assert.ok(edgeHasPixel(sprite.height - 1), `${atlasName}/${name} must touch its baseline`)
     }
+  }
+  const typePath = new URL(`../../public${OBSTACLE_ATLASES.types}`, import.meta.url)
+  const { data, info } = await sharp(typePath.pathname).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  for (const [name, sprite] of Object.entries(OBSTACLE_TYPE_SPRITES)) {
+    const surfaceHasPixel = Array.from({ length: sprite.width }, (_, localX) => {
+      const offset = ((sprite.y + sprite.surface) * info.width + sprite.x + localX) * 4 + 3
+      return data[offset] > 8
+    }).some(Boolean)
+    assert.ok(surfaceHasPixel, `${name} must paint its declared walkable surface`)
   }
 })
 test('flight cannot pass through a wall but can fly above it and land on it', () => {

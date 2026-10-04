@@ -6,7 +6,7 @@ import { breakthroughCosts, characterAge, characterLifespan, createInitialState,
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
-import { DECORATIVE_VARIANT_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES } from '../game/scenerySprites'
+import { DECORATIVE_VARIANT_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from '../game/scenerySprites'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
@@ -14,6 +14,7 @@ const SCENERY_ASSETS = {
   objects: '/assets/scenery/underworld-bamboo-v1/forest-objects-atlas.webp',
   obstacles: OBSTACLE_ATLASES.classic,
   objectVariants: OBSTACLE_ATLASES.v2,
+  obstacleTypes: OBSTACLE_ATLASES.types,
   floatingObstacle: '/assets/scenery/floating-obstacle-v1/floating-platform.webp',
   collectibles: '/assets/items/forest-collectibles-v1.png',
 }
@@ -185,16 +186,26 @@ function drawGroundDetail(ctx, image, variantImage, detail, x, ground) {
   drawObject(ctx, image, object.index, x, ground + 4, object.width * detail.scale, object.height * detail.scale)
 }
 
-function drawObstacle(ctx, image, variantImage, floatingImage, obstacle, x, top) {
+function drawObstacle(ctx, image, variantImage, typeImage, floatingImage, obstacle, x, top) {
   if (obstacle.kind === 'floating') {
     if (!floatingImage?.complete || !floatingImage.naturalWidth) return
     ctx.drawImage(floatingImage, x, top, obstacle.width, obstacle.height - obstacle.bottom)
     return
   }
+  const typeSprite = OBSTACLE_TYPE_SPRITES[obstacle.sprite]
+  if (typeSprite && typeImage?.complete && typeImage.naturalWidth) {
+    const scaleY = obstacle.height / (typeSprite.height - typeSprite.surface)
+    ctx.drawImage(
+      typeImage,
+      typeSprite.x, typeSprite.y, typeSprite.width, typeSprite.height,
+      x, top - typeSprite.surface * scaleY, obstacle.width, typeSprite.height * scaleY,
+    )
+    return
+  }
   const key = obstacle.height >= 100
     ? (obstacle.width < 90 ? 'tallNarrow' : 'tallWide')
     : (obstacle.height <= 48 ? 'low' : 'medium')
-  const useVariant = obstacle.variant === 'v2' && variantImage?.complete && variantImage.naturalWidth
+  const useVariant = obstacle.sprite?.startsWith('carved-') && variantImage?.complete && variantImage.naturalWidth
   const source = useVariant ? variantImage : image
   if (!source?.complete || !source.naturalWidth) return
   const sprite = OBSTACLE_SPRITES[useVariant ? 'v2' : 'classic'][key]
@@ -264,7 +275,7 @@ function draw(ctx, s, width, height, input, sprites) {
   for (const obstacle of OBSTACLES) {
     const x = Math.round(obstacle.x - camera), top = ground - obstacle.height
     if (x + obstacle.width < 0 || x > width) continue
-    drawObstacle(ctx, sprites.obstacles, sprites.objectVariants, sprites.floatingObstacle, obstacle, x, top)
+    drawObstacle(ctx, sprites.obstacles, sprites.objectVariants, sprites.obstacleTypes, sprites.floatingObstacle, obstacle, x, top)
   }
   for (const collectible of s.collectibles) drawCollectible(ctx, sprites.collectibles, collectible, camera, ground, s.time)
   const rivalFrame = animationFrame('run', s.time)
@@ -285,7 +296,7 @@ function draw(ctx, s, width, height, input, sprites) {
 export default function RunnerGame() {
   const [initialRun] = useState(createRun)
   const canvas = useRef(null), run = useRef(initialRun), input = useRef({ move: 0 }), gesture = useRef(null)
-  const sprites = useRef({ character: null, background: null, objects: null, obstacles: null, objectVariants: null, floatingObstacle: null, collectibles: null, rivals: {} })
+  const sprites = useRef({ character: null, background: null, objects: null, obstacles: null, objectVariants: null, obstacleTypes: null, floatingObstacle: null, collectibles: null, rivals: {} })
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0)
@@ -335,11 +346,11 @@ export default function RunnerGame() {
     return () => window.clearInterval(timer)
   }, [progress.autoCultivate])
   useEffect(() => {
-    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), objectVariants = new Image(), floatingObstacle = new Image(), collectibles = new Image()
+    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), objectVariants = new Image(), obstacleTypes = new Image(), floatingObstacle = new Image(), collectibles = new Image()
     const rivals = Object.fromEntries(Object.keys(RIVAL_CHARACTERS).map(id => [id, new Image()]))
-    sprites.current = { character, background, objects, obstacles, objectVariants, floatingObstacle, collectibles, rivals }
+    sprites.current = { character, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, rivals }
     let loadedCount = 0
-    const assetCount = 7 + Object.keys(rivals).length
+    const assetCount = 8 + Object.keys(rivals).length
     const loaded = () => { loadedCount += 1; if (loadedCount === assetCount) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
@@ -357,6 +368,9 @@ export default function RunnerGame() {
     objectVariants.onload = loaded
     objectVariants.onerror = failed
     objectVariants.src = SCENERY_ASSETS.objectVariants
+    obstacleTypes.onload = loaded
+    obstacleTypes.onerror = failed
+    obstacleTypes.src = SCENERY_ASSETS.obstacleTypes
     floatingObstacle.onload = loaded
     floatingObstacle.onerror = failed
     floatingObstacle.src = SCENERY_ASSETS.floatingObstacle
@@ -415,7 +429,7 @@ export default function RunnerGame() {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { for (const image of [character, background, objects, obstacles, objectVariants, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { for (const image of [character, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
