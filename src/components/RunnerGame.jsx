@@ -75,8 +75,16 @@ const RIVAL_CHARACTERS = {
   strongman: '/assets/characters/strongman-v1/character-strongman-v1-sheet.png',
   elder: '/assets/characters/elder-v1/character-elder-v1-sheet.png',
 }
-const OBJECT_COLUMNS = 4
-const OBJECT_ROWS = 2
+const OBJECT_SPRITES = [
+  { x: 0, y: 20, width: 340, height: 710 },
+  { x: 335, y: 100, width: 300, height: 630 },
+  { x: 635, y: 390, width: 300, height: 340 },
+  { x: 930, y: 430, width: 324, height: 300 },
+  { x: 0, y: 835, width: 350, height: 390 },
+  { x: 350, y: 990, width: 300, height: 235 },
+  { x: 625, y: 730, width: 320, height: 495 },
+  { x: 940, y: 730, width: 314, height: 495 },
+]
 const OBSTACLE_SPRITES = {
   low: { x: 45, y: 285, width: 545, height: 220 },
   medium: { x: 670, y: 205, width: 545, height: 300 },
@@ -155,15 +163,10 @@ function drawCharacter(ctx, image, frame, x, y, facing) {
 
 function drawObject(ctx, image, index, x, base, width, height, alpha = 1) {
   if (!image?.complete || !image.naturalWidth) return
-  const column = index % OBJECT_COLUMNS, row = Math.floor(index / OBJECT_COLUMNS)
-  const left = Math.round(column * image.naturalWidth / OBJECT_COLUMNS)
-  const right = Math.round((column + 1) * image.naturalWidth / OBJECT_COLUMNS)
-  const top = Math.round(row * image.naturalHeight / OBJECT_ROWS)
-  const bottom = Math.round((row + 1) * image.naturalHeight / OBJECT_ROWS)
-  const sourceX = left + 1, sourceY = top + 1
-  const cellWidth = right - left - 2, cellHeight = bottom - top - 2
+  const sprite = OBJECT_SPRITES[index]
+  if (!sprite) return
   ctx.save(); ctx.globalAlpha = alpha
-  ctx.drawImage(image, sourceX, sourceY, cellWidth, cellHeight, Math.round(x - width / 2), Math.round(base - height), width, height)
+  ctx.drawImage(image, sprite.x, sprite.y, sprite.width, sprite.height, Math.round(x - width / 2), Math.round(base - height), width, height)
   ctx.restore()
 }
 
