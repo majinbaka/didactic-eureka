@@ -30,7 +30,7 @@ HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt đ�
 - Hồ sơ nhân vật: bấm avatar mở lớp toàn màn hình, gồm cảnh nhân vật tọa thiền, linh căn, tuổi/thọ nguyên, máu, linh khí và tốc độ hồi, tu vi ngũ hành cùng biểu đồ radar. Thanh trên có Bộ sưu tập, Cài đặt và Đóng; Cài đặt chứa reset có xác nhận. Hồ sơ cuộn được ở màn hẹp và đóng bằng phím Escape.
 - Điều khiển: joystick cảm ứng bên trái; cụm tám động tác có nút đổi trang bên phải; toàn bộ nằm trong cảnh.
 - Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
-- PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.
+- PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi. Icon dùng chân dung Vô Danh áo xanh ngọc trước vòng linh khí vàng và bóng trúc, giữ vùng an toàn riêng cho bản maskable.
 
 ## Khả năng tiếp cận
 
