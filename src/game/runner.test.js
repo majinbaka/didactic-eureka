@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
+import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES, rivalPace } from './runner.js'
 import { FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from './scenerySprites.js'
 test('movement continues in both directions and jump lands', () => {
   let s = createRun()
@@ -52,7 +52,7 @@ test('actions expire except for collapse', () => {
   s = stepRun(s, { action: 'collapse' }, 10)
   assert.equal(s.action, 'collapse')
 })
-test('four existing characters start behind the player and advance independently without waiting', () => {
+test('four existing characters start behind the player and advance independently', () => {
   const start = createRun()
   assert.deepEqual(start.racers.map(racer => racer.id), ['female', 'bald-monk', 'strongman', 'elder'])
   assert.ok(start.racers.every(racer => racer.x < start.x))
@@ -61,7 +61,41 @@ test('four existing characters start behind the player and advance independently
   assert.equal(new Set(next.racers.map(racer => racer.x)).size, 4)
   const racing = Array.from({ length: 20 }).reduce(state => stepRun(state, {}, .25), next)
   assert.ok(racing.racers.every(racer => racer.x > racing.x + 500))
-  assert.ok(racing.racers.every(racer => racer.speed < 342))
+})
+
+test('rivals speed up when behind and slow down when too far ahead', () => {
+  const racer = createRun().racers[0]
+  const behind = rivalPace({ ...racer, x: -900 }, 100, 0)
+  const nearby = rivalPace({ ...racer, x: 100 }, 100, 0)
+  const ahead = rivalPace({ ...racer, x: 1100 }, 100, 0)
+  assert.ok(behind > 390)
+  assert.ok(behind > nearby)
+  assert.ok(nearby > ahead)
+  assert.ok(ahead >= 135)
+})
+
+test('changing rival cadence creates chances to pass the player', () => {
+  const racer = { ...createRun().racers[0], x: -400 }
+  const speeds = Array.from({ length: 240 }, (_, frame) => rivalPace(racer, 100, frame / 20))
+  assert.ok(speeds.some(speed => speed > 390))
+  assert.ok(speeds.some(speed => speed > racer.speed + 100))
+})
+
+test('rivals can exchange the lead while the player keeps running', () => {
+  let state = createRun()
+  state = {
+    ...state,
+    flying: true,
+    y: 260,
+    racers: state.racers.map(racer => ({ ...racer, flying: true, y: 260, time: 0 })),
+  }
+  let rivalTookLead = false
+  for (let frame = 0; frame < 30 * 60; frame++) {
+    state = stepRun(state, { move: 1, run: true }, 1 / 60)
+    rivalTookLead ||= state.racers.some(racer => racer.x > state.x)
+  }
+  assert.equal(rivalTookLead, true)
+  assert.ok(state.racers.every(racer => Math.abs(racer.x - state.x) < 600))
 })
 
 test('action buttons combine jumping and crawling with forward movement', () => {
