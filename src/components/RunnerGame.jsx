@@ -4,6 +4,8 @@ import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../ga
 import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, mazeRiddle, openingScenes, prologuePhase, resolveMaze } from '../game/prologue'
+import CultivationHall from './CultivationHall'
+import { breakthroughChance } from '../game/cultivation'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
@@ -54,7 +56,7 @@ function ProgressPanel({ mode, progress, notice, onAction, onClose }) {
     </> : <>
       <p className="root-summary">{progress.spiritRoots.length} linh căn · thời gian tu luyện ×{progress.spiritRoots.length}</p>
       <div className="hud-elements">{elements.map(element => { const owned = progress.spiritRoots.includes(element.id); return <span className={`${owned ? 'owned ' : ''}element-${element.id}`} key={element.id}><b>{element.mark}</b><small>{owned ? `${element.name} ${progress.elementCultivation[element.id]}` : element.name}</small></span> })}</div>
-      <div className="panel-actions"><button onClick={() => onAction('cultivate')}>Nhập định <small>+{cultivationGain(progress)} linh khí/hành</small></button><button disabled={!cost || progress.qi < qiRequired(progress.realm) || progress.stones < cost.stones || progress.herbs < cost.herbs} onClick={() => onAction('breakthrough')}>Đột phá <small>{cost ? `${Math.round(cost.chance * 100)}% · ◆${cost.stones} · dược ${cost.herbs}` : 'Đã viên mãn'}</small></button></div>
+      <div className="panel-actions"><button disabled={!!progress.cultivation.wave || progress.cultivation.toxicity >= 80} onClick={() => onAction('cultivate')}>Nhập định <small>+{cultivationGain(progress)} linh khí/hành</small></button><button disabled={!!progress.cultivation.wave || progress.cultivation.toxicity >= 80 || !cost || progress.qi < qiRequired(progress.realm) || ((progress.realm > 0 || progress.cultivation.layer === 9) && (progress.stones < cost.stones || progress.herbs < cost.herbs))} onClick={() => onAction('breakthrough')}>Đột phá <small>{cost ? `${Math.round(breakthroughChance(progress) * 100)}% · ◆${cost.stones} · dược ${cost.herbs}` : 'Đã viên mãn'}</small></button></div>
     </>}
     <p className="panel-notice" role="status">{notice}</p>
   </section>
@@ -175,6 +177,7 @@ export default function RunnerGame() {
   const [actionPage, setActionPage] = useState(0)
   const [progress, setProgress] = useState(loadLocalSave)
   const [panel, setPanel] = useState(null)
+  const [hall, setHall] = useState(false)
   const [notice, setNotice] = useState('Bấm vào HUD để mở tu luyện và cộng chỉ số.')
   const [portrait, setPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches)
   const enterLandscape = async () => {
@@ -218,7 +221,7 @@ export default function RunnerGame() {
     let frame, last = 0
     const tick = now => {
       const dt = Math.min((now - (last || now)) / 1000, .035); last = now
-      const frozen = !storyStarted || dreaming || prologuePhase(run.current.x, mazeSolved) === 'maze' || prologuePhase(run.current.x, mazeSolved) === 'complete'
+      const frozen = hall || !storyStarted || dreaming || prologuePhase(run.current.x, mazeSolved) === 'maze' || prologuePhase(run.current.x, mazeSolved) === 'complete'
       run.current = frozen ? run.current : stepRun(run.current, input.current, dt)
       input.current.jump = false; input.current.dash = false; input.current.flyToggle = false; input.current.action = null
       const c = canvas.current, width = c.clientWidth, height = c.clientHeight
@@ -229,7 +232,7 @@ export default function RunnerGame() {
       frame = requestAnimationFrame(tick)
     }
     const key = (e, down) => {
-      if (e.target instanceof HTMLButtonElement) return
+      if (document.querySelector('dialog[open]') || e.target instanceof HTMLButtonElement) return
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'a', 'd', 'w', 'j', 'k', 'f', 'h', 'g', 'n', 's', 'c', 't', 'x', 'Shift'].includes(e.key)) e.preventDefault()
       if (['ArrowLeft', 'a'].includes(e.key)) input.current.move = down ? -1 : input.current.move === -1 ? 0 : input.current.move
       if (['ArrowRight', 'd'].includes(e.key)) input.current.move = down ? 1 : input.current.move === 1 ? 0 : input.current.move
@@ -245,7 +248,7 @@ export default function RunnerGame() {
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
     return () => { for (const image of [character, background, objects, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
-  }, [dreaming, mazeSolved, storyStarted])
+  }, [dreaming, hall, mazeSolved, storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
     if (!active || active.pointerId !== e.pointerId) return
@@ -280,10 +283,10 @@ export default function RunnerGame() {
   const progressAction = action => {
     const next = transition(progress, action)
     if (next === progress) { setNotice(action === 'breakthrough' ? 'Chưa đủ linh khí hoặc vật phẩm.' : 'Chưa có điểm thuộc tính.'); return }
-    setProgress(next); saveLocal(next)
+    setProgress(next); if (!saveLocal(next)) { setNotice('Không thể lưu trên thiết bị. Tiến độ hiện chỉ còn trong phiên này.'); return }
     if (action === 'cultivate') setNotice(`Mọi linh căn sở hữu +${cultivationGain(progress)} tu vi.`)
     else if (action === 'explore') setNotice('Lịch luyện nhận 8 linh thạch và 1 linh dược.')
-    else if (action === 'breakthrough') setNotice(next.realm > progress.realm ? 'Đột phá thành công! Nhận 2 điểm thuộc tính.' : `Đột phá thất bại${progress.realm ? ', tụt một cảnh giới' : ''}.`)
+    else if (action === 'breakthrough') setNotice(next.cultivation.wave ? 'Lôi kiếp bắt đầu! Mở Đạo pháp để đỡ lôi.' : next.cultivation.layer > progress.cultivation.layer ? 'Tăng một tầng Luyện Khí!' : next.realm > progress.realm ? 'Đột phá thành công! Nhận 2 điểm thuộc tính.' : `Đột phá thất bại${progress.realm ? ', tụt một cảnh giới' : ''}.`)
     else setNotice('Đã cộng một điểm thuộc tính.')
   }
   const requiredQi = qiRequired(progress.realm)
@@ -313,6 +316,8 @@ export default function RunnerGame() {
         <button className="hud-avatar" onClick={() => setPanel(panel === 'stats' ? null : 'stats')} aria-label="Mở hồ sơ và cộng chỉ số"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>{realms[progress.realm]}</small></span></button>
         <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ · TU LUYỆN</small></button></div>
       </div>
+      <button className="dao-open" onClick={() => { input.current.move = 0; setHall(true) }}>Đạo pháp</button>
+      {hall && <CultivationHall progress={progress} onChange={next => { setProgress(next); return saveLocal(next) }} onClose={() => setHall(false)} />}
       {panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
       <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để phóng khí."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}

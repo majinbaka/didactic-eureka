@@ -3,11 +3,31 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /players/{uid}/saves/main {
       function owner() { return request.auth != null && request.auth.uid == uid; }
+      function validCultivation(c) {
+        return c is map && c.keys().hasAll(['layer', 'strength', 'mind', 'will', 'luck', 'toxicity', 'karma', 'bound', 'pill', 'wound', 'wave', 'total', 'trialHp', 'trialMp', 'rebirth', 'mutation']) && c.keys().hasOnly(['layer', 'strength', 'mind', 'will', 'luck', 'toxicity', 'karma', 'bound', 'pill', 'wound', 'wave', 'total', 'trialHp', 'trialMp', 'rebirth', 'mutation'])
+          && c.layer is int && c.layer >= 1 && c.layer <= 9
+          && c.strength is int && c.strength >= 1 && c.strength <= 1000
+          && c.mind is int && c.mind >= 1 && c.mind <= 1000
+          && c.will is int && c.will >= 1 && c.will <= 1000
+          && c.luck is int && c.luck >= 1 && c.luck <= 1000
+          && c.toxicity is int && c.toxicity >= 0 && c.toxicity <= 100
+          && c.karma is int && c.karma >= 0 && c.karma <= 100
+          && c.bound is int && c.bound >= 0 && c.bound <= 20
+          && c.pill is int && c.pill >= 0 && c.pill <= 3
+          && c.wound is int && c.wound >= 0 && c.wound <= 10
+          && c.wave is int && c.wave >= 0 && c.wave <= 9
+          && c.total is int && c.total >= 0 && c.total <= 9
+          && c.trialHp is int && c.trialHp >= 0 && c.trialHp <= 1000000000
+          && c.trialMp is int && c.trialMp >= 0 && c.trialMp <= 1000000000
+          && c.rebirth is int && c.rebirth >= 0 && c.rebirth <= 1
+          && c.mutation in ['', 'loi', 'bang', 'phong', 'am', 'duong']
+          && (c.wave == 0 ? c.total == 0 : c.total in [3, 6, 9] && c.wave <= c.total && c.trialHp > 0);
+      }
       function valid() {
         let d = request.resource.data;
-        return d.keys().hasAll(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
-          && d.keys().hasOnly(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
-          && d.version == 2 && d.realm is int && d.realm >= 0 && d.realm <= 4
+        return d.keys().hasAll(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'cultivation', 'updatedAt'])
+          && d.keys().hasOnly(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'cultivation', 'updatedAt'])
+          && d.version == 3 && d.realm is int && d.realm >= 0 && d.realm <= 6
           && d.qi is int && d.qi >= 0 && d.qi <= 100 * (d.realm + 1)
           && d.stones is int && d.stones >= 0 && d.stones <= 1000000000
           && d.herbs is int && d.herbs >= 0 && d.herbs <= 1000000000
@@ -26,6 +46,7 @@ service cloud.firestore {
           && d.elementCultivation.thuy is int && d.elementCultivation.thuy >= 0
           && d.elementCultivation.hoa is int && d.elementCultivation.hoa >= 0
           && d.elementCultivation.tho is int && d.elementCultivation.tho >= 0
+          && validCultivation(d.cultivation)
           && d.updatedAt == request.time;
       }
       allow read, delete: if owner();

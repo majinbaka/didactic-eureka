@@ -67,3 +67,7 @@ Override `@grpc/grpc-js` lên nhánh 1.14.5 để xử lý advisory trong depend
 ## Nguồn kỹ thuật
 
 [Vite](https://vite.dev/guide/), [Vite PWA](https://vite-pwa-org.netlify.app/guide/), [Firebase web setup](https://firebase.google.com/docs/web/setup), [Firestore rules](https://firebase.google.com/docs/firestore/security/get-started), [Vite trên Vercel](https://vercel.com/docs/frameworks/frontend/vite).
+
+## Đạo pháp — hệ thống RPG mới
+
+Mở **Đạo pháp** ở góc phải sân chơi để tu luyện Luyện Khí 1–9 tầng, cộng chỉ số, dùng đan/tẩy độc, luyện hóa pháp bảo, chọn biến dị, đấu luyện Ngũ hành và vượt lôi kiếp theo đợt. Save v3 tự nâng cấp v1/v2, giữ tiến độ cũ. Đấu luyện nằm trong bảng riêng; chưa nối chỉ số chiến đấu vào runner. Phạm vi và công thức chi tiết ở [game-design.md](game-design.md#hệ-thống-đạo-pháp-đã-triển-khai-save-v3).

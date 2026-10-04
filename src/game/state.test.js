@@ -18,7 +18,7 @@ test('cultivation raises every owned element and multi-root cultivation is slowe
 test('breakthrough consumes materials and succeeds or drops realm', () => {
   const ready = { ...initialState, realm: 2, qi: qiRequired(2), stones: 200, herbs: 20 }
   const success = transition(ready, 'breakthrough', () => 0)
-  assert.equal(success.realm, 3); assert.equal(success.attributePoints, 2); assert.equal(success.qi, 0)
+  assert.equal(success.realm, 2); assert.equal(success.cultivation.wave, 1); assert.equal(success.qi, 0)
   const failure = transition(ready, 'breakthrough', () => 1)
   assert.equal(failure.realm, 1); assert.equal(failure.qi, 0); assert.ok(failure.stones < ready.stones)
 })
