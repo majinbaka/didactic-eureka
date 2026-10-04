@@ -26,7 +26,8 @@ HUD và điều khiển phủ có nền xanh rừng đậm bán trong suốt đ�
 
 ## Thành phần và trạng thái
 
-- HUD: cụm góc trên trái gồm portrait pixel của nhân vật hiện tại, nút túi hành trang nhỏ ngay dưới avatar, cảnh giới, máu, linh thạch và linh khí. Bốn chỉ số xếp hai hàng để thanh linh khí luôn nằm trọn trong khung. Nút hành trang chỉ dùng icon túi pixel và có nhãn trợ năng. Bấm avatar đưa nhân vật về đầu chương; bấm máu/linh thạch mở bảng cộng chỉ số; bấm linh khí mở linh căn, tu luyện và đột phá. Bảng nổi gọn trong sân chơi ngang, không che joystick hay cụm hành động.
+- HUD: cụm góc trên trái gồm portrait pixel của nhân vật hiện tại, nút túi hành trang nhỏ ngay dưới avatar, cảnh giới, máu, linh thạch và linh khí. Bốn chỉ số xếp hai hàng để thanh linh khí luôn nằm trọn trong khung. Nút hành trang chỉ dùng icon túi pixel và có nhãn trợ năng. Bấm avatar mở hồ sơ nhân vật; bấm máu/linh thạch mở bảng cộng chỉ số; bấm linh khí mở linh căn, tu luyện và đột phá. Bảng nổi gọn trong sân chơi ngang, không che joystick hay cụm hành động.
+- Hồ sơ nhân vật: bấm avatar mở lớp toàn màn hình, gồm cảnh nhân vật tọa thiền, linh căn, tuổi/thọ nguyên, máu, linh khí và tốc độ hồi, tu vi ngũ hành cùng biểu đồ radar. Thanh trên có Bộ sưu tập, Cài đặt và Đóng; Cài đặt chứa reset có xác nhận. Hồ sơ cuộn được ở màn hẹp và đóng bằng phím Escape.
 - Điều khiển: joystick cảm ứng bên trái; cụm tám động tác có nút đổi trang bên phải; toàn bộ nằm trong cảnh.
 - Mobile dọc: lớp chặn có nhãn rõ và nút xin fullscreen/khóa hướng ngang.
 - PWA: hướng dẫn cài nếu trình duyệt chưa đưa install prompt; cập nhật bằng hành động người chơi.

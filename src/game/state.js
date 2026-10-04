@@ -1,8 +1,11 @@
 import { createInventory, validInventory, itemTransition } from './items.js'
-export const SAVE_KEY = 'loan-gioi:save:v3'
-export const PREVIOUS_SAVE_KEY = 'loan-gioi:save:v2'
+export const SAVE_KEY = 'loan-gioi:save:v4'
+export const PREVIOUS_SAVE_KEY = 'loan-gioi:save:v3'
 export const LEGACY_SAVE_KEY = 'loan-gioi:save:v1'
+export const V2_SAVE_KEY = 'loan-gioi:save:v2'
 export const realms = ['Luyện Khí', 'Trúc Cơ', 'Kim Đan', 'Nguyên Anh', 'Hóa Thần']
+export const realmLifespans = [60, 100, 180, 300, 500]
+export const YEAR_MS = 7 * 24 * 60 * 60 * 1000
 export const elements = [
   { id: 'kim', name: 'Kim', mark: '金' }, { id: 'moc', name: 'Mộc', mark: '木' },
   { id: 'thuy', name: 'Thủy', mark: '水' }, { id: 'hoa', name: 'Hỏa', mark: '火' },
@@ -14,6 +17,7 @@ export const breakthroughCosts = [
 ]
 export const qiRequired = realm => 100 * (realm + 1)
 const safe = value => Number.isSafeInteger(value) && value >= 0 && value <= 1000000000
+const safeTimestamp = value => Number.isSafeInteger(value) && value >= 0 && value <= Number.MAX_SAFE_INTEGER
 
 export function rollSpiritRoots(random = Math.random) {
   const roll = random()
@@ -22,31 +26,37 @@ export function rollSpiritRoots(random = Math.random) {
   while (roots.length < count) roots.push(pool.splice(Math.floor(random() * pool.length), 1)[0])
   return roots
 }
-export function createInitialState(random = Math.random) {
-  return { version: 3, inventory: createInventory(), realm: 0, qi: 0, stones: 30, herbs: 2, journeys: 0, hp: 100, maxHp: 100, attributePoints: 0,
+export function createInitialState(random = Math.random, now = Date.now()) {
+  return { version: 4, inventory: createInventory(), realm: 0, qi: 0, stones: 30, herbs: 2, journeys: 0, hp: 100, maxHp: 100, attributePoints: 0,
+    bornAt: now, autoCultivate: false,
     attributes: { canCot: 1, ngoTinh: 1, thanPhap: 1 }, spiritRoots: rollSpiritRoots(random),
     elementCultivation: { kim: 0, moc: 0, thuy: 0, hoa: 0, tho: 0 } }
 }
-export const initialState = createInitialState(() => 0)
+export const initialState = createInitialState(() => 0, 0)
 export function isValidSave(value) {
-  return value?.version === 3 && validInventory(value.inventory) && Number.isInteger(value.realm) && value.realm >= 0 && value.realm < realms.length &&
+  return value?.version === 4 && validInventory(value.inventory) && Number.isInteger(value.realm) && value.realm >= 0 && value.realm < realms.length &&
+    safeTimestamp(value.bornAt) && typeof value.autoCultivate === 'boolean' &&
     ['qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints'].every(key => safe(value[key])) && value.maxHp >= 1 && value.hp <= value.maxHp && value.qi <= qiRequired(value.realm) &&
     ['canCot', 'ngoTinh', 'thanPhap'].every(key => safe(value.attributes?.[key]) && value.attributes[key] >= 1) &&
     Array.isArray(value.spiritRoots) && value.spiritRoots.length >= 1 && value.spiritRoots.length <= 5 && new Set(value.spiritRoots).size === value.spiritRoots.length && value.spiritRoots.every(root => elements.some(element => element.id === root)) &&
     elements.every(element => safe(value.elementCultivation?.[element.id]))
 }
-export function migrateSave(value, random = Math.random) {
+export function migrateSave(value, random = Math.random, now = Date.now()) {
   if (isValidSave(value)) return value
+  if (value?.version === 3) {
+    const next = { ...value, version: 4, bornAt: now, autoCultivate: false }
+    return isValidSave(next) ? next : null
+  }
   if (value?.version === 2) {
-    const next = { ...value, version: 3, inventory: createInventory() }
+    const next = { ...value, version: 4, inventory: createInventory(), bornAt: now, autoCultivate: false }
     return isValidSave(next) ? next : null
   }
   if (value?.version !== 1) return null
-  const next = { ...createInitialState(random), realm: value.realm, qi: value.qi, stones: value.stones, herbs: value.herbs, journeys: value.journeys }
+  const next = { ...createInitialState(random, now), realm: value.realm, qi: value.qi, stones: value.stones, herbs: value.herbs, journeys: value.journeys }
   return isValidSave(next) ? next : null
 }
 export function loadLocalSave(random = Math.random) {
-  for (const key of [SAVE_KEY, PREVIOUS_SAVE_KEY, LEGACY_SAVE_KEY]) {
+  for (const key of [SAVE_KEY, PREVIOUS_SAVE_KEY, V2_SAVE_KEY, LEGACY_SAVE_KEY]) {
     try {
       const migrated = migrateSave(JSON.parse(localStorage.getItem(key)), random)
       if (migrated) { if (key !== SAVE_KEY) saveLocal(migrated); return migrated }
@@ -56,12 +66,22 @@ export function loadLocalSave(random = Math.random) {
 }
 export function saveLocal(state) { if (!isValidSave(state)) return false; try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); return true } catch { return false } }
 export const cultivationGain = state => Math.max(2, Math.floor((10 + state.attributes.ngoTinh - 1) / state.spiritRoots.length)) + (state.inventory.jadeActive ? 2 : 0)
+export const qiRecoveryRate = state => Math.max(1, Math.floor(cultivationGain(state) / 5))
+export const characterAge = (state, now = Date.now()) => 15 + Math.max(0, Math.floor((now - state.bornAt) / YEAR_MS))
+export const characterLifespan = state => realmLifespans[state.realm]
 export function transition(state, action, random = Math.random) {
   if (action?.type === 'use-item' || action?.type === 'buy-item') return itemTransition(state, action)
   if (action?.type === 'collect-runner-loot') {
     const herbs = safe(action.herbs) ? action.herbs : 0, stones = safe(action.stones) ? action.stones : 0
     if (!herbs && !stones) return state
     return { ...state, herbs: Math.min(1000000000, state.herbs + herbs), stones: Math.min(1000000000, state.stones + stones) }
+  }
+  if (action?.type === 'set-auto-cultivate') return { ...state, autoCultivate: Boolean(action.enabled) }
+  if (action === 'auto-cultivate-tick') {
+    if (!state.autoCultivate || state.qi >= qiRequired(state.realm)) return state
+    const gain = qiRecoveryRate(state), elementCultivation = { ...state.elementCultivation }
+    for (const root of state.spiritRoots) elementCultivation[root] += gain
+    return { ...state, qi: Math.min(qiRequired(state.realm), state.qi + gain), elementCultivation }
   }
   if (action === 'cultivate') {
     const gain = cultivationGain(state), elementCultivation = { ...state.elementCultivation }

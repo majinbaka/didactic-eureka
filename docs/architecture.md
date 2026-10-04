@@ -32,3 +32,9 @@ Workbox precache HTML/CSS/JS/icon. Không runtime-cache Firebase API. localStora
 Local key `loan-gioi:save:v3`, giữ các trường v2 và thêm `inventory: { pill: 2, gourd: 5, jade: 0, jadeActive: false }`. `pill` là số viên 0–999; `gourd` là số lượt còn lại 0–5; `jade` là quyền sở hữu 0/1; chỉ được kích hoạt khi sở hữu. Logic danh mục, giá, điều kiện và tiêu hao nằm tại `src/game/items.js`.
 
 Load thử v3 → v2 → v1, migration giữ tiến độ và bổ sung hành trang khởi đầu; không xóa các key cũ. Cloud download cũng migration v1/v2, upload dùng v3. Rules yêu cầu inventory hợp lệ và giữ giới hạn UID. Cần triển khai rules mới trước khi upload schema v3; chưa kiểm thử Emulator trong thay đổi này.
+
+## Schema v4 — hồ sơ nhân vật
+
+Local key `loan-gioi:save:v4`, giữ các trường v3 và thêm `bornAt` (Unix time mili giây) cùng `autoCultivate` (boolean). Migration v1/v2/v3 giữ toàn bộ tiến độ; bản cũ bắt đầu tính tuổi từ thời điểm migration. Tuổi được suy ra từ `bornAt`, không ghi lặp vào save. Tu luyện tự động chỉ tick khi ứng dụng đang mở và lưu local sau mỗi lần thay đổi.
+
+Firestore rules đã mô tả schema v4 nhưng chưa được kiểm thử bằng Emulator hoặc deploy. Cần deploy rules trước khi upload save v4 lên dự án Firebase thật.

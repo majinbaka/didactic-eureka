@@ -45,6 +45,12 @@ Màn hình dự kiến: đạo trường, bản đồ vùng, chiến đấu, hà
 
 Nhân vật nhận diện bằng silhouette và 2–3 màu chủ đạo. Trang phục kín, ưu tiên sự thanh thoát và đọc rõ ở kích thước nhỏ.
 
+### Tuổi thọ và tu luyện tự động
+
+Nhân vật mới bắt đầu ở tuổi 15. Cứ 7 ngày theo đồng hồ hệ thống thì tuổi trong game tăng 1 năm. Thọ nguyên theo cảnh giới lần lượt là 60/100/180/300/500 tuổi từ Luyện Khí đến Hóa Thần; bản hiện tại chỉ hiển thị mốc thọ nguyên, chưa áp dụng cơ chế tử vong.
+
+Hồ sơ toàn màn hình có thể bật tu luyện tự động khi game đang mở. Mỗi giây, nhân vật nhận `max(1, floor(cultivationGain / 5))` linh khí và cùng lượng tu vi cho mọi linh căn sở hữu, dừng tại trần linh khí của cảnh giới. Không cộng bù thời gian khi đóng game.
+
 ## Chuẩn asset dự kiến
 
 Tile 16×16px; sprite nhân vật 32×48px; portrait 64×64px; icon 16×16 hoặc 24×24px. Sprite sheet chia ô bằng nhau, nền trong suốt, hướng xuống/trái/phải/lên; idle 2–4 frame, walk 4–6 frame. Pixel cạnh cứng, không blur/antialias trong asset. Palette mỗi nhân vật khoảng 8–16 màu. Tên `character-action-direction.png`; ghi tác giả/giấy phép khi thêm asset bên ngoài. CSS scenery hiện tại là placeholder nội bộ, chưa phải sprite final.

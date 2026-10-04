@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
-import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, saveLocal, transition } from '../game/state'
+import { breakthroughCosts, characterAge, characterLifespan, createInitialState, cultivationGain, elements, loadLocalSave, qiRecoveryRate, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
@@ -31,6 +31,41 @@ function CollectiblePanel({ collectibles, onClose }) {
     <div className="collectible-list">{collectibleCatalog.map(item => <article key={item.id} className={collectedCounts[item.id] ? 'is-collected' : ''}>
       <CollectibleIcon item={item} /><span><strong>{item.name}</strong><small style={{ color: RARITIES[item.rarity].color }}>{item.kind === 'herb' ? 'Linh thảo' : 'Linh thạch'} · {RARITIES[item.rarity].name}</small><p>{item.description}</p></span><b>{collectedCounts[item.id] || 0}/{totalCounts[item.id] || 0}</b>
     </article>)}</div>
+  </section>
+}
+
+const COLLECTION_GROUPS = [
+  { title: 'Linh thảo', detail: 'Có thể nhặt trong Rừng Trúc U Tinh', entries: collectibleCatalog.filter(item => item.kind === 'herb').map(item => item.name) },
+  { title: 'Pháp bảo', detail: 'Sở hữu, kích hoạt và sử dụng lâu dài', entries: ['Tụ Khí Hồ Lô', 'Ngộ Đạo Ngọc'] },
+  { title: 'Đan dược', detail: 'Dùng một lần để hồi phục hoặc trợ tu', entries: ['Hồi Xuân Đan'] },
+]
+
+function ElementRadar({ progress }) {
+  const center = 100, radius = 72
+  const point = (index, scale = 1) => {
+    const angle = -Math.PI / 2 + index * Math.PI * 2 / elements.length
+    return `${center + Math.cos(angle) * radius * scale},${center + Math.sin(angle) * radius * scale}`
+  }
+  const max = Math.max(10, ...Object.values(progress.elementCultivation))
+  const values = elements.map(element => Math.max(.08, progress.elementCultivation[element.id] / max))
+  return <figure className="element-radar"><svg viewBox="0 0 200 200" role="img" aria-label={`Biểu đồ ngũ hành: ${elements.map(element => `${element.name} ${progress.elementCultivation[element.id]}`).join(', ')}`}>
+    {[.25, .5, .75, 1].map(level => <polygon key={level} points={elements.map((_, index) => point(index, level)).join(' ')} />)}
+    {elements.map((element, index) => <g key={element.id}><line x1="100" y1="100" x2={point(index).split(',')[0]} y2={point(index).split(',')[1]} /><text x={point(index, 1.18).split(',')[0]} y={point(index, 1.18).split(',')[1]}>{element.name}</text></g>)}
+    <polygon className="radar-value" points={values.map((value, index) => point(index, value)).join(' ')} />
+  </svg><figcaption>Tu vi ngũ hành · mạnh yếu hiện tại</figcaption></figure>
+}
+
+function CharacterProfile({ progress, view, onView, onClose, onAuto, onReset }) {
+  const dialog = useRef(null)
+  useEffect(() => { dialog.current?.focus() }, [])
+  const rootNames = elements.filter(element => progress.spiritRoots.includes(element.id)).map(element => element.name)
+  return <section ref={dialog} tabIndex={-1} className="character-profile" role="dialog" aria-modal="true" aria-labelledby="profile-title" onKeyDown={event => { if (event.key === 'Escape') onClose() }}>
+    <header className="profile-topbar"><div><small>HỒ SƠ ĐẠO HỮU</small><h1 id="profile-title">Vô Danh</h1></div><nav><button className={view === 'collection' ? 'active' : ''} onClick={() => onView(view === 'collection' ? 'profile' : 'collection')}>Bộ sưu tập</button><button onClick={() => onView(view === 'settings' ? 'profile' : 'settings')} aria-label="Mở cài đặt hồ sơ">⚙ Cài đặt</button><button className="profile-close" onClick={onClose} aria-label="Đóng hồ sơ">×</button></nav></header>
+    {view === 'collection' ? <div className="profile-collection"><div className="profile-section-title"><small>BÁCH KHOA VẠN VẬT</small><h2>Những vật phẩm có thể thu thập</h2><p>Mở khóa dần trong hành trình tu tiên.</p></div><div className="collection-groups">{COLLECTION_GROUPS.map(group => <article key={group.title}><span aria-hidden="true">{group.title === 'Linh thảo' ? '❋' : group.title === 'Pháp bảo' ? '◇' : '◉'}</span><h3>{group.title}</h3><small>{group.detail}</small><ul>{group.entries.map(entry => <li key={entry}>{entry}</li>)}</ul></article>)}</div></div> : view === 'settings' ? <div className="profile-settings"><div className="profile-section-title"><small>CÀI ĐẶT</small><h2>Dữ liệu nhân vật</h2></div><article><h3>Đặt lại hành trình</h3><p>Xóa tiến độ đang chơi trên thiết bị và tạo nhân vật 15 tuổi mới. Thao tác không tự xóa bản lưu mây.</p><button className="danger-action" onClick={onReset}>Đặt lại nhân vật</button></article></div> : <div className="profile-content">
+      <section className="profile-hero"><div className="meditation-scene"><span className="meditation-aura" /><ActionSprite animation="sit" /><p>VÔ DANH</p><small>{realms[progress.realm]} · Sơ kỳ</small></div><div className="identity-card"><span>Linh căn</span><h2>{rootNames.length === 1 ? `Đơn linh căn ${rootNames[0]}` : `${rootNames.length} linh căn · ${rootNames.join(' · ')}`}</h2><p>{rootNames.length === 1 ? 'Thiên tư chuyên nhất, tốc độ hấp thu linh khí nổi trội.' : 'Đa linh căn, đường tu rộng nhưng cần nhiều thời gian hơn.'}</p><div><b>{characterAge(progress)} tuổi</b><small>Thọ nguyên {characterLifespan(progress)} tuổi</small></div></div></section>
+      <section className="profile-vitals"><article><small>LINH KHÍ</small><b>{progress.qi}<i> / {qiRequired(progress.realm)}</i></b><span>+{qiRecoveryRate(progress)} mỗi giây khi tự động</span></article><article><small>SINH LỰC</small><b>{progress.hp}<i> / {progress.maxHp}</i></b><span>Căn cốt cấp {progress.attributes.canCot}</span></article><article><small>THỜI GIAN</small><b>7 ngày</b><span>= 1 năm trong game</span></article></section>
+      <section className="profile-training"><ElementRadar progress={progress} /><div className="element-scores"><h2>Tu vi theo hệ</h2>{elements.map(element => <div key={element.id} className={progress.spiritRoots.includes(element.id) ? 'owned' : ''}><span>{element.mark} {element.name}</span><b>{progress.elementCultivation[element.id]}</b></div>)}</div><div className="auto-training"><small>TỌA THIỀN</small><h2>Tu luyện tự động</h2><p>Hấp thu linh khí và tăng tu vi của mọi linh căn mỗi giây khi game đang mở.</p><button aria-pressed={progress.autoCultivate} onClick={() => onAuto(!progress.autoCultivate)}><i />{progress.autoCultivate ? 'Đang nhập định' : 'Bắt đầu nhập định'}</button></div></section>
+    </div>}
   </section>
 }
 const RIVAL_CHARACTERS = {
@@ -270,6 +305,17 @@ export default function RunnerGame() {
     return () => orientation.removeEventListener('change', updateOrientation)
   }, [])
   useEffect(() => {
+    if (!progress.autoCultivate) return
+    const timer = window.setInterval(() => {
+      setProgress(previous => {
+        const next = transition(previous, 'auto-cultivate-tick')
+        if (next !== previous) saveLocal(next)
+        return next
+      })
+    }, 1000)
+    return () => window.clearInterval(timer)
+  }, [progress.autoCultivate])
+  useEffect(() => {
     const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), collectibles = new Image()
     const rivals = Object.fromEntries(Object.keys(RIVAL_CHARACTERS).map(id => [id, new Image()]))
     sprites.current = { character, background, objects, obstacles, collectibles, rivals }
@@ -392,6 +438,19 @@ export default function RunnerGame() {
     else if (action?.type === 'use-item' || action?.type === 'buy-item') setNotice(`${action.type === 'buy-item' ? 'Đã mua' : 'Đã dùng'} ${items.find(item => item.id === action.id).name}.`)
     else setNotice('Đã cộng một điểm thuộc tính.')
   }
+  const setAutoCultivate = enabled => {
+    const next = transition(progress, { type: 'set-auto-cultivate', enabled })
+    setProgress(next)
+    setNotice(enabled ? 'Đã bắt đầu tu luyện tự động.' : 'Đã dừng tu luyện tự động.')
+    if (!saveLocal(next)) setNotice('Đã đổi chế độ nhưng không lưu được trên thiết bị.')
+  }
+  const resetProgress = () => {
+    if (!window.confirm('Đặt lại toàn bộ tiến độ nhân vật trên thiết bị? Hành động này không thể hoàn tác.')) return
+    const next = createInitialState()
+    setProgress(next)
+    setPanel('profile')
+    setNotice(saveLocal(next) ? 'Đã tạo lại nhân vật mới.' : 'Đã tạo lại trong phiên nhưng không lưu được trên thiết bị.')
+  }
   const requiredQi = qiRequired(progress.realm)
   const story = openingScenes[storyIndex]
   const advanceStory = () => {
@@ -423,12 +482,13 @@ export default function RunnerGame() {
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được cảnh Rừng Trúc. Hãy tải lại trang để thử lại.' : 'Đang tải Rừng Trúc U Tinh…'}</p>}
       <div className="runner-hud cultivation-hud">
         <div className="hud-sidebar">
-          <button className="hud-avatar" onClick={restartChapter} aria-label="Đưa nhân vật về đầu chương"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>VỀ ĐẦU</small></span></button>
+          <button className="hud-avatar" onClick={() => setPanel('profile')} aria-label="Mở hồ sơ nhân vật"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>HỒ SƠ</small></span></button>
           <button className="inventory-toggle" aria-label="Mở hành trang" aria-expanded={panel === 'items'} onClick={() => { setNotice(''); setPanel(panel === 'items' ? null : 'items') }}><img src="/assets/ui/inventory-bag-v1.png" alt="" /></button>
         </div>
         <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'collectibles' ? null : 'collectibles')}><span>❋ {progress.herbs}</span><small>LINH THẢO</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ</small></button></div>
       </div>
-      {panel === 'collectibles' ? <CollectiblePanel collectibles={collectionView} onClose={() => setPanel(null)} /> : panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
+      {panel === 'collectibles' ? <CollectiblePanel collectibles={collectionView} onClose={() => setPanel(null)} /> : ['items', 'stats', 'roots'].includes(panel) && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
+      {['profile', 'collection', 'settings'].includes(panel) && <CharacterProfile progress={progress} view={panel} onView={setPanel} onClose={() => setPanel(null)} onAuto={setAutoCultivate} onReset={resetProgress} />}
       <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy qua hoặc lên bậc đá, F để bay, J hoặc Space để phóng khí."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />

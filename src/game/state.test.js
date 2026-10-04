@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createInitialState, cultivationGain, initialState, isValidSave, migrateSave, qiRequired, rollSpiritRoots, transition } from './state.js'
+import { characterAge, characterLifespan, createInitialState, cultivationGain, initialState, isValidSave, migrateSave, qiRecoveryRate, qiRequired, rollSpiritRoots, transition, YEAR_MS } from './state.js'
 
 test('random spirit roots are unique and valid', () => {
   assert.deepEqual(rollSpiritRoots(() => 0), ['kim'])
@@ -14,6 +14,17 @@ test('cultivation raises every owned element and multi-root cultivation is slowe
   const next = transition(many, 'cultivate')
   for (const root of many.spiritRoots) assert.equal(next.elementCultivation[root], cultivationGain(many))
   assert.equal(next.qi, cultivationGain(many))
+})
+test('automatic cultivation restores qi each second and age follows system weeks', () => {
+  const bornAt = 1000, state = createInitialState(() => 0, bornAt)
+  assert.equal(characterAge(state, bornAt), 15)
+  assert.equal(characterAge(state, bornAt + YEAR_MS * 3), 18)
+  assert.equal(characterLifespan(state), 60)
+  assert.equal(transition(state, 'auto-cultivate-tick'), state)
+  const active = transition(state, { type: 'set-auto-cultivate', enabled: true })
+  const next = transition(active, 'auto-cultivate-tick')
+  assert.equal(next.qi, qiRecoveryRate(active))
+  assert.equal(next.elementCultivation.kim, qiRecoveryRate(active))
 })
 test('breakthrough consumes materials and succeeds or drops realm', () => {
   const ready = { ...initialState, realm: 2, qi: qiRequired(2), stones: 200, herbs: 20 }
@@ -35,4 +46,13 @@ test('v1 save migrates without losing progress and invalid saves are rejected', 
   const migrated = migrateSave({ version: 1, realm: 2, qi: 42, stones: 71, herbs: 9, journeys: 4 }, () => 0)
   assert.ok(isValidSave(migrated)); assert.equal(migrated.realm, 2); assert.equal(migrated.stones, 71)
   for (const value of [null, {}, { ...initialState, hp: 101 }, { ...initialState, spiritRoots: [] }]) assert.equal(isValidSave(value), false)
+})
+test('v3 save migrates to v4 with character time fields', () => {
+  const v3 = { ...initialState, version: 3 }
+  delete v3.bornAt
+  delete v3.autoCultivate
+  const migrated = migrateSave(v3, () => 0, 12345)
+  assert.equal(migrated.version, 4)
+  assert.equal(migrated.bornAt, 12345)
+  assert.equal(migrated.autoCultivate, false)
 })
