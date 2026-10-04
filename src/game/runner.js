@@ -4,12 +4,12 @@ export const SCENERY_CHUNK = 320
 export const JUMP_VELOCITY = 580
 // World-space rectangles, matching the solid silhouettes drawn by the renderer.
 const OPENING_OBSTACLES = [
-  { x: 400, width: 80, height: 48 },
-  { x: 740, width: 96, height: 64 },
+  { x: 400, width: 80, height: 48, variant: 'classic' },
+  { x: 740, width: 96, height: 64, variant: 'v2' },
   { x: 1080, width: 72, height: 48 },
-  { x: 1152, width: 112, height: 112 },
+  { x: 1152, width: 112, height: 112, variant: 'v2' },
   { x: 1730, width: 96, height: 64 },
-  { x: 2350, width: 80, height: 48 },
+  { x: 2350, width: 80, height: 48, variant: 'v2' },
   { x: 2430, width: 112, height: 112 },
   { x: 2850, width: 80, height: 64 },
 ]
@@ -20,7 +20,7 @@ const LONG_PATH_OBSTACLES = Array.from({ length: 72 }, (_, index) => {
   if (!isClearOfLandmark(x)) return null
   if (index % 3 === 1) return { x, width: 112, height: 108, bottom: 68, kind: 'floating' }
   const height = index % 5 === 0 ? 112 : index % 2 === 0 ? 64 : 48
-  return { x, width: height === 112 ? 112 : 80 + (index % 2) * 16, height }
+  return { x, width: height === 112 ? 112 : 80 + (index % 2) * 16, height, variant: index % 4 < 2 ? 'v2' : 'classic' }
 }).filter(Boolean)
 export const OBSTACLES = [...OPENING_OBSTACLES, ...LONG_PATH_OBSTACLES]
 const HALF_BODY = 18
@@ -72,7 +72,7 @@ function seededValue(index, salt = 0) {
 
 export function sceneryForChunk(index) {
   const count = 2 + Math.floor(seededValue(index, 1) * 3)
-  const kinds = ['stone', 'pebbles', 'grass', 'bamboo-shoot']
+  const kinds = ['stone', 'pebbles', 'grass', 'bamboo-shoot', 'variant-pebbles', 'variant-fern', 'variant-bamboo', 'variant-lantern']
   return {
     index,
     bambooOffset: 24 + Math.floor(seededValue(index, 2) * 180),

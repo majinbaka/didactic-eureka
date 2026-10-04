@@ -52,6 +52,8 @@ Nút túi pixel nhỏ ngay dưới avatar mở bảng Hành trang cuộn trong s
 
 Renderer dùng tọa độ crop riêng cho từng vật thể vì atlas nguồn không phải lưới đều, tránh lấy vùng trống hoặc pixel của hàng phía trên vào đá và hình nộm.
 
+Crop của mọi đá đứng được phải chặt tới pixel alpha đầu tiên ở mặt trên và cuối cùng ở chân đá; mặt collider vì thế trùng trực tiếp với silhouette, không tạo khe hở khiến chân nhân vật trông lơ lửng. Atlas biến thể v2 bổ sung bốn silhouette đá có va chạm và bốn vật trang trí không va chạm (sỏi, dương xỉ, măng trúc, đèn đá vỡ), được rải theo seed ổn định cùng cảnh cũ.
+
 Các khối đá rêu dùng atlas raster riêng, đồng bộ nét pixel, ánh sáng và palette với nhân vật cùng Rừng Trúc U Minh. Bốn silhouette đá thấp, vừa, cao hẹp và cao rộng được co đúng vùng va chạm; mặt trên ngang, cạnh đứng và thân đá liền tới chân giúp người chơi đọc chính xác nơi có thể đứng. Đá trang trí từ atlas cảnh vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua, bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp và bệ đá rêu lơ lửng có mặt đứng được. Vật cản phủ dọc tuyến 60.000px nhưng chừa vùng bia đá và cổng đích. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.
 
 ## Linh vật trên đường chạy

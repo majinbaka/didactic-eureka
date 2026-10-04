@@ -88,3 +88,5 @@ Rừng Trúc U Tinh hiện có 6 linh thảo: Thanh Trúc Diệp, Ngưng Sương
 ## Vật cản trong chương nhập môn
 
 Tám khối đá mở đầu cao 48/64/112px và hơn 60 vật cản sinh ổn định dọc tuyến 60.000px từ rừng tới đỉnh núi; vùng quanh ba bia đá và cổng đích được để trống. Hai cụm bậc tăng từ 48 lên 112px cần nhảy nối tiếp. Nhân vật bị chặn ở hai bên khi đi, chạy, bò hoặc lướt; nhảy đáp lên mặt đá, nhảy tiếp từ mặt đá và rơi khi bước khỏi mép. Bệ đá rêu lơ lửng có mặt đứng ở cao độ 108px; lực nhảy đầu là 580px/s để người chơi có thể đáp lên bệ. Bay vẫn dùng được nhưng phải lên cao hơn mặt đá để vượt. Bốn thí sinh tự nhảy và chịu cùng va chạm. Vật cản không gây mất máu và không thay đổi save. Độc Bão giảm tốc trước bước va chạm để không đẩy nhân vật xuyên đá.
+
+Hai bộ đá rêu được xen kẽ theo tuyến để tránh lặp hình; crop runtime loại toàn bộ gutter trong suốt để mặt vẽ trùng mặt va chạm. Sỏi, dương xỉ, măng trúc và đèn đá vỡ v2 là scenery thuần, người chơi đi xuyên qua được và không được dùng silhouette giống bệ đứng.

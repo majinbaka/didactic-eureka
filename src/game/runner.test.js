@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES } from './runner.js'
+import { OBSTACLE_ATLASES, OBSTACLE_SPRITES } from './scenerySprites.js'
 test('movement continues in both directions and jump lands', () => {
   let s = createRun()
   s = stepRun(s, { move: -1 }, 1)
@@ -129,6 +130,8 @@ test('obstacles cover the extended path while keeping trial landmarks clear', ()
   assert.ok(OBSTACLES.length > 60)
   assert.ok(OBSTACLES.some(obstacle => obstacle.x > 50000))
   assert.ok(OBSTACLES.some(obstacle => obstacle.kind === 'floating'))
+  assert.ok(OBSTACLES.some(obstacle => obstacle.variant === 'classic'))
+  assert.ok(OBSTACLES.some(obstacle => obstacle.variant === 'v2'))
   for (const landmark of [30000, 42000, 54000, 60000]) {
     assert.ok(OBSTACLES.every(obstacle => Math.abs(obstacle.x - landmark) > 500))
   }
@@ -141,6 +144,21 @@ test('the higher jump can land on a floating platform', () => {
   state = advance(state, {}, 120)
   assert.equal(JUMP_VELOCITY, 580)
   assert.equal(state.y, platform.height)
+})
+test('walkable obstacle crops begin exactly at their visible top surface', async () => {
+  const { default: sharp } = await import('sharp')
+  for (const [atlasName, sprites] of Object.entries(OBSTACLE_SPRITES)) {
+    const path = new URL(`../../public${OBSTACLE_ATLASES[atlasName]}`, import.meta.url)
+    const { data, info } = await sharp(path.pathname).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    for (const [name, sprite] of Object.entries(sprites)) {
+      const edgeHasPixel = localY => Array.from({ length: sprite.width }, (_, localX) => {
+        const offset = ((sprite.y + localY) * info.width + sprite.x + localX) * 4 + 3
+        return data[offset] > 8
+      }).some(Boolean)
+      assert.ok(edgeHasPixel(0), `${atlasName}/${name} must touch the collision top`)
+      assert.ok(edgeHasPixel(sprite.height - 1), `${atlasName}/${name} must touch its baseline`)
+    }
+  }
 })
 test('flight cannot pass through a wall but can fly above it and land on it', () => {
   let state = advance({ ...createRun(), x: 650, y: 40, flying: true }, { move: 1, down: true })

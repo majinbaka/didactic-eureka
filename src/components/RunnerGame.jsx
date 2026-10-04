@@ -6,12 +6,14 @@ import { breakthroughCosts, characterAge, characterLifespan, createInitialState,
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
+import { DECORATIVE_VARIANT_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES } from '../game/scenerySprites'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
   objects: '/assets/scenery/underworld-bamboo-v1/forest-objects-atlas.webp',
-  obstacles: '/assets/scenery/forest-obstacles-v1/obstacles-atlas.webp',
+  obstacles: OBSTACLE_ATLASES.classic,
+  objectVariants: OBSTACLE_ATLASES.v2,
   floatingObstacle: '/assets/scenery/floating-obstacle-v1/floating-platform.webp',
   collectibles: '/assets/items/forest-collectibles-v1.png',
 }
@@ -85,12 +87,6 @@ const OBJECT_SPRITES = [
   { x: 625, y: 730, width: 320, height: 495 },
   { x: 940, y: 730, width: 314, height: 495 },
 ]
-const OBSTACLE_SPRITES = {
-  low: { x: 45, y: 285, width: 545, height: 220 },
-  medium: { x: 670, y: 205, width: 545, height: 300 },
-  tallNarrow: { x: 170, y: 665, width: 300, height: 500 },
-  tallWide: { x: 660, y: 635, width: 570, height: 530 },
-}
 const ACTION_PAGES = [
   [
     { id: 'attack', label: 'Phóng khí', animation: 'hello' },
@@ -170,7 +166,7 @@ function drawObject(ctx, image, index, x, base, width, height, alpha = 1) {
   ctx.restore()
 }
 
-function drawGroundDetail(ctx, image, detail, x, ground) {
+function drawGroundDetail(ctx, image, variantImage, detail, x, ground) {
   const objects = {
     stone: { index: 4, width: 68, height: 68 },
     pebbles: { index: 5, width: 62, height: 48 },
@@ -178,22 +174,32 @@ function drawGroundDetail(ctx, image, detail, x, ground) {
     'bamboo-shoot': { index: 2, width: 52, height: 68 },
   }
   const object = objects[detail.kind]
+  const variant = DECORATIVE_VARIANT_SPRITES[detail.kind]
+  if (variant && variantImage?.complete && variantImage.naturalWidth) {
+    const height = detail.kind === 'variant-bamboo' ? 86 : 48
+    const width = height * variant.width / variant.height
+    ctx.drawImage(variantImage, variant.x, variant.y, variant.width, variant.height, Math.round(x - width / 2), Math.round(ground - height), width, height)
+    return
+  }
+  if (!object) return
   drawObject(ctx, image, object.index, x, ground + 4, object.width * detail.scale, object.height * detail.scale)
 }
 
-function drawObstacle(ctx, image, floatingImage, obstacle, x, top) {
+function drawObstacle(ctx, image, variantImage, floatingImage, obstacle, x, top) {
   if (obstacle.kind === 'floating') {
     if (!floatingImage?.complete || !floatingImage.naturalWidth) return
     ctx.drawImage(floatingImage, x, top, obstacle.width, obstacle.height - obstacle.bottom)
     return
   }
-  if (!image?.complete || !image.naturalWidth) return
   const key = obstacle.height >= 100
     ? (obstacle.width < 90 ? 'tallNarrow' : 'tallWide')
     : (obstacle.height <= 48 ? 'low' : 'medium')
-  const sprite = OBSTACLE_SPRITES[key]
+  const useVariant = obstacle.variant === 'v2' && variantImage?.complete && variantImage.naturalWidth
+  const source = useVariant ? variantImage : image
+  if (!source?.complete || !source.naturalWidth) return
+  const sprite = OBSTACLE_SPRITES[useVariant ? 'v2' : 'classic'][key]
   ctx.drawImage(
-    image,
+    source,
     sprite.x, sprite.y, sprite.width, sprite.height,
     x, top, obstacle.width, obstacle.height,
   )
@@ -247,7 +253,7 @@ function draw(ctx, s, width, height, input, sprites) {
   ctx.fillStyle = '#98a66b'; ctx.fillRect(0, ground, width, 4)
   for (let i = startChunk; i <= endChunk; i++) {
     const chunk = sceneryForChunk(i)
-    for (const detail of chunk.details) drawGroundDetail(ctx, sprites.objects, detail, i * SCENERY_CHUNK + detail.offset - camera, ground + 4)
+    for (const detail of chunk.details) drawGroundDetail(ctx, sprites.objects, sprites.objectVariants, detail, i * SCENERY_CHUNK + detail.offset - camera, ground + 4)
   }
   for (const t of s.targets) {
     if (!t.hp) continue
@@ -258,7 +264,7 @@ function draw(ctx, s, width, height, input, sprites) {
   for (const obstacle of OBSTACLES) {
     const x = Math.round(obstacle.x - camera), top = ground - obstacle.height
     if (x + obstacle.width < 0 || x > width) continue
-    drawObstacle(ctx, sprites.obstacles, sprites.floatingObstacle, obstacle, x, top)
+    drawObstacle(ctx, sprites.obstacles, sprites.objectVariants, sprites.floatingObstacle, obstacle, x, top)
   }
   for (const collectible of s.collectibles) drawCollectible(ctx, sprites.collectibles, collectible, camera, ground, s.time)
   const rivalFrame = animationFrame('run', s.time)
@@ -279,7 +285,7 @@ function draw(ctx, s, width, height, input, sprites) {
 export default function RunnerGame() {
   const [initialRun] = useState(createRun)
   const canvas = useRef(null), run = useRef(initialRun), input = useRef({ move: 0 }), gesture = useRef(null)
-  const sprites = useRef({ character: null, background: null, objects: null, obstacles: null, floatingObstacle: null, collectibles: null, rivals: {} })
+  const sprites = useRef({ character: null, background: null, objects: null, obstacles: null, objectVariants: null, floatingObstacle: null, collectibles: null, rivals: {} })
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0)
@@ -329,11 +335,11 @@ export default function RunnerGame() {
     return () => window.clearInterval(timer)
   }, [progress.autoCultivate])
   useEffect(() => {
-    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), floatingObstacle = new Image(), collectibles = new Image()
+    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), objectVariants = new Image(), floatingObstacle = new Image(), collectibles = new Image()
     const rivals = Object.fromEntries(Object.keys(RIVAL_CHARACTERS).map(id => [id, new Image()]))
-    sprites.current = { character, background, objects, obstacles, floatingObstacle, collectibles, rivals }
+    sprites.current = { character, background, objects, obstacles, objectVariants, floatingObstacle, collectibles, rivals }
     let loadedCount = 0
-    const assetCount = 6 + Object.keys(rivals).length
+    const assetCount = 7 + Object.keys(rivals).length
     const loaded = () => { loadedCount += 1; if (loadedCount === assetCount) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
@@ -348,6 +354,9 @@ export default function RunnerGame() {
     obstacles.onload = loaded
     obstacles.onerror = failed
     obstacles.src = SCENERY_ASSETS.obstacles
+    objectVariants.onload = loaded
+    objectVariants.onerror = failed
+    objectVariants.src = SCENERY_ASSETS.objectVariants
     floatingObstacle.onload = loaded
     floatingObstacle.onerror = failed
     floatingObstacle.src = SCENERY_ASSETS.floatingObstacle
@@ -406,7 +415,7 @@ export default function RunnerGame() {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { for (const image of [character, background, objects, obstacles, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { for (const image of [character, background, objects, obstacles, objectVariants, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
