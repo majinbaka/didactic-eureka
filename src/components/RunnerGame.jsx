@@ -4,6 +4,7 @@ import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../ga
 import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, mazeRiddle, openingScenes, prologuePhase, resolveMaze } from '../game/prologue'
+import { items, itemBlockedReason } from '../game/items'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
@@ -45,9 +46,17 @@ const ATTRIBUTE_LABELS = { canCot: ['Căn cốt', '+10 máu'], ngoTinh: ['Ngộ 
 
 function ProgressPanel({ mode, progress, notice, onAction, onClose }) {
   const cost = breakthroughCosts[progress.realm]
-  return <section className="cultivation-panel" aria-label={mode === 'roots' ? 'Linh căn và tu luyện' : 'Hồ sơ và thuộc tính'}>
-    <header><strong>{mode === 'roots' ? 'LINH CĂN NGŨ HÀNH' : 'THUỘC TÍNH'}</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
-    {mode === 'stats' ? <>
+  return <section className="cultivation-panel" aria-label={mode === 'items' ? 'Hành trang' : mode === 'roots' ? 'Linh căn và tu luyện' : 'Hồ sơ và thuộc tính'}>
+    <header><strong>{mode === 'items' ? 'HÀNH TRANG' : mode === 'roots' ? 'LINH CĂN NGŨ HÀNH' : 'THUỘC TÍNH'}</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
+    {mode === 'items' ? <div className="inventory-list">{items.map(item => {
+      const blocked = itemBlockedReason(progress, item.id)
+      const buyBlocked = itemBlockedReason(progress, item.id, true)
+      return <article key={item.id}>
+        <strong>{item.name}</strong><small>{item.kind} · {item.id === 'jade' ? (progress.inventory.jadeActive ? 'Đang hiệu lực' : progress.inventory.jade ? 'Chưa kích hoạt' : 'Chưa sở hữu') : `${progress.inventory[item.id]} ${item.id === 'pill' ? 'viên' : '/ 5 lượt'}`}</small>
+        <p>{item.description}</p>
+        <div className="panel-actions"><button disabled={!!blocked} onClick={() => onAction({ type: 'use-item', id: item.id })} aria-label={`Dùng ${item.name}`}>{item.id === 'jade' ? 'Kích hoạt' : 'Dùng'}<small>{blocked || 'Sẵn sàng'}</small></button><button disabled={!!buyBlocked} onClick={() => onAction({ type: 'buy-item', id: item.id })} aria-label={`Mua ${item.name}`}>Mua · {item.price} ◆<small>{buyBlocked || (item.id === 'gourd' ? 'Bình mới: 5 lượt' : 'Thêm 1 vật phẩm')}</small></button></div>
+      </article>
+    })}</div> : mode === 'stats' ? <>
       <p className="panel-points">Điểm tự do <b>{progress.attributePoints}</b></p>
       {Object.entries(ATTRIBUTE_LABELS).map(([id, [name, detail]]) => <div className="hud-attribute" key={id}><span><b>{name} · {progress.attributes[id]}</b><small>{detail}</small></span><button disabled={!progress.attributePoints} onClick={() => onAction({ type: 'increase-attribute', attribute: id })} aria-label={`Cộng ${name}`}>＋</button></div>)}
       <button className="explore-action" onClick={() => onAction('explore')}>Lịch luyện <small>+8 ◆ · +1 dược</small></button>
@@ -279,11 +288,13 @@ export default function RunnerGame() {
   }
   const progressAction = action => {
     const next = transition(progress, action)
-    if (next === progress) { setNotice(action === 'breakthrough' ? 'Chưa đủ linh khí hoặc vật phẩm.' : 'Chưa có điểm thuộc tính.'); return }
-    setProgress(next); saveLocal(next)
+    if (next === progress) { setNotice(action?.type === 'use-item' || action?.type === 'buy-item' ? itemBlockedReason(progress, action.id, action.type === 'buy-item') : action === 'breakthrough' ? 'Chưa đủ linh khí hoặc vật phẩm.' : 'Chưa có điểm thuộc tính.'); return }
+    setProgress(next)
+    if (!saveLocal(next)) { setNotice('Không lưu được trên thiết bị. Tiến độ chỉ còn trong phiên này.'); return }
     if (action === 'cultivate') setNotice(`Mọi linh căn sở hữu +${cultivationGain(progress)} tu vi.`)
     else if (action === 'explore') setNotice('Lịch luyện nhận 8 linh thạch và 1 linh dược.')
     else if (action === 'breakthrough') setNotice(next.realm > progress.realm ? 'Đột phá thành công! Nhận 2 điểm thuộc tính.' : `Đột phá thất bại${progress.realm ? ', tụt một cảnh giới' : ''}.`)
+    else if (action?.type === 'use-item' || action?.type === 'buy-item') setNotice(`${action.type === 'buy-item' ? 'Đã mua' : 'Đã dùng'} ${items.find(item => item.id === action.id).name}.`)
     else setNotice('Đã cộng một điểm thuộc tính.')
   }
   const requiredQi = qiRequired(progress.realm)
@@ -313,6 +324,7 @@ export default function RunnerGame() {
         <button className="hud-avatar" onClick={() => setPanel(panel === 'stats' ? null : 'stats')} aria-label="Mở hồ sơ và cộng chỉ số"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>{realms[progress.realm]}</small></span></button>
         <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ · TU LUYỆN</small></button></div>
       </div>
+      <button className="inventory-toggle" aria-expanded={panel === 'items'} onClick={() => { setNotice(''); setPanel(panel === 'items' ? null : 'items') }}>Hành trang</button>
       {panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
       <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy, F để bay, J hoặc Space để phóng khí."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}

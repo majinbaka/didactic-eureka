@@ -1,4 +1,6 @@
-export const SAVE_KEY = 'loan-gioi:save:v2'
+import { createInventory, validInventory, itemTransition } from './items.js'
+export const SAVE_KEY = 'loan-gioi:save:v3'
+export const PREVIOUS_SAVE_KEY = 'loan-gioi:save:v2'
 export const LEGACY_SAVE_KEY = 'loan-gioi:save:v1'
 export const realms = ['Luyện Khí', 'Trúc Cơ', 'Kim Đan', 'Nguyên Anh', 'Hóa Thần']
 export const elements = [
@@ -21,13 +23,13 @@ export function rollSpiritRoots(random = Math.random) {
   return roots
 }
 export function createInitialState(random = Math.random) {
-  return { version: 2, realm: 0, qi: 0, stones: 30, herbs: 2, journeys: 0, hp: 100, maxHp: 100, attributePoints: 0,
+  return { version: 3, inventory: createInventory(), realm: 0, qi: 0, stones: 30, herbs: 2, journeys: 0, hp: 100, maxHp: 100, attributePoints: 0,
     attributes: { canCot: 1, ngoTinh: 1, thanPhap: 1 }, spiritRoots: rollSpiritRoots(random),
     elementCultivation: { kim: 0, moc: 0, thuy: 0, hoa: 0, tho: 0 } }
 }
 export const initialState = createInitialState(() => 0)
 export function isValidSave(value) {
-  return value?.version === 2 && Number.isInteger(value.realm) && value.realm >= 0 && value.realm < realms.length &&
+  return value?.version === 3 && validInventory(value.inventory) && Number.isInteger(value.realm) && value.realm >= 0 && value.realm < realms.length &&
     ['qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints'].every(key => safe(value[key])) && value.maxHp >= 1 && value.hp <= value.maxHp && value.qi <= qiRequired(value.realm) &&
     ['canCot', 'ngoTinh', 'thanPhap'].every(key => safe(value.attributes?.[key]) && value.attributes[key] >= 1) &&
     Array.isArray(value.spiritRoots) && value.spiritRoots.length >= 1 && value.spiritRoots.length <= 5 && new Set(value.spiritRoots).size === value.spiritRoots.length && value.spiritRoots.every(root => elements.some(element => element.id === root)) &&
@@ -35,20 +37,27 @@ export function isValidSave(value) {
 }
 export function migrateSave(value, random = Math.random) {
   if (isValidSave(value)) return value
+  if (value?.version === 2) {
+    const next = { ...value, version: 3, inventory: createInventory() }
+    return isValidSave(next) ? next : null
+  }
   if (value?.version !== 1) return null
   const next = { ...createInitialState(random), realm: value.realm, qi: value.qi, stones: value.stones, herbs: value.herbs, journeys: value.journeys }
   return isValidSave(next) ? next : null
 }
 export function loadLocalSave(random = Math.random) {
-  try {
-    const current = JSON.parse(localStorage.getItem(SAVE_KEY)); if (isValidSave(current)) return current
-    const legacy = migrateSave(JSON.parse(localStorage.getItem(LEGACY_SAVE_KEY)), random); if (legacy) { saveLocal(legacy); return legacy }
-  } catch { /* Khởi tạo an toàn nếu dữ liệu local hỏng. */ }
+  for (const key of [SAVE_KEY, PREVIOUS_SAVE_KEY, LEGACY_SAVE_KEY]) {
+    try {
+      const migrated = migrateSave(JSON.parse(localStorage.getItem(key)), random)
+      if (migrated) { if (key !== SAVE_KEY) saveLocal(migrated); return migrated }
+    } catch { /* Thử bản lưu cũ mà không xóa dữ liệu. */ }
+  }
   return createInitialState(random)
 }
 export function saveLocal(state) { if (!isValidSave(state)) return false; try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); return true } catch { return false } }
-export const cultivationGain = state => Math.max(2, Math.floor((10 + state.attributes.ngoTinh - 1) / state.spiritRoots.length))
+export const cultivationGain = state => Math.max(2, Math.floor((10 + state.attributes.ngoTinh - 1) / state.spiritRoots.length)) + (state.inventory.jadeActive ? 2 : 0)
 export function transition(state, action, random = Math.random) {
+  if (action?.type === 'use-item' || action?.type === 'buy-item') return itemTransition(state, action)
   if (action === 'cultivate') {
     const gain = cultivationGain(state), elementCultivation = { ...state.elementCultivation }
     for (const root of state.spiritRoots) elementCultivation[root] += gain

@@ -60,3 +60,15 @@ Phiên 3–10 phút; tutorial qua nhiệm vụ nhỏ; không pay-to-win trong b�
 ## Hành động đi ngang
 
 Màn chơi có đi bộ, chạy, nhảy, bay, lướt và đánh tầm xa thời gian thực trên đường Rừng Trúc U Tinh cuộn liên tục hai hướng; nền rừng raster cuộn parallax, còn trúc, măng, cỏ, đá và sỏi từ atlas cảnh được sinh ổn định theo từng đoạn. Nhân vật còn có các animation xin chào, gãi đầu, ngủ gật, ngồi, bò, bị thương và nằm đất gục ngã. Có bốn bia gỗ từ cùng atlas cảnh, mỗi bia chịu ba đòn và đổi sang hình nứt sau khi trúng; bia không gây sát thương cho người chơi. Tốc độ đi 240px/s, chạy 390px/s, lướt 780px/s trong 0,18s, hai đòn cách nhau 0,22s. Trạng thái chương chỉ nằm trong phiên, không thưởng tài nguyên hay thay schema save. Nhân vật dùng một atlas liền thân 4×4 ô, mỗi ô 128×128px, có tóc, khuôn mặt và trang phục vẽ sẵn trong từng pose. Bộ hiện tại có 16 key pose; chưa phải chu kỳ animation nhiều frame đầy đủ. Chu kỳ chạy xen hai pose sải chân với hai pose chuyển tiếp thu chân/đổi chân từ bộ đi bộ để chuyển động đọc rõ hơn. Cụm điều khiển hiển thị tám động tác mỗi trang và dùng nút Đổi ở góc trên bên phải khi số hành động vượt quá chín nút.
+
+## Vật phẩm
+
+Hành trang mua bằng linh thạch, lưu cùng tiến độ tu luyện. Khởi đầu (và migration v1/v2) nhận 2 Hồi Xuân Đan, 1 Tụ Khí Hồ Lô 5 lượt; chưa có ngọc bội.
+
+| Vật phẩm | Loại | Giá | Hiệu quả |
+| --- | --- | --- | --- |
+| Hồi Xuân Đan | Một lần | 8 | Hồi tối đa 30 máu, mất 1 viên; tối đa 999 viên |
+| Tụ Khí Hồ Lô | Nhiều lần | 24 | 5 lượt, mỗi lượt +20 linh khí; hết lượt mới mua bình mới |
+| Ngộ Đạo Ngọc | Vĩnh viễn | 80 | Sở hữu duy nhất; kích hoạt +2 vào mỗi lần tu luyện cho linh khí và mọi linh căn |
+
+Không tiêu hao khi máu/linh khí đầy. Hiệu quả hồi bị chặn ở ngưỡng tối đa; hồ lô không tăng tu vi linh căn. Ngọc không mất sau đột phá thất bại, tải lại hay chơi lại chương và không cộng dồn qua nhiều lần kích hoạt. Vật phẩm tác động chỉ số tu luyện lâu dài, chưa tác động chuyển động/chướng ngại trong chương nhập môn. Không có cooldown hay ngẫu nhiên khi dùng/mua.

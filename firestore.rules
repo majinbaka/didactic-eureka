@@ -5,9 +5,15 @@ service cloud.firestore {
       function owner() { return request.auth != null && request.auth.uid == uid; }
       function valid() {
         let d = request.resource.data;
-        return d.keys().hasAll(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
-          && d.keys().hasOnly(['version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
-          && d.version == 2 && d.realm is int && d.realm >= 0 && d.realm <= 4
+        return d.keys().hasAll(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
+          && d.keys().hasOnly(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'updatedAt'])
+          && d.version == 3 && d.realm is int && d.realm >= 0 && d.realm <= 4
+          && d.inventory.keys().hasAll(['pill', 'gourd', 'jade', 'jadeActive'])
+          && d.inventory.keys().hasOnly(['pill', 'gourd', 'jade', 'jadeActive'])
+          && d.inventory.pill is int && d.inventory.pill >= 0 && d.inventory.pill <= 999
+          && d.inventory.gourd is int && d.inventory.gourd >= 0 && d.inventory.gourd <= 5
+          && d.inventory.jade is int && d.inventory.jade >= 0 && d.inventory.jade <= 1
+          && d.inventory.jadeActive is bool && (!d.inventory.jadeActive || d.inventory.jade == 1)
           && d.qi is int && d.qi >= 0 && d.qi <= 100 * (d.realm + 1)
           && d.stones is int && d.stones >= 0 && d.stones <= 1000000000
           && d.herbs is int && d.herbs >= 0 && d.herbs <= 1000000000

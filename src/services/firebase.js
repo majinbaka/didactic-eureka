@@ -38,7 +38,8 @@ export async function downloadSave() {
   const snapshot = await getDoc(await saveDocument())
   if (!snapshot.exists()) return null
   const data = snapshot.data()
-  const save = data.version === 1 ? migrateSave(data) : (({ version, realm, qi, stones, herbs, journeys, hp, maxHp, attributePoints, attributes, spiritRoots, elementCultivation }) => ({ version, realm, qi, stones, herbs, journeys, hp, maxHp, attributePoints, attributes, spiritRoots, elementCultivation }))(data)
+  const { updatedAt: _updatedAt, ...payload } = data
+  const save = migrateSave(payload)
   if (!isValidSave(save)) throw new Error('Bản lưu trên mây không tương thích.')
   return save
 }

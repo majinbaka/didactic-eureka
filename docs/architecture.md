@@ -26,3 +26,9 @@ Client có thể sửa tiến độ; rules hiện tại chỉ kiểm tra ownersh
 ## Offline/PWA
 
 Workbox precache HTML/CSS/JS/icon. Không runtime-cache Firebase API. localStorage không phải backup bảo đảm; trình duyệt có thể xóa dữ liệu. Bản build production trên HTTPS cần được kiểm tra install và cold reload offline thực tế trước phát hành.
+
+## Schema v3 — hành trang
+
+Local key `loan-gioi:save:v3`, giữ các trường v2 và thêm `inventory: { pill: 2, gourd: 5, jade: 0, jadeActive: false }`. `pill` là số viên 0–999; `gourd` là số lượt còn lại 0–5; `jade` là quyền sở hữu 0/1; chỉ được kích hoạt khi sở hữu. Logic danh mục, giá, điều kiện và tiêu hao nằm tại `src/game/items.js`.
+
+Load thử v3 → v2 → v1, migration giữ tiến độ và bổ sung hành trang khởi đầu; không xóa các key cũ. Cloud download cũng migration v1/v2, upload dùng v3. Rules yêu cầu inventory hợp lệ và giữ giới hạn UID. Cần triển khai rules mới trước khi upload schema v3; chưa kiểm thử Emulator trong thay đổi này.
