@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createTrial, answerTrial, tickTrial, prologuePhase, puzzles, stepTrialRun, SUMMIT_GATE, TRIAL_DISTANCE_SCALE } from './prologue.js'
+import { createTrial, answerTrial, tickTrial, prologuePhase, puzzles, stepTrialRun, PUZZLE_SECONDS, SUMMIT_GATE, TRIAL_DISTANCE_SCALE } from './prologue.js'
 import { createRun } from './runner.js'
 
 test('all three gates are required before completion', () => {
@@ -13,6 +13,11 @@ test('all three gates are required before completion', () => {
   }
   assert.equal(prologuePhase(SUMMIT_GATE, 3), 'complete')
 })
+test('each puzzle allows up to five minutes', () => {
+  assert.equal(PUZZLE_SECONDS, 300)
+  assert.deepEqual(puzzles.map(puzzle => puzzle.seconds), [300, 300, 300])
+  assert.equal(createTrial().remaining, 300)
+})
 test('correct answers advance in order, both bagua alignments required', () => {
   let trial = { ...createTrial(), active: true }
   for (let stage = 0; stage < 3; stage++) {
@@ -24,7 +29,7 @@ test('correct answers advance in order, both bagua alignments required', () => {
 test('wrong first gate traps, deducts time and drops two places, repeated inputs blocked', () => {
   const run = { ...createRun(), x: 1000 }
   const result = answerTrial({ ...createTrial(), active: true }, run, 0)
-  assert.equal(result.trial.remaining, 10)
+  assert.equal(result.trial.remaining, 290)
   assert.equal(result.trial.trapped, 5)
   assert.equal(result.run.racers.filter(r => r.x > run.x).length, 2)
   assert.equal(answerTrial(result.trial, result.run, 1).trial.stage, 0)
@@ -32,7 +37,7 @@ test('wrong first gate traps, deducts time and drops two places, repeated inputs
   assert.equal(run.racers.filter(r => r.x > run.x).length, 0)
 })
 test('poison lasts ten travel seconds and final failure knocks back fifty metres', () => {
-  const base = { ...createTrial(), active: true, stage: 1, remaining: 15 }
+  const base = { ...createTrial(), active: true, stage: 1 }
   const poisoned = answerTrial(base, createRun(), 0).trial
   assert.equal(poisoned.slow, 10)
   assert.equal(tickTrial(poisoned, createRun(), 1).trial.slow, 10)

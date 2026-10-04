@@ -78,6 +78,18 @@ test('action buttons combine jumping and crawling with forward movement', () => 
   assert.ok(leftJump.x < facingLeft.x)
 })
 
+test('jumping and crawling follow held joystick direction instead of automatic facing', () => {
+  const facingRight = createRun()
+  const jumpingLeft = stepRun(facingRight, { move: -1, jump: true }, .1)
+  assert.ok(jumpingLeft.x < facingRight.x)
+  assert.equal(jumpingLeft.facing, -1)
+
+  const facingLeft = { ...createRun(), facing: -1 }
+  const crawlingRight = stepRun(facingLeft, { move: 1, action: 'crawl' }, .5)
+  assert.ok(crawlingRight.x > facingLeft.x)
+  assert.equal(crawlingRight.facing, 1)
+})
+
 const advance = (state, input, frames = 120) => {
   for (let i = 0; i < frames; i++) state = stepRun(state, input, 1 / 120)
   return state

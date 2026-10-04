@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createRun, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
-import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
+import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
@@ -373,9 +373,13 @@ export default function RunnerGame() {
       input.current.fire = true
       setTimeout(() => { input.current.fire = false }, 180)
     } else if (action === 'dash') input.current.dash = true
-    else if (action === 'jump') { input.current.jump = true; input.current.actionMove = true }
+    else if (action === 'jump') { input.current.jump = true; input.current.actionMove = !joystick.current }
     else if (action === 'fly') input.current.flyToggle = true
-    else { input.current.action = action; if (action === 'crawl') input.current.actionMove = true }
+    else { input.current.action = action; if (action === 'crawl') input.current.actionMove = !joystick.current }
+  }
+  const activateAction = (event, action) => {
+    // Pointer down preserves simultaneous joystick input; keyboard activation arrives as click detail 0.
+    if (event.type === 'pointerdown' || event.detail === 0) triggerAction(action)
   }
   const progressAction = action => {
     const next = transition(progress, action)
@@ -411,6 +415,7 @@ export default function RunnerGame() {
     processedPickup.current = 0; setCollectionView(run.current.collectibles)
     trialRef.current = createTrial(); setTrial(trialRef.current); setFish(3); setRing(0)
     setStoryIndex(0); setStoryStarted(false); setPhase('forest'); setPlayerX(100)
+    setHits(0); setRank(1); setPanel(null); setJoystickView(null); joystick.current = null
   }
   const puzzle = puzzles[trial.stage]
   return <main className="runner-shell">
@@ -418,7 +423,7 @@ export default function RunnerGame() {
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được cảnh Rừng Trúc. Hãy tải lại trang để thử lại.' : 'Đang tải Rừng Trúc U Tinh…'}</p>}
       <div className="runner-hud cultivation-hud">
         <div className="hud-sidebar">
-          <button className="hud-avatar" onClick={() => setPanel(panel === 'stats' ? null : 'stats')} aria-label="Mở hồ sơ và cộng chỉ số"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>{realms[progress.realm]}</small></span></button>
+          <button className="hud-avatar" onClick={restartChapter} aria-label="Đưa nhân vật về đầu chương"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>VỀ ĐẦU</small></span></button>
           <button className="inventory-toggle" aria-label="Mở hành trang" aria-expanded={panel === 'items'} onClick={() => { setNotice(''); setPanel(panel === 'items' ? null : 'items') }}><img src="/assets/ui/inventory-bag-v1.png" alt="" /></button>
         </div>
         <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'collectibles' ? null : 'collectibles')}><span>❋ {progress.herbs}</span><small>LINH THẢO</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ</small></button></div>
@@ -443,7 +448,8 @@ export default function RunnerGame() {
             key={action.id}
             className={`combat-action combat-action--${action.id}${index >= 4 ? ' combat-action--utility' : ''}`}
             aria-label={action.id === 'fly' ? 'Bật hoặc tắt bay' : action.label}
-            onClick={() => triggerAction(action.id)}
+            onPointerDown={event => activateAction(event, action.id)}
+            onClick={event => activateAction(event, action.id)}
           ><ActionSprite animation={action.animation} elapsed={action.elapsed} /><span>{action.label}</span></button>)}
           <button className="combat-action combat-action--more" aria-label={`Mở trang động tác ${actionPage === 0 ? 2 : 1}`} aria-pressed={actionPage === 1} onClick={() => setActionPage(page => (page + 1) % ACTION_PAGES.length)}>
             <b aria-hidden="true">{actionPage + 1}/{ACTION_PAGES.length}</b><span>Đổi</span>
