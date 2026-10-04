@@ -320,7 +320,7 @@ export default function RunnerGame() {
         setRank(1 + result.run.racers.filter(r => r.x > result.run.x).length)
         if (!current.active && result.trial.active) setPanel(null)
       }
-      input.current.jump = false; input.current.dash = false; input.current.flyToggle = false; input.current.action = null
+      input.current.jump = false; input.current.dash = false; input.current.flyToggle = false; input.current.action = null; input.current.actionMove = false
       const c = canvas.current, width = c.clientWidth, height = c.clientHeight
       if (c.width !== width || c.height !== height) { c.width = width; c.height = height }
       const context = c.getContext('2d'); context.imageSmoothingEnabled = false
@@ -373,9 +373,9 @@ export default function RunnerGame() {
       input.current.fire = true
       setTimeout(() => { input.current.fire = false }, 180)
     } else if (action === 'dash') input.current.dash = true
-    else if (action === 'jump') input.current.jump = true
+    else if (action === 'jump') { input.current.jump = true; input.current.actionMove = true }
     else if (action === 'fly') input.current.flyToggle = true
-    else input.current.action = action
+    else { input.current.action = action; if (action === 'crawl') input.current.actionMove = true }
   }
   const progressAction = action => {
     const next = transition(progress, action)

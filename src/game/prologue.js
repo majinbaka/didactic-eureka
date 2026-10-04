@@ -75,5 +75,6 @@ export function tickTrial(trial, run, dt) {
 }
 
 export function stepTrialRun(run, input, dt, trial) {
+  if (trial.active || trial.trapped > 0) return run
   return stepRun(run, { ...input, speedScale: trial.slow > 0 ? .8 : 1 }, dt)
 }

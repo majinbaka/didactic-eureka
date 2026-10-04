@@ -51,15 +51,31 @@ test('actions expire except for collapse', () => {
   s = stepRun(s, { action: 'collapse' }, 10)
   assert.equal(s.action, 'collapse')
 })
-test('four existing characters join the race and advance independently', () => {
+test('four existing characters start behind the player and advance independently without waiting', () => {
   const start = createRun()
   assert.deepEqual(start.racers.map(racer => racer.id), ['female', 'bald-monk', 'strongman', 'elder'])
+  assert.ok(start.racers.every(racer => racer.x < start.x))
   const next = stepRun(start, {}, .1)
-  assert.equal(start.racers[0].x, 156)
   assert.ok(next.racers.every((racer, index) => racer.x > start.racers[index].x))
   assert.equal(new Set(next.racers.map(racer => racer.x)).size, 4)
-  const waiting = Array.from({ length: 20 }).reduce(state => stepRun(state, {}, .25), next)
-  assert.ok(waiting.racers.every((racer, index) => racer.x <= waiting.x + 150 + index * 72))
+  const racing = Array.from({ length: 20 }).reduce(state => stepRun(state, {}, .25), next)
+  assert.ok(racing.racers.every(racer => racer.x > racing.x + 500))
+  assert.ok(racing.racers.every(racer => racer.speed < 342))
+})
+
+test('action buttons combine jumping and crawling with forward movement', () => {
+  const start = createRun()
+  const jumping = stepRun(start, { jump: true, actionMove: true }, .1)
+  assert.ok(jumping.x > start.x)
+  assert.ok(jumping.y > 0)
+
+  const crawling = stepRun(createRun(), { action: 'crawl', actionMove: true }, .5)
+  assert.equal(crawling.action, 'crawl')
+  assert.ok(crawling.x > 100)
+
+  const facingLeft = { ...createRun(), facing: -1 }
+  const leftJump = stepRun(facingLeft, { jump: true, actionMove: true }, .1)
+  assert.ok(leftJump.x < facingLeft.x)
 })
 
 const advance = (state, input, frames = 120) => {

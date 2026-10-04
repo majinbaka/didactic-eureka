@@ -46,10 +46,10 @@ function moveBody(body, velocity, dt, input = {}) {
 }
 const ACTION_DURATION = { hello: 1.4, scratch: 1.4, doze: 3, sit: 3, crawl: 2.2, hurt: .4, collapse: Infinity }
 const RACERS = [
-  { id: 'female', name: 'Linh Nhi', x: 56, lane: -10, speed: 372, rhythm: .7 },
-  { id: 'bald-monk', name: 'Minh Không', x: 22, lane: 7, speed: 356, rhythm: 1.9 },
-  { id: 'strongman', name: 'Thiết Sơn', x: -18, lane: 15, speed: 342, rhythm: 3.1 },
-  { id: 'elder', name: 'Bạch Tùng', x: -58, lane: -2, speed: 365, rhythm: 4.4 },
+  { id: 'female', name: 'Linh Nhi', x: -25, lane: -10, speed: 225, rhythm: .7 },
+  { id: 'bald-monk', name: 'Minh Không', x: -60, lane: 7, speed: 218, rhythm: 1.9 },
+  { id: 'strongman', name: 'Thiết Sơn', x: -95, lane: 15, speed: 205, rhythm: 3.1 },
+  { id: 'elder', name: 'Bạch Tùng', x: -130, lane: -2, speed: 222, rhythm: 4.4 },
 ]
 
 function seededValue(index, salt = 0) {
@@ -75,7 +75,7 @@ export function sceneryForChunk(index) {
 }
 export function createRun() {
   return {
-    x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0,
+    x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, actionMove: 0, flying: false, action: null, actionTime: 0,
     racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x, y: 0, vy: 0 })),
     shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })),
     collectibles: createStageCollectibles(), lastPickup: null, pickupSequence: 0,
@@ -86,7 +86,9 @@ export function stepRun(state, input, dt) {
   s.time += dt
   s.cooldown = Math.max(0, s.cooldown - dt)
   s.dash = Math.max(0, s.dash - dt)
+  s.actionMove = Math.max(0, (s.actionMove || 0) - dt)
   if (input.action && ACTION_DURATION[input.action]) { s.action = input.action; s.actionTime = 0 }
+  if (input.actionMove) s.actionMove = input.action === 'crawl' ? ACTION_DURATION.crawl : .55
   if (s.action) {
     s.actionTime += dt
     if (s.actionTime >= ACTION_DURATION[s.action]) { s.action = null; s.actionTime = 0 }
@@ -97,17 +99,16 @@ export function stepRun(state, input, dt) {
   if (input.jump && isSupported(s) && !s.flying && canMove) s.vy = 540
   if (input.dash) s.dash = .18
   const speed = s.action === 'crawl' ? 90 : input.run ? 390 : 240
-  moveBody(s, (canMove ? (s.dash ? s.facing * 780 : (input.move || 0) * speed) : 0) * (input.speedScale ?? 1), dt, input)
+  const move = input.move || (s.actionMove > 0 ? s.facing : 0)
+  moveBody(s, (canMove ? (s.dash ? s.facing * 780 : move * speed) : 0) * (input.speedScale ?? 1), dt, input)
   const pickup = collectNearby(s.collectibles, s.x)
   s.collectibles = pickup.collectibles
   if (pickup.collected) { s.lastPickup = pickup.collected; s.pickupSequence += 1 }
-  for (const [index, racer] of s.racers.entries()) {
+  for (const racer of s.racers) {
     const stride = Math.sin(s.time * 1.7 + racer.rhythm) * 22
-    const speed = Math.max(250, racer.speed + stride)
+    const speed = Math.max(175, racer.speed + stride)
     if (isSupported(racer) && OBSTACLES.some(o => o.height > racer.y && o.x >= racer.x + 82 && o.x - (racer.x + 82) < 90)) racer.vy = 540
-    const limit = Math.max(racer.x, s.x + 150 + index * 72)
-    moveBody(racer, dt > 0 ? Math.max(0, Math.min(speed, (limit - racer.x) / dt)) : 0, dt)
-    racer.x = Math.min(racer.x, limit)
+    moveBody(racer, speed, dt)
   }
   if (input.fire && !s.cooldown && s.action !== 'collapse') {
     s.shots.push({ x: s.x + 64 + s.facing * 48, y: s.y + 62, dir: s.facing })

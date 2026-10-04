@@ -57,3 +57,12 @@ test('poison scales walking, running and dashing by twenty percent', () => {
     assert.ok(Math.abs((slowed.x - run.x) / (normal.x - run.x) - .8) < 1e-9)
   }
 })
+
+test('opening a trial dialogue pauses the player and every rival', () => {
+  const run = createRun()
+  const active = stepTrialRun(run, { move: 1, run: true }, 1, { ...createTrial(), active: true })
+  const trapped = stepTrialRun(run, { move: 1 }, 1, { ...createTrial(), trapped: 5 })
+  assert.equal(active, run)
+  assert.equal(trapped, run)
+  assert.deepEqual(active.racers, run.racers)
+})
