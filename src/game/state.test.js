@@ -26,6 +26,11 @@ test('attribute points increase selected stats', () => {
   const next = transition({ ...initialState, attributePoints: 1 }, { type: 'increase-attribute', attribute: 'canCot' })
   assert.equal(next.attributes.canCot, 2); assert.equal(next.maxHp, 110); assert.equal(next.attributePoints, 0)
 })
+test('runner loot adds existing resources and rejects invalid rewards', () => {
+  const next = transition(initialState, { type: 'collect-runner-loot', herbs: 2, stones: 3 })
+  assert.equal(next.herbs, initialState.herbs + 2); assert.equal(next.stones, initialState.stones + 3)
+  assert.equal(transition(initialState, { type: 'collect-runner-loot', herbs: -1, stones: 0 }), initialState)
+})
 test('v1 save migrates without losing progress and invalid saves are rejected', () => {
   const migrated = migrateSave({ version: 1, realm: 2, qi: 42, stones: 71, herbs: 9, journeys: 4 }, () => 0)
   assert.ok(isValidSave(migrated)); assert.equal(migrated.realm, 2); assert.equal(migrated.stones, 71)

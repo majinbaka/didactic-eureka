@@ -1,3 +1,5 @@
+import { collectNearby, createStageCollectibles } from './collectibles.js'
+
 export const SCENERY_CHUNK = 320
 // World-space rectangles, matching the solid silhouettes drawn by the renderer.
 export const OBSTACLES = [
@@ -76,10 +78,11 @@ export function createRun() {
     x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, flying: false, action: null, actionTime: 0,
     racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x, y: 0, vy: 0 })),
     shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })),
+    collectibles: createStageCollectibles(), lastPickup: null, pickupSequence: 0,
   }
 }
 export function stepRun(state, input, dt) {
-  const s = { ...state, racers: state.racers.map(racer => ({ ...racer })), shots: state.shots.map(b => ({ ...b })), targets: state.targets.map(t => ({ ...t })) }
+  const s = { ...state, racers: state.racers.map(racer => ({ ...racer })), shots: state.shots.map(b => ({ ...b })), targets: state.targets.map(t => ({ ...t })), collectibles: state.collectibles.map(item => ({ ...item })) }
   s.time += dt
   s.cooldown = Math.max(0, s.cooldown - dt)
   s.dash = Math.max(0, s.dash - dt)
@@ -95,6 +98,9 @@ export function stepRun(state, input, dt) {
   if (input.dash) s.dash = .18
   const speed = s.action === 'crawl' ? 90 : input.run ? 390 : 240
   moveBody(s, (canMove ? (s.dash ? s.facing * 780 : (input.move || 0) * speed) : 0) * (input.speedScale ?? 1), dt, input)
+  const pickup = collectNearby(s.collectibles, s.x)
+  s.collectibles = pickup.collectibles
+  if (pickup.collected) { s.lastPickup = pickup.collected; s.pickupSequence += 1 }
   for (const [index, racer] of s.racers.entries()) {
     const stride = Math.sin(s.time * 1.7 + racer.rhythm) * 22
     const speed = Math.max(250, racer.speed + stride)

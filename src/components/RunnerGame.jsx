@@ -5,12 +5,33 @@ import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
+import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
 import PwaControls from './PwaControls'
 
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
   objects: '/assets/scenery/underworld-bamboo-v1/forest-objects-atlas.webp',
   obstacles: '/assets/scenery/forest-obstacles-v1/obstacles-atlas.webp',
+  collectibles: '/assets/items/forest-collectibles-v1.png',
+}
+
+function CollectibleIcon({ item }) {
+  return <i className="collectible-icon" aria-hidden="true" style={{ backgroundPosition: `${(item.sprite % 4) * 100 / 3}% ${Math.floor(item.sprite / 4) * 100}%` }} />
+}
+
+function CollectiblePanel({ collectibles, onClose }) {
+  const collectedCounts = collectibles.reduce((counts, spawn) => {
+    if (spawn.collected) counts[spawn.itemId] = (counts[spawn.itemId] || 0) + 1
+    return counts
+  }, {})
+  const totalCounts = collectibles.reduce((counts, spawn) => { counts[spawn.itemId] = (counts[spawn.itemId] || 0) + 1; return counts }, {})
+  return <section className="cultivation-panel collectible-panel" aria-label="Bách khoa thu thập Rừng Trúc U Tinh">
+    <header><strong>LINH VẬT · RỪNG TRÚC U TINH</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
+    <p className="root-summary">6 linh thảo · 2 linh thạch · tự nhặt khi chạm vào</p>
+    <div className="collectible-list">{collectibleCatalog.map(item => <article key={item.id} className={collectedCounts[item.id] ? 'is-collected' : ''}>
+      <CollectibleIcon item={item} /><span><strong>{item.name}</strong><small style={{ color: RARITIES[item.rarity].color }}>{item.kind === 'herb' ? 'Linh thảo' : 'Linh thạch'} · {RARITIES[item.rarity].name}</small><p>{item.description}</p></span><b>{collectedCounts[item.id] || 0}/{totalCounts[item.id] || 0}</b>
+    </article>)}</div>
+  </section>
 }
 const RIVAL_CHARACTERS = {
   female: '/assets/characters/female-v1/character-female-v1-sheet.png',
@@ -131,6 +152,20 @@ function drawObstacle(ctx, image, obstacle, x, top) {
   )
 }
 
+function drawCollectible(ctx, image, spawn, camera, ground, time) {
+  if (spawn.collected || !image?.complete || !image.naturalWidth) return
+  const item = collectibleCatalog.find(entry => entry.id === spawn.itemId)
+  if (!item) return
+  const x = spawn.x - camera, y = ground - 30 + Math.round(Math.sin(time * 3 + spawn.x) * 3)
+  if (x < -40 || x > ctx.canvas.width + 40) return
+  const sourceX = (item.sprite % 4) * 32, sourceY = Math.floor(item.sprite / 4) * 32
+  ctx.save()
+  ctx.globalAlpha = .28 + Math.sin(time * 4 + spawn.x) * .06
+  ctx.fillStyle = RARITIES[item.rarity].color; ctx.fillRect(Math.round(x - 17), y - 18, 34, 34)
+  ctx.globalAlpha = 1; ctx.drawImage(image, sourceX, sourceY, 32, 32, Math.round(x - 16), y - 16, 32, 32)
+  ctx.restore()
+}
+
 function drawBackground(ctx, image, width, height, camera) {
   if (!image?.complete || !image.naturalWidth) {
     ctx.fillStyle = '#6f8b76'; ctx.fillRect(0, 0, width, height)
@@ -178,6 +213,7 @@ function draw(ctx, s, width, height, input, sprites) {
     if (x + obstacle.width < 0 || x > width) continue
     drawObstacle(ctx, sprites.obstacles, obstacle, x, top)
   }
+  for (const collectible of s.collectibles) drawCollectible(ctx, sprites.collectibles, collectible, camera, ground, s.time)
   const rivalFrame = animationFrame('run', s.time)
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
     const x = racer.x - camera + 64
@@ -193,8 +229,9 @@ function draw(ctx, s, width, height, input, sprites) {
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
 export default function RunnerGame() {
-  const canvas = useRef(null), run = useRef(createRun()), input = useRef({ move: 0 }), gesture = useRef(null)
-  const sprites = useRef({ character: null, background: null, objects: null, rivals: {} })
+  const [initialRun] = useState(createRun)
+  const canvas = useRef(null), run = useRef(initialRun), input = useRef({ move: 0 }), gesture = useRef(null)
+  const sprites = useRef({ character: null, background: null, objects: null, obstacles: null, collectibles: null, rivals: {} })
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0)
@@ -213,6 +250,8 @@ export default function RunnerGame() {
   const [progress, setProgress] = useState(loadLocalSave)
   const [panel, setPanel] = useState(null)
   const [notice, setNotice] = useState('Bấm vào HUD để mở tu luyện và cộng chỉ số.')
+  const [collectionView, setCollectionView] = useState(initialRun.collectibles)
+  const processedPickup = useRef(0)
   const [portrait, setPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches)
   const enterLandscape = async () => {
     try {
@@ -231,11 +270,11 @@ export default function RunnerGame() {
     return () => orientation.removeEventListener('change', updateOrientation)
   }, [])
   useEffect(() => {
-    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image()
+    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), collectibles = new Image()
     const rivals = Object.fromEntries(Object.keys(RIVAL_CHARACTERS).map(id => [id, new Image()]))
-    sprites.current = { character, background, objects, obstacles, rivals }
+    sprites.current = { character, background, objects, obstacles, collectibles, rivals }
     let loadedCount = 0
-    const assetCount = 4 + Object.keys(rivals).length
+    const assetCount = 5 + Object.keys(rivals).length
     const loaded = () => { loadedCount += 1; if (loadedCount === assetCount) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
@@ -250,6 +289,9 @@ export default function RunnerGame() {
     obstacles.onload = loaded
     obstacles.onerror = failed
     obstacles.src = SCENERY_ASSETS.obstacles
+    collectibles.onload = loaded
+    collectibles.onerror = failed
+    collectibles.src = SCENERY_ASSETS.collectibles
     for (const [id, image] of Object.entries(rivals)) {
       image.onload = loaded
       image.onerror = failed
@@ -261,6 +303,17 @@ export default function RunnerGame() {
       const current = trialRef.current
       const frozen = !storyStarted || current.active || current.trapped > 0 || prologuePhase(run.current.x, current.stage) === 'complete'
       if (!frozen) run.current = stepTrialRun(run.current, input.current, dt, current)
+      if (run.current.pickupSequence > processedPickup.current) {
+        processedPickup.current = run.current.pickupSequence
+        const item = run.current.lastPickup, reward = collectibleReward(item)
+        setProgress(previous => {
+          const next = transition(previous, { type: 'collect-runner-loot', ...reward })
+          if (!saveLocal(next)) setNotice('Đã nhặt vật phẩm nhưng không lưu được trên thiết bị.')
+          else setNotice(`Đã nhặt ${item.name} · +${reward.herbs || reward.stones} ${reward.herbs ? 'linh thảo' : 'linh thạch'}.`)
+          return next
+        })
+        setCollectionView(run.current.collectibles)
+      }
       if (storyStarted) {
         const result = tickTrial(current, run.current, dt)
         trialRef.current = result.trial; run.current = result.run; setTrial(result.trial)
@@ -291,7 +344,7 @@ export default function RunnerGame() {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { for (const image of [character, background, objects, obstacles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { for (const image of [character, background, objects, obstacles, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
@@ -355,6 +408,7 @@ export default function RunnerGame() {
   }, [trial.active])
   const restartChapter = () => {
     run.current = createRun(); input.current = { move: 0 }
+    processedPickup.current = 0; setCollectionView(run.current.collectibles)
     trialRef.current = createTrial(); setTrial(trialRef.current); setFish(3); setRing(0)
     setStoryIndex(0); setStoryStarted(false); setPhase('forest'); setPlayerX(100)
   }
@@ -364,10 +418,10 @@ export default function RunnerGame() {
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được cảnh Rừng Trúc. Hãy tải lại trang để thử lại.' : 'Đang tải Rừng Trúc U Tinh…'}</p>}
       <div className="runner-hud cultivation-hud">
         <button className="hud-avatar" onClick={() => setPanel(panel === 'stats' ? null : 'stats')} aria-label="Mở hồ sơ và cộng chỉ số"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>{realms[progress.realm]}</small></span></button>
-        <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ · TU LUYỆN</small></button></div>
+        <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'collectibles' ? null : 'collectibles')}><span>❋ {progress.herbs}</span><small>LINH THẢO</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ</small></button></div>
       </div>
       <button className="inventory-toggle" aria-expanded={panel === 'items'} onClick={() => { setNotice(''); setPanel(panel === 'items' ? null : 'items') }}>Hành trang</button>
-      {panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
+      {panel === 'collectibles' ? <CollectiblePanel collectibles={collectionView} onClose={() => setPanel(null)} /> : panel && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
       <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy qua hoặc lên bậc đá, F để bay, J hoặc Space để phóng khí."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />

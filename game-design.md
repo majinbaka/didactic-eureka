@@ -73,6 +73,12 @@ Hành trang mua bằng linh thạch, lưu cùng tiến độ tu luyện. Khởi 
 
 Không tiêu hao khi máu/linh khí đầy. Hiệu quả hồi bị chặn ở ngưỡng tối đa; hồ lô không tăng tu vi linh căn. Ngọc không mất sau đột phá thất bại, tải lại hay chơi lại chương và không cộng dồn qua nhiều lần kích hoạt. Vật phẩm tác động chỉ số tu luyện lâu dài, chưa tác động chuyển động/chướng ngại trong chương nhập môn. Không có cooldown hay ngẫu nhiên khi dùng/mua.
 
+### Linh vật thu thập theo bản đồ
+
+Mỗi bản đồ có bảng vật phẩm riêng, giới hạn 4–7 loại linh thảo và 1–2 loại linh thạch. Vật phẩm xuất hiện ở vị trí cố định theo màn, phân thành Phổ thông, Ít gặp, Quý hiếm và Cực phẩm; nhân vật tự nhặt khi chạy chạm qua. Bách khoa thu thập hiển thị ảnh pixel, mô tả, độ hiếm và số điểm xuất hiện đã nhặt trong phiên.
+
+Rừng Trúc U Tinh hiện có 6 linh thảo: Thanh Trúc Diệp, Ngưng Sương Thảo, Xích Dương Hoa, U Minh Cô, Bạch Ngọc Sâm, Tử Vân Chi; cùng 2 linh thạch: Thanh Linh Thạch và Tử Tinh Thạch. Linh thảo thường quy đổi +1 linh thảo, Tử Vân Chi +2; Thanh Linh Thạch +1 linh thạch, Tử Tinh Thạch +3. Phần thưởng cộng ngay vào tài nguyên save v3 hiện có; trạng thái từng điểm nhặt chỉ tồn tại trong phiên màn chơi và được đặt lại khi chơi lại chương.
+
 ## Vật cản trong chương nhập môn
 
 Tám khối đá cố định cao 48/64/112px trên đường từ rừng tới đỉnh núi. Hai cụm bậc tăng từ 48 lên 112px cần nhảy nối tiếp; các cửa bia đá và điểm bắt đầu để trống. Nhân vật bị chặn ở hai bên khi đi, chạy, bò hoặc lướt; nhảy đáp lên mặt đá, nhảy tiếp từ mặt đá và rơi khi bước khỏi mép. Bay vẫn dùng được nhưng phải lên cao hơn mặt đá để vượt. Bốn thí sinh tự nhảy và chịu cùng va chạm. Vật cản không gây mất máu và không thay đổi save. Độc Bão giảm tốc trước bước va chạm để không đẩy nhân vật xuyên đá.

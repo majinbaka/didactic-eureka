@@ -17,6 +17,14 @@ test('procedural scenery is stable and varies between chunks', () => {
   assert.notDeepEqual(sceneryForChunk(42), sceneryForChunk(43))
   assert.ok(sceneryForChunk(-3).details.length >= 2)
 })
+test('walking across a collectible picks it up once', () => {
+  let state = { ...createRun(), x: 190 }
+  state = stepRun(state, { move: 1 }, .1)
+  assert.equal(state.pickupSequence, 1)
+  assert.equal(state.lastPickup.id, 'thanh-truc-diep')
+  const next = stepRun(state, {}, .1)
+  assert.equal(next.pickupSequence, 1)
+})
 test('three shots destroy a target and preserve input state', () => {
   let s = createRun(); s.x = 430
   const before = structuredClone(s)

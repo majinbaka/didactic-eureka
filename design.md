@@ -50,3 +50,7 @@ Nút Hành trang mở bảng cuộn trong sân chơi. Mỗi vật phẩm có tê
 ## Vật cản đi cảnh
 
 Các khối đá rêu dùng atlas raster riêng, đồng bộ nét pixel, ánh sáng và palette với nhân vật cùng Rừng Trúc U Minh. Bốn silhouette đá thấp, vừa, cao hẹp và cao rộng được co đúng vùng va chạm; mặt trên ngang, cạnh đứng và thân đá liền tới chân giúp người chơi đọc chính xác nơi có thể đứng. Đá trang trí từ atlas cảnh vẫn chỉ là cảnh nền. Có đá thấp để nhảy qua và bậc liền nhau để nhảy lên, đứng nghỉ rồi nhảy tiếp. W/mũi tên lên, vuốt lên hoặc nút Nhảy dùng chung cơ chế.
+
+## Linh vật trên đường chạy
+
+Linh thảo và linh thạch dùng atlas raster nội bộ 4×2 ô, mỗi ô 32×32px, cạnh cứng và có quầng sáng mang màu độ hiếm. Vật phẩm lơ lửng nhẹ trên mặt đất, tự biến mất khi nhân vật chạm qua. HUD hiển thị đồng thời tổng linh thảo và linh thạch; chạm ô linh thảo mở bách khoa hai cột (một cột trên màn hẹp/thấp), gồm ảnh, tên, loại, độ hiếm, mô tả và tiến độ nhặt trong phiên. Thông báo nhặt dùng vùng trạng thái hiện có, không che điều khiển.

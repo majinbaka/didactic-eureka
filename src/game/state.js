@@ -58,6 +58,11 @@ export function saveLocal(state) { if (!isValidSave(state)) return false; try { 
 export const cultivationGain = state => Math.max(2, Math.floor((10 + state.attributes.ngoTinh - 1) / state.spiritRoots.length)) + (state.inventory.jadeActive ? 2 : 0)
 export function transition(state, action, random = Math.random) {
   if (action?.type === 'use-item' || action?.type === 'buy-item') return itemTransition(state, action)
+  if (action?.type === 'collect-runner-loot') {
+    const herbs = safe(action.herbs) ? action.herbs : 0, stones = safe(action.stones) ? action.stones : 0
+    if (!herbs && !stones) return state
+    return { ...state, herbs: Math.min(1000000000, state.herbs + herbs), stones: Math.min(1000000000, state.stones + stones) }
+  }
   if (action === 'cultivate') {
     const gain = cultivationGain(state), elementCultivation = { ...state.elementCultivation }
     for (const root of state.spiritRoots) elementCultivation[root] += gain
