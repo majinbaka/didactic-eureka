@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { createRun, sceneryForChunk, SCENERY_CHUNK, stepRun } from '../game/runner'
+import { createRun, sceneryForChunk, SCENERY_CHUNK } from '../game/runner'
 import { animationFrame, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
 import { breakthroughCosts, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
-import { SUMMIT_GATE, mazeRiddle, openingScenes, prologuePhase, resolveMaze } from '../game/prologue'
+import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import PwaControls from './PwaControls'
 
@@ -173,11 +173,14 @@ export default function RunnerGame() {
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [hits, setHits] = useState(0)
+  const [rank, setRank] = useState(1)
   const [storyIndex, setStoryIndex] = useState(0)
   const [storyStarted, setStoryStarted] = useState(false)
-  const [mazeSolved, setMazeSolved] = useState(false)
-  const [mazeMessage, setMazeMessage] = useState('')
-  const [dreaming, setDreaming] = useState(false)
+  const trialRef = useRef(createTrial())
+  const [trial, setTrial] = useState(createTrial)
+  const [fish, setFish] = useState(3)
+  const [ring, setRing] = useState(0)
+  const puzzleDialog = useRef(null)
   const [phase, setPhase] = useState('forest')
   const [playerX, setPlayerX] = useState(100)
   const [joystickView, setJoystickView] = useState(null)
@@ -227,14 +230,21 @@ export default function RunnerGame() {
     let frame, last = 0
     const tick = now => {
       const dt = Math.min((now - (last || now)) / 1000, .035); last = now
-      const frozen = !storyStarted || dreaming || prologuePhase(run.current.x, mazeSolved) === 'maze' || prologuePhase(run.current.x, mazeSolved) === 'complete'
-      run.current = frozen ? run.current : stepRun(run.current, input.current, dt)
+      const current = trialRef.current
+      const frozen = !storyStarted || current.active || current.trapped > 0 || prologuePhase(run.current.x, current.stage) === 'complete'
+      if (!frozen) run.current = stepTrialRun(run.current, input.current, dt, current)
+      if (storyStarted) {
+        const result = tickTrial(current, run.current, dt)
+        trialRef.current = result.trial; run.current = result.run; setTrial(result.trial)
+        setRank(1 + result.run.racers.filter(r => r.x > result.run.x).length)
+        if (!current.active && result.trial.active) setPanel(null)
+      }
       input.current.jump = false; input.current.dash = false; input.current.flyToggle = false; input.current.action = null
       const c = canvas.current, width = c.clientWidth, height = c.clientHeight
       if (c.width !== width || c.height !== height) { c.width = width; c.height = height }
       const context = c.getContext('2d'); context.imageSmoothingEnabled = false
       draw(context, run.current, width, height, input.current, sprites.current)
-      setHits(run.current.hits); setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, mazeSolved))
+      setHits(run.current.hits); setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.current.stage))
       frame = requestAnimationFrame(tick)
     }
     const key = (e, down) => {
@@ -254,7 +264,7 @@ export default function RunnerGame() {
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
     return () => { for (const image of [character, background, objects, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
-  }, [dreaming, mazeSolved, storyStarted])
+  }, [storyStarted])
   const updateJoystick = e => {
     const active = joystick.current
     if (!active || active.pointerId !== e.pointerId) return
@@ -303,20 +313,24 @@ export default function RunnerGame() {
     if (storyIndex < openingScenes.length - 1) setStoryIndex(index => index + 1)
     else setStoryStarted(true)
   }
-  const chooseMaze = choice => {
-    const result = resolveMaze(choice)
-    setMazeMessage(result.message)
-    if (result.solved) setMazeSolved(true)
-    else setDreaming(true)
+  const chooseMaze = answer => {
+    const result = answerTrial(trialRef.current, run.current, answer)
+    trialRef.current = result.trial; run.current = result.run; setTrial(result.trial)
+    input.current = { move: 0 }
+    if (!result.trial.active) canvas.current?.focus()
   }
-  const retryDream = () => {
-    run.current = createRun(); input.current = { move: 0 }
-    setDreaming(false); setMazeSolved(false); setMazeMessage(''); setPhase('forest'); setPlayerX(100)
-  }
+  useEffect(() => {
+    if (trial.active) {
+      input.current = { move: 0 }
+      puzzleDialog.current?.focus()
+    }
+  }, [trial.active])
   const restartChapter = () => {
     run.current = createRun(); input.current = { move: 0 }
-    setStoryIndex(0); setStoryStarted(false); setMazeSolved(false); setMazeMessage(''); setDreaming(false); setPhase('forest'); setPlayerX(100)
+    trialRef.current = createTrial(); setTrial(trialRef.current); setFish(3); setRing(0)
+    setStoryIndex(0); setStoryStarted(false); setPhase('forest'); setPlayerX(100)
   }
+  const puzzle = puzzles[trial.stage]
   return <main className="runner-shell">
     <section className="runner-frame" aria-label="Trúc Linh Phong, chương mở đầu Tu Tiên Loạn Giới">
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được cảnh Rừng Trúc. Hãy tải lại trang để thử lại.' : 'Đang tải Rừng Trúc U Tinh…'}</p>}
@@ -331,7 +345,7 @@ export default function RunnerGame() {
         onPointerUp={e => { const g = gesture.current; if (!g) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) { run.current.facing = Math.sign(dx); input.current.dash = true } else if (dy < -30) input.current.jump = true; else input.current.fire = true; gesture.current = null; setTimeout(() => { input.current.fire = false }, 100) }} onPointerCancel={() => { gesture.current = null }} />
       <div className="arena-label">TRÚC LINH PHONG <span>{phase === 'summit' ? 'Vân Tích Bộ · Bứt phá lên đỉnh' : 'Rừng Trúc U Tinh · Thử thách nhập môn'}</span></div>
       {storyStarted && phase !== 'complete' && <div className="chapter-progress" aria-label="Tiến độ chương"><i style={{ width: `${Math.min(100, Math.max(0, (playerX - 100) / (SUMMIT_GATE - 100) * 100))}%` }} /></div>}
-      <p className="runner-status" role="status">{phase === 'forest' ? `${hits} đòn trúng · Vượt Trúc Diệp Cương Phong` : phase === 'summit' ? 'Uy áp Linh Phong · Tiến lên viên gạch cuối cùng!' : ''}</p>
+      <p className="runner-status" role="status">{storyStarted && `Hạng ${rank}/5 · ${trial.slow > 0 ? `Độc Bão ${Math.ceil(trial.slow)}s · ` : ''}`}{trial.message} {phase === 'forest' ? `${hits} đòn trúng · Vượt Trúc Diệp Cương Phong` : phase === 'summit' ? 'Uy áp Linh Phong · Tiến lên viên gạch cuối cùng!' : ''}</p>
       <button className="restart-button" aria-label="Chơi lại chương mở đầu" onClick={restartChapter}>↻</button>
       <div className="game-pwa"><PwaControls /></div>
       <div className="runner-controls" aria-label="Điều khiển">
@@ -356,15 +370,27 @@ export default function RunnerGame() {
         <p className="story-kicker">{story.speaker}</p><h1 id="story-title">{story.title}</h1><p className="story-text">{story.text}</p>
         <footer><span>{storyIndex + 1} / {openingScenes.length}</span><button onClick={advanceStory}>{storyIndex === openingScenes.length - 1 ? 'Khai cuộc' : 'Tiếp tục'}</button></footer>
       </section>}
-      {storyStarted && phase === 'maze' && !dreaming && <section className="story-dialogue maze-dialogue" role="dialog" aria-modal="true" aria-labelledby="maze-title">
-        <p className="story-kicker">{mazeRiddle.speaker}</p><h1 id="maze-title">{mazeRiddle.title}</h1><p className="story-text">{mazeRiddle.text}</p>
-        <div className="maze-choices">{mazeRiddle.choices.map(choice => <button key={choice.id} onClick={() => chooseMaze(choice.id)}><b>{choice.label}</b><small>{choice.hint}</small></button>)}</div>
-        {mazeMessage && <p className="maze-message" role="status">{mazeMessage}</p>}
-      </section>}
-      {dreaming && <section className="story-dialogue dream-dialogue" role="dialog" aria-modal="true" aria-labelledby="dream-title">
-        <p className="story-kicker">Vô Danh · Tỉnh mộng</p><h1 id="dream-title">Hóa ra chỉ là một giấc mơ…</h1><p className="story-text">Vô Danh choàng tỉnh giữa tiếng pháo hiệu. Rừng trúc, bia đá và Tử môn vừa rồi tan như sương sớm. Cuộc đua thật sự mới bắt đầu — lần này phải nhìn kỹ bóng nắng và chạy lại!</p>
-        <footer><span>Không mất tiến độ tu luyện</span><button onClick={retryDream}>Chạy lại từ đầu</button></footer>
-      </section>}
+      {storyStarted && trial.active && <div className="puzzle-backdrop"><section ref={puzzleDialog} tabIndex={-1} className="story-dialogue maze-dialogue" role="dialog" aria-modal="true" aria-labelledby="maze-title" onKeyDown={e => {
+        if (e.key !== 'Tab') return
+        const buttons = [...e.currentTarget.querySelectorAll('button:not(:disabled)')]
+        const first = buttons[0], last = buttons.at(-1)
+        if (!first) { e.preventDefault(); return }
+        if (e.shiftKey && (document.activeElement === first || document.activeElement === e.currentTarget)) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && (document.activeElement === last || document.activeElement === e.currentTarget)) { e.preventDefault(); first.focus() }
+      }}>
+        <p className="story-kicker">Bia đá {trial.stage + 1} / 3 · <span role="timer">Còn {Math.ceil(trial.remaining)} giây</span></p>
+        <h1 id="maze-title">{puzzle.title}</h1><p>{puzzle.context}</p>
+        <p className="story-text puzzle-poem">{puzzle.poem}</p><p className="puzzle-clue">{puzzle.clue}</p>
+        {trial.stage < 2 ? <div className="maze-choices">{puzzle.choices.map((choice, index) => <button key={choice} disabled={trial.trapped > 0} onClick={() => chooseMaze(index)}>{choice}</button>)}</div> : <>
+          <div className="bagua-disc" aria-label={`Cá Dương hướng ${trigrams[fish]}; Khảm hướng ${directions[(5 + ring) % 8]}`}>
+            {trigrams.map((name, index) => <span key={name} style={{ transform: `rotate(${(index + ring) * 45}deg) translateY(-65px) rotate(${-(index + ring) * 45}deg)` }}>{name}</span>)}
+            <b style={{ transform: `rotate(${(fish + ring) * 45}deg)` }}>☯ ↑</b>
+          </div>
+          <div className="maze-choices"><button onClick={() => setFish(value => (value + 1) % 8)}>Xoay cá Dương trắng · {trigrams[fish]}</button><button onClick={() => setRing(value => (value + 1) % 8)}>Xoay vòng ngoài · Khảm: {directions[(5 + ring) % 8]}</button><button onClick={() => chooseMaze({ fish, ring })}>Khai trận</button></div>
+        </>}
+        <p className="puzzle-penalty">Chọn sai / hết giờ: {puzzle.penalty}</p>
+        <p className="maze-message" role="status">{trial.message}{trial.trapped > 0 ? ` · Còn bị giữ ${Math.ceil(trial.trapped)} giây` : ''}</p>
+      </section></div>}
       {phase === 'complete' && <section className="story-dialogue ending-dialogue" role="dialog" aria-modal="true" aria-labelledby="ending-title">
         <p className="story-kicker">Trưởng lão Thái Huyền Tông</p><h1 id="ending-title">Trận pháp khép lại!</h1><p className="story-text">“Khóa năm vị trí đầu tiên!” Cột sáng vàng giội xuống bao bọc năm người thắng cuộc. Ta làm được rồi... con đường tu tiên của ta chính thức bắt đầu từ đây!</p>
         <footer><span>Đã bái nhập Tiên môn</span><button onClick={restartChapter}>Chơi lại chương</button></footer>
