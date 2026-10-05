@@ -16,17 +16,12 @@ export const collectibleCatalog = [
   { id: 'tu-tinh-thach', name: 'Tử Tinh Thạch', kind: 'stone', rarity: 'rare', sprite: 7, description: 'Tinh thể tím cô đọng linh lực mạnh.' },
 ]
 
-const FIRST_STAGE_SPAWNS = [
-  ['thanh-truc-diep', 270], ['ngung-suong-thao', 540], ['thanh-linh-thach', 680],
-  ['xich-duong-hoa', 910], ['thanh-truc-diep', 1320], ['u-minh-co', 1600],
-  ['thanh-linh-thach', 1900], ['bach-ngoc-sam', 2180], ['ngung-suong-thao', 2580],
-  ['tu-tinh-thach', 2820], ['tu-van-chi', 2940],
-]
+const FIRST_STAGE_SPAWNS = [['thanh-truc-diep', 270]]
 
 export const STAGE_COLLECTIBLES = {
   'rung-truc-u-tinh': {
     name: 'Rừng Trúc U Tinh',
-    itemIds: collectibleCatalog.map(item => item.id),
+    itemIds: FIRST_STAGE_SPAWNS.map(([id]) => id),
     spawns: FIRST_STAGE_SPAWNS,
   },
 }
@@ -37,10 +32,10 @@ export function createStageCollectibles(stageId = 'rung-truc-u-tinh') {
   return stage.spawns.map(([itemId, x], index) => ({ id: `${stageId}-${index}`, itemId, x, collected: false }))
 }
 
-export function collectNearby(collectibles, playerX, radius = 42) {
+export function collectNearby(collectibles, playerX, playerY = 0, radius = 30) {
   let collected = null
   const next = collectibles.map(item => {
-    if (collected || item.collected || Math.abs(item.x - (playerX + 64)) > radius) return item
+    if (collected || item.collected || Math.abs(item.x - (playerX + 64)) > radius || playerY > 55) return item
     collected = collectibleCatalog.find(entry => entry.id === item.itemId) ?? null
     return collected ? { ...item, collected: true } : item
   })

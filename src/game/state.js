@@ -1,11 +1,21 @@
 import { createInventory, validInventory, itemTransition } from './items.js'
-export const SAVE_KEY = 'loan-gioi:save:v5'
+export const SAVE_KEY = 'loan-gioi:save:v6'
+export const V5_SAVE_KEY = 'loan-gioi:save:v5'
 export const V4_SAVE_KEY = 'loan-gioi:save:v4'
 export const PREVIOUS_SAVE_KEY = 'loan-gioi:save:v3'
 export const LEGACY_SAVE_KEY = 'loan-gioi:save:v1'
 export const V2_SAVE_KEY = 'loan-gioi:save:v2'
 export const realms = ['Luyện Khí', 'Trúc Cơ', 'Kim Đan', 'Nguyên Anh', 'Hóa Thần']
 export const realmLifespans = [60, 100, 180, 300, 500]
+export const playableCharacters = [
+  { id: 'jade', name: 'Vô Danh', image: '/assets/characters/jade-v2/character-jade-sheet.png', preview: '/assets/ui/character-portrait.png', age: 15, lifespan: 60 },
+  { id: 'tall-swordswoman-v1', name: 'Thanh Trúc', image: '/assets/characters/tall-swordswoman-v1/character-tall-swordswoman-v1-sheet.png', preview: '/assets/characters/tall-swordswoman-v1/preview-idle.png', age: 21, lifespan: 72 },
+  { id: 'short-courier-v1', name: 'Tiểu Yến', image: '/assets/characters/short-courier-v1/character-short-courier-v1-sheet.png', preview: '/assets/characters/short-courier-v1/preview-idle.png', age: 16, lifespan: 62 },
+  { id: 'stout-innkeeper-v1', name: 'Hồng Đào', image: '/assets/characters/stout-innkeeper-v1/character-stout-innkeeper-v1-sheet.png', preview: '/assets/characters/stout-innkeeper-v1/preview-idle.png', age: 35, lifespan: 78 },
+  { id: 'lean-scholar-v1', name: 'Mặc Sinh', image: '/assets/characters/lean-scholar-v1/character-lean-scholar-v1-sheet.png', preview: '/assets/characters/lean-scholar-v1/preview-idle.png', age: 24, lifespan: 68 },
+]
+export const characterOption = state => playableCharacters.find(option => option.id === state.characterId) ?? playableCharacters[0]
+export const realmLabel = state => state.realm === 0 ? `Luyện Khí kỳ ${state.qiStage || 1}` : `${realms[state.realm]} · ${['Sơ kỳ', 'Trung kỳ', 'Hậu kỳ', 'Viên mãn'][state.minorStage || 0]}`
 export const YEAR_MS = 7 * 24 * 60 * 60 * 1000
 export const elements = [
   { id: 'kim', name: 'Kim', mark: '金' }, { id: 'moc', name: 'Mộc', mark: '木' },
@@ -15,6 +25,7 @@ export const elements = [
 export const breakthroughCosts = [
   { stones: 20, herbs: 2, chance: .85 }, { stones: 45, herbs: 5, chance: .7 },
   { stones: 90, herbs: 10, chance: .55 }, { stones: 180, herbs: 20, chance: .4 },
+  { stones: 300, herbs: 30, chance: .25 },
 ]
 export const qiRequired = realm => 100 * (realm + 1)
 const safe = value => Number.isSafeInteger(value) && value >= 0 && value <= 1000000000
@@ -30,14 +41,14 @@ export function rollSpiritRootProfile(random = Math.random) {
 export const rollSpiritRoots = random => rollSpiritRootProfile(random).roots
 export function createInitialState(random = Math.random, now = Date.now()) {
   const rootProfile = rollSpiritRootProfile(random)
-  return { version: 5, inventory: createInventory(), realm: 0, qi: 0, stones: 0, herbs: 0, journeys: 0, hp: 100, maxHp: 100, attributePoints: 0,
+  return { version: 6, characterId: 'jade', characterName: 'Vô Danh', baseAge: 15, baseLifespan: 60, qiStage: 1, minorStage: 0, inventory: createInventory(), realm: 0, qi: 0, stones: 0, herbs: 0, journeys: 0, hp: 100, maxHp: 100, attributePoints: 0,
     bornAt: now, autoCultivate: true, lastSeenAt: now, pendingQi: 0, collectionCounts: {}, storyLog: [],
     attributes: { canCot: 1, ngoTinh: 1, thanPhap: 1 }, spiritRoots: rootProfile.roots, spiritRootType: rootProfile.type,
     elementCultivation: { kim: 0, moc: 0, thuy: 0, hoa: 0, tho: 0 } }
 }
 export const initialState = createInitialState(() => 0, 0)
 export function isValidSave(value) {
-  return value?.version === 5 && validInventory(value.inventory) && Number.isInteger(value.realm) && value.realm >= 0 && value.realm < realms.length &&
+  return value?.version === 6 && playableCharacters.some(option => option.id === value.characterId) && typeof value.characterName === 'string' && value.characterName.trim().length > 0 && value.characterName.length <= 24 && Number.isInteger(value.baseAge) && value.baseAge >= 1 && value.baseAge <= 100 && Number.isInteger(value.baseLifespan) && value.baseLifespan >= 1 && value.baseLifespan <= 500 && Number.isInteger(value.qiStage) && value.qiStage >= 1 && value.qiStage <= 13 && Number.isInteger(value.minorStage) && value.minorStage >= 0 && value.minorStage <= 3 && validInventory(value.inventory) && Number.isInteger(value.realm) && value.realm >= 0 && value.realm < realms.length &&
     safeTimestamp(value.bornAt) && safeTimestamp(value.lastSeenAt) && safe(value.pendingQi) && typeof value.autoCultivate === 'boolean' && ['don', 'di', 'phe', 'thuong'].includes(value.spiritRootType) && Array.isArray(value.storyLog) && value.storyLog.length <= 500 && value.storyLog.every(entry => typeof entry === 'string' && entry.length <= 300) && value.collectionCounts && Object.keys(value.collectionCounts).length <= 100 && Object.values(value.collectionCounts).every(safe) &&
     ['qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints'].every(key => safe(value[key])) && value.maxHp >= 1 && value.hp <= value.maxHp && value.qi <= qiRequired(value.realm) &&
     ['canCot', 'ngoTinh', 'thanPhap'].every(key => safe(value.attributes?.[key]) && value.attributes[key] >= 1) &&
@@ -46,24 +57,25 @@ export function isValidSave(value) {
 }
 export function migrateSave(value, random = Math.random, now = Date.now()) {
   if (isValidSave(value)) return value
-  if (value?.version === 4) {
-    const next = { ...value, version: 5, spiritRootType: value.spiritRoots.length === 4 ? 'phe' : 'thuong', lastSeenAt: now, pendingQi: 0, collectionCounts: {}, storyLog: [] }
+  if (value?.version === 5) {
+    const next = { ...value, version: 6, characterId: 'jade', characterName: 'Vô Danh', baseAge: 15, baseLifespan: 60, qiStage: 1, minorStage: 0 }
     return isValidSave(next) ? next : null
+  }
+  if (value?.version === 4) {
+    return migrateSave({ ...value, version: 5, spiritRootType: value.spiritRoots.length === 4 ? 'phe' : 'thuong', lastSeenAt: now, pendingQi: 0, collectionCounts: {}, storyLog: [] }, random, now)
   }
   if (value?.version === 3) {
-    const next = { ...value, version: 5, spiritRootType: value.spiritRoots.length === 4 ? 'phe' : 'thuong', bornAt: now, autoCultivate: false, lastSeenAt: now, pendingQi: 0, collectionCounts: {}, storyLog: [] }
-    return isValidSave(next) ? next : null
+    return migrateSave({ ...value, version: 4, bornAt: now, autoCultivate: false }, random, now)
   }
   if (value?.version === 2) {
-    const next = { ...value, version: 5, spiritRootType: value.spiritRoots.length === 4 ? 'phe' : 'thuong', inventory: createInventory(), bornAt: now, autoCultivate: false, lastSeenAt: now, pendingQi: 0, collectionCounts: {}, storyLog: [] }
-    return isValidSave(next) ? next : null
+    return migrateSave({ ...value, version: 3, inventory: createInventory() }, random, now)
   }
   if (value?.version !== 1) return null
   const next = { ...createInitialState(random, now), realm: value.realm, qi: value.qi, stones: value.stones, herbs: value.herbs, journeys: value.journeys }
   return isValidSave(next) ? next : null
 }
 export function loadLocalSave(random = Math.random) {
-  for (const key of [SAVE_KEY, V4_SAVE_KEY, PREVIOUS_SAVE_KEY, V2_SAVE_KEY, LEGACY_SAVE_KEY]) {
+  for (const key of [SAVE_KEY, V5_SAVE_KEY, V4_SAVE_KEY, PREVIOUS_SAVE_KEY, V2_SAVE_KEY, LEGACY_SAVE_KEY]) {
     try {
       const migrated = migrateSave(JSON.parse(localStorage.getItem(key)), random)
       if (migrated) { if (key !== SAVE_KEY) saveLocal(migrated); return migrated }
@@ -85,9 +97,15 @@ export function recordStory(state, entry) {
   if (!entry || state.storyLog.at(-1) === entry) return state
   return { ...state, storyLog: [...state.storyLog, entry].slice(-500) }
 }
-export const characterAge = (state, now = Date.now()) => 15 + Math.max(0, Math.floor((now - state.bornAt) / YEAR_MS))
-export const characterLifespan = state => realmLifespans[state.realm]
+export const characterAge = (state, now = Date.now()) => state.baseAge + Math.max(0, Math.floor((now - state.bornAt) / YEAR_MS))
+export const characterLifespan = state => state.baseLifespan + realmLifespans[state.realm] - realmLifespans[0]
 export function transition(state, action, random = Math.random) {
+  if (action?.type === 'set-character') {
+    const option = playableCharacters.find(character => character.id === action.id)
+    const name = typeof action.name === 'string' ? action.name.trim() : ''
+    if (!option || !name || name.length > 24) return state
+    return { ...state, characterId: option.id, characterName: name, baseAge: option.age, baseLifespan: option.lifespan }
+  }
   if (action?.type === 'use-item' || action?.type === 'buy-item') return itemTransition(state, action)
   if (action?.type === 'collect-runner-loot') {
     const herbs = safe(action.herbs) ? action.herbs : 0, stones = safe(action.stones) ? action.stones : 0
@@ -114,10 +132,15 @@ export function transition(state, action, random = Math.random) {
     return { ...state, attributePoints: state.attributePoints - 1, attributes: { ...state.attributes, [action.attribute]: state.attributes[action.attribute] + 1 }, maxHp: state.maxHp + (constitution ? 10 : 0), hp: state.hp + (constitution ? 10 : 0) }
   }
   if (action === 'breakthrough') {
-    if (state.realm >= realms.length - 1 || state.qi < qiRequired(state.realm)) return state
+    if ((state.realm === realms.length - 1 && state.minorStage === 3) || state.qi < qiRequired(state.realm)) return state
     const cost = breakthroughCosts[state.realm]; if (state.stones < cost.stones || state.herbs < cost.herbs) return state
     const paid = { ...state, stones: state.stones - cost.stones, herbs: state.herbs - cost.herbs, qi: 0 }
-    return random() < cost.chance ? { ...paid, realm: state.realm + 1, attributePoints: state.attributePoints + 2, hp: state.maxHp } : { ...paid, realm: Math.max(0, state.realm - 1), hp: Math.max(1, Math.floor(state.hp * .7)) }
+    if (random() < cost.chance) {
+      if (state.realm === 0 && state.qiStage < 13) return { ...paid, qiStage: state.qiStage + 1, attributePoints: state.attributePoints + 2, hp: state.maxHp }
+      if (state.realm > 0 && state.minorStage < 3) return { ...paid, minorStage: state.minorStage + 1, attributePoints: state.attributePoints + 2, hp: state.maxHp }
+      return { ...paid, realm: state.realm + 1, minorStage: 0, attributePoints: state.attributePoints + 2, hp: state.maxHp }
+    }
+    return { ...paid, realm: Math.max(0, state.realm - 1), minorStage: 0, hp: Math.max(1, Math.floor(state.hp * .7)) }
   }
   return state
 }

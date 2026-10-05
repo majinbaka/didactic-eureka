@@ -5,9 +5,9 @@ service cloud.firestore {
       function owner() { return request.auth != null && request.auth.uid == uid; }
       function valid() {
         let d = request.resource.data;
-        return d.keys().hasAll(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'spiritRootType', 'elementCultivation', 'bornAt', 'autoCultivate', 'lastSeenAt', 'pendingQi', 'collectionCounts', 'storyLog', 'updatedAt'])
-          && d.keys().hasOnly(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'spiritRootType', 'elementCultivation', 'bornAt', 'autoCultivate', 'lastSeenAt', 'pendingQi', 'collectionCounts', 'storyLog', 'updatedAt'])
-          && d.version == 5 && d.realm is int && d.realm >= 0 && d.realm <= 4
+        return d.keys().hasAll(['characterId', 'characterName', 'baseAge', 'baseLifespan', 'qiStage', 'minorStage', 'inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'spiritRootType', 'elementCultivation', 'bornAt', 'autoCultivate', 'lastSeenAt', 'pendingQi', 'collectionCounts', 'storyLog', 'updatedAt'])
+          && d.keys().hasOnly(['characterId', 'characterName', 'baseAge', 'baseLifespan', 'qiStage', 'minorStage', 'inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'spiritRootType', 'elementCultivation', 'bornAt', 'autoCultivate', 'lastSeenAt', 'pendingQi', 'collectionCounts', 'storyLog', 'updatedAt'])
+          && d.version == 6 && d.characterId in ['jade', 'tall-swordswoman-v1', 'short-courier-v1', 'stout-innkeeper-v1', 'lean-scholar-v1'] && d.characterName is string && d.characterName.size() >= 1 && d.characterName.size() <= 24 && d.baseAge is int && d.baseAge >= 1 && d.baseAge <= 100 && d.baseLifespan is int && d.baseLifespan >= 1 && d.baseLifespan <= 500 && d.qiStage is int && d.qiStage >= 1 && d.qiStage <= 13 && d.minorStage is int && d.minorStage >= 0 && d.minorStage <= 3 && d.realm is int && d.realm >= 0 && d.realm <= 4
           && d.bornAt is int && d.bornAt >= 0 && d.autoCultivate is bool
           && d.lastSeenAt is int && d.lastSeenAt >= 0 && d.pendingQi is int && d.pendingQi >= 0 && d.pendingQi <= 4
           && d.collectionCounts is map && d.collectionCounts.size() <= 100

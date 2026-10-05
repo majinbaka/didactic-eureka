@@ -24,10 +24,10 @@ npm run preview
 ## Bản game hiện có gì?
 
 - Chương mở đầu “Trúc Linh Phong — Thử thách nhập môn” với thoại, vượt Rừng Trúc U Tinh, giải bia đá trận pháp và cuộc đua lên đỉnh núi.
-- 6 loại linh thảo và 2 loại linh thạch theo độ hiếm trong Rừng Trúc U Tinh; chạy chạm qua để tự nhặt và lưu tài nguyên.
+- Một linh thảo trong màn Rừng Trúc U Tinh; phải chạm trực tiếp mới nhặt và lưu tài nguyên. Bộ sưu tập vẫn mô tả các vật phẩm dự kiến cho màn sau.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
-Chương đầu cho đi bộ/chạy, nhảy và ngồi bằng chạm hoặc bàn phím; cụm hành động mobile nằm ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
+Khi vào game, người chơi chọn diện mạo có sẵn và đặt tên; mỗi nhân vật có tuổi và thọ nguyên riêng. Chương đầu cho đi bộ/chạy, nhảy và ngồi bằng chạm hoặc bàn phím; cụm hành động mobile nằm ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
 
 ## Firebase
 
@@ -57,6 +57,7 @@ Dùng bản production trên HTTPS hoặc `npm run preview` trên localhost. Sau
 
 - [design.md](design.md): thiết kế giao diện ứng dụng.
 - [game-design.md](game-design.md): thế giới, gameplay, nhân vật và chuẩn asset.
+- [Cốt truyện đang hoạt động](docs/story/README.md): mục lục các chương chơi được và bản đọc nội dung từng chương.
 - [AGENTS.md](AGENTS.md): quy ước làm việc trong repo.
 - [Kiến trúc dữ liệu](docs/architecture.md), [lộ trình](docs/roadmap.md).
 - `.agents/skills/*/SKILL.md`: skill riêng cho UI, gameplay, Firebase.
@@ -71,7 +72,7 @@ Override `@grpc/grpc-js` lên nhánh 1.14.5 để xử lý advisory trong depend
 
 ## Bộ 20 nhân vật mở rộng
 
-Mở `/characters.html` trên dev server để xem 20 nhân vật mới: nam/nữ cao thấp, đầy đặn/gầy, ông bà và trẻ em, với nhiều kiểu tóc, râu và trang phục. Mỗi nhân vật có atlas trong suốt 512×512 gồm 16 key pose, manifest và ảnh đứng xem trước. Bộ này chưa được gán vào chương truyện.
+Mở `/characters.html` trên dev server để xem 20 nhân vật mới: nam/nữ cao thấp, đầy đặn/gầy, ông bà và trẻ em, với nhiều kiểu tóc, râu và trang phục. Mỗi nhân vật có atlas trong suốt 512×512 gồm 16 key pose, manifest và ảnh đứng xem trước. Bốn nhân vật trong bộ đã được chọn làm diện mạo người chơi; các nhân vật còn lại vẫn ở trang xem thử.
 
 - Danh mục: `public/assets/characters/roster-v2.json`.
 - Ảnh tổng hợp: [roster-v2-preview.png](art/characters/roster-v2-preview.png).

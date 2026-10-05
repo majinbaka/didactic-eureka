@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createRun, sceneryForChunk, stepRun, JUMP_VELOCITY, OBSTACLES, rivalPace } from './runner.js'
+import { createRun, raceRank, rivalsFinished, sceneryForChunk, stepRun, JUMP_VELOCITY, RIVAL_PUZZLE_SUCCESS, OBSTACLES, rivalPace } from './runner.js'
 import { FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from './scenerySprites.js'
 test('movement continues in both directions and jump lands', () => {
   let s = createRun()
@@ -193,7 +193,7 @@ test('the higher jump can land on a floating platform', () => {
   state = stepRun(state, { jump: true }, 1 / 120)
   state = advance(state, { move: 1 }, 42)
   state = advance(state, {}, 120)
-  assert.equal(JUMP_VELOCITY, 580)
+  assert.equal(JUMP_VELOCITY, 780)
   assert.equal(state.y, platform.height)
 })
 test('walkable obstacle crops begin exactly at their visible top surface', async () => {
@@ -239,4 +239,36 @@ test('flight cannot pass through a wall but can fly above it and land on it', ()
   state = stepRun(state, { flyToggle: true }, .016)
   state = advance(state, {}, 120)
   assert.equal(state.y, 64)
+})
+
+test('rivals stop at each stele and solve with an eighty percent roll', () => {
+  assert.equal(RIVAL_PUZZLE_SUCCESS, .8)
+  let run = createRun()
+  run.racers[0].x = 29999
+  run = stepRun(run, {}, .1, () => .99)
+  assert.equal(run.racers[0].x, 30000)
+  assert.equal(run.racers[0].puzzleStage, 0)
+  run = stepRun(run, {}, 2, () => .99)
+  assert.equal(run.racers[0].puzzleStage, 0)
+  assert.equal(run.racers[0].puzzleWait, 5)
+  run = stepRun(run, {}, 5, () => .79)
+  assert.equal(run.racers[0].puzzleStage, 1)
+})
+
+test('rank and end trigger after all four rivals finish', () => {
+  const run = createRun()
+  assert.equal(raceRank(run), 1)
+  assert.equal(rivalsFinished(run), false)
+  const finished = { ...run, racers: run.racers.map(racer => ({ ...racer, x: 60000, finished: true })) }
+  assert.equal(raceRank(finished), 5)
+  assert.equal(rivalsFinished(finished), true)
+})
+
+test('three floating platforms can be crossed with consecutive jumps', () => {
+  let run = { ...createRun(), x: 3100, y: 92 }
+  for (let frame = 0; frame < 71; frame++) run = stepRun(run, { move: 1, run: true, jump: frame === 0 }, .016)
+  assert.equal(run.y, 76)
+  for (let frame = 0; frame < 70; frame++) run = stepRun(run, { move: run.x < 3920 ? 1 : 0, run: true, jump: frame === 0 }, .016)
+  assert.ok(run.x > 3900)
+  assert.equal(run.y, 106)
 })

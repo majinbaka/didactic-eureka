@@ -44,3 +44,7 @@ Firestore rules đã mô tả schema v4 nhưng chưa được kiểm thử bằn
 Local key `loan-gioi:save:v5`, đọc và migration từ v1–v4 mà không xóa bản cũ. Thêm `spiritRootType`, `lastSeenAt`, `pendingQi`, `collectionCounts` và `storyLog`. Bản v4 giữ toàn bộ tài nguyên, thuộc tính và tiến độ; các trường mới bắt đầu từ thời điểm migration. Bản mới khởi đầu không có tài nguyên hay vật phẩm. Bộ sưu tập đếm tổng lượt nhặt theo ID vật phẩm qua các lần chơi chương; reset nhân vật xóa cả lượt đếm và nhật ký.
 
 Nhập định dùng dấu thời gian local, giới hạn 4 linh khí trước khi người chơi nhận. Đây là tiến độ do client tự khai, không thích hợp làm nguồn tin cậy cho cạnh tranh. Firestore rules v5 cần được thử bằng Emulator và triển khai riêng trước khi dùng cloud save v5.
+
+## Schema v6 — danh tính và tiểu cảnh
+
+Local key `loan-gioi:save:v6`, migration v1–v5 giữ toàn bộ tiến độ và điền mặc định diện mạo Vô Danh, tên Vô Danh, tuổi khởi đầu 15, thọ nguyên gốc 60, Luyện Khí kỳ 1. Thêm `characterId`, `characterName`, `baseAge`, `baseLifespan`, `qiStage` (1–13), `minorStage` (0–3). Thay diện mạo/tên không reset tài nguyên hoặc thời gian sinh. Firestore rules v6 cần kiểm thử bằng Emulator trước release và deploy riêng.

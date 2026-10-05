@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { createRun, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
+import { createRun, raceRank, rivalsFinished, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
 import { animationFrame, characterBaseline, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
 import { joystickInput } from '../game/runnerControls'
-import { accrueOfflineQi, recordStory, breakthroughCosts, characterAge, characterLifespan, createInitialState, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
-import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, prologuePhase } from '../game/prologue'
+import { accrueOfflineQi, recordStory, breakthroughCosts, characterAge, characterLifespan, characterOption, playableCharacters, realmLabel, createInitialState, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
+import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, endingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES, STAGE_COLLECTIBLES } from '../game/collectibles'
 import { DECORATIVE_VARIANT_SPRITES, FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from '../game/scenerySprites'
@@ -47,14 +47,14 @@ function ElementRadar({ progress }) {
   </svg><figcaption>Tu vi ngũ hành · mạnh yếu hiện tại</figcaption></figure>
 }
 
-function CharacterProfile({ progress, view, onView, onClose, onAuto, onClaim, onReset }) {
+function CharacterProfile({ progress, view, onView, onClose, onAuto, onClaim, onReset, onIdentity }) {
   const dialog = useRef(null)
   useEffect(() => { dialog.current?.focus() }, [])
   const rootNames = elements.filter(element => progress.spiritRoots.includes(element.id)).map(element => element.name)
   return <section ref={dialog} tabIndex={-1} className="character-profile" role="dialog" aria-modal="true" aria-labelledby="profile-title" onKeyDown={event => { if (event.key === 'Escape') onClose() }}>
-    <header className="profile-topbar"><div><small>HỒ SƠ ĐẠO HỮU</small><h1 id="profile-title">Vô Danh</h1></div><nav><button onClick={() => onView("collection")}>Bộ sưu tập</button><button onClick={() => onView("story")}>Cốt truyện</button><button onClick={() => onView(view === 'settings' ? 'profile' : 'settings')} aria-label="Mở cài đặt hồ sơ">⚙ Cài đặt</button><button className="profile-close" onClick={onClose} aria-label="Đóng hồ sơ">×</button></nav></header>
-    {view === 'collection' ? <div className="profile-collection"><CollectiblePanel counts={progress.collectionCounts} onClose={() => onView('profile')} /></div> : view === 'story' ? <div className="profile-collection"><div className="profile-section-title"><h2>Hành trình Vô Danh</h2><p>Những dấu mốc đã trải qua trong lượt chơi này.</p></div><ol className="story-log">{progress.storyLog.map((entry, index) => <li key={index}>{entry}</li>)}</ol></div> : view === 'settings' ? <div className="profile-settings"><div className="profile-section-title"><small>CÀI ĐẶT</small><h2>Dữ liệu nhân vật</h2></div><article><h3>Đặt lại hành trình</h3><p>Xóa tiến độ đang chơi trên thiết bị và tạo nhân vật 15 tuổi mới. Thao tác không tự xóa bản lưu mây.</p><button className="danger-action" onClick={onReset}>Đặt lại nhân vật</button></article></div> : <div className="profile-content">
-      <section className="profile-hero"><div className="meditation-scene"><span className="meditation-aura" /><ActionSprite animation="sit" /><p>VÔ DANH</p><small>{realms[progress.realm]} · Sơ kỳ</small></div><div className="identity-card"><span>Linh căn</span><h2>{progress.spiritRootType === 'di' ? `Dị linh căn ${rootNames[0]}` : rootNames.length === 1 ? `Đơn linh căn ${rootNames[0]}` : progress.spiritRootType === 'phe' ? `Phế linh căn · ${rootNames.join(' · ')}` : `${rootNames.length} linh căn · ${rootNames.join(' · ')}`}</h2><p>{rootNames.length === 1 ? 'Thiên tư chuyên nhất, tốc độ hấp thu linh khí nổi trội.' : 'Đa linh căn, đường tu rộng nhưng cần nhiều thời gian hơn.'}</p><div><b>{characterAge(progress)} tuổi</b><small>Thọ nguyên {characterLifespan(progress)} tuổi</small></div></div></section>
+    <header className="profile-topbar"><div><small>HỒ SƠ ĐẠO HỮU</small><h1 id="profile-title">{progress.characterName}</h1></div><nav><button onClick={() => onView("collection")}>Bộ sưu tập</button><button onClick={() => onView("story")}>Cốt truyện</button><button onClick={() => onView(view === 'settings' ? 'profile' : 'settings')} aria-label="Mở cài đặt hồ sơ">⚙ Cài đặt</button><button className="profile-close" onClick={onClose} aria-label="Đóng hồ sơ">×</button></nav></header>
+    {view === 'collection' ? <div className="profile-collection"><CollectiblePanel counts={progress.collectionCounts} onClose={() => onView('profile')} /></div> : view === 'story' ? <div className="profile-collection"><div className="profile-section-title"><h2>Hành trình {progress.characterName}</h2><p>Những dấu mốc đã trải qua trong lượt chơi này.</p></div><ol className="story-log">{progress.storyLog.map((entry, index) => <li key={index}>{entry}</li>)}</ol></div> : view === 'settings' ? <div className="profile-settings"><div className="profile-section-title"><small>CÀI ĐẶT</small><h2>Dữ liệu nhân vật</h2></div><article><h3>Tên và hình dáng</h3><p>Đổi tên hoặc chọn lại nhân vật đang chơi.</p><button onClick={onIdentity}>Chỉnh nhân vật</button></article><article><h3>Đặt lại hành trình</h3><p>Xóa tiến độ đang chơi trên thiết bị. Thao tác không tự xóa bản lưu mây.</p><button className="danger-action" onClick={onReset}>Đặt lại nhân vật</button></article></div> : <div className="profile-content">
+      <section className="profile-hero"><div className="meditation-scene"><span className="meditation-aura" /><ActionSprite animation="sit" image={characterOption(progress).image} /><p>{progress.characterName}</p><small>{realmLabel(progress)}</small></div><div className="identity-card"><span>Linh căn</span><h2>{progress.spiritRootType === 'di' ? `Dị linh căn ${rootNames[0]}` : rootNames.length === 1 ? `Đơn linh căn ${rootNames[0]}` : progress.spiritRootType === 'phe' ? `Phế linh căn · ${rootNames.join(' · ')}` : `${rootNames.length} linh căn · ${rootNames.join(' · ')}`}</h2><p>{rootNames.length === 1 ? 'Thiên tư chuyên nhất, tốc độ hấp thu linh khí nổi trội.' : 'Đa linh căn, đường tu rộng nhưng cần nhiều thời gian hơn.'}</p><div><b>{characterAge(progress)} tuổi</b><small>Thọ nguyên {characterLifespan(progress)} tuổi</small></div></div></section>
       <section className="profile-vitals"><article><small>LINH KHÍ</small><b>{progress.qi}<i> / {qiRequired(progress.realm)}</i></b><span>+1 mỗi 15 phút nhập định</span></article><article><small>SINH LỰC</small><b>{progress.hp}<i> / {progress.maxHp}</i></b><span>Căn cốt cấp {progress.attributes.canCot}</span></article><article><small>THỜI GIAN</small><b>7 ngày</b><span>= 1 năm trong game</span></article></section>
       <section className="profile-vitals combat-stats"><article><small>TẤN CÔNG</small><b>{10 + progress.attributes.thanPhap * 2}</b><span>Thân pháp và sức đánh</span></article><article><small>PHÒNG THỦ VẬT LÝ / PHÁP</small><b>{progress.attributes.canCot * 3} / {progress.attributes.ngoTinh * 3}</b><span>Hộ thể · kháng linh lực</span></article><article><small>THẦN THỨC</small><b>{progress.attributes.ngoTinh * 2}</b><span>Ngộ tính</span></article><article><small>KỸ NĂNG ĐẶC BIỆT</small><span>{progress.realm >= 2 ? 'Chưa lĩnh ngộ' : 'Mở sau Kim Đan'}</span></article><article><small>PHÁP BẢO BẢN MỆNH</small><span>{progress.realm >= 2 ? 'Chưa luyện chế' : 'Mở sau Kim Đan'}</span></article></section><section className="profile-training"><ElementRadar progress={progress} /><div className="element-scores"><h2>Tu vi theo hệ</h2>{elements.map(element => <div key={element.id} className={progress.spiritRoots.includes(element.id) ? 'owned' : ''}><span>{element.mark} {element.name}</span><b>{progress.elementCultivation[element.id]}</b></div>)}</div><div className="auto-training"><small>TỌA THIỀN</small><h2>Tu luyện tự động</h2><p>Tự nhập định khi rời game: +1 linh khí mỗi 15 phút, tối đa 1 giờ để nhận khi trở lại.</p><button aria-pressed={progress.autoCultivate} onClick={() => onAuto(!progress.autoCultivate)}><i />{progress.autoCultivate ? 'Đang nhập định' : 'Bắt đầu nhập định'}</button><button disabled={!progress.pendingQi} onClick={onClaim}>Nhận {progress.pendingQi} linh khí đã tích</button></div></section>
     </div>}
@@ -105,14 +105,14 @@ function ProgressPanel({ mode, progress, notice, onAction, onClose }) {
   </section>
 }
 
-function ActionSprite({ animation, elapsed = 0 }) {
+function ActionSprite({ animation, elapsed = 0, image = CHARACTER_ATLAS.image }) {
   const frame = animationFrame(animation, elapsed)
   const column = frame % CHARACTER_ATLAS.columns
   const row = Math.floor(frame / CHARACTER_ATLAS.columns)
   return <b
     className="action-sprite"
     aria-hidden="true"
-    style={{ backgroundImage: `url(${CHARACTER_ATLAS.image})`, backgroundPosition: `${column * 100 / (CHARACTER_ATLAS.columns - 1)}% ${row * 100 / (CHARACTER_ATLAS.columns - 1)}%` }}
+    style={{ backgroundImage: `url(${image})`, backgroundPosition: `${column * 100 / (CHARACTER_ATLAS.columns - 1)}% ${row * 100 / (CHARACTER_ATLAS.columns - 1)}%` }}
   />
 }
 
@@ -272,6 +272,7 @@ export default function RunnerGame() {
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [rank, setRank] = useState(1)
   const [storyIndex, setStoryIndex] = useState(0)
+  const [endingIndex, setEndingIndex] = useState(0)
   const [storyStarted, setStoryStarted] = useState(false)
   const trialRef = useRef(createTrial())
   const [trial, setTrial] = useState(createTrial)
@@ -282,6 +283,9 @@ export default function RunnerGame() {
   const [playerX, setPlayerX] = useState(100)
   const [joystickView, setJoystickView] = useState(null)
   const [progress, setProgress] = useState(loadLocalSave)
+  const [selectingCharacter, setSelectingCharacter] = useState(true)
+  const [chosenId, setChosenId] = useState(progress.characterId)
+  const [chosenName, setChosenName] = useState(progress.characterName)
   const [panel, setPanel] = useState(null)
   const [notice, setNotice] = useState('Bấm vào HUD để mở tu luyện và cộng chỉ số.')
   const processedPickup = useRef(0)
@@ -321,7 +325,7 @@ export default function RunnerGame() {
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
     character.onerror = failed
-    character.src = CHARACTER_ATLAS.image
+    character.src = playableCharacters.find(option => option.id === progress.characterId)?.image || CHARACTER_ATLAS.image
     background.onload = loaded
     background.onerror = failed
     background.src = SCENERY_ASSETS.background
@@ -352,7 +356,7 @@ export default function RunnerGame() {
     const tick = now => {
       const dt = Math.min((now - (last || now)) / 1000, .035); last = now
       const current = trialRef.current
-      const frozen = !storyStarted || current.active || current.trapped > 0 || prologuePhase(run.current.x, current.stage) === 'complete'
+      const frozen = selectingCharacter || !storyStarted || current.active || current.trapped > 0 || rivalsFinished(run.current) || prologuePhase(run.current.x, current.stage) === 'complete'
       if (!frozen) run.current = stepTrialRun(run.current, input.current, dt, current)
       if (run.current.pickupSequence > processedPickup.current) {
         processedPickup.current = run.current.pickupSequence
@@ -367,11 +371,11 @@ export default function RunnerGame() {
       if (storyStarted) {
         const result = tickTrial(current, run.current, dt)
         trialRef.current = result.trial; run.current = result.run; setTrial(result.trial)
-        const currentRank = 1 + result.run.racers.filter(r => r.x > result.run.x).length
+        const currentRank = raceRank(result.run)
         setRank(currentRank)
-        if (!finishedChapter.current && prologuePhase(result.run.x, result.trial.stage) === 'complete') {
+        if (!finishedChapter.current && (prologuePhase(result.run.x, result.trial.stage) === 'complete' || rivalsFinished(result.run))) {
           finishedChapter.current = true
-          setProgress(previous => { const next = recordStory(previous, currentRank === 1 ? 'Về nhất Trúc Linh Phong, được nhận vào Tiên môn.' : `Về đích hạng ${currentRank}, không được nhận vào Tiên môn.`); saveLocal(next); return next })
+          setProgress(previous => { const next = recordStory(previous, currentRank <= 3 ? `Về đích hạng ${currentRank} Trúc Linh Phong, được nhận vào Tiên môn.` : `Về đích hạng ${currentRank}, không được nhận vào Tiên môn.`); saveLocal(next); return next })
         }
         if (!current.active && result.trial.active) setPanel(null)
       }
@@ -380,7 +384,8 @@ export default function RunnerGame() {
       if (c.width !== width || c.height !== height) { c.width = width; c.height = height }
       const context = c.getContext('2d'); context.imageSmoothingEnabled = false
       draw(context, run.current, width, height, input.current, sprites.current)
-setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.current.stage))
+      setPlayerX(run.current.x)
+      setPhase(rivalsFinished(run.current) && run.current.x < SUMMIT_GATE ? 'end' : prologuePhase(run.current.x, trialRef.current.stage))
       frame = requestAnimationFrame(tick)
     }
     const key = (e, down) => {
@@ -397,7 +402,7 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
     return () => { for (const image of [character, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
-  }, [storyStarted])
+  }, [storyStarted, selectingCharacter, progress.characterId])
   const updateJoystick = e => {
     const active = joystick.current
     if (!active || active.pointerId !== e.pointerId) return
@@ -431,13 +436,13 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
   const progressAction = action => {
     const next = transition(progress, action)
     if (next === progress) { setNotice(action?.type === 'use-item' || action?.type === 'buy-item' ? itemBlockedReason(progress, action.id, action.type === 'buy-item') : action === 'breakthrough' ? 'Chưa đủ linh khí hoặc vật phẩm.' : 'Chưa có điểm thuộc tính.'); return }
-    const recorded = action === 'breakthrough' ? recordStory(next, next.realm > progress.realm ? `Đột phá thành công lên ${realms[next.realm]}.` : `Đột phá thất bại tại ${realms[progress.realm]}.`) : next
+    const recorded = action === 'breakthrough' ? recordStory(next, next.realm > progress.realm || next.qiStage > progress.qiStage || next.minorStage > progress.minorStage ? `Đột phá thành công lên ${realmLabel(next)}.` : `Đột phá thất bại tại ${realms[progress.realm]}.`) : next
     setProgress(recorded)
     if (!saveLocal(recorded)) { setNotice('Không lưu được trên thiết bị. Tiến độ chỉ còn trong phiên này.'); return }
     if (action === 'claim-offline-qi') setNotice('Đã nhận linh khí nhập định.')
     else if (action === 'cultivate') setNotice(`Mọi linh căn sở hữu +${cultivationGain(progress)} tu vi.`)
     else if (action === 'explore') setNotice('Lịch luyện nhận 8 linh thạch và 1 linh dược.')
-    else if (action === 'breakthrough') setNotice(next.realm > progress.realm ? 'Đột phá thành công! Nhận 2 điểm thuộc tính.' : `Đột phá thất bại${progress.realm ? ', tụt một cảnh giới' : ''}.`)
+    else if (action === 'breakthrough') setNotice(next.realm > progress.realm || next.qiStage > progress.qiStage || next.minorStage > progress.minorStage ? 'Đột phá thành công! Nhận 2 điểm thuộc tính.' : `Đột phá thất bại${progress.realm ? ', tụt một cảnh giới' : ''}.`)
     else if (action?.type === 'use-item' || action?.type === 'buy-item') setNotice(`${action.type === 'buy-item' ? 'Đã mua' : 'Đã dùng'} ${items.find(item => item.id === action.id).name}.`)
     else setNotice('Đã cộng một điểm thuộc tính.')
   }
@@ -450,6 +455,7 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
   const resetProgress = () => {
     if (!window.confirm('Đặt lại toàn bộ tiến độ nhân vật trên thiết bị? Hành động này không thể hoàn tác.')) return
     const next = createInitialState()
+    setChosenId(next.characterId); setChosenName(next.characterName); setSelectingCharacter(true)
     setProgress(next)
     restartChapter()
     setPanel('profile')
@@ -458,6 +464,7 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
   const appendStory = entry => setProgress(previous => { const next = recordStory(previous, entry); saveLocal(next); return next })
   const requiredQi = qiRequired(progress.realm)
   const story = openingScenes[storyIndex]
+  const storyText = value => value.replaceAll('Vô Danh', progress.characterName)
   const advanceStory = () => {
     if (storyIndex < openingScenes.length - 1) setStoryIndex(index => index + 1)
     else { setStoryStarted(true); appendStory('Cuộc đua lên Trúc Linh Phong bắt đầu.') }
@@ -479,21 +486,39 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
     processedPickup.current = 0; finishedChapter.current = false
     trialRef.current = createTrial(); setTrial(trialRef.current); setFish(3); setRing(0)
     setStoryIndex(0); setStoryStarted(false); setPhase('forest'); setPlayerX(100)
+    setEndingIndex(0)
     setRank(1); setPanel(null); setJoystickView(null); joystick.current = null
   }
   const puzzle = puzzles[trial.stage]
+  const ending = endingScenes[rank <= 3 ? 'winner' : 'defeat']
+  const endingScene = ending[endingIndex]
+  const selectedCharacter = playableCharacters.find(option => option.id === chosenId) || playableCharacters[0]
+  const saveCharacter = event => {
+    event.preventDefault()
+    const next = transition(progress, { type: 'set-character', id: chosenId, name: chosenName })
+    if (next === progress) { setNotice('Tên cần có từ 1 đến 24 ký tự.'); return }
+    setProgress(next)
+    setSelectingCharacter(false)
+    setNotice(saveLocal(next) ? `Đang chơi ${next.characterName}.` : 'Đã chọn nhân vật nhưng không lưu được trên thiết bị.')
+  }
   return <main className="runner-shell">
     <section className="runner-frame" aria-label="Trúc Linh Phong, chương mở đầu Tu Tiên Loạn Giới">
       {spriteStatus !== 'ready' && <p className="runner-loading" role="status">{spriteStatus === 'error' ? 'Không tải được cảnh Rừng Trúc. Hãy tải lại trang để thử lại.' : 'Đang tải Rừng Trúc U Tinh…'}</p>}
+      {selectingCharacter && <div className="character-select-backdrop"><form className="character-select" onSubmit={saveCharacter} aria-labelledby="character-select-title">
+        <h1 id="character-select-title">Chọn nhân vật</h1><p>Chọn diện mạo và viết tên cho hành trình của bạn.</p>
+        <div className="character-choices" role="group" aria-label="Nhân vật sẵn có">{playableCharacters.map(option => <button type="button" key={option.id} className={chosenId === option.id ? 'selected' : ''} aria-pressed={chosenId === option.id} onClick={() => { setChosenId(option.id); setChosenName(option.name) }}><img src={option.preview} alt="" /><strong>{option.name}</strong><small>{option.age} tuổi · thọ nguyên {option.lifespan}</small></button>)}</div>
+        <label htmlFor="character-name">Tên nhân vật</label><input id="character-name" autoFocus maxLength={24} value={chosenName} onChange={event => setChosenName(event.target.value)} required />
+        <p className="character-selection-summary">{selectedCharacter.age} tuổi · thọ nguyên {selectedCharacter.lifespan} tuổi</p><button className="character-confirm" type="submit">Bắt đầu hành trình</button>
+      </form></div>}
       <div className="runner-hud cultivation-hud">
         <div className="hud-sidebar">
-          <button className="hud-avatar" onClick={() => setPanel('profile')} aria-label="Mở hồ sơ nhân vật"><img src="/assets/ui/character-portrait.png" alt="" /><span><b>VÔ DANH</b><small>HỒ SƠ</small></span></button>
+          <button className="hud-avatar" onClick={() => setPanel('profile')} aria-label="Mở hồ sơ nhân vật"><img src={characterOption(progress).preview} alt="" /><span><b>{progress.characterName}</b><small>HỒ SƠ</small></span></button>
           <button className="inventory-toggle" aria-label="Mở hành trang" aria-expanded={panel === 'items'} onClick={() => { setNotice(''); setPanel(panel === 'items' ? null : 'items') }}><img src="/assets/ui/inventory-bag-v1.png" alt="" /></button>
         </div>
         <div className="hud-vitals"><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>♥ {progress.hp}/{progress.maxHp}</span><i><b style={{ width: `${progress.hp / progress.maxHp * 100}%` }} /></i><small>MÁU · CHỈ SỐ</small></button><button onClick={() => setPanel(panel === 'stats' ? null : 'stats')}><span>◆ {progress.stones}</span><small>LINH THẠCH</small></button><button onClick={() => setPanel(panel === 'collectibles' ? null : 'collectibles')}><span>❋ {progress.herbs}</span><small>LINH THẢO</small></button><button onClick={() => setPanel(panel === 'roots' ? null : 'roots')}><span>✦ {progress.qi}/{requiredQi}</span><i><b style={{ width: `${progress.qi / requiredQi * 100}%` }} /></i><small>LINH KHÍ</small></button></div>
       </div>
       {panel === 'collectibles' ? <CollectiblePanel counts={progress.collectionCounts} onClose={() => setPanel(null)} /> : ['items', 'stats', 'roots'].includes(panel) && <ProgressPanel mode={panel} progress={progress} notice={notice} onAction={progressAction} onClose={() => setPanel(null)} />}
-      {['profile', 'collection', 'story', 'settings'].includes(panel) && <CharacterProfile progress={progress} view={panel} onView={setPanel} onClose={() => setPanel(null)} onAuto={setAutoCultivate} onClaim={() => progressAction('claim-offline-qi')} onReset={resetProgress} />}
+      {['profile', 'collection', 'story', 'settings'].includes(panel) && <CharacterProfile progress={progress} view={panel} onView={setPanel} onClose={() => setPanel(null)} onAuto={setAutoCultivate} onClaim={() => progressAction('claim-offline-qi')} onReset={resetProgress} onIdentity={() => { setChosenId(progress.characterId); setChosenName(progress.characterName); setPanel(null); setSelectingCharacter(true) }} />}
       <canvas ref={canvas} tabIndex={0} aria-label="Rừng Trúc U Tinh. Mũi tên hoặc A D để đi, giữ Shift để chạy, W để nhảy qua hoặc lên bậc đá, S để ngồi."
         onPointerDown={e => { e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { x: e.clientX, y: e.clientY } }}
         onPointerUp={e => { const g = gesture.current; if (!g) return; if (e.clientY - g.y < -30) input.current.jump = true; gesture.current = null }} onPointerCancel={() => { gesture.current = null }} />
@@ -508,11 +533,11 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
           {joystickView && <span className="joystick-base" aria-hidden="true" style={{ left: joystickView.x, top: joystickView.y }}><i style={{ transform: `translate(${joystickView.knobX}px, ${joystickView.knobY}px)` }} /></span>}
         </div>
         <div className="combat-pad combat-pad--initial" role="group" aria-label="Động tác cơ bản">
-          {ACTION_PAGES[0].map(action => <button key={action.id} className={`combat-action combat-action--${action.id}`} onPointerDown={event => activateAction(event, action.id)} onClick={event => activateAction(event, action.id)}><ActionSprite animation={action.animation} /><span>{action.label}</span></button>)}
+          {ACTION_PAGES[0].map(action => <button key={action.id} className={`combat-action combat-action--${action.id}`} onPointerDown={event => activateAction(event, action.id)} onClick={event => activateAction(event, action.id)}><ActionSprite animation={action.animation} image={characterOption(progress).image} /><span>{action.label}</span></button>)}
         </div>
       </div>
-      {!storyStarted && <section className="story-dialogue" role="dialog" aria-modal="true" aria-labelledby="story-title">
-        <p className="story-kicker">{story.speaker}</p><h1 id="story-title">{story.title}</h1><p className="story-text">{story.text}</p>
+      {!storyStarted && !selectingCharacter && <section className="story-dialogue" role="dialog" aria-modal="true" aria-labelledby="story-title">
+        <p className="story-kicker">{storyText(story.speaker)}</p><h1 id="story-title">{story.title}</h1><p className="story-text">{storyText(story.text)}</p>
         <footer><span>{storyIndex + 1} / {openingScenes.length}</span><button onClick={advanceStory}>{storyIndex === openingScenes.length - 1 ? 'Khai cuộc' : 'Tiếp tục'}</button></footer>
       </section>}
       {storyStarted && trial.active && <div className="puzzle-backdrop"><section ref={puzzleDialog} tabIndex={-1} className="story-dialogue maze-dialogue" role="dialog" aria-modal="true" aria-labelledby="maze-title" onKeyDown={e => {
@@ -525,6 +550,7 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
       }}>
         <p className="story-kicker">Bia đá {trial.stage + 1} / 3 · <span role="timer">Còn {Math.ceil(trial.remaining)} giây</span></p>
         <h1 id="maze-title">{puzzle.title}</h1><p>{puzzle.context}</p>
+        <div className="puzzle-dialogue" aria-label="Lời trao đổi tại bia đá">{puzzle.dialogue.map(line => <p key={line.speaker}><strong>{line.speaker}</strong><span>{line.text}</span></p>)}</div>
         <p className="story-text puzzle-poem">{puzzle.poem}</p><p className="puzzle-clue">{puzzle.clue}</p>
         {trial.stage < 2 ? <div className="maze-choices">{puzzle.choices.map((choice, index) => <button key={choice} disabled={trial.trapped > 0} onClick={() => chooseMaze(index)}>{choice}</button>)}</div> : <>
           <div className="bagua-disc" aria-label={`Cá Dương hướng ${trigrams[fish]}; Khảm hướng ${directions[(5 + ring) % 8]}`}>
@@ -537,9 +563,10 @@ setPlayerX(run.current.x); setPhase(prologuePhase(run.current.x, trialRef.curren
         <p className="maze-message" role="status">{trial.message}{trial.trapped > 0 ? ` · Còn bị giữ ${Math.ceil(trial.trapped)} giây` : ''}</p>
       </section></div>}
       {phase === 'complete' && <section className="story-dialogue ending-dialogue" role="dialog" aria-modal="true" aria-labelledby="ending-title">
-        <p className="story-kicker">Trưởng lão Thái Huyền Tông</p><h1 id="ending-title">{rank === 1 ? 'Đứng đầu cuộc đua!' : `Về đích hạng ${rank}`}</h1><p className="story-text">{rank === 1 ? 'Ngươi đã giành vị trí đầu tiên và được nhận vào Tiên môn.' : 'Lần này chưa thể bái nhập Tiên môn. Kết quả thất bại được ghi lại trong hành trình.'}</p>
-        <footer><span>{rank === 1 ? 'Đã bái nhập Tiên môn' : 'Thử thách thất bại'}</span><button onClick={() => { restartChapter() }}>Chơi lại chương</button></footer>
+        <p className="story-kicker">{storyText(endingScene.speaker)}</p><h1 id="ending-title">{endingScene.title.replace('{rank}', rank)}</h1><p className="story-text">{storyText(endingScene.text.replaceAll('{rank}', rank))}</p>
+        <footer><span>{endingIndex + 1} / {ending.length} · {rank <= 3 ? 'Đã bái nhập Tiên môn' : 'Thử thách thất bại'}</span><button onClick={() => endingIndex < ending.length - 1 ? setEndingIndex(index => index + 1) : restartChapter()}>{endingIndex < ending.length - 1 ? 'Tiếp tục' : 'Chơi lại chương'}</button></footer>
       </section>}
+      {phase === 'end' && <section className="story-dialogue ending-dialogue" role="dialog" aria-modal="true" aria-labelledby="end-title"><h1 id="end-title">End</h1><p>Các thí sinh hiển thị đã về đích. Bạn xếp hạng 5/5.</p><footer><button onClick={restartChapter}>Chơi lại chương</button></footer></section>}
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
         <span aria-hidden="true">▭ ↻</span><h1 id="landscape-title">Chơi ở màn hình ngang</h1><p>Chạm để vào toàn màn hình và tự động xoay ngang.</p><button onClick={enterLandscape}>Vào game</button>
       </div>}

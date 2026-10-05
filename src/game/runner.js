@@ -1,7 +1,10 @@
 import { collectNearby, createStageCollectibles } from './collectibles.js'
 
 export const SCENERY_CHUNK = 320
-export const JUMP_VELOCITY = 580
+export const JUMP_VELOCITY = 780
+export const RIVAL_PUZZLE_SUCCESS = .8
+const RIVAL_GATES = [30000, 42000, 54000]
+const FINISH_X = 60000
 // World-space rectangles, matching the solid silhouettes drawn by the renderer.
 const OPENING_OBSTACLES = [
   { x: 400, width: 80, height: 48, sprite: 'classic-low', contactInset: 1 },
@@ -118,12 +121,14 @@ export function sceneryForChunk(index) {
 export function createRun() {
   return {
     x: 100, y: 0, vy: 0, facing: 1, time: 0, cooldown: 0, dash: 0, actionMove: 0, flying: false, action: null, actionTime: 0,
-    racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x, y: 0, vy: 0 })),
+    racers: RACERS.map(racer => ({ ...racer, x: 100 + racer.x, y: 0, vy: 0, puzzleStage: 0, puzzleWait: 0, finished: false })),
     shots: [], hits: 0, targets: [560, 940, 1260, 2250].map(x => ({ x, hp: 3 })),
     collectibles: createStageCollectibles(), lastPickup: null, pickupSequence: 0,
   }
 }
-export function stepRun(state, input, dt) {
+export const raceRank = run => 1 + run.racers.filter(racer => racer.finished || racer.x > run.x).length
+export const rivalsFinished = run => run.racers.every(racer => racer.finished)
+export function stepRun(state, input, dt, random = Math.random) {
   const s = { ...state, racers: state.racers.map(racer => ({ ...racer })), shots: state.shots.map(b => ({ ...b })), targets: state.targets.map(t => ({ ...t })), collectibles: state.collectibles.map(item => ({ ...item })) }
   s.time += dt
   s.cooldown = Math.max(0, s.cooldown - dt)
@@ -143,13 +148,25 @@ export function stepRun(state, input, dt) {
   const speed = s.action === 'crawl' ? 90 : input.run ? 390 : 240
   const move = input.move || (s.actionMove > 0 ? s.facing : 0)
   moveBody(s, (canMove ? (s.dash ? s.facing * 780 : move * speed) : 0) * (input.speedScale ?? 1), dt, input)
-  const pickup = collectNearby(s.collectibles, s.x)
+  const pickup = collectNearby(s.collectibles, s.x, s.y)
   s.collectibles = pickup.collectibles
   if (pickup.collected) { s.lastPickup = pickup.collected; s.pickupSequence += 1 }
   for (const racer of s.racers) {
+    if (racer.finished) continue
+    if (racer.puzzleWait > 0) {
+      racer.puzzleWait = Math.max(0, racer.puzzleWait - dt)
+      if (racer.puzzleWait === 0) {
+        if (random() < RIVAL_PUZZLE_SUCCESS) racer.puzzleStage += 1
+        else racer.puzzleWait = 5
+      }
+      continue
+    }
     const speed = rivalPace(racer, s.x, s.time)
     if (isSupported(racer) && OBSTACLES.some(o => o.height > racer.y && o.x >= racer.x + 82 && o.x - (racer.x + 82) < 90)) racer.vy = JUMP_VELOCITY
     moveBody(racer, speed, dt)
+    const gate = RIVAL_GATES[racer.puzzleStage]
+    if (gate && racer.x >= gate) { racer.x = gate; racer.puzzleWait = 2 }
+    if (racer.puzzleStage === 3 && racer.x >= FINISH_X) { racer.x = FINISH_X; racer.finished = true }
   }
   if (input.fire && !s.cooldown && s.action !== 'collapse') {
     s.shots.push({ x: s.x + 64 + s.facing * 48, y: s.y + 62, dir: s.facing })
