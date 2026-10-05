@@ -77,6 +77,22 @@ const RACERS = [
   { id: 'strongman', name: 'Thiết Sơn', x: -95, lane: 15, speed: 205, rhythm: 3.1 },
   { id: 'elder', name: 'Bạch Tùng', x: -130, lane: -2, speed: 222, rhythm: 4.4 },
 ]
+const RIVAL_MIN_SPEED = 135
+const RIVAL_MAX_SPEED = 520
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
+
+export function rivalPace(racer, playerX, time) {
+  // Each rival alternates between chasing and taking a small lead. The distance
+  // correction is stronger than the cadence variation, so the pack regroups
+  // after a player dash without moving in lockstep.
+  const desiredLead = Math.sin(time * .24 + racer.rhythm) * 240
+  const distanceCorrection = clamp((playerX + desiredLead - racer.x) * .38, -125, 285)
+  const cadence = Math.sin(time * 1.7 + racer.rhythm) * 24
+    + Math.sin(time * .53 + racer.rhythm * 1.9) * 18
+  const competitivePace = racer.speed + 145
+  return clamp(competitivePace + distanceCorrection + cadence, RIVAL_MIN_SPEED, RIVAL_MAX_SPEED)
+}
 
 function seededValue(index, salt = 0) {
   let value = Math.imul(index ^ (salt * 374761393), 668265263)
@@ -131,8 +147,7 @@ export function stepRun(state, input, dt) {
   s.collectibles = pickup.collectibles
   if (pickup.collected) { s.lastPickup = pickup.collected; s.pickupSequence += 1 }
   for (const racer of s.racers) {
-    const stride = Math.sin(s.time * 1.7 + racer.rhythm) * 22
-    const speed = Math.max(175, racer.speed + stride)
+    const speed = rivalPace(racer, s.x, s.time)
     if (isSupported(racer) && OBSTACLES.some(o => o.height > racer.y && o.x >= racer.x + 82 && o.x - (racer.x + 82) < 90)) racer.vy = JUMP_VELOCITY
     moveBody(racer, speed, dt)
   }
