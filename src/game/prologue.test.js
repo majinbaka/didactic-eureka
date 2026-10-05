@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { createTrial, answerTrial, tickTrial, prologuePhase, puzzles, stepTrialRun, PUZZLE_SECONDS, SUMMIT_GATE, TRIAL_DISTANCE_SCALE } from './prologue.js'
+import { createTrial, answerTrial, tickTrial, prologuePhase, puzzles, stepTrialRun, openingScenes, endingScenes, PUZZLE_SECONDS, SUMMIT_GATE, TRIAL_DISTANCE_SCALE } from './prologue.js'
 import { createRun } from './runner.js'
 
 test('all three gates are required before completion', () => {
@@ -17,6 +17,12 @@ test('each puzzle allows up to five minutes', () => {
   assert.equal(PUZZLE_SECONDS, 300)
   assert.deepEqual(puzzles.map(puzzle => puzzle.seconds), [300, 300, 300])
   assert.equal(createTrial().remaining, 300)
+})
+test('only the first opening scene narrates; later lines belong to characters or stone tablets', () => {
+  assert.equal(openingScenes[0].speaker, 'Dẫn chuyện')
+  assert.ok(openingScenes.slice(1).every(scene => scene.speaker !== 'Dẫn chuyện'))
+  assert.ok(Object.values(endingScenes).flat().every(scene => scene.speaker !== 'Dẫn chuyện'))
+  assert.ok(puzzles.every(puzzle => puzzle.dialogue[0].speaker === 'Bia đá'))
 })
 test('correct answers advance in order, both bagua alignments required', () => {
   let trial = { ...createTrial(), active: true }

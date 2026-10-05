@@ -75,10 +75,10 @@ function moveBody(body, velocity, dt, input = {}) {
 }
 const ACTION_DURATION = { hello: 1.4, scratch: 1.4, doze: 3, sit: 3, crawl: 2.2, hurt: .4, collapse: Infinity }
 const RACERS = [
-  { id: 'female', name: 'Linh Nhi', x: -25, lane: -10, speed: 225, rhythm: .7 },
-  { id: 'bald-monk', name: 'Minh Không', x: -60, lane: 7, speed: 218, rhythm: 1.9 },
-  { id: 'strongman', name: 'Thiết Sơn', x: -95, lane: 15, speed: 205, rhythm: 3.1 },
-  { id: 'elder', name: 'Bạch Tùng', x: -130, lane: -2, speed: 222, rhythm: 4.4 },
+  { id: 'female', name: 'Linh Nhi', x: -44, lane: -10, speed: 225, rhythm: .7 },
+  { id: 'bald-monk', name: 'Minh Không', x: -88, lane: 7, speed: 218, rhythm: 1.9 },
+  { id: 'strongman', name: 'Thiết Sơn', x: -132, lane: 15, speed: 205, rhythm: 3.1 },
+  { id: 'elder', name: 'Bạch Tùng', x: -176, lane: -2, speed: 222, rhythm: 4.4 },
 ]
 const RIVAL_MIN_SPEED = 135
 const RIVAL_MAX_SPEED = 520

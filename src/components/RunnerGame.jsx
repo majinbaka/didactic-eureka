@@ -8,6 +8,7 @@ import { items, itemBlockedReason } from '../game/items'
 import { collectibleCatalog, collectibleReward, RARITIES, STAGE_COLLECTIBLES } from '../game/collectibles'
 import { DECORATIVE_VARIANT_SPRITES, FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from '../game/scenerySprites'
 import PwaControls from './PwaControls'
+import StorySpeech from './StorySpeech'
 
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
@@ -213,9 +214,11 @@ function drawBackground(ctx, image, width, height, camera) {
   }
 }
 
-function draw(ctx, s, width, height, input, sprites) {
+function draw(ctx, s, width, height, input, sprites, staged = false, stone = false) {
   const ground = height - 64
-  const camera = s.x - width * .32
+  const castCenter = Math.min(width * .7, width * .5 + 100)
+  const openingView = Math.min(1, Math.max(0, 1 - (s.x - 100) / 500))
+  const camera = s.x - (width * .32 + (castCenter - width * .32) * openingView)
   drawBackground(ctx, sprites.background, width, height, camera)
   const farStart = Math.floor((camera * .28 - 100) / 150)
   for (let i = farStart; i <= farStart + Math.ceil(width / 150) + 2; i++) {
@@ -248,6 +251,14 @@ function draw(ctx, s, width, height, input, sprites) {
     drawObstacle(ctx, sprites.obstacles, sprites.objectVariants, sprites.obstacleTypes, sprites.floatingObstacle, obstacle, x, top)
   }
   for (const collectible of s.collectibles) drawCollectible(ctx, sprites.collectibles, collectible, camera, ground, s.time)
+  if (staged) {
+    const frame = animationFrame('idle', 0)
+    if (stone) drawObject(ctx, sprites.objects, 6, castCenter - 225, ground + 5, 70, 106)
+    else drawCharacter(ctx, sprites.elder, frame, castCenter - 225, ground + 1, 1)
+    for (const [id, offset] of [['elder', 176], ['strongman', 132], ['bald-monk', 88], ['female', 44]]) drawCharacter(ctx, sprites.rivals[id], frame, castCenter - offset, ground + 1, 1)
+    drawCharacter(ctx, sprites.character, frame, castCenter, ground + 1, 1)
+    return
+  }
   const rivalFrame = animationFrame('run', s.time)
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
     const x = racer.x - camera + 64
@@ -267,13 +278,15 @@ function draw(ctx, s, width, height, input, sprites) {
 export default function RunnerGame() {
   const [initialRun] = useState(createRun)
   const canvas = useRef(null), run = useRef(initialRun), input = useRef({ move: 0 }), gesture = useRef(null)
-  const sprites = useRef({ character: null, background: null, objects: null, obstacles: null, objectVariants: null, obstacleTypes: null, floatingObstacle: null, collectibles: null, rivals: {} })
+  const sprites = useRef({ character: null, elder: null, background: null, objects: null, obstacles: null, objectVariants: null, obstacleTypes: null, floatingObstacle: null, collectibles: null, rivals: {} })
   const joystick = useRef(null)
   const [spriteStatus, setSpriteStatus] = useState('loading')
   const [rank, setRank] = useState(1)
   const [storyIndex, setStoryIndex] = useState(0)
   const [endingIndex, setEndingIndex] = useState(0)
   const [storyStarted, setStoryStarted] = useState(false)
+  const [puzzleStep, setPuzzleStep] = useState(0)
+  const puzzleStepRef = useRef(0)
   const trialRef = useRef(createTrial())
   const [trial, setTrial] = useState(createTrial)
   const [fish, setFish] = useState(3)
@@ -316,16 +329,19 @@ export default function RunnerGame() {
     return () => { document.removeEventListener('visibilitychange', onVisibility); window.clearInterval(timer) }
   }, [])
   useEffect(() => {
-    const character = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), objectVariants = new Image(), obstacleTypes = new Image(), floatingObstacle = new Image(), collectibles = new Image()
+    const character = new Image(), elder = new Image(), background = new Image(), objects = new Image(), obstacles = new Image(), objectVariants = new Image(), obstacleTypes = new Image(), floatingObstacle = new Image(), collectibles = new Image()
     const rivals = Object.fromEntries(Object.keys(RIVAL_CHARACTERS).map(id => [id, new Image()]))
-    sprites.current = { character, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, rivals }
+    sprites.current = { character, elder, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, rivals }
     let loadedCount = 0
-    const assetCount = 8 + Object.keys(rivals).length
+    const assetCount = 9 + Object.keys(rivals).length
     const loaded = () => { loadedCount += 1; if (loadedCount === assetCount) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
     character.onload = loaded
     character.onerror = failed
     character.src = playableCharacters.find(option => option.id === progress.characterId)?.image || CHARACTER_ATLAS.image
+    elder.onload = loaded
+    elder.onerror = failed
+    elder.src = '/assets/characters/sect-master-v1/character-sect-master-v1-sheet.png'
     background.onload = loaded
     background.onerror = failed
     background.src = SCENERY_ASSETS.background
@@ -377,13 +393,15 @@ export default function RunnerGame() {
           finishedChapter.current = true
           setProgress(previous => { const next = recordStory(previous, currentRank <= 3 ? `Về đích hạng ${currentRank} Trúc Linh Phong, được nhận vào Tiên môn.` : `Về đích hạng ${currentRank}, không được nhận vào Tiên môn.`); saveLocal(next); return next })
         }
-        if (!current.active && result.trial.active) setPanel(null)
+        if (!current.active && result.trial.active) { puzzleStepRef.current = 0; setPuzzleStep(0); setPanel(null) }
       }
       input.current.jump = false; input.current.action = null; input.current.actionMove = false
       const c = canvas.current, width = c.clientWidth, height = c.clientHeight
       if (c.width !== width || c.height !== height) { c.width = width; c.height = height }
       const context = c.getContext('2d'); context.imageSmoothingEnabled = false
-      draw(context, run.current, width, height, input.current, sprites.current)
+      const atEnd = prologuePhase(run.current.x, trialRef.current.stage) === 'complete'
+      const reading = trialRef.current.active && puzzleStepRef.current < puzzles[trialRef.current.stage].dialogue.length
+      draw(context, run.current, width, height, input.current, sprites.current, !storyStarted || atEnd || rivalsFinished(run.current) || reading, reading)
       setPlayerX(run.current.x)
       setPhase(rivalsFinished(run.current) && run.current.x < SUMMIT_GATE ? 'end' : prologuePhase(run.current.x, trialRef.current.stage))
       frame = requestAnimationFrame(tick)
@@ -401,7 +419,7 @@ export default function RunnerGame() {
     const down = e => key(e, true), up = e => key(e, false), reset = () => { input.current = { move: 0 } }
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', reset)
     frame = requestAnimationFrame(tick)
-    return () => { for (const image of [character, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
+    return () => { for (const image of [character, elder, background, objects, obstacles, objectVariants, obstacleTypes, floatingObstacle, collectibles, ...Object.values(rivals)]) image.onload = image.onerror = null; cancelAnimationFrame(frame); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', reset) }
   }, [storyStarted, selectingCharacter, progress.characterId])
   const updateJoystick = e => {
     const active = joystick.current
@@ -478,13 +496,14 @@ export default function RunnerGame() {
   useEffect(() => {
     if (trial.active) {
       input.current = { move: 0 }
-      puzzleDialog.current?.focus()
+      if (puzzleStep >= puzzles[trial.stage].dialogue.length) puzzleDialog.current?.focus()
     }
-  }, [trial.active])
+  }, [trial.active, trial.stage, puzzleStep])
   const restartChapter = () => {
     run.current = createRun(); input.current = { move: 0 }
     processedPickup.current = 0; finishedChapter.current = false
     trialRef.current = createTrial(); setTrial(trialRef.current); setFish(3); setRing(0)
+    puzzleStepRef.current = 0; setPuzzleStep(0)
     setStoryIndex(0); setStoryStarted(false); setPhase('forest'); setPlayerX(100)
     setEndingIndex(0)
     setRank(1); setPanel(null); setJoystickView(null); joystick.current = null
@@ -536,11 +555,13 @@ export default function RunnerGame() {
           {ACTION_PAGES[0].map(action => <button key={action.id} className={`combat-action combat-action--${action.id}`} onPointerDown={event => activateAction(event, action.id)} onClick={event => activateAction(event, action.id)}><ActionSprite animation={action.animation} image={characterOption(progress).image} /><span>{action.label}</span></button>)}
         </div>
       </div>
-      {!storyStarted && !selectingCharacter && <section className="story-dialogue" role="dialog" aria-modal="true" aria-labelledby="story-title">
+      {!storyStarted && !selectingCharacter && storyIndex === 0 && <section className="story-dialogue" role="dialog" aria-modal="true" aria-labelledby="story-title" onKeyDown={e => { if (e.key === 'Tab') { e.preventDefault(); e.currentTarget.querySelector('button').focus() } }}>
         <p className="story-kicker">{storyText(story.speaker)}</p><h1 id="story-title">{story.title}</h1><p className="story-text">{storyText(story.text)}</p>
-        <footer><span>{storyIndex + 1} / {openingScenes.length}</span><button onClick={advanceStory}>{storyIndex === openingScenes.length - 1 ? 'Khai cuộc' : 'Tiếp tục'}</button></footer>
+        <footer><span>{storyIndex + 1} / {openingScenes.length}</span><button autoFocus onClick={advanceStory}>{storyIndex === openingScenes.length - 1 ? 'Khai cuộc' : 'Tiếp tục'}</button></footer>
       </section>}
-      {storyStarted && trial.active && <div className="puzzle-backdrop"><section ref={puzzleDialog} tabIndex={-1} className="story-dialogue maze-dialogue" role="dialog" aria-modal="true" aria-labelledby="maze-title" onKeyDown={e => {
+      {!storyStarted && !selectingCharacter && storyIndex > 0 && <StorySpeech scene={story} name={progress.characterName} rank={rank} position={storyIndex + 1} total={openingScenes.length} onNext={advanceStory} nextLabel={storyIndex === openingScenes.length - 1 ? 'Khai cuộc' : 'Tiếp tục'} />}
+      {storyStarted && trial.active && puzzleStep < puzzle.dialogue.length && <StorySpeech scene={{ ...puzzle.dialogue[puzzleStep], title: puzzle.title }} name={progress.characterName} rank={rank} position={puzzleStep + 1} total={puzzle.dialogue.length} onNext={() => { puzzleStepRef.current += 1; setPuzzleStep(puzzleStepRef.current) }} nextLabel={puzzleStep === puzzle.dialogue.length - 1 ? 'Đọc câu đố' : 'Tiếp tục'} />}
+      {storyStarted && trial.active && puzzleStep >= puzzle.dialogue.length && <div className="puzzle-backdrop"><section ref={puzzleDialog} tabIndex={-1} className="story-dialogue maze-dialogue" role="dialog" aria-modal="true" aria-labelledby="maze-title" onKeyDown={e => {
         if (e.key !== 'Tab') return
         const buttons = [...e.currentTarget.querySelectorAll('button:not(:disabled)')]
         const first = buttons[0], last = buttons.at(-1)
@@ -549,8 +570,7 @@ export default function RunnerGame() {
         else if (!e.shiftKey && (document.activeElement === last || document.activeElement === e.currentTarget)) { e.preventDefault(); first.focus() }
       }}>
         <p className="story-kicker">Bia đá {trial.stage + 1} / 3 · <span role="timer">Còn {Math.ceil(trial.remaining)} giây</span></p>
-        <h1 id="maze-title">{puzzle.title}</h1><p>{puzzle.context}</p>
-        <div className="puzzle-dialogue" aria-label="Lời trao đổi tại bia đá">{puzzle.dialogue.map(line => <p key={line.speaker}><strong>{line.speaker}</strong><span>{line.text}</span></p>)}</div>
+        <h1 id="maze-title">{puzzle.title}</h1>
         <p className="story-text puzzle-poem">{puzzle.poem}</p><p className="puzzle-clue">{puzzle.clue}</p>
         {trial.stage < 2 ? <div className="maze-choices">{puzzle.choices.map((choice, index) => <button key={choice} disabled={trial.trapped > 0} onClick={() => chooseMaze(index)}>{choice}</button>)}</div> : <>
           <div className="bagua-disc" aria-label={`Cá Dương hướng ${trigrams[fish]}; Khảm hướng ${directions[(5 + ring) % 8]}`}>
@@ -562,11 +582,8 @@ export default function RunnerGame() {
         <p className="puzzle-penalty">Chọn sai / hết giờ: {puzzle.penalty}</p>
         <p className="maze-message" role="status">{trial.message}{trial.trapped > 0 ? ` · Còn bị giữ ${Math.ceil(trial.trapped)} giây` : ''}</p>
       </section></div>}
-      {phase === 'complete' && <section className="story-dialogue ending-dialogue" role="dialog" aria-modal="true" aria-labelledby="ending-title">
-        <p className="story-kicker">{storyText(endingScene.speaker)}</p><h1 id="ending-title">{endingScene.title.replace('{rank}', rank)}</h1><p className="story-text">{storyText(endingScene.text.replaceAll('{rank}', rank))}</p>
-        <footer><span>{endingIndex + 1} / {ending.length} · {rank <= 3 ? 'Đã bái nhập Tiên môn' : 'Thử thách thất bại'}</span><button onClick={() => endingIndex < ending.length - 1 ? setEndingIndex(index => index + 1) : restartChapter()}>{endingIndex < ending.length - 1 ? 'Tiếp tục' : 'Chơi lại chương'}</button></footer>
-      </section>}
-      {phase === 'end' && <section className="story-dialogue ending-dialogue" role="dialog" aria-modal="true" aria-labelledby="end-title"><h1 id="end-title">End</h1><p>Các thí sinh hiển thị đã về đích. Bạn xếp hạng 5/5.</p><footer><button onClick={restartChapter}>Chơi lại chương</button></footer></section>}
+      {phase === 'complete' && <StorySpeech scene={endingScene} name={progress.characterName} rank={rank} position={endingIndex + 1} total={ending.length} onNext={() => endingIndex < ending.length - 1 ? setEndingIndex(index => index + 1) : restartChapter()} nextLabel={endingIndex < ending.length - 1 ? 'Tiếp tục' : 'Chơi lại chương'} />}
+      {phase === 'end' && <StorySpeech scene={{ speaker: 'Trưởng lão Thái Huyền Tông', title: 'Cuộc đua khép lại', text: 'Bốn người kia đã chạm cổng trước ngươi. Lượt tuyển này khép lại; hãy nhớ con đường và thử sức lần nữa.' }} name={progress.characterName} rank={5} position={1} total={1} onNext={restartChapter} nextLabel="Chơi lại chương" />}
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
         <span aria-hidden="true">▭ ↻</span><h1 id="landscape-title">Chơi ở màn hình ngang</h1><p>Chạm để vào toàn màn hình và tự động xoay ngang.</p><button onClick={enterLandscape}>Vào game</button>
       </div>}

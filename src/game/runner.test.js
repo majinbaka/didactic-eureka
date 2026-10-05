@@ -56,6 +56,7 @@ test('four existing characters start behind the player and advance independently
   const start = createRun()
   assert.deepEqual(start.racers.map(racer => racer.id), ['female', 'bald-monk', 'strongman', 'elder'])
   assert.ok(start.racers.every(racer => racer.x < start.x))
+  assert.deepEqual(start.racers.map((racer, index) => (index ? start.racers[index - 1].x : start.x) - racer.x), [44, 44, 44, 44])
   const next = stepRun(start, {}, .1)
   assert.ok(next.racers.every((racer, index) => racer.x > start.racers[index].x))
   assert.equal(new Set(next.racers.map(racer => racer.x)).size, 4)
