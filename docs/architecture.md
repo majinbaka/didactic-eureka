@@ -38,3 +38,9 @@ Load thử v3 → v2 → v1, migration giữ tiến độ và bổ sung hành tr
 Local key `loan-gioi:save:v4`, giữ các trường v3 và thêm `bornAt` (Unix time mili giây) cùng `autoCultivate` (boolean). Migration v1/v2/v3 giữ toàn bộ tiến độ; bản cũ bắt đầu tính tuổi từ thời điểm migration. Tuổi được suy ra từ `bornAt`, không ghi lặp vào save. Tu luyện tự động chỉ tick khi ứng dụng đang mở và lưu local sau mỗi lần thay đổi.
 
 Firestore rules đã mô tả schema v4 nhưng chưa được kiểm thử bằng Emulator hoặc deploy. Cần deploy rules trước khi upload save v4 lên dự án Firebase thật.
+
+## Schema v5 — hành trình và thu thập
+
+Local key `loan-gioi:save:v5`, đọc và migration từ v1–v4 mà không xóa bản cũ. Thêm `spiritRootType`, `lastSeenAt`, `pendingQi`, `collectionCounts` và `storyLog`. Bản v4 giữ toàn bộ tài nguyên, thuộc tính và tiến độ; các trường mới bắt đầu từ thời điểm migration. Bản mới khởi đầu không có tài nguyên hay vật phẩm. Bộ sưu tập đếm tổng lượt nhặt theo ID vật phẩm qua các lần chơi chương; reset nhân vật xóa cả lượt đếm và nhật ký.
+
+Nhập định dùng dấu thời gian local, giới hạn 4 linh khí trước khi người chơi nhận. Đây là tiến độ do client tự khai, không thích hợp làm nguồn tin cậy cho cạnh tranh. Firestore rules v5 cần được thử bằng Emulator và triển khai riêng trước khi dùng cloud save v5.

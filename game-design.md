@@ -92,3 +92,11 @@ Tám khối đá mở đầu cao 48/64/112px và hơn 60 vật cản sinh ổn �
 Hai bộ đá rêu được xen kẽ theo tuyến để tránh lặp hình; crop runtime loại toàn bộ gutter trong suốt để mặt vẽ trùng mặt va chạm. Sỏi, dương xỉ, măng trúc và đèn đá vỡ v2 là scenery thuần, người chơi đi xuyên qua được và không được dùng silhouette giống bệ đứng.
 
 Đường dài còn sinh năm loại vật cản có kích thước thực khác nhau: bó trúc `168×42`, gốc cây `100×78`, bệ đèn đá `72×104`, xà cổng đổ `184×72` và chòi trúc `84×110`px. Ba loại bệ lơ lửng là phiến linh thạch `144×51`, đá rêu `104×48` và mỏm ngọc `78×72`px, được đặt ở cao độ 76–106px và xuất hiện cả trong đoạn đầu. Crop ảnh bắt đầu đúng tại pixel mặt đứng; đáy chân từng pose được căn riêng vào collider, không đổi hitbox, độ cao nhảy hay trạng thái gameplay.
+
+## Luật chương nhập môn và tiến độ v5
+
+Chỉ người về nhất cuộc đua Trúc Linh Phong được nhận vào Tiên môn. Về hạng khác là thất bại của lượt chơi, được ghi vào nhật ký và có thể chơi lại chương; chưa có tuyến truyện thất bại riêng. Thất bại đột phá tiếp tục mất nguyên liệu, linh khí và tụt cảnh giới theo luật hiện tại, không có cảnh tỉnh dậy để xóa kết quả.
+
+Nhân vật mới bắt đầu với 0 linh thạch, 0 linh thảo, 0 đan và 0 lượt hồ lô. Phân bố linh căn: đơn 1%, dị 1%, song thường 10%, tam 30%, tứ/phế 58%. Dị linh căn hiện là phân loại hiếm trong hồ sơ; hiệu ứng riêng sẽ được thiết kế sau. Chỉ đi bộ, chạy, nhảy và ngồi có điều khiển trong chương đầu.
+
+Nhập định tự bật cho nhân vật mới; mỗi 15 phút tích 1 linh khí, tối đa 4 linh khí tương ứng một giờ chưa nhận. Người chơi bấm nhận trong hồ sơ. Nhật ký lưu mốc bắt đầu, lựa chọn giải bia, đột phá và kết quả cuộc đua; reset nhân vật xóa nhật ký, bộ sưu tập và đưa chương về đầu.

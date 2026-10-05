@@ -7,9 +7,9 @@ export const PUZZLE_SECONDS = 5 * 60
 
 export const openingScenes = [
   { speaker: 'Vô Danh · Nội tâm', title: 'Tỉnh giác giữa Rừng Trúc U Tinh', text: 'Gió lạnh quá... Cuối cùng cũng tới được Rừng Trúc U Tinh rồi sao?' },
-  { speaker: 'Vô Danh · Nội tâm', title: 'Đại lễ mười năm một lần', text: 'Gia tộc suy vong, bản thân lại mang phế linh căn. Nếu không thể bái nhập Thái Huyền Tông lần này, ta sẽ chẳng còn cơ hội quay đầu. Bất luận thế nào, hôm nay ta phải giành lấy một trong 5 vị trí đầu tiên!' },
+  { speaker: 'Vô Danh · Nội tâm', title: 'Đại lễ mười năm một lần', text: 'Gia tộc suy vong, bản thân lại mang phế linh căn. Nếu không thể bái nhập Thái Huyền Tông lần này, ta sẽ chẳng còn cơ hội quay đầu. Bất luận thế nào, hôm nay ta phải giành lấy vị trí đầu tiên!' },
   { speaker: 'Dẫn chuyện', title: 'Tiếng pháo hiệu xuất phát', text: 'Hàng trăm tu sĩ trẻ tuổi tụ giữa rừng trúc. Trên ngọn trúc cao nhất, một vị trưởng lão áo trắng lướt qua hư không, giọng nói ngân như chuông đồng.' },
-  { speaker: 'Trưởng lão Thái Huyền Tông', title: 'Trúc Linh Phong · Thử thách nhập môn', text: 'Rừng Trúc U Tinh là cửa quan đầu tiên! Chỉ 5 người đầu tiên vượt qua rừng trúc và bước lên ngọn Linh Phong mới có quyền trở thành Đệ tử Nội môn. Tiên duyên ở ngay trước mắt... Khai cuộc!' },
+  { speaker: 'Trưởng lão Thái Huyền Tông', title: 'Trúc Linh Phong · Thử thách nhập môn', text: 'Rừng Trúc U Tinh là cửa quan đầu tiên! Chỉ người đầu tiên vượt qua rừng trúc và bước lên ngọn Linh Phong mới có quyền trở thành Đệ tử Nội môn. Tiên duyên ở ngay trước mắt... Khai cuộc!' },
 ]
 
 export const trigrams = ['Càn', 'Đoài', 'Ly', 'Chấn', 'Tốn', 'Khảm', 'Cấn', 'Khôn']

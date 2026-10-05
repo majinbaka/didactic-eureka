@@ -1,12 +1,12 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { characterAge, characterLifespan, createInitialState, cultivationGain, initialState, isValidSave, migrateSave, qiRecoveryRate, qiRequired, rollSpiritRoots, transition, YEAR_MS } from './state.js'
+import { AUTO_QI_INTERVAL, accrueOfflineQi, characterAge, characterLifespan, createInitialState, cultivationGain, initialState, isValidSave, migrateSave, qiRequired, rollSpiritRootProfile, rollSpiritRoots, transition, YEAR_MS } from './state.js'
 
 test('random spirit roots are unique and valid', () => {
   assert.deepEqual(rollSpiritRoots(() => 0), ['kim'])
   const rolls = [.99, .1, .1, .1, .1, .1]
   const roots = rollSpiritRoots(() => rolls.shift() ?? 0)
-  assert.equal(roots.length, 5); assert.equal(new Set(roots).size, 5); assert.ok(isValidSave(createInitialState(() => 0)))
+  assert.equal(roots.length, 4); assert.equal(new Set(roots).size, 4); assert.ok(isValidSave(createInitialState(() => 0)))
 })
 test('cultivation raises every owned element and multi-root cultivation is slower', () => {
   const one = createInitialState(() => 0), many = { ...one, spiritRoots: ['kim', 'moc', 'thuy'] }
@@ -15,16 +15,16 @@ test('cultivation raises every owned element and multi-root cultivation is slowe
   for (const root of many.spiritRoots) assert.equal(next.elementCultivation[root], cultivationGain(many))
   assert.equal(next.qi, cultivationGain(many))
 })
-test('automatic cultivation restores qi each second and age follows system weeks', () => {
+test('offline cultivation earns one qi per fifteen minutes, capped at one hour', () => {
   const bornAt = 1000, state = createInitialState(() => 0, bornAt)
-  assert.equal(characterAge(state, bornAt), 15)
   assert.equal(characterAge(state, bornAt + YEAR_MS * 3), 18)
   assert.equal(characterLifespan(state), 60)
-  assert.equal(transition(state, 'auto-cultivate-tick'), state)
-  const active = transition(state, { type: 'set-auto-cultivate', enabled: true })
-  const next = transition(active, 'auto-cultivate-tick')
-  assert.equal(next.qi, qiRecoveryRate(active))
-  assert.equal(next.elementCultivation.kim, qiRecoveryRate(active))
+  const pending = accrueOfflineQi(state, bornAt + AUTO_QI_INTERVAL * 10)
+  assert.equal(pending.pendingQi, 4)
+  const claimed = transition(pending, 'claim-offline-qi')
+  assert.equal(claimed.qi, 4)
+  assert.equal(claimed.pendingQi, 0)
+  assert.equal(claimed.elementCultivation.kim, 4)
 })
 test('breakthrough consumes materials and succeeds or drops realm', () => {
   const ready = { ...initialState, realm: 2, qi: qiRequired(2), stones: 200, herbs: 20 }
@@ -52,7 +52,18 @@ test('v3 save migrates to v4 with character time fields', () => {
   delete v3.bornAt
   delete v3.autoCultivate
   const migrated = migrateSave(v3, () => 0, 12345)
-  assert.equal(migrated.version, 4)
+  assert.equal(migrated.version, 5)
   assert.equal(migrated.bornAt, 12345)
   assert.equal(migrated.autoCultivate, false)
 })
+
+test('new character starts without resources and root odds meet the requested bands', () => {
+  const state = createInitialState(() => 0)
+  assert.equal(state.stones, 0); assert.equal(state.herbs, 0)
+  assert.equal(state.inventory.pill, 0); assert.equal(state.inventory.gourd, 0)
+  for (const [roll, count] of [[0,1],[.015,1],[.05,2],[.2,3],[.8,4]]) {
+    assert.equal(rollSpiritRoots(() => roll).length, count)
+  }
+})
+
+test('rare one-root profiles distinguish single and unusual roots', () => { assert.equal(rollSpiritRootProfile(() => 0).type, 'don'); assert.equal(rollSpiritRootProfile(() => .015).type, 'di') })

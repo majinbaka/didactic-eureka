@@ -65,3 +65,7 @@ Các khối đá rêu dùng atlas raster riêng, đồng bộ nét pixel, ánh s
 ## Linh vật trên đường chạy
 
 Linh thảo và linh thạch dùng atlas raster nội bộ 4×2 ô, mỗi ô 32×32px, cạnh cứng và có quầng sáng mang màu độ hiếm. Vật phẩm lơ lửng nhẹ trên mặt đất, tự biến mất khi nhân vật chạm qua. HUD hiển thị đồng thời tổng linh thảo và linh thạch; chạm ô linh thảo mở bách khoa hai cột (một cột trên màn hẹp/thấp), gồm ảnh, tên, loại, độ hiếm, mô tả và tiến độ nhặt trong phiên. Thông báo nhặt dùng vùng trạng thái hiện có, không che điều khiển.
+
+## Hồ sơ và điều khiển chương đầu v5
+
+Bộ sưu tập là lưới ảnh/tên vật phẩm; chọn ô mở nơi nhặt và tổng số từng nhặt. Thanh hồ sơ có menu Cốt truyện để đọc nhật ký theo thứ tự. Hồ sơ hiển thị tấn công, phòng thủ vật lý/pháp, thần thức và hai mục kỹ năng/pháp bảo bản mệnh khóa đến Kim Đan. Nhập định hiện số linh khí đã tích để người chơi bấm nhận. Cụm động tác chương đầu chỉ có Nhảy và Ngồi; joystick điều khiển đi bộ/chạy.

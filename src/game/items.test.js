@@ -4,7 +4,7 @@ import { createInitialState, transition, cultivationGain, migrateSave, isValidSa
 const use = id => ({ type: 'use-item', id })
 const buy = id => ({ type: 'buy-item', id })
 test('single use heals to cap and never consumes at full health', () => {
-  const state = createInitialState()
+  const state = { ...createInitialState(), inventory: { ...createInitialState().inventory, pill: 2 } }
   assert.equal(transition(state, use('pill')), state)
   const next = transition({ ...state, hp: 90 }, use('pill'))
   assert.equal(next.hp, 100); assert.equal(next.inventory.pill, 1)
@@ -12,12 +12,12 @@ test('single use heals to cap and never consumes at full health', () => {
 })
 test('gourd has exactly five uses, cannot refill early, and can be repurchased', () => {
   let state = { ...createInitialState(), stones: 100 }
-  assert.equal(transition(state, buy('gourd')), state)
+  state = transition(state, buy('gourd'))
   for (let i = 0; i < 5; i++) state = transition(state, use('gourd'))
   assert.equal(state.qi, 100); assert.equal(state.inventory.gourd, 0)
   assert.equal(transition(state, use('gourd')), state)
   state = transition(state, buy('gourd'))
-  assert.equal(state.stones, 76); assert.equal(state.inventory.gourd, 5)
+  assert.equal(state.stones, 52); assert.equal(state.inventory.gourd, 5)
   assert.equal(transition(state, use('gourd')), state)
 })
 test('permanent bonus survives serialization and cannot stack or be bought twice', () => {
@@ -45,7 +45,7 @@ test('v2 migration preserves all progression and local fallback retains legacy d
   globalThis.localStorage = { getItem: key => entries.get(key) ?? null, setItem: (key, value) => entries.set(key, value) }
   try {
     const loaded = loadLocalSave()
-    assert.deepEqual({ ...loaded, bornAt: migrated.bornAt }, migrated)
+    assert.deepEqual({ ...loaded, bornAt: migrated.bornAt, lastSeenAt: migrated.lastSeenAt }, migrated)
     assert.equal(entries.get(PREVIOUS_SAVE_KEY), JSON.stringify(old))
   } finally { globalThis.localStorage = previous }
 })

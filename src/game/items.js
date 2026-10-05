@@ -3,7 +3,7 @@ export const items = [
   { id: 'gourd', name: 'Tụ Khí Hồ Lô', kind: 'Dùng nhiều lần', description: 'Hồi 20 linh khí/lượt; mỗi bình có 5 lượt.', price: 24 },
   { id: 'jade', name: 'Ngộ Đạo Ngọc', kind: 'Vĩnh viễn', description: 'Kích hoạt một lần: +2 linh khí và tu vi mỗi hành khi tu luyện.', price: 80 },
 ]
-export const createInventory = () => ({ pill: 2, gourd: 5, jade: 0, jadeActive: false })
+export const createInventory = () => ({ pill: 0, gourd: 0, jade: 0, jadeActive: false })
 export function validInventory(value) {
   return value && Object.keys(value).length === 4 && Number.isInteger(value.pill) && value.pill >= 0 && value.pill <= 999 &&
     Number.isInteger(value.gourd) && value.gourd >= 0 && value.gourd <= 5 && [0, 1].includes(value.jade) &&

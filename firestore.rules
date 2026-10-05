@@ -5,10 +5,13 @@ service cloud.firestore {
       function owner() { return request.auth != null && request.auth.uid == uid; }
       function valid() {
         let d = request.resource.data;
-        return d.keys().hasAll(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'bornAt', 'autoCultivate', 'updatedAt'])
-          && d.keys().hasOnly(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'elementCultivation', 'bornAt', 'autoCultivate', 'updatedAt'])
-          && d.version == 4 && d.realm is int && d.realm >= 0 && d.realm <= 4
+        return d.keys().hasAll(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'spiritRootType', 'elementCultivation', 'bornAt', 'autoCultivate', 'lastSeenAt', 'pendingQi', 'collectionCounts', 'storyLog', 'updatedAt'])
+          && d.keys().hasOnly(['inventory', 'version', 'realm', 'qi', 'stones', 'herbs', 'journeys', 'hp', 'maxHp', 'attributePoints', 'attributes', 'spiritRoots', 'spiritRootType', 'elementCultivation', 'bornAt', 'autoCultivate', 'lastSeenAt', 'pendingQi', 'collectionCounts', 'storyLog', 'updatedAt'])
+          && d.version == 5 && d.realm is int && d.realm >= 0 && d.realm <= 4
           && d.bornAt is int && d.bornAt >= 0 && d.autoCultivate is bool
+          && d.lastSeenAt is int && d.lastSeenAt >= 0 && d.pendingQi is int && d.pendingQi >= 0 && d.pendingQi <= 4
+          && d.collectionCounts is map && d.collectionCounts.size() <= 100
+          && d.storyLog is list && d.storyLog.size() <= 500
           && d.inventory.keys().hasAll(['pill', 'gourd', 'jade', 'jadeActive'])
           && d.inventory.keys().hasOnly(['pill', 'gourd', 'jade', 'jadeActive'])
           && d.inventory.pill is int && d.inventory.pill >= 0 && d.inventory.pill <= 999
@@ -25,6 +28,7 @@ service cloud.firestore {
           && d.attributes.canCot is int && d.attributes.canCot >= 1
           && d.attributes.ngoTinh is int && d.attributes.ngoTinh >= 1
           && d.attributes.thanPhap is int && d.attributes.thanPhap >= 1
+          && d.spiritRootType in ['don', 'di', 'phe', 'thuong']
           && d.spiritRoots is list && d.spiritRoots.size() >= 1 && d.spiritRoots.size() <= 5
           && d.spiritRoots.hasOnly(['kim', 'moc', 'thuy', 'hoa', 'tho'])
           && d.elementCultivation.keys().hasOnly(['kim', 'moc', 'thuy', 'hoa', 'tho'])
