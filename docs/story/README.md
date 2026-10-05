@@ -13,3 +13,7 @@ Thư mục này là bản đọc và tra cứu các chương **đã có trong ga
 3. Sau khi sửa nội dung trong code, đối chiếu lại tệp Markdown. Nhật ký trong hồ sơ nhân vật (`storyLog`) ghi sự kiện theo từng lượt chơi, không thay thế bản thảo chương ở đây.
 
 Ý tưởng thế giới và nội dung dự kiến nằm ở [game-design.md](../../game-design.md).
+
+## Thiết kế cốt truyện dài hạn — đề xuất
+
+[STORY FOUNDATION v0.1](planning/foundation-v0.1.md) và [Story Bible Initialization Package](bible/initialization-v0.1.md) là tài liệu Phase 1 đang đề xuất, đã có [critique và một vòng revision](planning/foundation-review-v0.1.md). Tra cứu nguồn/IDs tại [Story Bible](bible/README.md). Nội dung này chưa thay chương chơi được, chưa khóa canon và chưa triển khai.
