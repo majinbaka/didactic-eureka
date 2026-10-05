@@ -68,3 +68,12 @@ Override `@grpc/grpc-js` lên nhánh 1.14.5 để xử lý advisory trong depend
 ## Nguồn kỹ thuật
 
 [Vite](https://vite.dev/guide/), [Vite PWA](https://vite-pwa-org.netlify.app/guide/), [Firebase web setup](https://firebase.google.com/docs/web/setup), [Firestore rules](https://firebase.google.com/docs/firestore/security/get-started), [Vite trên Vercel](https://vercel.com/docs/frameworks/frontend/vite).
+
+## Bộ 20 nhân vật mở rộng
+
+Mở `/characters.html` trên dev server để xem 20 nhân vật mới: nam/nữ cao thấp, đầy đặn/gầy, ông bà và trẻ em, với nhiều kiểu tóc, râu và trang phục. Mỗi nhân vật có atlas trong suốt 512×512 gồm 16 key pose, manifest và ảnh đứng xem trước. Bộ này chưa được gán vào chương truyện.
+
+- Danh mục: `public/assets/characters/roster-v2.json`.
+- Ảnh tổng hợp: [roster-v2-preview.png](art/characters/roster-v2-preview.png).
+- Nguồn/prompt: [character-variants-v2-prompts.md](art/characters/character-variants-v2-prompts.md), [roster-v2.json](art/characters/roster-v2.json).
+- Đóng gói lại: `npm run assets:character-roster` (giữ alpha, scale nearest-neighbor và tỷ lệ chiều cao).

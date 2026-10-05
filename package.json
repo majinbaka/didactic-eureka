@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "node --test src/game/*.test.js",
     "assets:character": "node scripts/build_character_atlas.mjs",
-    "assets:character-variants": "node scripts/build_character_variants.mjs"
+    "assets:character-variants": "node scripts/build_character_variants.mjs",
+    "assets:character-roster": "node scripts/build_character_roster.mjs"
   },
   "dependencies": {
     "firebase": "^12.19.0",

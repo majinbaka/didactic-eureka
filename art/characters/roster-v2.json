@@ -1,0 +1,122 @@
+[
+  {
+    "id": "tall-swordswoman-v1",
+    "name": "Thanh Trúc",
+    "description": "Tall slender adult woman, long black braid, forest green split robe over ivory trousers, bronze sash, cloth boots.",
+    "height": 106
+  },
+  {
+    "id": "short-courier-v1",
+    "name": "Tiểu Yến",
+    "description": "Short petite adult woman, short chestnut bob, ochre short jacket, navy trousers, teal scarf and ankle boots.",
+    "height": 84
+  },
+  {
+    "id": "stout-innkeeper-v1",
+    "name": "Hồng Đào",
+    "description": "Plump middle-aged woman with round cheeks and broad waist, dark hair double buns, coral robe, cream apron, brown trousers.",
+    "height": 91
+  },
+  {
+    "id": "lean-scholar-v1",
+    "name": "Mặc Sinh",
+    "description": "Very tall skinny adult man, narrow face, long black hair half tied, pale blue scholar robe, indigo belt, black cloth shoes, no beard.",
+    "height": 108
+  },
+  {
+    "id": "round-merchant-v1",
+    "name": "Kim Phúc",
+    "description": "Short fat adult man with round belly and jovial face, small black moustache, dark topknot, mustard gold vest over wine red robe and brown trousers.",
+    "height": 88
+  },
+  {
+    "id": "silver-grandmother-v1",
+    "name": "Ngân Bà",
+    "description": "Short elderly woman, visibly wrinkled gentle face, silver hair in low bun, lavender quilted jacket, plum loose trousers, jade sash.",
+    "height": 82
+  },
+  {
+    "id": "elder-healer-v1",
+    "name": "Dược Ông",
+    "description": "Tall thin elderly man with lined face, bald crown and long white side hair, very long forked white beard, sage green robe with cream trim and brown sash.",
+    "height": 104
+  },
+  {
+    "id": "village-boy-v1",
+    "name": "A Nam",
+    "description": "Young boy age 9, small child proportions, messy cropped black hair, rust orange tunic, patched blue trousers and simple brown shoes.",
+    "height": 70
+  },
+  {
+    "id": "village-girl-v1",
+    "name": "A Lan",
+    "description": "Young girl age 9, small child proportions, black twin braids with yellow ribbons, sky blue tunic over cream trousers and red cloth shoes.",
+    "height": 70
+  },
+  {
+    "id": "stocky-smith-v1",
+    "name": "Thiết Hùng",
+    "description": "Stocky muscular adult man, dark tan skin, thick dark full beard, shaved sides and short top hair, charcoal tunic, leather brown apron, rust trousers.",
+    "height": 98
+  },
+  {
+    "id": "white-haired-matriarch-v1",
+    "name": "Bạch Liên",
+    "description": "Tall elderly woman, stern lined face, thick long white braid, midnight teal elegant robe with ivory trim, gold sash, dark boots.",
+    "height": 106
+  },
+  {
+    "id": "curly-traveler-v1",
+    "name": "Vân Du",
+    "description": "Medium height slim adult man, curly brown shoulder-length hair, short stubble beard, sand beige layered tunic, burgundy scarf, olive trousers.",
+    "height": 96
+  },
+  {
+    "id": "broad-guardian-v1",
+    "name": "Hộ Sơn",
+    "description": "Tall broad heavyset adult woman, strong arms and round face, black high bun with shaved sides, dark red sleeveless outer vest over cream long sleeves, navy trousers.",
+    "height": 105
+  },
+  {
+    "id": "young-nun-v1",
+    "name": "Tịnh Tâm",
+    "description": "Short lean adult female Buddhist-inspired fantasy nun, completely shaved head, modest grey and muted blue robes, brown rope belt, white leg wraps.",
+    "height": 86
+  },
+  {
+    "id": "redhead-alchemist-v1",
+    "name": "Đan Hà",
+    "description": "Average height adult woman with freckled face, wavy copper red hair tied loosely, plum tunic with pale jade sleeves, cream sash, dark trousers.",
+    "height": 96
+  },
+  {
+    "id": "old-fisherman-v1",
+    "name": "Lão Giang",
+    "description": "Short wiry elderly man with wrinkled tan face, sparse grey hair and scraggly grey moustache, faded blue patched jacket, rolled brown trousers, straw sandals.",
+    "height": 85
+  },
+  {
+    "id": "chubby-novice-v1",
+    "name": "Tiểu Bảo",
+    "description": "Young boy age 11, short chubby child build, round cheeks, shaved head with small top tuft, soft saffron tunic, teal sash and brown trousers.",
+    "height": 74
+  },
+  {
+    "id": "young-apprentice-v1",
+    "name": "Tiểu Mai",
+    "description": "Young girl age 12, slim child build, straight dark bob with blunt fringe, pale lilac wrap tunic, purple sash, navy trousers and boots.",
+    "height": 77
+  },
+  {
+    "id": "scarred-veteran-v1",
+    "name": "Lôi Chấn",
+    "description": "Tall lean middle-aged man, small healed cheek scar, grey streaked black ponytail, thick handlebar moustache, indigo martial coat, rust sash and charcoal trousers.",
+    "height": 106
+  },
+  {
+    "id": "grey-haired-tailor-v1",
+    "name": "Cẩm Nương",
+    "description": "Short plump elderly woman, wrinkled cheerful face, curly short grey hair, ochre patterned jacket with teal trim, maroon wide trousers and cream sash.",
+    "height": 83
+  }
+]
