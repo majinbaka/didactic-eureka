@@ -14,6 +14,7 @@
 - Giữ PWA offline shell, icon maskable và cập nhật do người chơi chọn; không cache phản hồi Auth/Firestore bằng service worker.
 - Không biến tính năng dự kiến thành tính năng đã hoàn thành trong tài liệu.
 - Không tự deploy production từ một yêu cầu sửa code.
+- độ dài tối đa của file không được quá 600 dòng.
 
 ## Kiểm tra
 
