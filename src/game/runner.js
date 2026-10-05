@@ -1,7 +1,7 @@
 import { collectNearby, createStageCollectibles } from './collectibles.js'
 
 export const SCENERY_CHUNK = 320
-export const JUMP_VELOCITY = 780
+export const JUMP_VELOCITY = 500
 export const RIVAL_PUZZLE_SUCCESS = .8
 const RIVAL_GATES = [30000, 42000, 54000]
 const FINISH_X = 60000
@@ -15,9 +15,9 @@ const OPENING_OBSTACLES = [
   { x: 2350, width: 80, height: 48, sprite: 'carved-low', contactInset: 2 },
   { x: 2430, width: 112, height: 112, sprite: 'classic-tall-wide', contactInset: 1 },
   { x: 2850, width: 80, height: 64, sprite: 'classic-medium', contactInset: 1 },
-  { x: 3150, width: 144, height: 92, bottom: 41, kind: 'floating', sprite: 'spirit-slab' },
-  { x: 3540, width: 104, height: 76, bottom: 28, kind: 'floating', sprite: 'moss-rock' },
-  { x: 3900, width: 78, height: 106, bottom: 34, kind: 'floating', sprite: 'jade-crag' },
+  { x: 3150, width: 144, height: 64, bottom: 12, kind: 'floating', sprite: 'spirit-slab' },
+  { x: 3330, width: 104, height: 112, bottom: 60, kind: 'floating', sprite: 'moss-rock' },
+  { x: 3510, width: 78, height: 160, bottom: 106, kind: 'floating', sprite: 'jade-crag' },
 ]
 const PATH_OBSTACLE_TYPES = [
   { sprite: 'bamboo-log', width: 168, height: 42, contactInset: 2 },
@@ -27,18 +27,22 @@ const PATH_OBSTACLE_TYPES = [
   { sprite: 'watch-post', width: 84, height: 110, contactInset: 2 },
 ]
 const FLOATING_OBSTACLE_TYPES = [
-  { sprite: 'spirit-slab', width: 144, height: 92, bottom: 41 },
-  { sprite: 'moss-rock', width: 104, height: 76, bottom: 28 },
-  { sprite: 'jade-crag', width: 78, height: 106, bottom: 34 },
+  { sprite: 'spirit-slab', width: 144, height: 64, bottom: 12 },
+  { sprite: 'moss-rock', width: 104, height: 72, bottom: 20 },
+  { sprite: 'jade-crag', width: 78, height: 80, bottom: 26 },
 ]
 const TRIAL_LANDMARKS = [30000, 42000, 54000, 60000]
 const isClearOfLandmark = x => TRIAL_LANDMARKS.every(landmark => Math.abs(x - landmark) > 520)
 const LONG_PATH_OBSTACLES = Array.from({ length: 72 }, (_, index) => {
   const x = 4400 + index * 760 + (index % 4) * 95
-  if (!isClearOfLandmark(x)) return null
-  if (index % 4 === 3) return { x, kind: 'floating', ...FLOATING_OBSTACLE_TYPES[index % FLOATING_OBSTACLE_TYPES.length] }
-  return { x, ...PATH_OBSTACLE_TYPES[index % PATH_OBSTACLE_TYPES.length] }
-}).filter(Boolean)
+  if (!isClearOfLandmark(x) || !isClearOfLandmark(x - 80)) return []
+  const obstacle = index % 4 === 3
+    ? { x, kind: 'floating', ...FLOATING_OBSTACLE_TYPES[index % FLOATING_OBSTACLE_TYPES.length] }
+    : { x, ...PATH_OBSTACLE_TYPES[index % PATH_OBSTACLE_TYPES.length] }
+  return obstacle.height > 86
+    ? [{ x: x - 80, width: 80, height: 48, sprite: 'classic-low', contactInset: 1 }, obstacle]
+    : [obstacle]
+}).flat()
 export const OBSTACLES = [...OPENING_OBSTACLES, ...LONG_PATH_OBSTACLES]
 const HALF_BODY = 18
 const overlaps = (x, obstacle) => x + 64 + HALF_BODY > obstacle.x && x + 64 - HALF_BODY < obstacle.x + obstacle.width

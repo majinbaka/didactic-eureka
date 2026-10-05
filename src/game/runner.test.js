@@ -161,13 +161,15 @@ test('every raised step is reachable by jumping from the previous step', () => {
     assert.equal(state.y, o.height, `landing on obstacle at ${o.x}`)
   }
 })
-test('every distinct path obstacle type is reachable from the ground', () => {
+test('each path obstacle has a reachable approach', () => {
   const samples = new Map()
-  for (const obstacle of OBSTACLES.filter(item => item.sprite && item.x >= 3000)) {
+  for (const obstacle of OBSTACLES.filter(item => item.sprite && item.x >= 4400 && item.kind !== 'floating')) {
     if (!samples.has(obstacle.sprite)) samples.set(obstacle.sprite, obstacle)
   }
   for (const [type, obstacle] of samples) {
-    let state = { ...createRun(), x: obstacle.x - 82 }
+    const step = OBSTACLES.find(item => item.x + item.width === obstacle.x)
+    if (obstacle.height > 86) assert.equal(step?.height, 48, `approach for ${type}`)
+    let state = { ...createRun(), x: obstacle.x - 82, y: step?.height ?? 0 }
     state = stepRun(state, { jump: true }, 1 / 120)
     state = advance(state, { move: 1 }, 40)
     state = advance(state, {}, 120)
@@ -188,13 +190,14 @@ test('obstacles cover the extended path while keeping trial landmarks clear', ()
     assert.ok(OBSTACLES.every(obstacle => Math.abs(obstacle.x - landmark) > 500))
   }
 })
-test('the higher jump can land on a floating platform', () => {
+test('a short jump lands on the first floating platform', () => {
   const platform = OBSTACLES.find(obstacle => obstacle.kind === 'floating')
   let state = { ...createRun(), x: platform.x - 82 }
   state = stepRun(state, { jump: true }, 1 / 120)
   state = advance(state, { move: 1 }, 42)
   state = advance(state, {}, 120)
-  assert.equal(JUMP_VELOCITY, 780)
+  assert.equal(JUMP_VELOCITY, 500)
+  assert.ok(JUMP_VELOCITY ** 2 / (2 * 1450) < 90)
   assert.equal(state.y, platform.height)
 })
 test('walkable obstacle crops begin exactly at their visible top surface', async () => {
@@ -266,10 +269,9 @@ test('rank and end trigger after all four rivals finish', () => {
 })
 
 test('three floating platforms can be crossed with consecutive jumps', () => {
-  let run = { ...createRun(), x: 3100, y: 92 }
-  for (let frame = 0; frame < 71; frame++) run = stepRun(run, { move: 1, run: true, jump: frame === 0 }, .016)
-  assert.equal(run.y, 76)
-  for (let frame = 0; frame < 70; frame++) run = stepRun(run, { move: run.x < 3920 ? 1 : 0, run: true, jump: frame === 0 }, .016)
-  assert.ok(run.x > 3900)
-  assert.equal(run.y, 106)
+  let run = { ...createRun(), x: 3068 }
+  for (const height of [64, 112, 160]) {
+    for (let frame = 0; frame < 55; frame++) run = stepRun(run, { move: frame < 37 ? 1 : 0, jump: frame === 0 }, .016)
+    assert.equal(run.y, height)
+  }
 })

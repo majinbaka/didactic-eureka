@@ -89,11 +89,11 @@ Danh mục có 6 loại linh thảo và 2 loại linh thạch, nhưng Rừng Tr�
 
 ## Vật cản trong chương nhập môn
 
-Tám khối đá mở đầu cao 48/64/112px và hơn 60 vật cản sinh ổn định dọc tuyến 60.000px từ rừng tới đỉnh núi; vùng quanh ba bia đá và cổng đích được để trống. Hai cụm bậc tăng từ 48 lên 112px cần nhảy nối tiếp. Nhân vật bị chặn ở hai bên khi đi, chạy, bò hoặc lướt; nhảy đáp lên mặt đá, nhảy tiếp từ mặt đá và rơi khi bước khỏi mép. Bệ đá rêu lơ lửng có mặt đứng ở cao độ 108px; lực nhảy đầu là 780px/s để người chơi có thể đáp lên bệ. Bay vẫn dùng được nhưng phải lên cao hơn mặt đá để vượt. Bốn thí sinh tự nhảy và chịu cùng va chạm. Vật cản không gây mất máu và không thay đổi save. Độc Bão giảm tốc trước bước va chạm để không đẩy nhân vật xuyên đá.
+Tám khối đá mở đầu cao 48/64/112px và hơn 60 vật cản sinh ổn định dọc tuyến 60.000px từ rừng tới đỉnh núi; vùng quanh ba bia đá và cổng đích được để trống. Hai cụm bậc tăng từ 48 lên 112px cần nhảy nối tiếp. Nhân vật bị chặn ở hai bên khi đi, chạy, bò hoặc lướt; nhảy đáp lên mặt đá, nhảy tiếp từ mặt đá và rơi khi bước khỏi mép. Lực nhảy đầu 500px/s, trọng lực 1.450px/s², nên một cú nhảy chỉ lên cao khoảng 86px tính từ mặt đứng hiện tại. Ba bệ lơ lửng đầu tuyến xếp ở cao độ 64/112/160px và cần ba lần nhảy để lên mỏm cao nhất. Vật cản cao trên tuyến dài có bậc 48px ngay trước mặt. Bay vẫn dùng được nhưng phải lên cao hơn mặt đá để vượt. Bốn thí sinh tự nhảy và chịu cùng va chạm. Vật cản không gây mất máu và không thay đổi save. Độc Bão giảm tốc trước bước va chạm để không đẩy nhân vật xuyên đá.
 
 Hai bộ đá rêu được xen kẽ theo tuyến để tránh lặp hình; crop runtime loại toàn bộ gutter trong suốt để mặt vẽ trùng mặt va chạm. Sỏi, dương xỉ, măng trúc và đèn đá vỡ v2 là scenery thuần, người chơi đi xuyên qua được và không được dùng silhouette giống bệ đứng.
 
-Đường dài còn sinh năm loại vật cản có kích thước thực khác nhau: bó trúc `168×42`, gốc cây `100×78`, bệ đèn đá `72×104`, xà cổng đổ `184×72` và chòi trúc `84×110`px. Ba loại bệ lơ lửng là phiến linh thạch `144×51`, đá rêu `104×48` và mỏm ngọc `78×72`px, được đặt ở cao độ 76–106px và xuất hiện cả trong đoạn đầu. Crop ảnh bắt đầu đúng tại pixel mặt đứng; đáy chân từng pose được căn riêng vào collider, giữ hitbox khớp asset.
+Đường dài còn sinh năm loại vật cản có kích thước thực khác nhau: bó trúc `168×42`, gốc cây `100×78`, bệ đèn đá `72×104`, xà cổng đổ `184×72` và chòi trúc `84×110`px. Ba loại bệ lơ lửng là phiến linh thạch `144×52`, đá rêu `104×52` và mỏm ngọc `78×54`px; tuyến ba bệ đầu có cao độ tăng dần, còn các bệ lẻ dọc đường cao tối đa 80px. Crop ảnh bắt đầu đúng tại pixel mặt đứng; đáy chân từng pose được căn riêng vào collider, giữ hitbox khớp asset.
 
 ## Luật chương nhập môn và tiến độ v6
 

@@ -8,7 +8,7 @@ const OFFSETS = {
   'Vô Danh': 0,
 }
 
-export default function StorySpeech({ scene, name, rank, position, total, onNext, nextLabel = 'Tiếp tục' }) {
+export default function StorySpeech({ scene, name, rank, position, total, onNext, nextLabel = 'Tiếp tục', atFinish = false }) {
   const [width, setWidth] = useState(() => window.innerWidth)
   useEffect(() => {
     const resize = () => setWidth(window.innerWidth)
@@ -16,7 +16,10 @@ export default function StorySpeech({ scene, name, rank, position, total, onNext
     return () => window.removeEventListener('resize', resize)
   }, [])
   const speaker = scene.speaker === 'Vô Danh' ? name : scene.speaker
-  const anchor = Math.min(width * .7, width * .5 + 100) - (OFFSETS[scene.speaker] || 0)
+  const castCenter = Math.min(width * .7, width * .5 + 100)
+  const anchor = atFinish && scene.speaker === 'Trưởng lão Thái Huyền Tông'
+    ? Math.min(width - 46, castCenter + 115)
+    : castCenter - (OFFSETS[scene.speaker] || 0)
   const bubbleWidth = Math.min(420, width - 24)
   const left = Math.max(12, Math.min(anchor - bubbleWidth / 2, width - bubbleWidth - 12))
   const title = scene.title?.replaceAll('{rank}', rank)

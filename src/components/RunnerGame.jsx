@@ -214,7 +214,7 @@ function drawBackground(ctx, image, width, height, camera) {
   }
 }
 
-function draw(ctx, s, width, height, input, sprites, staged = false, stone = false) {
+function draw(ctx, s, width, height, input, sprites, staged = false, stone = false, finish = false) {
   const ground = height - 64
   const castCenter = Math.min(width * .7, width * .5 + 100)
   const openingView = Math.min(1, Math.max(0, 1 - (s.x - 100) / 500))
@@ -253,8 +253,14 @@ function draw(ctx, s, width, height, input, sprites, staged = false, stone = fal
   for (const collectible of s.collectibles) drawCollectible(ctx, sprites.collectibles, collectible, camera, ground, s.time)
   if (staged) {
     const frame = animationFrame('idle', 0)
-    if (stone) drawObject(ctx, sprites.objects, 6, castCenter - 225, ground + 5, 70, 106)
-    else drawCharacter(ctx, sprites.elder, frame, castCenter - 225, ground + 1, 1)
+    if (finish) {
+      for (let row = 0; row < 4; row++) for (let column = 0; column < 4; column++) {
+        ctx.fillStyle = (row + column) % 2 ? '#dfbc7c' : '#19352b'
+        ctx.fillRect(Math.round(castCenter + 30 + column * 12), ground + row * 12, 12, 12)
+      }
+      drawCharacter(ctx, sprites.elder, frame, Math.min(width - 46, castCenter + 115), ground - 70, -1)
+    } else if (stone) drawObject(ctx, sprites.objects, 6, castCenter - 225, ground + 5, 70, 106)
+    else drawCharacter(ctx, sprites.elder, frame, castCenter - 225, ground - 70, 1)
     for (const [id, offset] of [['elder', 176], ['strongman', 132], ['bald-monk', 88], ['female', 44]]) drawCharacter(ctx, sprites.rivals[id], frame, castCenter - offset, ground + 1, 1)
     drawCharacter(ctx, sprites.character, frame, castCenter, ground + 1, 1)
     return
@@ -401,7 +407,8 @@ export default function RunnerGame() {
       const context = c.getContext('2d'); context.imageSmoothingEnabled = false
       const atEnd = prologuePhase(run.current.x, trialRef.current.stage) === 'complete'
       const reading = trialRef.current.active && puzzleStepRef.current < puzzles[trialRef.current.stage].dialogue.length
-      draw(context, run.current, width, height, input.current, sprites.current, !storyStarted || atEnd || rivalsFinished(run.current) || reading, reading)
+      const atFinish = atEnd || rivalsFinished(run.current)
+      draw(context, run.current, width, height, input.current, sprites.current, !storyStarted || atFinish || reading, reading, atFinish)
       setPlayerX(run.current.x)
       setPhase(rivalsFinished(run.current) && run.current.x < SUMMIT_GATE ? 'end' : prologuePhase(run.current.x, trialRef.current.stage))
       frame = requestAnimationFrame(tick)
@@ -582,8 +589,8 @@ export default function RunnerGame() {
         <p className="puzzle-penalty">Chọn sai / hết giờ: {puzzle.penalty}</p>
         <p className="maze-message" role="status">{trial.message}{trial.trapped > 0 ? ` · Còn bị giữ ${Math.ceil(trial.trapped)} giây` : ''}</p>
       </section></div>}
-      {phase === 'complete' && <StorySpeech scene={endingScene} name={progress.characterName} rank={rank} position={endingIndex + 1} total={ending.length} onNext={() => endingIndex < ending.length - 1 ? setEndingIndex(index => index + 1) : restartChapter()} nextLabel={endingIndex < ending.length - 1 ? 'Tiếp tục' : 'Chơi lại chương'} />}
-      {phase === 'end' && <StorySpeech scene={{ speaker: 'Trưởng lão Thái Huyền Tông', title: 'Cuộc đua khép lại', text: 'Bốn người kia đã chạm cổng trước ngươi. Lượt tuyển này khép lại; hãy nhớ con đường và thử sức lần nữa.' }} name={progress.characterName} rank={5} position={1} total={1} onNext={restartChapter} nextLabel="Chơi lại chương" />}
+      {phase === 'complete' && <StorySpeech scene={endingScene} name={progress.characterName} rank={rank} position={endingIndex + 1} total={ending.length} atFinish onNext={() => endingIndex < ending.length - 1 ? setEndingIndex(index => index + 1) : restartChapter()} nextLabel={endingIndex < ending.length - 1 ? 'Tiếp tục' : 'Chơi lại chương'} />}
+      {phase === 'end' && <StorySpeech scene={{ speaker: 'Trưởng lão Thái Huyền Tông', title: 'Cuộc đua khép lại', text: 'Bốn người kia đã chạm cổng trước ngươi. Lượt tuyển này khép lại; hãy nhớ con đường và thử sức lần nữa.' }} name={progress.characterName} rank={5} position={1} total={1} atFinish onNext={restartChapter} nextLabel="Chơi lại chương" />}
       {portrait && <div className="landscape-gate" role="dialog" aria-modal="true" aria-labelledby="landscape-title">
         <span aria-hidden="true">▭ ↻</span><h1 id="landscape-title">Chơi ở màn hình ngang</h1><p>Chạm để vào toàn màn hình và tự động xoay ngang.</p><button onClick={enterLandscape}>Vào game</button>
       </div>}
