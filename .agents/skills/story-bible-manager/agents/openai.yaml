@@ -1,0 +1,4 @@
+interface:
+  display_name: "Story Bible Manager"
+  short_description: "Manage canon, branches and narrative knowledge"
+  default_prompt: "Use $story-bible-manager to query the story bible and prepare a sourced scene context package."
