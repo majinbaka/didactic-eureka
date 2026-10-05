@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react'
+
 const OFFSETS = {
-  'Trưởng lão Thái Huyền Tông': 225,
   'Bia đá': 225,
   'Bạch Tùng': 176,
   'Thiết Sơn': 132,
@@ -8,7 +9,7 @@ const OFFSETS = {
   'Vô Danh': 0,
 }
 
-export default function StorySpeech({ scene, name, rank, position, total, onNext, nextLabel = 'Tiếp tục', atFinish = false }) {
+export default function StorySpeech({ scene, name, rank, position, total, onNext, nextLabel = 'Tiếp tục' }) {
   const [width, setWidth] = useState(() => window.innerWidth)
   useEffect(() => {
     const resize = () => setWidth(window.innerWidth)
@@ -17,7 +18,7 @@ export default function StorySpeech({ scene, name, rank, position, total, onNext
   }, [])
   const speaker = scene.speaker === 'Vô Danh' ? name : scene.speaker
   const castCenter = Math.min(width * .7, width * .5 + 100)
-  const anchor = atFinish && scene.speaker === 'Trưởng lão Thái Huyền Tông'
+  const anchor = scene.speaker === 'Trưởng lão Thái Huyền Tông'
     ? Math.min(width - 46, castCenter + 115)
     : castCenter - (OFFSETS[scene.speaker] || 0)
   const bubbleWidth = Math.min(420, width - 24)
@@ -38,4 +39,3 @@ export default function StorySpeech({ scene, name, rank, position, total, onNext
     <footer className="speech-actions"><span>{position} / {total}</span><button key={`${position}-${speaker}`} autoFocus onClick={onNext}>{nextLabel}</button></footer>
   </section>
 }
-import { useEffect, useState } from 'react'
