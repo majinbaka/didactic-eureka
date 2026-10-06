@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/doc-chu/sheet.png",
+  "source": "art/beasts/forest-v1/doc-chu-source.png",
+  "sourceCuts": [
+    {
+      "left": 32,
+      "top": 88,
+      "width": 212,
+      "height": 159
+    },
+    {
+      "left": 312,
+      "top": 89,
+      "width": 208,
+      "height": 160
+    },
+    {
+      "left": 588,
+      "top": 90,
+      "width": 228,
+      "height": 158
+    },
+    {
+      "left": 874,
+      "top": 97,
+      "width": 216,
+      "height": 153
+    },
+    {
+      "left": 34,
+      "top": 374,
+      "width": 221,
+      "height": 163
+    },
+    {
+      "left": 314,
+      "top": 373,
+      "width": 215,
+      "height": 163
+    },
+    {
+      "left": 599,
+      "top": 401,
+      "width": 199,
+      "height": 136
+    },
+    {
+      "left": 881,
+      "top": 337,
+      "width": 209,
+      "height": 170
+    },
+    {
+      "left": 34,
+      "top": 670,
+      "width": 218,
+      "height": 146
+    },
+    {
+      "left": 305,
+      "top": 630,
+      "width": 226,
+      "height": 186
+    },
+    {
+      "left": 570,
+      "top": 662,
+      "width": 267,
+      "height": 153
+    },
+    {
+      "left": 860,
+      "top": 669,
+      "width": 251,
+      "height": 146
+    },
+    {
+      "left": 28,
+      "top": 932,
+      "width": 215,
+      "height": 160
+    },
+    {
+      "left": 288,
+      "top": 893,
+      "width": 249,
+      "height": 201
+    },
+    {
+      "left": 557,
+      "top": 951,
+      "width": 237,
+      "height": 144
+    },
+    {
+      "left": 840,
+      "top": 904,
+      "width": 262,
+      "height": 189
+    },
+    {
+      "left": 23,
+      "top": 1169,
+      "width": 233,
+      "height": 189
+    },
+    {
+      "left": 318,
+      "top": 1158,
+      "width": 213,
+      "height": 197
+    },
+    {
+      "left": 575,
+      "top": 1206,
+      "width": 243,
+      "height": 153
+    },
+    {
+      "left": 860,
+      "top": 1241,
+      "width": 241,
+      "height": 118
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

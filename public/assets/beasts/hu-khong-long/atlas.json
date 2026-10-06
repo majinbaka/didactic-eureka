@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/hu-khong-long/sheet.png",
+  "source": "art/beasts/ancient-v1/hu-khong-long-source.png",
+  "sourceCuts": [
+    {
+      "left": 25,
+      "top": 75,
+      "width": 219,
+      "height": 190
+    },
+    {
+      "left": 296,
+      "top": 75,
+      "width": 245,
+      "height": 190
+    },
+    {
+      "left": 577,
+      "top": 81,
+      "width": 230,
+      "height": 184
+    },
+    {
+      "left": 858,
+      "top": 81,
+      "width": 240,
+      "height": 184
+    },
+    {
+      "left": 21,
+      "top": 354,
+      "width": 247,
+      "height": 175
+    },
+    {
+      "left": 292,
+      "top": 356,
+      "width": 251,
+      "height": 176
+    },
+    {
+      "left": 579,
+      "top": 405,
+      "width": 218,
+      "height": 131
+    },
+    {
+      "left": 848,
+      "top": 315,
+      "width": 252,
+      "height": 208
+    },
+    {
+      "left": 20,
+      "top": 653,
+      "width": 253,
+      "height": 161
+    },
+    {
+      "left": 307,
+      "top": 586,
+      "width": 228,
+      "height": 227
+    },
+    {
+      "left": 572,
+      "top": 614,
+      "width": 262,
+      "height": 198
+    },
+    {
+      "left": 851,
+      "top": 628,
+      "width": 260,
+      "height": 184
+    },
+    {
+      "left": 28,
+      "top": 912,
+      "width": 243,
+      "height": 170
+    },
+    {
+      "left": 288,
+      "top": 855,
+      "width": 256,
+      "height": 238
+    },
+    {
+      "left": 563,
+      "top": 905,
+      "width": 285,
+      "height": 187
+    },
+    {
+      "left": 855,
+      "top": 851,
+      "width": 267,
+      "height": 240
+    },
+    {
+      "left": 25,
+      "top": 1182,
+      "width": 250,
+      "height": 173
+    },
+    {
+      "left": 314,
+      "top": 1156,
+      "width": 230,
+      "height": 199
+    },
+    {
+      "left": 577,
+      "top": 1188,
+      "width": 244,
+      "height": 165
+    },
+    {
+      "left": 841,
+      "top": 1261,
+      "width": 258,
+      "height": 93
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

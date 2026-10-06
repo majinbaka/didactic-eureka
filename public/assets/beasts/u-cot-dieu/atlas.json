@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/u-cot-dieu/sheet.png",
+  "source": "art/beasts/ancient-v1/u-cot-dieu-source.png",
+  "sourceCuts": [
+    {
+      "left": 39,
+      "top": 96,
+      "width": 198,
+      "height": 166
+    },
+    {
+      "left": 313,
+      "top": 104,
+      "width": 235,
+      "height": 159
+    },
+    {
+      "left": 597,
+      "top": 99,
+      "width": 207,
+      "height": 163
+    },
+    {
+      "left": 873,
+      "top": 100,
+      "width": 222,
+      "height": 161
+    },
+    {
+      "left": 28,
+      "top": 368,
+      "width": 218,
+      "height": 163
+    },
+    {
+      "left": 311,
+      "top": 369,
+      "width": 215,
+      "height": 163
+    },
+    {
+      "left": 574,
+      "top": 343,
+      "width": 243,
+      "height": 190
+    },
+    {
+      "left": 850,
+      "top": 288,
+      "width": 253,
+      "height": 235
+    },
+    {
+      "left": 28,
+      "top": 604,
+      "width": 240,
+      "height": 194
+    },
+    {
+      "left": 302,
+      "top": 604,
+      "width": 243,
+      "height": 195
+    },
+    {
+      "left": 580,
+      "top": 615,
+      "width": 251,
+      "height": 182
+    },
+    {
+      "left": 855,
+      "top": 616,
+      "width": 238,
+      "height": 181
+    },
+    {
+      "left": 26,
+      "top": 909,
+      "width": 229,
+      "height": 169
+    },
+    {
+      "left": 294,
+      "top": 832,
+      "width": 239,
+      "height": 244
+    },
+    {
+      "left": 535,
+      "top": 856,
+      "width": 303,
+      "height": 219
+    },
+    {
+      "left": 842,
+      "top": 839,
+      "width": 266,
+      "height": 244
+    },
+    {
+      "left": 42,
+      "top": 1123,
+      "width": 210,
+      "height": 198
+    },
+    {
+      "left": 314,
+      "top": 1147,
+      "width": 222,
+      "height": 179
+    },
+    {
+      "left": 579,
+      "top": 1152,
+      "width": 237,
+      "height": 177
+    },
+    {
+      "left": 853,
+      "top": 1249,
+      "width": 244,
+      "height": 77
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

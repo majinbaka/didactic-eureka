@@ -83,3 +83,7 @@ Bộ sưu tập có 100 linh thảo và hai linh thạch, mặc định mở nh�
 ## Bộ sưu tập vật phẩm tu tiên
 
 Bộ lọc Loại bổ sung Vũ khí tấn công, Trang bị phòng thủ, Trận pháp và Pháp bảo, mỗi nhóm 250 món. Tổng danh mục gồm 1.102 mục khi tính cả linh thảo và linh thạch. Giữ lưới, tìm kiếm không dấu, độ hiếm, focus và Escape của bách khoa hiện có. Mỗi ảnh mới nằm trong atlas 10×5 ô, ô 64px trong suốt; nguồn và prompt lưu tại `art/items/equipment-v1/`. Các vật phẩm mới được ghi rõ chưa có điểm rơi và mô tả chỉ là tư liệu thiết kế, chưa phải hiệu ứng trang bị có thể sử dụng.
+
+## Bộ sưu tập yêu thú
+
+Bộ sưu tập có bộ chọn Danh mục giữa vật phẩm và 30 yêu thú. Yêu thú dùng ảnh trong suốt pixel 128px, phóng nguyên hai lần ở khung xem; thẻ có tên và thuộc tính, tìm không dấu và lọc thuộc tính. Chi tiết cho đổi bảy động tác, tạm dừng và phát lại, xem tên/đặc điểm đòn thường cùng chiêu riêng. Reduced motion mặc định dừng, nút có focus và báo lỗi ảnh bằng chữ. Trang `/beasts.html` cho xem đồng thời 30 atlas, bố cục cuộn từ mobile đến desktop. Nguồn ImageGen cùng prompt trong `art/beasts`; đây là thư viện asset, chưa phải quái có AI trong màn chơi.

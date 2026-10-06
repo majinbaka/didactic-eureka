@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/sa-hat/sheet.png",
+  "source": "art/beasts/mystic-v1/sa-hat-source.png",
+  "sourceCuts": [
+    {
+      "left": 56,
+      "top": 48,
+      "width": 200,
+      "height": 165
+    },
+    {
+      "left": 354,
+      "top": 50,
+      "width": 197,
+      "height": 164
+    },
+    {
+      "left": 649,
+      "top": 53,
+      "width": 207,
+      "height": 163
+    },
+    {
+      "left": 948,
+      "top": 49,
+      "width": 200,
+      "height": 165
+    },
+    {
+      "left": 52,
+      "top": 299,
+      "width": 204,
+      "height": 173
+    },
+    {
+      "left": 350,
+      "top": 303,
+      "width": 201,
+      "height": 167
+    },
+    {
+      "left": 651,
+      "top": 323,
+      "width": 201,
+      "height": 153
+    },
+    {
+      "left": 972,
+      "top": 282,
+      "width": 164,
+      "height": 180
+    },
+    {
+      "left": 38,
+      "top": 593,
+      "width": 218,
+      "height": 158
+    },
+    {
+      "left": 353,
+      "top": 531,
+      "width": 179,
+      "height": 218
+    },
+    {
+      "left": 632,
+      "top": 558,
+      "width": 251,
+      "height": 190
+    },
+    {
+      "left": 943,
+      "top": 564,
+      "width": 198,
+      "height": 185
+    },
+    {
+      "left": 51,
+      "top": 843,
+      "width": 205,
+      "height": 165
+    },
+    {
+      "left": 327,
+      "top": 805,
+      "width": 235,
+      "height": 208
+    },
+    {
+      "left": 627,
+      "top": 863,
+      "width": 246,
+      "height": 160
+    },
+    {
+      "left": 910,
+      "top": 801,
+      "width": 269,
+      "height": 231
+    },
+    {
+      "left": 35,
+      "top": 1091,
+      "width": 221,
+      "height": 170
+    },
+    {
+      "left": 346,
+      "top": 1090,
+      "width": 224,
+      "height": 171
+    },
+    {
+      "left": 635,
+      "top": 1120,
+      "width": 225,
+      "height": 142
+    },
+    {
+      "left": 911,
+      "top": 1145,
+      "width": 250,
+      "height": 117
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

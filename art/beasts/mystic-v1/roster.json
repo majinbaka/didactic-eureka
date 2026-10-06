@@ -1,0 +1,242 @@
+[
+  {
+    "id": "loi-ung",
+    "name": "Lôi Ưng",
+    "description": "Lôi điểu lông chàm dùng móng dẫn điện và cánh tích sét.",
+    "element": "lightning",
+    "rarity": "rare",
+    "attack": {
+      "name": "Lôi Trảo",
+      "pattern": "talon-swoop",
+      "telegraph": "Xòe cánh, hai móng sáng xanh.",
+      "range": 120,
+      "cooldownMs": 1900,
+      "description": "Đập cánh lao tới, vươn hai móng tích điện chụp vào mục tiêu phía trước."
+    },
+    "skill": {
+      "name": "Phân Lôi",
+      "pattern": "branching-lightning",
+      "telegraph": "Đầu mào phát sáng và lôi cầu tụ trước mỏ.",
+      "range": 380,
+      "cooldownMs": 5200,
+      "description": "Phóng luồng sét từ mỏ, tách thành nhiều nhánh đánh dọc khoảng trống phía trước."
+    },
+    "source": "art/beasts/mystic-v1/loi-ung-source.png"
+  },
+  {
+    "id": "han-quy",
+    "name": "Hàn Quy",
+    "description": "Linh quy mai băng, chậm nhưng bền, giữ khoảng cách bằng hơi lạnh.",
+    "element": "ice",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Băng Giáp Húc",
+      "pattern": "shell-ram",
+      "telegraph": "Thu đầu vào mai, hạ thân sát đất.",
+      "range": 90,
+      "cooldownMs": 2300,
+      "description": "Thu đầu vào mai băng rồi đẩy toàn thân húc thẳng về phía trước."
+    },
+    "skill": {
+      "name": "Hàn Tức",
+      "pattern": "frost-cone",
+      "telegraph": "Râu đóng sương, hàm há rộng.",
+      "range": 220,
+      "cooldownMs": 5100,
+      "description": "Thổi hơi lạnh thành hình nón mở rộng, phủ sương và tinh thể băng trước mặt."
+    },
+    "source": "art/beasts/mystic-v1/han-quy-source.png"
+  },
+  {
+    "id": "hoa-thiem",
+    "name": "Hỏa Thiềm",
+    "description": "Thiềm thừ than hồng quất lưỡi và phun dung nham nảy.",
+    "element": "fire",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Hỏa Thiệt",
+      "pattern": "tongue-whip",
+      "telegraph": "Má phồng, lưỡi lóe đỏ.",
+      "range": 180,
+      "cooldownMs": 1800,
+      "description": "Phóng lưỡi cháy dài ra trước rồi quất cong thu về."
+    },
+    "skill": {
+      "name": "Dung Châu",
+      "pattern": "bouncing-magma",
+      "telegraph": "Bụng bừng cam và ba đốm lửa tụ ở miệng.",
+      "range": 340,
+      "cooldownMs": 4900,
+      "description": "Phun liên tiếp ba cầu dung nham, nảy theo mặt đất và bung lửa ở mỗi điểm chạm."
+    },
+    "source": "art/beasts/mystic-v1/hoa-thiem-source.png"
+  },
+  {
+    "id": "kim-xa",
+    "name": "Kim Xà",
+    "description": "Kim xà vảy đồng cuộn mình đâm nanh và bắn châm kim.",
+    "element": "metal",
+    "rarity": "rare",
+    "attack": {
+      "name": "Kim Nha",
+      "pattern": "coiled-fang-thrust",
+      "telegraph": "Cuộn thân chặt, cổ rút thành chữ S.",
+      "range": 110,
+      "cooldownMs": 2100,
+      "description": "Bung vòng thân đang cuộn, vươn cổ đâm nanh vào mục tiêu phía trước."
+    },
+    "skill": {
+      "name": "Bạo Vũ Châm",
+      "pattern": "metal-needle-fan",
+      "telegraph": "Vảy dựng, châm sáng tụ trước miệng.",
+      "range": 360,
+      "cooldownMs": 4800,
+      "description": "Bắn một chùm châm kim loại thành quạt hẹp, xuyên dọc hướng nhìn."
+    },
+    "source": "art/beasts/mystic-v1/kim-xa-source.png"
+  },
+  {
+    "id": "thuy-giao",
+    "name": "Thủy Giao",
+    "description": "Giao long trẻ điều khiển thủy lưu, đuôi rộng và sừng ngà.",
+    "element": "water",
+    "rarity": "epic",
+    "attack": {
+      "name": "Giao Vĩ",
+      "pattern": "tail-lash",
+      "telegraph": "Quay hông, vây đuôi mở ngang.",
+      "range": 150,
+      "cooldownMs": 2000,
+      "description": "Xoay hông, quất đuôi thành vòng cung ngang trước thân."
+    },
+    "skill": {
+      "name": "Thăng Long Thủy",
+      "pattern": "rising-water-vortex",
+      "telegraph": "Dòng nước xoắn dưới chân trước.",
+      "range": 280,
+      "cooldownMs": 5900,
+      "description": "Dựng cột nước xoắn trước mặt, mở rộng thành xoáy nước dâng cao."
+    },
+    "source": "art/beasts/mystic-v1/thuy-giao-source.png"
+  },
+  {
+    "id": "nham-te",
+    "name": "Nham Tê",
+    "description": "Tê giác nham giáp có sừng nóng chảy, phá đất bằng bước nặng.",
+    "element": "fire",
+    "rarity": "rare",
+    "attack": {
+      "name": "Nham Giác",
+      "pattern": "horn-uppercut",
+      "telegraph": "Cúi sừng sát đất, vai sáng đỏ.",
+      "range": 115,
+      "cooldownMs": 2500,
+      "description": "Hất đầu từ thấp lên cao, dùng sừng nóng chảy đánh theo đường cong đi lên."
+    },
+    "skill": {
+      "name": "Liệt Địa Hỏa",
+      "pattern": "fissure-flame-trail",
+      "telegraph": "Dậm chân, khe nham đỏ xuất hiện phía trước.",
+      "range": 320,
+      "cooldownMs": 6200,
+      "description": "Dậm mạnh xuống đất, mở khe nứt phun lửa lan dọc mặt đất phía trước."
+    },
+    "source": "art/beasts/mystic-v1/nham-te-source.png"
+  },
+  {
+    "id": "nguyet-tho",
+    "name": "Nguyệt Thố",
+    "description": "Ngọc thố lông ngà, linh hoạt, phóng nguyệt nha theo đường cong.",
+    "element": "ice",
+    "rarity": "rare",
+    "attack": {
+      "name": "Nguyệt Quyền",
+      "pattern": "forepaw-uppercut",
+      "telegraph": "Dựng thân, thu chân trước rồi vung lên.",
+      "range": 95,
+      "cooldownMs": 1400,
+      "description": "Dựng thân trên hai chân sau rồi vung chân trước thành cú đấm móc lên."
+    },
+    "skill": {
+      "name": "Hồi Nguyệt Nha",
+      "pattern": "crescent-ricochet",
+      "telegraph": "Hai tai dựng, trăng khuyết sáng trước trán.",
+      "range": 330,
+      "cooldownMs": 4700,
+      "description": "Phóng nguyệt nha sáng theo đường cong, để lại các vòng trăng nhỏ khi bật đổi hướng."
+    },
+    "source": "art/beasts/mystic-v1/nguyet-tho-source.png"
+  },
+  {
+    "id": "anh-mieu",
+    "name": "Ảnh Miêu",
+    "description": "Miêu yêu hai đuôi khói có móng cắt chéo và ảnh phân thân.",
+    "element": "shadow",
+    "rarity": "epic",
+    "attack": {
+      "name": "Song Ảnh Trảo",
+      "pattern": "cross-claw",
+      "telegraph": "Hạ thân, hai chân trước bắt chéo.",
+      "range": 105,
+      "cooldownMs": 1600,
+      "description": "Lao thấp và vung hai móng trước thành hai đường cắt chéo."
+    },
+    "skill": {
+      "name": "Ảnh Tập",
+      "pattern": "shadow-clone-ambush",
+      "telegraph": "Đuôi tan thành sương tím, một bóng phụ hiện cạnh thân.",
+      "range": 240,
+      "cooldownMs": 5600,
+      "description": "Tách bóng tím khỏi thân thành ảnh miêu lao tới tập kích rồi tan trong vòng khói."
+    },
+    "source": "art/beasts/mystic-v1/anh-mieu-source.png"
+  },
+  {
+    "id": "sa-hat",
+    "name": "Sa Hạt",
+    "description": "Bọ cạp hoàng sa giữ đuôi cao, đào cát phủ kín con mồi.",
+    "element": "earth",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Sa Vĩ Châm",
+      "pattern": "stinger-jab",
+      "telegraph": "Đuôi cong về sau và nọc lóe hổ phách.",
+      "range": 140,
+      "cooldownMs": 2200,
+      "description": "Duỗi đuôi qua đầu, đâm ngòi cong xuống mục tiêu phía trước."
+    },
+    "skill": {
+      "name": "Mai Sa Bạo",
+      "pattern": "sand-burial-burst",
+      "telegraph": "Càng bấu đất, cát xoáy thành ụ trước mặt.",
+      "range": 250,
+      "cooldownMs": 5300,
+      "description": "Bới tung cát trước mặt thành cột xoáy dâng lên và đổ xuống phủ mục tiêu."
+    },
+    "source": "art/beasts/mystic-v1/sa-hat-source.png"
+  },
+  {
+    "id": "van-hau",
+    "name": "Vân Hầu",
+    "description": "Linh hầu lông bạc dùng quyền nặng và ném khối mây đặc.",
+    "element": "wind",
+    "rarity": "rare",
+    "attack": {
+      "name": "Vân Chùy Quyền",
+      "pattern": "overhead-fist",
+      "telegraph": "Dựng thân, nâng một nắm đấm quá đầu.",
+      "range": 100,
+      "cooldownMs": 1700,
+      "description": "Giáng nắm đấm từ trên đầu xuống phía trước, tạo cú nện sát đất."
+    },
+    "skill": {
+      "name": "Vân Nham",
+      "pattern": "cloud-boulder-throw",
+      "telegraph": "Hai tay gom mây thành khối tròn.",
+      "range": 310,
+      "cooldownMs": 4500,
+      "description": "Ném khối mây đặc thẳng về phía trước, khối mây phồng lớn và bung xoáy khi tới đích."
+    },
+    "source": "art/beasts/mystic-v1/van-hau-source.png"
+  }
+]

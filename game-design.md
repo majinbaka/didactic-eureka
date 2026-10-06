@@ -106,3 +106,7 @@ Nhập định tự bật cho nhân vật mới; mỗi 15 phút tích 1 linh kh�
 ## Cập nhật chương nhập môn
 
 Cuộc tuyển chọn có hàng trăm thí sinh trong cốt truyện; màn chạy chỉ hiển thị người chơi và bốn NPC. Người chơi chọn một trong năm diện mạo và đặt tên khi vào game, có thể sửa lại từ hồ sơ. Tuổi khởi đầu và thọ nguyên khác nhau theo diện mạo. NPC phải dừng ở mỗi bia, giải đúng với xác suất 80% mỗi lượt; giải sai chờ thêm năm giây rồi thử lại. Hạng 1–3 trong nhóm hiển thị được nhận vào Nội môn. Nếu bốn NPC về trước, màn End tạm thời xuất hiện. Màn đầu có đúng một Thanh Trúc Diệp, chỉ nhặt khi nhân vật chạm trực tiếp. Bước nhảy hiện đạt các bậc lơ lửng cao hơn, tối đa ba bậc liền nhau. Luyện Khí có 13 kỳ; từ Trúc Cơ trở lên có Sơ kỳ, Trung kỳ, Hậu kỳ, Viên mãn. Mỗi lần đột phá thành công tăng hai điểm thuộc tính; chi phí và tỷ lệ đang giữ theo cảnh giới lớn.
+
+## Thư viện 30 yêu thú v1
+
+Ba nhóm yêu thú rừng, linh thú và cổ thú có silhouette, thuộc tính, đòn thường và chiêu riêng; danh mục `src/game/beastRoster.json`. Mỗi atlas 4×5 ô 128px có 20 frame cho bảy động tác; manifest định nghĩa frames, fps, loop và neo. `src/game/beasts.js` chọn frame thuần, các chiêu dừng ở frame cuối. Tầm và hồi chiêu trong danh mục là trị số thiết kế; chưa có sát thương, hitbox, AI hoặc spawn trong chương nhập môn. Bộ sưu tập chỉ xem tư liệu, không đổi schema save hoặc thống kê đã nhặt. Chi tiết và nguồn ở `art/beasts/README.md`.

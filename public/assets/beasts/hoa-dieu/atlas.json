@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/hoa-dieu/sheet.png",
+  "source": "art/beasts/forest-v1/hoa-dieu-source.png",
+  "sourceCuts": [
+    {
+      "left": 30,
+      "top": 70,
+      "width": 233,
+      "height": 210
+    },
+    {
+      "left": 302,
+      "top": 71,
+      "width": 232,
+      "height": 210
+    },
+    {
+      "left": 578,
+      "top": 84,
+      "width": 245,
+      "height": 196
+    },
+    {
+      "left": 865,
+      "top": 85,
+      "width": 236,
+      "height": 193
+    },
+    {
+      "left": 22,
+      "top": 348,
+      "width": 246,
+      "height": 188
+    },
+    {
+      "left": 297,
+      "top": 341,
+      "width": 247,
+      "height": 198
+    },
+    {
+      "left": 576,
+      "top": 367,
+      "width": 256,
+      "height": 168
+    },
+    {
+      "left": 874,
+      "top": 284,
+      "width": 233,
+      "height": 241
+    },
+    {
+      "left": 28,
+      "top": 581,
+      "width": 241,
+      "height": 244
+    },
+    {
+      "left": 312,
+      "top": 566,
+      "width": 216,
+      "height": 268
+    },
+    {
+      "left": 577,
+      "top": 564,
+      "width": 258,
+      "height": 269
+    },
+    {
+      "left": 855,
+      "top": 627,
+      "width": 248,
+      "height": 194
+    },
+    {
+      "left": 18,
+      "top": 868,
+      "width": 251,
+      "height": 214
+    },
+    {
+      "left": 306,
+      "top": 834,
+      "width": 237,
+      "height": 250
+    },
+    {
+      "left": 569,
+      "top": 872,
+      "width": 294,
+      "height": 214
+    },
+    {
+      "left": 866,
+      "top": 891,
+      "width": 250,
+      "height": 198
+    },
+    {
+      "left": 25,
+      "top": 1144,
+      "width": 229,
+      "height": 179
+    },
+    {
+      "left": 324,
+      "top": 1112,
+      "width": 220,
+      "height": 211
+    },
+    {
+      "left": 571,
+      "top": 1149,
+      "width": 250,
+      "height": 166
+    },
+    {
+      "left": 847,
+      "top": 1237,
+      "width": 258,
+      "height": 87
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

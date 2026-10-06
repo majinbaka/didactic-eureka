@@ -1,0 +1,242 @@
+[
+  {
+    "id": "truc-lang",
+    "name": "Trúc Lang",
+    "description": "Sói rừng mang bờm lá trúc, săn bằng cú vồ và lưỡi gió.",
+    "element": "wind",
+    "rarity": "common",
+    "attack": {
+      "name": "Trúc Nha Vồ",
+      "pattern": "lunging-bite",
+      "telegraph": "Hạ vai, dồn lực chân sau và hé nanh.",
+      "range": 140,
+      "cooldownMs": 1800,
+      "description": "Lao về phía trước và cắn bằng nanh trúc."
+    },
+    "skill": {
+      "name": "Phong Nguyệt Nhận",
+      "pattern": "double-crescent-wind",
+      "telegraph": "Bờm trúc xoáy thành hai vòng gió bạc.",
+      "range": 420,
+      "cooldownMs": 6000,
+      "description": "Phóng hai lưỡi gió hình trăng khuyết nối tiếp."
+    },
+    "source": "art/beasts/forest-v1/truc-lang-source.png"
+  },
+  {
+    "id": "moc-ho",
+    "name": "Mộc Hồ",
+    "description": "Hồ ly phủ rêu điều khiển linh diệp truy đuổi kẻ xâm phạm.",
+    "element": "wood",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Rêu Vĩ Quét",
+      "pattern": "low-tail-sweep",
+      "telegraph": "Nghiêng thân và kéo đuôi sát mặt đất.",
+      "range": 150,
+      "cooldownMs": 2100,
+      "description": "Quét đuôi thấp theo vòng cung sát đất."
+    },
+    "skill": {
+      "name": "Linh Diệp Truy",
+      "pattern": "homing-leaf-spirits",
+      "telegraph": "Ba đốm lá sáng bay quanh tai.",
+      "range": 460,
+      "cooldownMs": 6400,
+      "description": "Thả ba linh diệp bay cong truy đuổi mục tiêu."
+    },
+    "source": "art/beasts/forest-v1/moc-ho-source.png"
+  },
+  {
+    "id": "thach-tru",
+    "name": "Thạch Trư",
+    "description": "Lợn rừng giáp đá thúc nanh và dựng trụ đất chặn đường.",
+    "element": "earth",
+    "rarity": "common",
+    "attack": {
+      "name": "Thạch Nha Xung",
+      "pattern": "tusk-charge",
+      "telegraph": "Cào chân trước, hạ hai nanh đá.",
+      "range": 200,
+      "cooldownMs": 2400,
+      "description": "Hạ đầu, chạy thẳng và thúc hai nanh đá."
+    },
+    "skill": {
+      "name": "Địa Trụ Trồi",
+      "pattern": "stone-pillar-eruption",
+      "telegraph": "Khe nứt vàng xuất hiện dưới móng.",
+      "range": 330,
+      "cooldownMs": 7000,
+      "description": "Giậm móng, dựng một trụ đá phía trước."
+    },
+    "source": "art/beasts/forest-v1/thach-tru-source.png"
+  },
+  {
+    "id": "doc-chu",
+    "name": "Độc Chu",
+    "description": "Nhện tím phóng tơ độc hình quạt, cắn đối thủ mắc lưới.",
+    "element": "shadow",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Tơ Nha Khóa",
+      "pattern": "web-bite-grapple",
+      "telegraph": "Chân trước dựng cao và kéo một sợi tơ.",
+      "range": 125,
+      "cooldownMs": 1900,
+      "description": "Kéo sợi tơ giữ mục tiêu rồi cắn bằng nanh độc."
+    },
+    "skill": {
+      "name": "Độc Võng Phiến",
+      "pattern": "poison-web-fan",
+      "telegraph": "Bụng phát sáng tím, chân mở rộng.",
+      "range": 390,
+      "cooldownMs": 6700,
+      "description": "Phun tơ độc hình quạt phủ một vùng rộng."
+    },
+    "source": "art/beasts/forest-v1/doc-chu-source.png"
+  },
+  {
+    "id": "linh-loc",
+    "name": "Linh Lộc",
+    "description": "Linh lộc sừng ngọc gọi rễ trói kẻ địch trong rừng sâu.",
+    "element": "wood",
+    "rarity": "rare",
+    "attack": {
+      "name": "Ngọc Giác Thích",
+      "pattern": "antler-thrust",
+      "telegraph": "Nghiêng sừng ngọc và dồn trọng lượng ra sau.",
+      "range": 165,
+      "cooldownMs": 2200,
+      "description": "Dồn chân sau rồi đâm sừng ngọc về phía trước."
+    },
+    "skill": {
+      "name": "Căn Đằng Phược",
+      "pattern": "root-snare",
+      "telegraph": "Sừng sáng xanh, rễ nhỏ xoắn quanh móng.",
+      "range": 360,
+      "cooldownMs": 7200,
+      "description": "Gọi rễ trồi lên xoắn quanh vị trí mục tiêu."
+    },
+    "source": "art/beasts/forest-v1/linh-loc-source.png"
+  },
+  {
+    "id": "son-hung",
+    "name": "Sơn Hùng",
+    "description": "Gấu núi vung hai vuốt nặng, tạo sóng địa chấn từ mặt đất.",
+    "element": "earth",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Song Trảo Giáng",
+      "pattern": "double-claw-slam",
+      "telegraph": "Đứng cao, kéo cả hai vuốt lên vai.",
+      "range": 175,
+      "cooldownMs": 2700,
+      "description": "Đứng cao và giáng đồng thời hai vuốt xuống."
+    },
+    "skill": {
+      "name": "Sơn Chấn Ba",
+      "pattern": "ground-shockwave",
+      "telegraph": "Hai bàn chân sáng nâu đồng, bụi đá bật lên.",
+      "range": 440,
+      "cooldownMs": 7500,
+      "description": "Đập đất và đẩy sóng địa chấn lan về phía trước."
+    },
+    "source": "art/beasts/forest-v1/son-hung-source.png"
+  },
+  {
+    "id": "phong-duong",
+    "name": "Phong Dương",
+    "description": "Dê núi lông mây húc sừng và thổi lốc từ cặp sừng xoắn.",
+    "element": "wind",
+    "rarity": "rare",
+    "attack": {
+      "name": "Vân Giác Húc",
+      "pattern": "ram-headbutt",
+      "telegraph": "Lắc cặp sừng xoắn và giậm chân.",
+      "range": 170,
+      "cooldownMs": 2000,
+      "description": "Bật người tới trước, húc bằng cặp sừng xoắn."
+    },
+    "skill": {
+      "name": "Song Giác Lốc",
+      "pattern": "horn-tornado",
+      "telegraph": "Hai sừng hút luồng khí trắng xoay nhanh.",
+      "range": 400,
+      "cooldownMs": 6800,
+      "description": "Tụ gió giữa hai sừng rồi thả một cơn lốc xoay."
+    },
+    "source": "art/beasts/forest-v1/phong-duong-source.png"
+  },
+  {
+    "id": "hoa-dieu",
+    "name": "Hỏa Điêu",
+    "description": "Chim ưng lửa bổ vuốt từ trên cao và phóng loạt lông cháy.",
+    "element": "fire",
+    "rarity": "rare",
+    "attack": {
+      "name": "Viêm Trảo Bổ",
+      "pattern": "diving-talons",
+      "telegraph": "Thu cánh, nâng hai vuốt trước cú lao.",
+      "range": 230,
+      "cooldownMs": 2600,
+      "description": "Bổ chéo từ trên cao, cào bằng hai vuốt."
+    },
+    "skill": {
+      "name": "Hỏa Vũ Liên",
+      "pattern": "fire-feather-volley",
+      "telegraph": "Lông cánh bừng vàng, cánh kéo ra sau.",
+      "range": 480,
+      "cooldownMs": 7000,
+      "description": "Vỗ cánh phóng một loạt ba lông vũ cháy."
+    },
+    "source": "art/beasts/forest-v1/hoa-dieu-source.png"
+  },
+  {
+    "id": "bang-ho",
+    "name": "Băng Hổ",
+    "description": "Hổ trắng sọc lam vồ chém và kết băng thành hàng nanh nhọn.",
+    "element": "ice",
+    "rarity": "epic",
+    "attack": {
+      "name": "Băng Trảo Vồ",
+      "pattern": "pounce-slash",
+      "telegraph": "Khụy chân sau, vuốt trước phủ sương.",
+      "range": 225,
+      "cooldownMs": 2300,
+      "description": "Nhảy vồ về phía trước và chém một vuốt băng."
+    },
+    "skill": {
+      "name": "Băng Nha Tuyến",
+      "pattern": "ice-fang-line",
+      "telegraph": "Hơi thở xanh kết tinh trước miệng.",
+      "range": 500,
+      "cooldownMs": 8200,
+      "description": "Thở băng và dựng ba nanh băng thành một hàng."
+    },
+    "source": "art/beasts/forest-v1/bang-ho-source.png"
+  },
+  {
+    "id": "am-buc",
+    "name": "Âm Bức",
+    "description": "Dơi chàm cắt bằng cánh và dội sóng âm thành những vòng tròn.",
+    "element": "shadow",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Dực Ảnh Cắt",
+      "pattern": "wing-slice",
+      "telegraph": "Khép một cánh, cánh còn lại kéo cao.",
+      "range": 155,
+      "cooldownMs": 1700,
+      "description": "Xoay cánh sắc quét một đường ngang trước mặt."
+    },
+    "skill": {
+      "name": "Âm Hoàn Chấn",
+      "pattern": "sonic-rings",
+      "telegraph": "Tai dựng thẳng, miệng phát sáng tím.",
+      "range": 450,
+      "cooldownMs": 5900,
+      "description": "Phát ba vòng sóng âm đồng tâm hướng về phía trước."
+    },
+    "source": "art/beasts/forest-v1/am-buc-source.png"
+  }
+]

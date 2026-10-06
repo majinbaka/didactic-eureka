@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/bang-ho/sheet.png",
+  "source": "art/beasts/forest-v1/bang-ho-source.png",
+  "sourceCuts": [
+    {
+      "left": 15,
+      "top": 81,
+      "width": 254,
+      "height": 173
+    },
+    {
+      "left": 293,
+      "top": 73,
+      "width": 246,
+      "height": 181
+    },
+    {
+      "left": 570,
+      "top": 78,
+      "width": 260,
+      "height": 175
+    },
+    {
+      "left": 853,
+      "top": 90,
+      "width": 259,
+      "height": 163
+    },
+    {
+      "left": 15,
+      "top": 348,
+      "width": 266,
+      "height": 168
+    },
+    {
+      "left": 297,
+      "top": 344,
+      "width": 265,
+      "height": 170
+    },
+    {
+      "left": 587,
+      "top": 373,
+      "width": 232,
+      "height": 143
+    },
+    {
+      "left": 849,
+      "top": 322,
+      "width": 263,
+      "height": 157
+    },
+    {
+      "left": 17,
+      "top": 629,
+      "width": 262,
+      "height": 173
+    },
+    {
+      "left": 321,
+      "top": 559,
+      "width": 223,
+      "height": 239
+    },
+    {
+      "left": 564,
+      "top": 578,
+      "width": 279,
+      "height": 220
+    },
+    {
+      "left": 861,
+      "top": 588,
+      "width": 250,
+      "height": 208
+    },
+    {
+      "left": 16,
+      "top": 889,
+      "width": 261,
+      "height": 173
+    },
+    {
+      "left": 295,
+      "top": 832,
+      "width": 240,
+      "height": 228
+    },
+    {
+      "left": 561,
+      "top": 866,
+      "width": 285,
+      "height": 201
+    },
+    {
+      "left": 846,
+      "top": 891,
+      "width": 264,
+      "height": 175
+    },
+    {
+      "left": 11,
+      "top": 1158,
+      "width": 251,
+      "height": 167
+    },
+    {
+      "left": 294,
+      "top": 1109,
+      "width": 248,
+      "height": 214
+    },
+    {
+      "left": 562,
+      "top": 1150,
+      "width": 260,
+      "height": 174
+    },
+    {
+      "left": 845,
+      "top": 1195,
+      "width": 261,
+      "height": 116
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}
