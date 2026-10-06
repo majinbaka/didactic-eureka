@@ -79,12 +79,14 @@ Mở `/characters.html` trên dev server để xem 20 nhân vật mới: nam/n�
 - Nguồn/prompt: [character-variants-v2-prompts.md](art/characters/character-variants-v2-prompts.md), [roster-v2.json](art/characters/roster-v2.json).
 - Đóng gói lại: `npm run assets:character-roster` (giữ alpha, scale nearest-neighbor và tỷ lệ chiều cao).
 
-## Bộ 30 yêu thú
+## Bộ 50 yêu thú
 
-Hồ sơ → Bộ sưu tập → Danh mục → Yêu thú để xem 30 quái pixel, tìm kiếm không dấu và lọc thuộc tính. Trang `/beasts.html` xem toàn bộ hoạt ảnh, đổi động tác, tạm dừng và phát lại. Mỗi quái có atlas trong suốt 512×640, 20 frame vẽ riêng và manifest: đứng, di chuyển, nhảy, đòn thường, chiêu, bị thương, gục ngã. Hai chu kỳ đứng/di chuyển lặp; các động tác còn lại kết thúc ở frame cuối.
+Hồ sơ → Bộ sưu tập → Danh mục → Yêu thú để xem 50 quái pixel, tìm kiếm không dấu và lọc thuộc tính. Trang `/beasts.html` xem toàn bộ hoạt ảnh, đổi động tác, tạm dừng và phát lại. Mỗi quái có atlas trong suốt 512×640, 20 frame vẽ riêng và manifest: đứng, di chuyển, nhảy, đòn thường, chiêu, bị thương, gục ngã. Hai chu kỳ đứng/di chuyển lặp; các động tác còn lại kết thúc ở frame cuối.
 
 Mỗi yêu thú có thiết kế đòn thường và chiêu riêng; chưa có AI chiến đấu, sát thương hoặc điểm xuất hiện trong màn chơi. Không thay dữ liệu save. Nguồn và prompt ImageGen tích hợp ở [art/beasts](art/beasts/README.md), runtime ở `public/assets/beasts/roster-v1.json`; tái đóng gói bằng `npm run assets:beast-roster`.
 
+20 con mở rộng có nguồn và prompt trong ba thư mục nhóm v2 ở `art/beasts/`; có đầy đủ bộ FX tách lớp cho chiêu tầm xa như 30 con ban đầu.
+
 ### Chiêu độc lập của yêu thú
 
-Bổ sung 30 atlas VFX tách khỏi thân quái: vệt đánh gần, tụ lực, chiêu di chuyển, va chạm và hiệu ứng lưu lại, mỗi pha bốn frame. `/beast-effects.html` cho xem đạn bay, tia, sóng đất, vòng quay và chiêu rơi độc lập theo hai hướng. PNG từng pha và manifest nằm tại `public/assets/beasts/effects-v1/`; [hướng dẫn ghép, nguồn và prompt](art/beasts/effects-v1/README.md). Tái đóng gói bằng `npm run assets:beast-effects`. Đây là bộ ảnh mechanic; việc tạo entity, va chạm và ghép vào game để làm sau.
+Bổ sung 50 atlas VFX tách khỏi thân quái: vệt đánh gần, tụ lực, chiêu di chuyển, va chạm và hiệu ứng lưu lại, mỗi pha bốn frame. `/beast-effects.html` cho xem đạn bay, tia, sóng đất, vòng quay và chiêu rơi độc lập theo hai hướng. PNG từng pha và manifest nằm tại `public/assets/beasts/effects-v1/`; [hướng dẫn ghép, nguồn và prompt](art/beasts/effects-v1/README.md). Tái đóng gói bằng `npm run assets:beast-effects`. Đây là bộ ảnh mechanic; việc tạo entity, va chạm và ghép vào game để làm sau.

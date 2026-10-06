@@ -1,0 +1,170 @@
+[
+  {
+    "id": "tinh-ve",
+    "name": "Tinh Vệ",
+    "description": "Linh điểu xanh ngọc mang mỏ đồng, điều khiển thủy vũ trong những cú sà cánh.",
+    "element": "water",
+    "rarity": "rare",
+    "attack": {
+      "name": "Thủy Trác",
+      "pattern": "tinh-ve-beak-thrust",
+      "telegraph": "Thu cánh, hạ mỏ ngang mục tiêu.",
+      "range": 105,
+      "cooldownMs": 1700,
+      "description": "Vươn cổ đâm mỏ thẳng về trước, rồi đập cánh lấy lại thăng bằng."
+    },
+    "skill": {
+      "name": "Thủy Vũ",
+      "pattern": "tinh-ve-water-feather-fan",
+      "telegraph": "Xòe cánh, thủy lưu gom thành lông vũ sáng.",
+      "range": 360,
+      "cooldownMs": 5100,
+      "description": "Phóng chùm thủy vũ cong về trước, để lại vòng nước nhỏ ở điểm chạm."
+    },
+    "source": "art/beasts/mystic-v2/tinh-ve-source.png"
+  },
+  {
+    "id": "mac-chuong",
+    "name": "Mặc Chương",
+    "description": "Chương ngư ảnh có tám xúc tu, bò trên cạn và che đường bằng mực tím.",
+    "element": "shadow",
+    "rarity": "epic",
+    "attack": {
+      "name": "Mặc Tiên",
+      "pattern": "mac-chuong-tentacle-lash",
+      "telegraph": "Nâng một xúc tu, cuộn đầu roi sau thân.",
+      "range": 155,
+      "cooldownMs": 2000,
+      "description": "Duỗi xúc tu quất ngang về trước rồi cuộn thu về."
+    },
+    "skill": {
+      "name": "U Mặc Đạn",
+      "pattern": "mac-chuong-ink-cloud-projectile",
+      "telegraph": "Xúc tu khép lại, mực tím tụ trước mắt.",
+      "range": 320,
+      "cooldownMs": 5700,
+      "description": "Phun một khối mực ảnh trôi về trước, bung thành mây mực ở điểm va chạm."
+    },
+    "source": "art/beasts/mystic-v2/mac-chuong-source.png"
+  },
+  {
+    "id": "loi-thiem",
+    "name": "Lôi Thiềm",
+    "description": "Thiềm thừ da chàm với hai nút lôi xanh trên má, phóng điện theo vòng.",
+    "element": "lightning",
+    "rarity": "rare",
+    "attack": {
+      "name": "Lôi Thiệt",
+      "pattern": "loi-thiem-electric-tongue",
+      "telegraph": "Há miệng, điện xanh tụ ở đầu lưỡi.",
+      "range": 185,
+      "cooldownMs": 1900,
+      "description": "Bắn lưỡi tích điện thẳng về trước rồi thu nhanh về miệng."
+    },
+    "skill": {
+      "name": "Lôi Hoàn",
+      "pattern": "loi-thiem-lightning-ring",
+      "telegraph": "Hai má phồng sáng, vòng điện khép trước miệng.",
+      "range": 380,
+      "cooldownMs": 5200,
+      "description": "Phóng vòng sét xanh bay thẳng, nổ thành các nhánh điện khi chạm mục tiêu."
+    },
+    "source": "art/beasts/mystic-v2/loi-thiem-source.png"
+  },
+  {
+    "id": "suong-ha",
+    "name": "Sương Hà",
+    "description": "Linh hà giáp xanh băng, càng phủ tinh thể và râu dài màu ngà.",
+    "element": "ice",
+    "rarity": "rare",
+    "attack": {
+      "name": "Hàn Kiềm",
+      "pattern": "suong-ha-ice-claw-hammer",
+      "telegraph": "Nâng càng băng, thu đuôi cong dưới thân.",
+      "range": 110,
+      "cooldownMs": 2200,
+      "description": "Giáng càng băng về phía trước tạo một vòng chấn lạnh."
+    },
+    "skill": {
+      "name": "Sương Nhận",
+      "pattern": "suong-ha-ice-shard-crescent",
+      "telegraph": "Băng sáng tụ quanh hai càng.",
+      "range": 350,
+      "cooldownMs": 5400,
+      "description": "Vung càng phóng nguyệt nhận bằng mảnh băng, tản thành tinh thể ở điểm trúng."
+    },
+    "source": "art/beasts/mystic-v2/suong-ha-source.png"
+  },
+  {
+    "id": "phong-dinh",
+    "name": "Phong Đình",
+    "description": "Đình linh thân ngọc dài, bốn cánh mỏng dùng gió giữ thăng bằng.",
+    "element": "wind",
+    "rarity": "rare",
+    "attack": {
+      "name": "Phong Thích",
+      "pattern": "phong-dinh-abdomen-jab",
+      "telegraph": "Hạ thân, mũi bụng hướng về trước.",
+      "range": 130,
+      "cooldownMs": 1600,
+      "description": "Lao nhẹ về trước, dùng mũi bụng tạo cú thích có vệt gió cong."
+    },
+    "skill": {
+      "name": "Lục Phong Toàn",
+      "pattern": "phong-dinh-jade-wind-spiral",
+      "telegraph": "Bốn cánh rung, gió xanh gom trước đầu.",
+      "range": 370,
+      "cooldownMs": 4900,
+      "description": "Phóng xoáy gió ngọc tiến độc lập về trước rồi bung thành vòng gió."
+    },
+    "source": "art/beasts/mystic-v2/phong-dinh-source.png"
+  },
+  {
+    "id": "ngoc-tam",
+    "name": "Ngọc Tằm",
+    "description": "Linh tằm thân ngọc mềm, râu lá và chân hổ phách, nhả tơ mang mầm cây.",
+    "element": "wood",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Ngọc Đầu",
+      "pattern": "ngoc-tam-jade-headbutt",
+      "telegraph": "Rút thân, ngẩng đầu trước cú lao.",
+      "range": 90,
+      "cooldownMs": 2300,
+      "description": "Duỗi các đốt thân, húc đầu về trước rồi thu thân lại."
+    },
+    "skill": {
+      "name": "Sinh Diệp Ti",
+      "pattern": "ngoc-tam-leaf-silk-bolt",
+      "telegraph": "Râu lá dựng, tơ xanh cuộn trước miệng.",
+      "range": 300,
+      "cooldownMs": 5500,
+      "description": "Nhả một cuộn tơ xanh có nút lá bay về trước, bung thành vòng tơ khi chạm."
+    },
+    "source": "art/beasts/mystic-v2/ngoc-tam-source.png"
+  },
+  {
+    "id": "dong-bang",
+    "name": "Đồng Bàng",
+    "description": "Bàng yêu giáp đồng có đường gỉ ngọc, càng nặng có thể bắn mảnh kim.",
+    "element": "metal",
+    "rarity": "rare",
+    "attack": {
+      "name": "Đồng Kiềm",
+      "pattern": "dong-bang-bronze-pincer",
+      "telegraph": "Nâng càng phải, hai mắt dựng.",
+      "range": 110,
+      "cooldownMs": 2100,
+      "description": "Duỗi càng về trước và khép gọng, để lại vệt chấn kim màu đồng."
+    },
+    "skill": {
+      "name": "Toái Đồng Vũ",
+      "pattern": "dong-bang-bronze-shard-fan",
+      "telegraph": "Hai càng chạm nhau, mảnh kim tụ trước thân.",
+      "range": 340,
+      "cooldownMs": 5300,
+      "description": "Phóng quạt mảnh đồng sắc về trước, các mảnh tản ra khi chạm mục tiêu."
+    },
+    "source": "art/beasts/mystic-v2/dong-bang-source.png"
+  }
+]

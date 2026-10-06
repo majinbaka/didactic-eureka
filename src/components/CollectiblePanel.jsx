@@ -1,4 +1,5 @@
 import BeastCollection from './BeastCollection'
+import { beastCatalog } from '../game/beasts'
 import { useEffect, useRef, useState } from 'react'
 import { collectibleCatalog, COLLECTIBLE_KINDS, RARITIES, STAGE_COLLECTIBLES } from '../game/collectibles'
 
@@ -37,7 +38,7 @@ export default function CollectiblePanel({ counts = {}, onClose }) {
   const locations = selected ? Object.values(STAGE_COLLECTIBLES).filter(stage => stage.itemIds.includes(selected.id)).map(stage => stage.name) : []
   return <section ref={panel} tabIndex={-1} className="cultivation-panel collectible-panel" aria-label="Bộ sưu tập" onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation(); onClose() } }}>
     <header><strong>BỘ SƯU TẬP</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
-    <label className="collection-category">Danh mục<select value={kind === 'beast' ? 'beast' : 'items'} onChange={event => { setKind(event.target.value === 'beast' ? 'beast' : 'herb'); setSelected(null) }}><option value="items">Vật phẩm</option><option value="beast">Yêu thú (30)</option></select></label>
+    <label className="collection-category">Danh mục<select value={kind === 'beast' ? 'beast' : 'items'} onChange={event => { setKind(event.target.value === 'beast' ? 'beast' : 'herb'); setSelected(null) }}><option value="items">Vật phẩm</option><option value="beast">Yêu thú ({beastCatalog.length})</option></select></label>
     {kind === 'beast' ? <BeastCollection /> : <>
     <p className="collection-summary">{total} {COLLECTIBLE_KINDS[kind].toLowerCase()} · Đã tìm thấy {discovered}/{total}</p>
     <div className="collection-filters">

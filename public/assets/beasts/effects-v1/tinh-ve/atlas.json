@@ -1,0 +1,255 @@
+{
+  "beastId": "tinh-ve",
+  "source": "art/beasts/effects-v2/mystic/tinh-ve-source.png",
+  "name": "Tinh Vệ",
+  "skillMotion": "linear",
+  "travelSpeed": 350,
+  "origin": {
+    "x": 93,
+    "y": 59
+  },
+  "attackOffset": {
+    "x": 97,
+    "y": 69
+  },
+  "notes": "Tụ lực trước mỏ; thủy vũ bay riêng theo hướng nhìn. Impact tại điểm va chạm, vòng nước là dư âm; không vẽ thêm thân chim.",
+  "version": 1,
+  "skillName": "Thủy Vũ",
+  "image": "/assets/beasts/effects-v1/tinh-ve/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/tinh-ve/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/tinh-ve/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/tinh-ve/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/tinh-ve/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/tinh-ve/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/tinh-ve/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 91,
+      "top": 73,
+      "width": 176,
+      "height": 125
+    },
+    {
+      "left": 373,
+      "top": 36,
+      "width": 272,
+      "height": 163
+    },
+    {
+      "left": 705,
+      "top": 66,
+      "width": 341,
+      "height": 130
+    },
+    {
+      "left": 1079,
+      "top": 67,
+      "width": 296,
+      "height": 160
+    },
+    {
+      "left": 131,
+      "top": 301,
+      "width": 107,
+      "height": 112
+    },
+    {
+      "left": 453,
+      "top": 283,
+      "width": 130,
+      "height": 146
+    },
+    {
+      "left": 792,
+      "top": 255,
+      "width": 161,
+      "height": 187
+    },
+    {
+      "left": 1131,
+      "top": 259,
+      "width": 201,
+      "height": 197
+    },
+    {
+      "left": 81,
+      "top": 500,
+      "width": 206,
+      "height": 148
+    },
+    {
+      "left": 390,
+      "top": 501,
+      "width": 266,
+      "height": 143
+    },
+    {
+      "left": 746,
+      "top": 490,
+      "width": 277,
+      "height": 166
+    },
+    {
+      "left": 1086,
+      "top": 500,
+      "width": 292,
+      "height": 155
+    },
+    {
+      "left": 73,
+      "top": 751,
+      "width": 184,
+      "height": 118
+    },
+    {
+      "left": 387,
+      "top": 679,
+      "width": 275,
+      "height": 218
+    },
+    {
+      "left": 725,
+      "top": 686,
+      "width": 302,
+      "height": 226
+    },
+    {
+      "left": 1099,
+      "top": 698,
+      "width": 262,
+      "height": 199
+    },
+    {
+      "left": 87,
+      "top": 965,
+      "width": 183,
+      "height": 93
+    },
+    {
+      "left": 406,
+      "top": 958,
+      "width": 230,
+      "height": 115
+    },
+    {
+      "left": 767,
+      "top": 948,
+      "width": 241,
+      "height": 128
+    },
+    {
+      "left": 1122,
+      "top": 962,
+      "width": 224,
+      "height": 110
+    }
+  ]
+}

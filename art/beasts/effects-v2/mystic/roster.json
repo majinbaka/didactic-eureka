@@ -1,0 +1,114 @@
+[
+  {
+    "beastId": "tinh-ve",
+    "source": "art/beasts/effects-v2/mystic/tinh-ve-source.png",
+    "name": "Tinh Vệ",
+    "skillMotion": "linear",
+    "travelSpeed": 350,
+    "origin": {
+      "x": 93,
+      "y": 59
+    },
+    "attackOffset": {
+      "x": 97,
+      "y": 69
+    },
+    "notes": "Tụ lực trước mỏ; thủy vũ bay riêng theo hướng nhìn. Impact tại điểm va chạm, vòng nước là dư âm; không vẽ thêm thân chim."
+  },
+  {
+    "beastId": "mac-chuong",
+    "source": "art/beasts/effects-v2/mystic/mac-chuong-source.png",
+    "name": "Mặc Chương",
+    "skillMotion": "linear",
+    "travelSpeed": 230,
+    "origin": {
+      "x": 90,
+      "y": 70
+    },
+    "attackOffset": {
+      "x": 95,
+      "y": 86
+    },
+    "notes": "Tụ mực trước thân; mỗi khối mực bay độc lập từ origin. Vệt roi là năng lượng, không chứa xúc tu. Dùng impact khi khối mực chạm đích."
+  },
+  {
+    "beastId": "loi-thiem",
+    "source": "art/beasts/effects-v2/mystic/loi-thiem-source.png",
+    "name": "Lôi Thiềm",
+    "skillMotion": "linear",
+    "travelSpeed": 390,
+    "origin": {
+      "x": 95,
+      "y": 71
+    },
+    "attackOffset": {
+      "x": 97,
+      "y": 79
+    },
+    "notes": "Vòng sét sinh trước miệng rồi bay thẳng, giữ phương đứng; không phải vòng quay quanh thân. Nhánh sét impact đặt tại vị trí trúng."
+  },
+  {
+    "beastId": "suong-ha",
+    "source": "art/beasts/effects-v2/mystic/suong-ha-source.png",
+    "name": "Sương Hà",
+    "skillMotion": "linear",
+    "travelSpeed": 340,
+    "origin": {
+      "x": 92,
+      "y": 71
+    },
+    "attackOffset": {
+      "x": 95,
+      "y": 84
+    },
+    "notes": "Tụ băng trước càng; nguyệt nhận bay riêng theo hướng ngắm. Vệt càng là chấn lạnh thuần, tinh thể impact và field ở vị trí đích."
+  },
+  {
+    "beastId": "phong-dinh",
+    "source": "art/beasts/effects-v2/mystic/phong-dinh-source.png",
+    "name": "Phong Đình",
+    "skillMotion": "linear",
+    "travelSpeed": 370,
+    "origin": {
+      "x": 93,
+      "y": 61
+    },
+    "attackOffset": {
+      "x": 95,
+      "y": 74
+    },
+    "notes": "Tụ xoáy trước đầu; dải phong nhận có lõi gió cuộn bay độc lập về trước. Dùng impact ở vị trí trúng, vòng gió dư âm không gắn vào cánh."
+  },
+  {
+    "beastId": "ngoc-tam",
+    "source": "art/beasts/effects-v2/mystic/ngoc-tam-source.png",
+    "name": "Ngọc Tằm",
+    "skillMotion": "linear",
+    "travelSpeed": 260,
+    "origin": {
+      "x": 94,
+      "y": 72
+    },
+    "attackOffset": {
+      "x": 95,
+      "y": 82
+    },
+    "notes": "Tơ xanh sinh từ miệng thành một projectile cuộn có lá; renderer quản lý vị trí từng cuộn. Impact bung tơ ở đích, field lưu vòng tơ tại chỗ."
+  },
+  {
+    "beastId": "dong-bang",
+    "source": "art/beasts/effects-v2/mystic/dong-bang-source.png",
+    "name": "Đồng Bàng",
+    "skillMotion": "linear",
+    "travelSpeed": 430,
+    "origin": {
+      "x": 93,
+      "y": 75
+    },
+    "attackOffset": {
+      "x": 96,
+      "y": 82
+    },
+    "notes": "Mảnh đồng phóng trước càng và bay riêng; renderer tự quyết định số mảnh và góc quạt. Vệt ép kim không chứa càng, impact và field ở chỗ trúng."
+  }
+]

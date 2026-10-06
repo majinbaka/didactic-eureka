@@ -11,13 +11,14 @@ const animations = {
   hurt: { frames: [17], fps: 6, loop: false },
   collapse: { frames: [18, 19], fps: 4, loop: false },
 }
-let roster = (await Promise.all(['forest', 'mystic', 'ancient'].map(async group =>
-  JSON.parse(await readFile(new URL(`art/beasts/${group}-v1/roster.json`, root)).catch(error => { if (process.argv.includes('--partial') && error.code === 'ENOENT') return '[]'; throw error }))))).flat()
+const groups = ['forest-v1', 'mystic-v1', 'ancient-v1', 'forest-v2', 'mystic-v2', 'ancient-v2']
+let roster = (await Promise.all(groups.map(async group =>
+  JSON.parse(await readFile(new URL(`art/beasts/${group}/roster.json`, root)).catch(error => { if (process.argv.includes('--partial') && error.code === 'ENOENT') return '[]'; throw error }))))).flat()
 if (process.argv.includes('--partial')) {
   const available = await Promise.all(roster.map(async beast => { try { await access(new URL(beast.source, root)); return beast } catch { return null } }))
   roster = available.filter(Boolean)
 }
-if (!process.argv.includes('--partial') && (roster.length !== 30 || new Set(roster.map(b => b.id)).size !== 30)) throw new Error('Expected 30 unique beasts')
+if (!process.argv.includes('--partial') && (roster.length !== 50 || new Set(roster.map(b => b.id)).size !== 50)) throw new Error('Expected 50 unique beasts')
 const catalog = [], previews = []
 for (const beast of roster) {
   const source = new URL(beast.source, root)
@@ -89,6 +90,6 @@ for (const beast of roster) {
 const json = '[\n' + catalog.map(entry => JSON.stringify(entry)).join(',\n') + '\n]\n'
 await writeFile(new URL('public/assets/beasts/roster-v1.json', root), json)
 await writeFile(new URL('src/game/beastRoster.json', root), json)
-await sharp({ create: { width: 768, height: 640, channels: 4, background: '#192b26' } })
+await sharp({ create: { width: 768, height: Math.ceil(previews.length / 6) * 128, channels: 4, background: '#192b26' } })
   .composite(previews.map((input, i) => ({ input, left: i % 6 * 128, top: Math.floor(i / 6) * 128 })))
   .png().toFile(new URL('art/beasts/roster-v1-preview.png', root).pathname)

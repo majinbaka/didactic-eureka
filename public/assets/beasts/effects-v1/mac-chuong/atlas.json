@@ -1,0 +1,255 @@
+{
+  "beastId": "mac-chuong",
+  "source": "art/beasts/effects-v2/mystic/mac-chuong-source.png",
+  "name": "Mặc Chương",
+  "skillMotion": "linear",
+  "travelSpeed": 230,
+  "origin": {
+    "x": 90,
+    "y": 70
+  },
+  "attackOffset": {
+    "x": 95,
+    "y": 86
+  },
+  "notes": "Tụ mực trước thân; mỗi khối mực bay độc lập từ origin. Vệt roi là năng lượng, không chứa xúc tu. Dùng impact khi khối mực chạm đích.",
+  "version": 1,
+  "skillName": "U Mặc Đạn",
+  "image": "/assets/beasts/effects-v1/mac-chuong/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/mac-chuong/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/mac-chuong/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/mac-chuong/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/mac-chuong/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/mac-chuong/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/mac-chuong/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 57,
+      "top": 97,
+      "width": 236,
+      "height": 166
+    },
+    {
+      "left": 365,
+      "top": 48,
+      "width": 330,
+      "height": 216
+    },
+    {
+      "left": 713,
+      "top": 29,
+      "width": 339,
+      "height": 235
+    },
+    {
+      "left": 1076,
+      "top": 68,
+      "width": 304,
+      "height": 195
+    },
+    {
+      "left": 114,
+      "top": 316,
+      "width": 147,
+      "height": 150
+    },
+    {
+      "left": 445,
+      "top": 264,
+      "width": 187,
+      "height": 225
+    },
+    {
+      "left": 753,
+      "top": 264,
+      "width": 217,
+      "height": 225
+    },
+    {
+      "left": 1150,
+      "top": 318,
+      "width": 164,
+      "height": 157
+    },
+    {
+      "left": 60,
+      "top": 565,
+      "width": 211,
+      "height": 76
+    },
+    {
+      "left": 376,
+      "top": 546,
+      "width": 267,
+      "height": 96
+    },
+    {
+      "left": 712,
+      "top": 494,
+      "width": 332,
+      "height": 181
+    },
+    {
+      "left": 1108,
+      "top": 560,
+      "width": 252,
+      "height": 77
+    },
+    {
+      "left": 69,
+      "top": 680,
+      "width": 236,
+      "height": 220
+    },
+    {
+      "left": 376,
+      "top": 690,
+      "width": 300,
+      "height": 238
+    },
+    {
+      "left": 722,
+      "top": 691,
+      "width": 314,
+      "height": 232
+    },
+    {
+      "left": 1110,
+      "top": 711,
+      "width": 248,
+      "height": 197
+    },
+    {
+      "left": 54,
+      "top": 995,
+      "width": 248,
+      "height": 79
+    },
+    {
+      "left": 400,
+      "top": 966,
+      "width": 271,
+      "height": 126
+    },
+    {
+      "left": 749,
+      "top": 960,
+      "width": 263,
+      "height": 136
+    },
+    {
+      "left": 1130,
+      "top": 980,
+      "width": 202,
+      "height": 100
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/bach-dieu/sheet.png",
+  "source": "art/beasts/forest-v2/bach-dieu-source.png",
+  "sourceCuts": [
+    {
+      "left": 20,
+      "top": 64,
+      "width": 243,
+      "height": 205
+    },
+    {
+      "left": 297,
+      "top": 76,
+      "width": 233,
+      "height": 195
+    },
+    {
+      "left": 563,
+      "top": 82,
+      "width": 254,
+      "height": 189
+    },
+    {
+      "left": 840,
+      "top": 109,
+      "width": 262,
+      "height": 161
+    },
+    {
+      "left": 18,
+      "top": 363,
+      "width": 254,
+      "height": 183
+    },
+    {
+      "left": 295,
+      "top": 363,
+      "width": 260,
+      "height": 184
+    },
+    {
+      "left": 591,
+      "top": 346,
+      "width": 241,
+      "height": 206
+    },
+    {
+      "left": 839,
+      "top": 381,
+      "width": 270,
+      "height": 151
+    },
+    {
+      "left": 19,
+      "top": 656,
+      "width": 262,
+      "height": 177
+    },
+    {
+      "left": 306,
+      "top": 642,
+      "width": 208,
+      "height": 191
+    },
+    {
+      "left": 563,
+      "top": 652,
+      "width": 277,
+      "height": 186
+    },
+    {
+      "left": 855,
+      "top": 652,
+      "width": 251,
+      "height": 183
+    },
+    {
+      "left": 21,
+      "top": 917,
+      "width": 249,
+      "height": 187
+    },
+    {
+      "left": 317,
+      "top": 873,
+      "width": 194,
+      "height": 234
+    },
+    {
+      "left": 539,
+      "top": 920,
+      "width": 283,
+      "height": 192
+    },
+    {
+      "left": 844,
+      "top": 922,
+      "width": 262,
+      "height": 188
+    },
+    {
+      "left": 28,
+      "top": 1161,
+      "width": 251,
+      "height": 207
+    },
+    {
+      "left": 326,
+      "top": 1170,
+      "width": 197,
+      "height": 199
+    },
+    {
+      "left": 580,
+      "top": 1170,
+      "width": 234,
+      "height": 191
+    },
+    {
+      "left": 851,
+      "top": 1257,
+      "width": 248,
+      "height": 97
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

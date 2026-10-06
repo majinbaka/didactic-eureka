@@ -1,0 +1,255 @@
+{
+  "beastId": "quang-lan",
+  "source": "art/beasts/effects-v2/ancient/quang-lan-source.png",
+  "name": "Quang Lân",
+  "skillMotion": "linear",
+  "travelSpeed": 430,
+  "origin": {
+    "x": 94,
+    "y": 78
+  },
+  "attackOffset": {
+    "x": 107,
+    "y": 88
+  },
+  "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Phóng các lưỡi vảy vàng từ hào quang theo hướng quay; field là dư quang tại điểm phát.",
+  "version": 1,
+  "skillName": "Quang Lân Nhận",
+  "image": "/assets/beasts/effects-v1/quang-lan/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/quang-lan/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/quang-lan/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/quang-lan/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/quang-lan/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/quang-lan/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/quang-lan/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 72,
+      "top": 92,
+      "width": 184,
+      "height": 164
+    },
+    {
+      "left": 325,
+      "top": 81,
+      "width": 204,
+      "height": 181
+    },
+    {
+      "left": 566,
+      "top": 52,
+      "width": 245,
+      "height": 231
+    },
+    {
+      "left": 878,
+      "top": 77,
+      "width": 191,
+      "height": 194
+    },
+    {
+      "left": 82,
+      "top": 375,
+      "width": 145,
+      "height": 141
+    },
+    {
+      "left": 321,
+      "top": 351,
+      "width": 184,
+      "height": 174
+    },
+    {
+      "left": 589,
+      "top": 340,
+      "width": 201,
+      "height": 200
+    },
+    {
+      "left": 849,
+      "top": 325,
+      "width": 230,
+      "height": 224
+    },
+    {
+      "left": 63,
+      "top": 631,
+      "width": 202,
+      "height": 160
+    },
+    {
+      "left": 319,
+      "top": 623,
+      "width": 212,
+      "height": 171
+    },
+    {
+      "left": 577,
+      "top": 611,
+      "width": 248,
+      "height": 198
+    },
+    {
+      "left": 881,
+      "top": 629,
+      "width": 202,
+      "height": 165
+    },
+    {
+      "left": 59,
+      "top": 882,
+      "width": 164,
+      "height": 185
+    },
+    {
+      "left": 312,
+      "top": 872,
+      "width": 216,
+      "height": 218
+    },
+    {
+      "left": 561,
+      "top": 853,
+      "width": 263,
+      "height": 257
+    },
+    {
+      "left": 860,
+      "top": 873,
+      "width": 207,
+      "height": 224
+    },
+    {
+      "left": 46,
+      "top": 1156,
+      "width": 227,
+      "height": 181
+    },
+    {
+      "left": 315,
+      "top": 1156,
+      "width": 211,
+      "height": 172
+    },
+    {
+      "left": 562,
+      "top": 1146,
+      "width": 247,
+      "height": 194
+    },
+    {
+      "left": 855,
+      "top": 1153,
+      "width": 220,
+      "height": 188
+    }
+  ]
+}

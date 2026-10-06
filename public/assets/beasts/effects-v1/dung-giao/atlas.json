@@ -1,0 +1,255 @@
+{
+  "beastId": "dung-giao",
+  "source": "art/beasts/effects-v2/ancient/dung-giao-source.png",
+  "name": "Dung Giao",
+  "skillMotion": "beam",
+  "travelSpeed": 0,
+  "origin": {
+    "x": 99,
+    "y": 79
+  },
+  "attackOffset": {
+    "x": 100,
+    "y": 91
+  },
+  "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Luồng dung hỏa kéo dài từ mõm về phía trước; đặt đầu trái travel tại origin rồi nối tới tầm chiêu.",
+  "version": 1,
+  "skillName": "Dung Diễm Tức",
+  "image": "/assets/beasts/effects-v1/dung-giao/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/dung-giao/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/dung-giao/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/dung-giao/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/dung-giao/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 8,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/dung-giao/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/dung-giao/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 63,
+      "top": 135,
+      "width": 200,
+      "height": 99
+    },
+    {
+      "left": 332,
+      "top": 95,
+      "width": 212,
+      "height": 142
+    },
+    {
+      "left": 589,
+      "top": 78,
+      "width": 232,
+      "height": 177
+    },
+    {
+      "left": 881,
+      "top": 92,
+      "width": 194,
+      "height": 148
+    },
+    {
+      "left": 55,
+      "top": 360,
+      "width": 184,
+      "height": 173
+    },
+    {
+      "left": 326,
+      "top": 342,
+      "width": 192,
+      "height": 196
+    },
+    {
+      "left": 597,
+      "top": 334,
+      "width": 203,
+      "height": 212
+    },
+    {
+      "left": 877,
+      "top": 344,
+      "width": 186,
+      "height": 195
+    },
+    {
+      "left": 49,
+      "top": 667,
+      "width": 212,
+      "height": 79
+    },
+    {
+      "left": 301,
+      "top": 661,
+      "width": 237,
+      "height": 102
+    },
+    {
+      "left": 568,
+      "top": 630,
+      "width": 253,
+      "height": 150
+    },
+    {
+      "left": 846,
+      "top": 637,
+      "width": 241,
+      "height": 151
+    },
+    {
+      "left": 68,
+      "top": 909,
+      "width": 153,
+      "height": 141
+    },
+    {
+      "left": 314,
+      "top": 860,
+      "width": 207,
+      "height": 224
+    },
+    {
+      "left": 563,
+      "top": 841,
+      "width": 249,
+      "height": 256
+    },
+    {
+      "left": 876,
+      "top": 896,
+      "width": 202,
+      "height": 182
+    },
+    {
+      "left": 68,
+      "top": 1180,
+      "width": 169,
+      "height": 156
+    },
+    {
+      "left": 322,
+      "top": 1164,
+      "width": 195,
+      "height": 175
+    },
+    {
+      "left": 579,
+      "top": 1148,
+      "width": 233,
+      "height": 197
+    },
+    {
+      "left": 877,
+      "top": 1199,
+      "width": 185,
+      "height": 139
+    }
+  ]
+}

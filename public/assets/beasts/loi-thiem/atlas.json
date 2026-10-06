@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/loi-thiem/sheet.png",
+  "source": "art/beasts/mystic-v2/loi-thiem-source.png",
+  "sourceCuts": [
+    {
+      "left": 35,
+      "top": 107,
+      "width": 203,
+      "height": 138
+    },
+    {
+      "left": 321,
+      "top": 108,
+      "width": 201,
+      "height": 137
+    },
+    {
+      "left": 595,
+      "top": 115,
+      "width": 218,
+      "height": 132
+    },
+    {
+      "left": 885,
+      "top": 119,
+      "width": 214,
+      "height": 132
+    },
+    {
+      "left": 24,
+      "top": 394,
+      "width": 240,
+      "height": 136
+    },
+    {
+      "left": 323,
+      "top": 395,
+      "width": 222,
+      "height": 135
+    },
+    {
+      "left": 606,
+      "top": 414,
+      "width": 212,
+      "height": 117
+    },
+    {
+      "left": 907,
+      "top": 367,
+      "width": 191,
+      "height": 135
+    },
+    {
+      "left": 12,
+      "top": 689,
+      "width": 249,
+      "height": 128
+    },
+    {
+      "left": 291,
+      "top": 663,
+      "width": 254,
+      "height": 142
+    },
+    {
+      "left": 545,
+      "top": 663,
+      "width": 335,
+      "height": 142
+    },
+    {
+      "left": 882,
+      "top": 674,
+      "width": 227,
+      "height": 130
+    },
+    {
+      "left": 31,
+      "top": 951,
+      "width": 213,
+      "height": 137
+    },
+    {
+      "left": 299,
+      "top": 919,
+      "width": 230,
+      "height": 169
+    },
+    {
+      "left": 550,
+      "top": 944,
+      "width": 300,
+      "height": 148
+    },
+    {
+      "left": 866,
+      "top": 875,
+      "width": 256,
+      "height": 225
+    },
+    {
+      "left": 38,
+      "top": 1194,
+      "width": 221,
+      "height": 147
+    },
+    {
+      "left": 321,
+      "top": 1174,
+      "width": 219,
+      "height": 174
+    },
+    {
+      "left": 605,
+      "top": 1182,
+      "width": 223,
+      "height": 164
+    },
+    {
+      "left": 855,
+      "top": 1250,
+      "width": 259,
+      "height": 98
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  }
+}

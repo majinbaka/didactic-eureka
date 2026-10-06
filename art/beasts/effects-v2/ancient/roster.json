@@ -1,0 +1,98 @@
+[
+  {
+    "beastId": "dung-giao",
+    "source": "art/beasts/effects-v2/ancient/dung-giao-source.png",
+    "name": "Hiệu ứng Dung Giao",
+    "skillMotion": "beam",
+    "travelSpeed": 0,
+    "origin": {
+      "x": 99,
+      "y": 79
+    },
+    "attackOffset": {
+      "x": 100,
+      "y": 91
+    },
+    "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Luồng dung hỏa kéo dài từ mõm về phía trước; đặt đầu trái travel tại origin rồi nối tới tầm chiêu."
+  },
+  {
+    "beastId": "nham-tuong",
+    "source": "art/beasts/effects-v2/ancient/nham-tuong-source.png",
+    "name": "Hiệu ứng Nham Tượng",
+    "skillMotion": "ground",
+    "travelSpeed": 220,
+    "origin": {
+      "x": 94,
+      "y": 111
+    },
+    "attackOffset": {
+      "x": 106,
+      "y": 87
+    },
+    "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Sinh ba nham trụ lần lượt từ gần tới xa, tiến theo mặt đất; neo đáy travel/field vào mặt đất."
+  },
+  {
+    "beastId": "u-buc",
+    "source": "art/beasts/effects-v2/ancient/u-buc-source.png",
+    "name": "Hiệu ứng U Bức",
+    "skillMotion": "linear",
+    "travelSpeed": 390,
+    "origin": {
+      "x": 97,
+      "y": 72
+    },
+    "attackOffset": {
+      "x": 109,
+      "y": 79
+    },
+    "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Sinh vòng âm ảnh tại miệng và đẩy chúng về phía trước theo hướng quay."
+  },
+  {
+    "beastId": "quang-lan",
+    "source": "art/beasts/effects-v2/ancient/quang-lan-source.png",
+    "name": "Hiệu ứng Quang Lân",
+    "skillMotion": "linear",
+    "travelSpeed": 430,
+    "origin": {
+      "x": 94,
+      "y": 78
+    },
+    "attackOffset": {
+      "x": 107,
+      "y": 88
+    },
+    "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Phóng các lưỡi vảy vàng từ hào quang theo hướng quay; field là dư quang tại điểm phát."
+  },
+  {
+    "beastId": "loi-ma",
+    "source": "art/beasts/effects-v2/ancient/loi-ma-source.png",
+    "name": "Hiệu ứng Lôi Mã",
+    "skillMotion": "beam",
+    "travelSpeed": 0,
+    "origin": {
+      "x": 96,
+      "y": 73
+    },
+    "attackOffset": {
+      "x": 109,
+      "y": 87
+    },
+    "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Đặt đầu trái tia lôi tại origin, kéo dài các nhánh điện về phía mục tiêu."
+  },
+  {
+    "beastId": "bang-bang",
+    "source": "art/beasts/effects-v2/ancient/bang-bang-source.png",
+    "name": "Hiệu ứng Băng Bằng",
+    "skillMotion": "linear",
+    "travelSpeed": 450,
+    "origin": {
+      "x": 98,
+      "y": 74
+    },
+    "attackOffset": {
+      "x": 111,
+      "y": 86
+    },
+    "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Phóng ba băng vũ thương theo hình quạt về phía trước; tạo impact độc lập tại điểm va chạm."
+  }
+]

@@ -5,11 +5,11 @@ import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 import { beastCatalog, beastFrame, BEAST_ACTIONS, BEAST_ELEMENTS } from './beasts.js'
 
-test('30 beasts have unique attacks, skills, images and complete manifests', async () => {
-  assert.equal(beastCatalog.length, 30)
-  for (const field of ['id', 'name', 'image']) assert.equal(new Set(beastCatalog.map(b => b[field])).size, 30)
+test('50 beasts have unique attacks, skills, images and complete manifests', async () => {
+  assert.equal(beastCatalog.length, 50)
+  for (const field of ['id', 'name', 'image']) assert.equal(new Set(beastCatalog.map(b => b[field])).size, 50)
   for (const kind of ['attack', 'skill']) {
-    assert.equal(new Set(beastCatalog.map(b => b[kind].pattern)).size, 30, kind)
+    assert.equal(new Set(beastCatalog.map(b => b[kind].pattern)).size, 50, kind)
     for (const beast of beastCatalog) {
       assert.ok(beast[kind].name && beast[kind].telegraph && beast[kind].description)
       assert.ok(beast[kind].range > 0 && beast[kind].cooldownMs > 0)

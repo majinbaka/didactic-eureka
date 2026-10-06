@@ -1,0 +1,255 @@
+{
+  "beastId": "ngoc-tam",
+  "source": "art/beasts/effects-v2/mystic/ngoc-tam-source.png",
+  "name": "Ngọc Tằm",
+  "skillMotion": "linear",
+  "travelSpeed": 260,
+  "origin": {
+    "x": 94,
+    "y": 72
+  },
+  "attackOffset": {
+    "x": 95,
+    "y": 82
+  },
+  "notes": "Tơ xanh sinh từ miệng thành một projectile cuộn có lá; renderer quản lý vị trí từng cuộn. Impact bung tơ ở đích, field lưu vòng tơ tại chỗ.",
+  "version": 1,
+  "skillName": "Sinh Diệp Ti",
+  "image": "/assets/beasts/effects-v1/ngoc-tam/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/ngoc-tam/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-tam/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-tam/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-tam/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-tam/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-tam/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 104,
+      "top": 74,
+      "width": 146,
+      "height": 138
+    },
+    {
+      "left": 379,
+      "top": 51,
+      "width": 271,
+      "height": 168
+    },
+    {
+      "left": 696,
+      "top": 18,
+      "width": 348,
+      "height": 221
+    },
+    {
+      "left": 1136,
+      "top": 43,
+      "width": 226,
+      "height": 177
+    },
+    {
+      "left": 122,
+      "top": 292,
+      "width": 107,
+      "height": 139
+    },
+    {
+      "left": 431,
+      "top": 275,
+      "width": 168,
+      "height": 161
+    },
+    {
+      "left": 765,
+      "top": 272,
+      "width": 199,
+      "height": 184
+    },
+    {
+      "left": 1122,
+      "top": 272,
+      "width": 211,
+      "height": 175
+    },
+    {
+      "left": 49,
+      "top": 516,
+      "width": 230,
+      "height": 110
+    },
+    {
+      "left": 371,
+      "top": 500,
+      "width": 305,
+      "height": 135
+    },
+    {
+      "left": 727,
+      "top": 499,
+      "width": 308,
+      "height": 138
+    },
+    {
+      "left": 1100,
+      "top": 520,
+      "width": 268,
+      "height": 116
+    },
+    {
+      "left": 63,
+      "top": 711,
+      "width": 217,
+      "height": 163
+    },
+    {
+      "left": 387,
+      "top": 686,
+      "width": 278,
+      "height": 228
+    },
+    {
+      "left": 724,
+      "top": 686,
+      "width": 296,
+      "height": 240
+    },
+    {
+      "left": 1121,
+      "top": 709,
+      "width": 251,
+      "height": 190
+    },
+    {
+      "left": 67,
+      "top": 972,
+      "width": 204,
+      "height": 93
+    },
+    {
+      "left": 396,
+      "top": 942,
+      "width": 263,
+      "height": 146
+    },
+    {
+      "left": 745,
+      "top": 963,
+      "width": 255,
+      "height": 124
+    },
+    {
+      "left": 1122,
+      "top": 977,
+      "width": 224,
+      "height": 95
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "id": "kim-duong",
+    "name": "Kim Dương",
+    "description": "Bộ lông giáp bạc và sừng đồng nặng giúp yêu dương phá chướng ngại, phóng kim phiến.",
+    "element": "metal",
+    "rarity": "rare",
+    "attack": {
+      "name": "Đồng Giác Xung",
+      "pattern": "kim-duong-horn-charge",
+      "telegraph": "Hạ sừng đồng, ghì bốn móng xuống đất.",
+      "range": 185,
+      "cooldownMs": 2600,
+      "description": "Dồn thân giáp bạc, thúc cặp sừng vào phía trước."
+    },
+    "skill": {
+      "name": "Kim Phiến Tán",
+      "pattern": "kim-duong-metal-shard-fan",
+      "telegraph": "Sừng đồng sáng vàng, ba kim phiến tụ trước trán.",
+      "range": 470,
+      "cooldownMs": 7100,
+      "description": "Phóng ba mảnh kim loại tỏa hình quạt về phía trước."
+    },
+    "source": "art/beasts/forest-v2/kim-duong-source.png"
+  },
+  {
+    "id": "son-tieu",
+    "name": "Sơn Tiêu",
+    "description": "Khỉ mặt vằn rừng sâu khoác bờm lá, xuất chưởng và phóng dây leo cuộn xoắn.",
+    "element": "wood",
+    "rarity": "rare",
+    "attack": {
+      "name": "Sơn Chưởng Kích",
+      "pattern": "son-tieu-rising-palm",
+      "telegraph": "Rút cánh tay dài về vai rồi hạ trọng tâm.",
+      "range": 165,
+      "cooldownMs": 2300,
+      "description": "Vung chưởng từ dưới lên đánh bật phía trước."
+    },
+    "skill": {
+      "name": "Đằng Quyền Xoắn",
+      "pattern": "son-tieu-vine-knuckle-spiral",
+      "telegraph": "Nắm tay khép chặt, dây leo xoắn quanh cổ tay.",
+      "range": 430,
+      "cooldownMs": 6800,
+      "description": "Phóng khối dây leo xoắn thành nắm đấm về phía trước."
+    },
+    "source": "art/beasts/forest-v2/son-tieu-source.png"
+  },
+  {
+    "id": "sa-giai",
+    "name": "Sa Giải",
+    "description": "Bọ cạp giáp sa thạch với càng bản rộng; khép càng bắt mồi, dựng sóng cát đi xa.",
+    "element": "earth",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Sa Kiềm Hợp",
+      "pattern": "sa-giai-pincer-pinch",
+      "telegraph": "Hai càng mở ngang, đuôi giữ thấp.",
+      "range": 145,
+      "cooldownMs": 2000,
+      "description": "Khép hai càng đá vào một điểm phía trước."
+    },
+    "skill": {
+      "name": "Sa Tuyền Trào",
+      "pattern": "sa-giai-sand-geyser-line",
+      "telegraph": "Đuôi cắm xuống đất, cát xoáy dưới bụng.",
+      "range": 390,
+      "cooldownMs": 6400,
+      "description": "Dựng dòng vòi cát nối tiếp lan dọc mặt đất."
+    },
+    "source": "art/beasts/forest-v2/sa-giai-source.png"
+  },
+  {
+    "id": "vu-diep",
+    "name": "Vũ Điệp",
+    "description": "Ngài gió có cánh ngọc điểm mắt đồng, dùng vệt cánh và luồng phấn xoáy.",
+    "element": "wind",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Ngọc Dực Phiến",
+      "pattern": "vu-diep-wing-sweep",
+      "telegraph": "Cánh trước kéo dựng cao, râu nghiêng về sau.",
+      "range": 150,
+      "cooldownMs": 2100,
+      "description": "Quạt cánh trước tạo vệt gió cong sát thân."
+    },
+    "skill": {
+      "name": "Vũ Phấn Toàn",
+      "pattern": "vu-diep-pollen-gust",
+      "telegraph": "Râu tụ hạt phấn trắng trong một vòng gió.",
+      "range": 460,
+      "cooldownMs": 6100,
+      "description": "Thổi xoáy phấn ngọc bay về phía trước."
+    },
+    "source": "art/beasts/forest-v2/vu-diep-source.png"
+  },
+  {
+    "id": "bach-dieu",
+    "name": "Bạch Điêu",
+    "description": "Chồn băng thân dài có đuôi kết tinh xanh, tung vuốt thấp và phóng băng nhận cong.",
+    "element": "ice",
+    "rarity": "rare",
+    "attack": {
+      "name": "Bạch Trảo Lướt",
+      "pattern": "bach-dieu-low-claw-scratch",
+      "telegraph": "Ép bụng xuống thấp và giương chân trước.",
+      "range": 145,
+      "cooldownMs": 1800,
+      "description": "Lướt thấp, cào một đường bằng vuốt băng."
+    },
+    "skill": {
+      "name": "Băng Vĩ Hồi Nhận",
+      "pattern": "bach-dieu-ice-boomerang",
+      "telegraph": "Cuộn đuôi quanh thân, tinh thể băng phát sáng.",
+      "range": 490,
+      "cooldownMs": 6600,
+      "description": "Phóng băng nhận cong về phía trước; ảnh thể hiện pha bay của nhận."
+    },
+    "source": "art/beasts/forest-v2/bach-dieu-source.png"
+  },
+  {
+    "id": "hoa-nhan",
+    "name": "Hỏa Nhạn",
+    "description": "Ngỗng lửa cổ đỏ có chân màng, mổ nhanh và nhả chuỗi hỏa châu.",
+    "element": "fire",
+    "rarity": "uncommon",
+    "attack": {
+      "name": "Hỏa Chủy Trác",
+      "pattern": "hoa-nhan-beak-snap",
+      "telegraph": "Rụt cổ, há mỏ rồi chồm thân.",
+      "range": 135,
+      "cooldownMs": 1900,
+      "description": "Duỗi cổ mổ nhanh vào phía trước."
+    },
+    "skill": {
+      "name": "Tam Hỏa Châu",
+      "pattern": "hoa-nhan-fire-bubble-volley",
+      "telegraph": "Ngửa cổ, ba điểm lửa tụ trong mỏ.",
+      "range": 480,
+      "cooldownMs": 6300,
+      "description": "Nhả ba hỏa châu nhỏ nối tiếp về phía trước."
+    },
+    "source": "art/beasts/forest-v2/hoa-nhan-source.png"
+  },
+  {
+    "id": "thuy-that",
+    "name": "Thủy Thát",
+    "description": "Rái cá lông nâu mang ria nước xanh, quất đuôi và đẩy thủy châu độc lập.",
+    "element": "water",
+    "rarity": "common",
+    "attack": {
+      "name": "Thủy Vĩ Phách",
+      "pattern": "thuy-that-tail-slap",
+      "telegraph": "Xoay hông và kéo đuôi về sau.",
+      "range": 155,
+      "cooldownMs": 2200,
+      "description": "Quật đuôi theo một vòng cung nước sát thân."
+    },
+    "skill": {
+      "name": "Thủy Châu Cổn",
+      "pattern": "thuy-that-water-orb",
+      "telegraph": "Hai chân trước khép lại ôm giọt nước sáng.",
+      "range": 450,
+      "cooldownMs": 6000,
+      "description": "Đẩy một thủy châu xanh bay về phía trước."
+    },
+    "source": "art/beasts/forest-v2/thuy-that-source.png"
+  }
+]

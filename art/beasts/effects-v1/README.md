@@ -1,6 +1,6 @@
 # Hiệu ứng yêu thú độc lập v1
 
-Bổ sung ảnh mechanic cho 30 yêu thú. Mỗi bộ là VFX thuần, nền alpha thật, không có thân quái; hiệu ứng đánh gần và chiêu xa không bị khóa vào pose thi triển. Nguồn ImageGen tích hợp, prompt chính xác và provenance ở `forest/`, `mystic/`, `ancient/`. Các atlas thân quái v1 vẫn là bộ pose cũ có hiệu ứng gắn trong ảnh; khi ghép mới, dùng layer FX độc lập và tránh vẽ hai lần cùng hiệu ứng.
+Bổ sung ảnh mechanic cho 50 yêu thú. Mỗi bộ là VFX thuần, nền alpha thật, không có thân quái; hiệu ứng đánh gần và chiêu xa không bị khóa vào pose thi triển. Nguồn ImageGen tích hợp, prompt chính xác và provenance ở `forest/`, `mystic/`, `ancient/` và ba nhóm mở rộng tương ứng trong `../effects-v2/`. Các atlas thân quái v1 vẫn là bộ pose cũ có hiệu ứng gắn trong ảnh; khi ghép mới, dùng layer FX độc lập và tránh vẽ hai lần cùng hiệu ứng.
 
 ## Bộ PNG
 
@@ -60,4 +60,4 @@ Nếu dùng `travel.png`, lấy `frame % 4 * 128` cho source x và `0` cho sourc
 
 `/beast-effects.html` phát từng pha, đảo hướng, tìm không dấu, tạm dừng/phát lại và minh họa chuyển động độc lập của năm nhóm mechanic. Reduced motion mặc định dừng. Di chuyển/tốc độ/quỹ đạo trên trang là minh họa, không phải logic game đã tích hợp. Mỗi card có link PNG riêng và manifest; ảnh tổng hợp là `preview.png`.
 
-Chạy `npm run lint`, `npm test`, `npm run build` sau khi đóng gói. Test kiểm tra đủ 30 bộ / 600 frame, alpha, frame khác nhau, dải PNG khớp sheet và metadata khớp hai bản danh mục.
+Chạy `npm run lint`, `npm test`, `npm run build` sau khi đóng gói. Test kiểm tra đủ 50 bộ / 1.000 frame, alpha, frame khác nhau, dải PNG khớp sheet và metadata khớp hai bản danh mục.

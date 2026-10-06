@@ -7,9 +7,10 @@ import { beastCatalog } from './beasts.js'
 import { beastEffectCatalog, BEAST_EFFECT_PHASES, getBeastEffect, beastEffectFrame } from './beastEffects.js'
 
 test('every beast has detached FX, five transparent strips and matching atlas pixels', async () => {
-  assert.equal(beastEffectCatalog.length, 30)
-  assert.equal(new Set(beastEffectCatalog.map(effect => effect.beastId)).size, 30)
+  assert.equal(beastEffectCatalog.length, 50)
+  assert.equal(new Set(beastEffectCatalog.map(effect => effect.beastId)).size, 50)
   const allHashes = new Set()
+  assert.deepEqual(new Set(beastEffectCatalog.map(effect => effect.beastId)), new Set(beastCatalog.map(beast => beast.id)))
   for (const beast of beastCatalog) {
     const effect = getBeastEffect(beast.id)
     assert.ok(effect, beast.id)

@@ -9,14 +9,15 @@ const clips = {
   travel: { fps: 12, loop: true }, impact: { fps: 12, loop: false }, field: { fps: 6, loop: true },
 }
 const beasts = JSON.parse(await readFile(new URL('public/assets/beasts/roster-v1.json', root)))
-let inputs = (await Promise.all(['forest', 'mystic', 'ancient'].map(async group => {
-  try { return JSON.parse(await readFile(new URL(`art/beasts/effects-v1/${group}/roster.json`, root))) }
+const groups = ['effects-v1/forest', 'effects-v1/mystic', 'effects-v1/ancient', 'effects-v2/forest', 'effects-v2/mystic', 'effects-v2/ancient']
+let inputs = (await Promise.all(groups.map(async group => {
+  try { return JSON.parse(await readFile(new URL(`art/beasts/${group}/roster.json`, root))) }
   catch (error) { if (partial && error.code === 'ENOENT') return []; throw error }
 }))).flat()
 if (partial) inputs = (await Promise.all(inputs.map(async entry => {
   try { await access(new URL(entry.source, root)); return entry } catch { return null }
 }))).filter(Boolean)
-if (!partial && (inputs.length !== 30 || new Set(inputs.map(e => e.beastId)).size !== 30)) throw new Error('Expected 30 unique VFX sets')
+if (!partial && (inputs.length !== 50 || new Set(inputs.map(e => e.beastId)).size !== 50)) throw new Error('Expected 50 unique VFX sets')
 const catalog = [], previews = []
 for (const entry of inputs) {
   const beast = beasts.find(beast => beast.id === entry.beastId)
@@ -52,6 +53,6 @@ for (const entry of inputs) {
 const json = '[\n' + catalog.map(entry => JSON.stringify(entry)).join(',\n') + '\n]\n'
 await writeFile(new URL('public/assets/beasts/effects-v1/roster.json', root), json)
 await writeFile(new URL('src/game/beastEffectRoster.json', root), json)
-await sharp({ create: { width: 768, height: 640, channels: 4, background: '#192b26' } })
+await sharp({ create: { width: 768, height: Math.ceil(previews.length / 6) * 128, channels: 4, background: '#192b26' } })
   .composite(previews.map((input, i) => ({ input, left: i % 6 * 128, top: Math.floor(i / 6) * 128 })))
   .png().toFile(new URL('art/beasts/effects-v1/preview.png', root).pathname)

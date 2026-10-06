@@ -1,0 +1,114 @@
+[
+  {
+    "beastId": "kim-duong",
+    "source": "art/beasts/effects-v2/forest/kim-duong-source.png",
+    "name": "Hiệu ứng Kim Dương",
+    "skillMotion": "linear",
+    "travelSpeed": 470,
+    "origin": {
+      "x": 99,
+      "y": 45
+    },
+    "attackOffset": {
+      "x": 113,
+      "y": 70
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. Ba kim phiến có thể dùng chung một cụm ảnh hoặc nhiều entity."
+  },
+  {
+    "beastId": "son-tieu",
+    "source": "art/beasts/effects-v2/forest/son-tieu-source.png",
+    "name": "Hiệu ứng Sơn Tiêu",
+    "skillMotion": "linear",
+    "travelSpeed": 350,
+    "origin": {
+      "x": 101,
+      "y": 75
+    },
+    "attackOffset": {
+      "x": 115,
+      "y": 75
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. "
+  },
+  {
+    "beastId": "sa-giai",
+    "source": "art/beasts/effects-v2/forest/sa-giai-source.png",
+    "name": "Hiệu ứng Sa Giải",
+    "skillMotion": "ground",
+    "travelSpeed": 300,
+    "origin": {
+      "x": 92,
+      "y": 107
+    },
+    "attackOffset": {
+      "x": 116,
+      "y": 98
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập lan sát mặt đất. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. "
+  },
+  {
+    "beastId": "vu-diep",
+    "source": "art/beasts/effects-v2/forest/vu-diep-source.png",
+    "name": "Hiệu ứng Vũ Điệp",
+    "skillMotion": "linear",
+    "travelSpeed": 420,
+    "origin": {
+      "x": 100,
+      "y": 58
+    },
+    "attackOffset": {
+      "x": 116,
+      "y": 73
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. "
+  },
+  {
+    "beastId": "bach-dieu",
+    "source": "art/beasts/effects-v2/forest/bach-dieu-source.png",
+    "name": "Hiệu ứng Bạch Điêu",
+    "skillMotion": "linear",
+    "travelSpeed": 510,
+    "origin": {
+      "x": 101,
+      "y": 78
+    },
+    "attackOffset": {
+      "x": 116,
+      "y": 100
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. Nhận băng cong thể hiện pha bay; quỹ đạo quay về do caller quyết định."
+  },
+  {
+    "beastId": "hoa-nhan",
+    "source": "art/beasts/effects-v2/forest/hoa-nhan-source.png",
+    "name": "Hiệu ứng Hỏa Nhạn",
+    "skillMotion": "linear",
+    "travelSpeed": 430,
+    "origin": {
+      "x": 104,
+      "y": 55
+    },
+    "attackOffset": {
+      "x": 116,
+      "y": 60
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. Ảnh travel là một hỏa châu; phát ba entity nối tiếp để minh họa Tam Hỏa Châu."
+  },
+  {
+    "beastId": "thuy-that",
+    "source": "art/beasts/effects-v2/forest/thuy-that-source.png",
+    "name": "Hiệu ứng Thủy Thát",
+    "skillMotion": "linear",
+    "travelSpeed": 380,
+    "origin": {
+      "x": 94,
+      "y": 72
+    },
+    "attackOffset": {
+      "x": 109,
+      "y": 89
+    },
+    "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. "
+  }
+]

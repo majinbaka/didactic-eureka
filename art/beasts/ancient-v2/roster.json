@@ -1,0 +1,146 @@
+[
+  {
+    "id": "dung-giao",
+    "name": "Dung Giao",
+    "description": "Giao yêu chân thấp mang vảy than nứt dung nham và vây đuôi lửa.",
+    "element": "fire",
+    "rarity": "rare",
+    "attack": {
+      "name": "Dung Vĩ Trảm",
+      "pattern": "dung-giao-tail-lash",
+      "telegraph": "Đuôi đỏ rực, cuộn ngang.",
+      "range": 110,
+      "cooldownMs": 1300,
+      "description": "Quật đuôi tạo cung lửa ngắn trước thân."
+    },
+    "skill": {
+      "name": "Dung Diễm Tức",
+      "pattern": "dung-giao-molten-breath",
+      "telegraph": "Mõm tụ ánh cam, vảy nứt sáng.",
+      "range": 260,
+      "cooldownMs": 5100,
+      "description": "Phun dòng dung hỏa từ mõm, mở rộng về phía trước."
+    },
+    "source": "art/beasts/ancient-v2/dung-giao-source.png"
+  },
+  {
+    "id": "nham-tuong",
+    "name": "Nham Tượng",
+    "description": "Tượng yêu lông vàng đất, lưng phủ giáp nham và cặp ngà cong trắng ngà.",
+    "element": "earth",
+    "rarity": "epic",
+    "attack": {
+      "name": "Nham Nha Hất",
+      "pattern": "nham-tuong-tusk-lift",
+      "telegraph": "Hạ đầu, ngà khẽ cắm xuống.",
+      "range": 120,
+      "cooldownMs": 1600,
+      "description": "Hất cặp ngà từ dưới lên cùng vụn đá."
+    },
+    "skill": {
+      "name": "Tam Nham Trụ",
+      "pattern": "nham-tuong-pillar-stomp",
+      "telegraph": "Hai chân trước nâng lên, đất nổi khe.",
+      "range": 250,
+      "cooldownMs": 5700,
+      "description": "Dậm chân gọi ba cột đá mọc lần lượt phía trước."
+    },
+    "source": "art/beasts/ancient-v2/nham-tuong-source.png"
+  },
+  {
+    "id": "u-buc",
+    "name": "U Bức",
+    "description": "Bức yêu tai nhọn, cánh da tím đen và mắt sáng màu thạch anh.",
+    "element": "shadow",
+    "rarity": "rare",
+    "attack": {
+      "name": "U Dực Trảm",
+      "pattern": "u-buc-wing-slash",
+      "telegraph": "Cánh tím gập thành lưỡi.",
+      "range": 105,
+      "cooldownMs": 1200,
+      "description": "Quét mép cánh tạo cung ảnh ngắn."
+    },
+    "skill": {
+      "name": "U Âm Hoàn",
+      "pattern": "u-buc-sonic-rings",
+      "telegraph": "Tai dựng, vòng tím tụ trước miệng.",
+      "range": 280,
+      "cooldownMs": 4800,
+      "description": "Phát các vòng âm ảnh đồng tâm lan về phía trước."
+    },
+    "source": "art/beasts/ancient-v2/u-buc-source.png"
+  },
+  {
+    "id": "quang-lan",
+    "name": "Quang Lân",
+    "description": "Tê tê yêu khoác vảy vàng ngà, mõm nhỏ và đuôi giáp cuộn dài.",
+    "element": "metal",
+    "rarity": "epic",
+    "attack": {
+      "name": "Kim Vĩ Luân",
+      "pattern": "quang-lan-gold-tail-sweep",
+      "telegraph": "Đuôi giáp cuộn lên sáng vàng.",
+      "range": 125,
+      "cooldownMs": 1450,
+      "description": "Quét đuôi giáp thành cung kim quang."
+    },
+    "skill": {
+      "name": "Quang Lân Nhận",
+      "pattern": "quang-lan-scale-halo",
+      "telegraph": "Vảy dựng, hào quang tụ quanh thân.",
+      "range": 240,
+      "cooldownMs": 5500,
+      "description": "Phóng các lưỡi vảy vàng từ vòng hào quang."
+    },
+    "source": "art/beasts/ancient-v2/quang-lan-source.png"
+  },
+  {
+    "id": "loi-ma",
+    "name": "Lôi Mã",
+    "description": "Mã yêu xanh đêm có bờm và đuôi điện lam, móng đồng và ấn sét trắng.",
+    "element": "lightning",
+    "rarity": "rare",
+    "attack": {
+      "name": "Lôi Đề Cước",
+      "pattern": "loi-ma-spark-kick",
+      "telegraph": "Hai móng trước lóe tia xanh.",
+      "range": 110,
+      "cooldownMs": 1150,
+      "description": "Đá liên tiếp hai móng trước với tia điện ngắn."
+    },
+    "skill": {
+      "name": "Thiên Lôi Dẫn",
+      "pattern": "loi-ma-branching-bolt",
+      "telegraph": "Bờm dựng, móng trước tụ điện.",
+      "range": 270,
+      "cooldownMs": 5000,
+      "description": "Chồm lên dẫn các nhánh sét qua vùng phía trước."
+    },
+    "source": "art/beasts/ancient-v2/loi-ma-source.png"
+  },
+  {
+    "id": "bang-bang",
+    "name": "Băng Bằng",
+    "description": "Bằng điểu xanh trắng có cánh lông tinh băng, mỏ ngà và đôi vuốt khỏe.",
+    "element": "ice",
+    "rarity": "epic",
+    "attack": {
+      "name": "Băng Trảo Xé",
+      "pattern": "bang-bang-icy-rake",
+      "telegraph": "Vuốt đóng băng giơ cao.",
+      "range": 115,
+      "cooldownMs": 1350,
+      "description": "Cào vuốt tạo đường băng sắc trước thân."
+    },
+    "skill": {
+      "name": "Hàn Vũ Thương",
+      "pattern": "bang-bang-ice-feather-fan",
+      "telegraph": "Cánh xòe, ba lông băng sáng.",
+      "range": 290,
+      "cooldownMs": 5600,
+      "description": "Phóng ba băng vũ thương xòe thành quạt."
+    },
+    "source": "art/beasts/ancient-v2/bang-bang-source.png"
+  }
+]

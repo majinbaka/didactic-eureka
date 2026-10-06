@@ -1,0 +1,255 @@
+{
+  "beastId": "phong-dinh",
+  "source": "art/beasts/effects-v2/mystic/phong-dinh-source.png",
+  "name": "Phong Đình",
+  "skillMotion": "linear",
+  "travelSpeed": 370,
+  "origin": {
+    "x": 93,
+    "y": 61
+  },
+  "attackOffset": {
+    "x": 95,
+    "y": 74
+  },
+  "notes": "Tụ xoáy trước đầu; dải phong nhận có lõi gió cuộn bay độc lập về trước. Dùng impact ở vị trí trúng, vòng gió dư âm không gắn vào cánh.",
+  "version": 1,
+  "skillName": "Lục Phong Toàn",
+  "image": "/assets/beasts/effects-v1/phong-dinh/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/phong-dinh/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/phong-dinh/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/phong-dinh/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/phong-dinh/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/phong-dinh/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/phong-dinh/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 72,
+      "top": 62,
+      "width": 205,
+      "height": 153
+    },
+    {
+      "left": 360,
+      "top": 35,
+      "width": 305,
+      "height": 183
+    },
+    {
+      "left": 680,
+      "top": 50,
+      "width": 382,
+      "height": 168
+    },
+    {
+      "left": 1085,
+      "top": 56,
+      "width": 301,
+      "height": 179
+    },
+    {
+      "left": 128,
+      "top": 291,
+      "width": 133,
+      "height": 141
+    },
+    {
+      "left": 441,
+      "top": 277,
+      "width": 171,
+      "height": 169
+    },
+    {
+      "left": 779,
+      "top": 259,
+      "width": 205,
+      "height": 201
+    },
+    {
+      "left": 1127,
+      "top": 249,
+      "width": 228,
+      "height": 220
+    },
+    {
+      "left": 83,
+      "top": 501,
+      "width": 235,
+      "height": 156
+    },
+    {
+      "left": 380,
+      "top": 500,
+      "width": 289,
+      "height": 154
+    },
+    {
+      "left": 741,
+      "top": 491,
+      "width": 298,
+      "height": 171
+    },
+    {
+      "left": 1078,
+      "top": 496,
+      "width": 308,
+      "height": 175
+    },
+    {
+      "left": 47,
+      "top": 761,
+      "width": 235,
+      "height": 139
+    },
+    {
+      "left": 372,
+      "top": 680,
+      "width": 299,
+      "height": 239
+    },
+    {
+      "left": 717,
+      "top": 690,
+      "width": 313,
+      "height": 240
+    },
+    {
+      "left": 1083,
+      "top": 691,
+      "width": 298,
+      "height": 232
+    },
+    {
+      "left": 79,
+      "top": 970,
+      "width": 205,
+      "height": 102
+    },
+    {
+      "left": 382,
+      "top": 956,
+      "width": 287,
+      "height": 137
+    },
+    {
+      "left": 724,
+      "top": 960,
+      "width": 304,
+      "height": 129
+    },
+    {
+      "left": 1102,
+      "top": 961,
+      "width": 262,
+      "height": 127
+    }
+  ]
+}

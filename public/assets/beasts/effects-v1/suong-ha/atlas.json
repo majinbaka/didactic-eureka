@@ -1,0 +1,255 @@
+{
+  "beastId": "suong-ha",
+  "source": "art/beasts/effects-v2/mystic/suong-ha-source.png",
+  "name": "Sương Hà",
+  "skillMotion": "linear",
+  "travelSpeed": 340,
+  "origin": {
+    "x": 92,
+    "y": 71
+  },
+  "attackOffset": {
+    "x": 95,
+    "y": 84
+  },
+  "notes": "Tụ băng trước càng; nguyệt nhận bay riêng theo hướng ngắm. Vệt càng là chấn lạnh thuần, tinh thể impact và field ở vị trí đích.",
+  "version": 1,
+  "skillName": "Sương Nhận",
+  "image": "/assets/beasts/effects-v1/suong-ha/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/suong-ha/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/suong-ha/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/suong-ha/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/suong-ha/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/suong-ha/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/suong-ha/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 58,
+      "top": 88,
+      "width": 162,
+      "height": 127
+    },
+    {
+      "left": 378,
+      "top": 40,
+      "width": 305,
+      "height": 177
+    },
+    {
+      "left": 734,
+      "top": 25,
+      "width": 296,
+      "height": 199
+    },
+    {
+      "left": 1116,
+      "top": 65,
+      "width": 222,
+      "height": 156
+    },
+    {
+      "left": 113,
+      "top": 293,
+      "width": 127,
+      "height": 138
+    },
+    {
+      "left": 420,
+      "top": 262,
+      "width": 212,
+      "height": 202
+    },
+    {
+      "left": 766,
+      "top": 255,
+      "width": 228,
+      "height": 212
+    },
+    {
+      "left": 1108,
+      "top": 252,
+      "width": 246,
+      "height": 230
+    },
+    {
+      "left": 80,
+      "top": 545,
+      "width": 159,
+      "height": 98
+    },
+    {
+      "left": 389,
+      "top": 519,
+      "width": 259,
+      "height": 130
+    },
+    {
+      "left": 748,
+      "top": 511,
+      "width": 278,
+      "height": 145
+    },
+    {
+      "left": 1116,
+      "top": 526,
+      "width": 249,
+      "height": 115
+    },
+    {
+      "left": 95,
+      "top": 739,
+      "width": 165,
+      "height": 150
+    },
+    {
+      "left": 394,
+      "top": 688,
+      "width": 235,
+      "height": 230
+    },
+    {
+      "left": 729,
+      "top": 673,
+      "width": 302,
+      "height": 255
+    },
+    {
+      "left": 1097,
+      "top": 709,
+      "width": 263,
+      "height": 209
+    },
+    {
+      "left": 56,
+      "top": 983,
+      "width": 227,
+      "height": 104
+    },
+    {
+      "left": 379,
+      "top": 970,
+      "width": 284,
+      "height": 129
+    },
+    {
+      "left": 739,
+      "top": 949,
+      "width": 287,
+      "height": 153
+    },
+    {
+      "left": 1107,
+      "top": 969,
+      "width": 245,
+      "height": 126
+    }
+  ]
+}

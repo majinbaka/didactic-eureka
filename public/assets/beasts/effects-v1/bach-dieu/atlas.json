@@ -1,0 +1,255 @@
+{
+  "beastId": "bach-dieu",
+  "source": "art/beasts/effects-v2/forest/bach-dieu-source.png",
+  "name": "Bạch Điêu",
+  "skillMotion": "linear",
+  "travelSpeed": 510,
+  "origin": {
+    "x": 101,
+    "y": 78
+  },
+  "attackOffset": {
+    "x": 116,
+    "y": 100
+  },
+  "notes": "Tọa độ là điểm từ góc trên trái ô thân 128px khi quay phải, gợi ý ghép thủ công, không phải hitbox. Khi quay trái dùng x mới = 128 - x. Melee bám attackOffset, charge bám origin; travel là đối tượng độc lập bay về phía mục tiêu. Impact đặt tại va chạm, field tại điểm kết thúc. Điều chỉnh neo khi đổi tỷ lệ. Nhận băng cong thể hiện pha bay; quỹ đạo quay về do caller quyết định.",
+  "version": 1,
+  "skillName": "Băng Vĩ Hồi Nhận",
+  "image": "/assets/beasts/effects-v1/bach-dieu/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/bach-dieu/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/bach-dieu/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/bach-dieu/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/bach-dieu/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/bach-dieu/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/bach-dieu/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 66,
+      "top": 105,
+      "width": 158,
+      "height": 106
+    },
+    {
+      "left": 316,
+      "top": 66,
+      "width": 225,
+      "height": 163
+    },
+    {
+      "left": 577,
+      "top": 50,
+      "width": 256,
+      "height": 193
+    },
+    {
+      "left": 858,
+      "top": 67,
+      "width": 231,
+      "height": 175
+    },
+    {
+      "left": 78,
+      "top": 372,
+      "width": 124,
+      "height": 117
+    },
+    {
+      "left": 327,
+      "top": 340,
+      "width": 196,
+      "height": 188
+    },
+    {
+      "left": 595,
+      "top": 329,
+      "width": 215,
+      "height": 199
+    },
+    {
+      "left": 872,
+      "top": 297,
+      "width": 217,
+      "height": 249
+    },
+    {
+      "left": 57,
+      "top": 631,
+      "width": 183,
+      "height": 125
+    },
+    {
+      "left": 306,
+      "top": 629,
+      "width": 224,
+      "height": 147
+    },
+    {
+      "left": 567,
+      "top": 600,
+      "width": 252,
+      "height": 196
+    },
+    {
+      "left": 865,
+      "top": 632,
+      "width": 226,
+      "height": 129
+    },
+    {
+      "left": 57,
+      "top": 882,
+      "width": 172,
+      "height": 181
+    },
+    {
+      "left": 319,
+      "top": 869,
+      "width": 214,
+      "height": 217
+    },
+    {
+      "left": 579,
+      "top": 837,
+      "width": 259,
+      "height": 256
+    },
+    {
+      "left": 881,
+      "top": 872,
+      "width": 215,
+      "height": 206
+    },
+    {
+      "left": 39,
+      "top": 1148,
+      "width": 220,
+      "height": 211
+    },
+    {
+      "left": 322,
+      "top": 1130,
+      "width": 213,
+      "height": 236
+    },
+    {
+      "left": 601,
+      "top": 1142,
+      "width": 204,
+      "height": 210
+    },
+    {
+      "left": 896,
+      "top": 1164,
+      "width": 180,
+      "height": 186
+    }
+  ]
+}

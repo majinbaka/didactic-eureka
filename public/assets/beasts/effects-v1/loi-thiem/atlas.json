@@ -1,0 +1,255 @@
+{
+  "beastId": "loi-thiem",
+  "source": "art/beasts/effects-v2/mystic/loi-thiem-source.png",
+  "name": "Lôi Thiềm",
+  "skillMotion": "linear",
+  "travelSpeed": 390,
+  "origin": {
+    "x": 95,
+    "y": 71
+  },
+  "attackOffset": {
+    "x": 97,
+    "y": 79
+  },
+  "notes": "Vòng sét sinh trước miệng rồi bay thẳng, giữ phương đứng; không phải vòng quay quanh thân. Nhánh sét impact đặt tại vị trí trúng.",
+  "version": 1,
+  "skillName": "Lôi Hoàn",
+  "image": "/assets/beasts/effects-v1/loi-thiem/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/loi-thiem/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/loi-thiem/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/loi-thiem/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/loi-thiem/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/loi-thiem/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/loi-thiem/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 79,
+      "top": 66,
+      "width": 205,
+      "height": 145
+    },
+    {
+      "left": 357,
+      "top": 48,
+      "width": 312,
+      "height": 166
+    },
+    {
+      "left": 711,
+      "top": 82,
+      "width": 331,
+      "height": 112
+    },
+    {
+      "left": 1075,
+      "top": 66,
+      "width": 287,
+      "height": 125
+    },
+    {
+      "left": 118,
+      "top": 300,
+      "width": 107,
+      "height": 118
+    },
+    {
+      "left": 434,
+      "top": 290,
+      "width": 169,
+      "height": 142
+    },
+    {
+      "left": 727,
+      "top": 257,
+      "width": 269,
+      "height": 206
+    },
+    {
+      "left": 1088,
+      "top": 258,
+      "width": 253,
+      "height": 204
+    },
+    {
+      "left": 86,
+      "top": 501,
+      "width": 145,
+      "height": 157
+    },
+    {
+      "left": 396,
+      "top": 498,
+      "width": 207,
+      "height": 165
+    },
+    {
+      "left": 709,
+      "top": 498,
+      "width": 258,
+      "height": 165
+    },
+    {
+      "left": 1078,
+      "top": 498,
+      "width": 263,
+      "height": 167
+    },
+    {
+      "left": 82,
+      "top": 739,
+      "width": 172,
+      "height": 141
+    },
+    {
+      "left": 371,
+      "top": 715,
+      "width": 253,
+      "height": 203
+    },
+    {
+      "left": 703,
+      "top": 692,
+      "width": 321,
+      "height": 244
+    },
+    {
+      "left": 1077,
+      "top": 714,
+      "width": 278,
+      "height": 208
+    },
+    {
+      "left": 63,
+      "top": 961,
+      "width": 230,
+      "height": 114
+    },
+    {
+      "left": 413,
+      "top": 962,
+      "width": 230,
+      "height": 114
+    },
+    {
+      "left": 771,
+      "top": 969,
+      "width": 216,
+      "height": 101
+    },
+    {
+      "left": 1116,
+      "top": 984,
+      "width": 217,
+      "height": 84
+    }
+  ]
+}

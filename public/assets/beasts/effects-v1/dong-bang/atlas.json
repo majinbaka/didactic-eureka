@@ -1,0 +1,255 @@
+{
+  "beastId": "dong-bang",
+  "source": "art/beasts/effects-v2/mystic/dong-bang-source.png",
+  "name": "Đồng Bàng",
+  "skillMotion": "linear",
+  "travelSpeed": 430,
+  "origin": {
+    "x": 93,
+    "y": 75
+  },
+  "attackOffset": {
+    "x": 96,
+    "y": 82
+  },
+  "notes": "Mảnh đồng phóng trước càng và bay riêng; renderer tự quyết định số mảnh và góc quạt. Vệt ép kim không chứa càng, impact và field ở chỗ trúng.",
+  "version": 1,
+  "skillName": "Toái Đồng Vũ",
+  "image": "/assets/beasts/effects-v1/dong-bang/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/dong-bang/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/dong-bang/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/dong-bang/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/dong-bang/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/dong-bang/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/dong-bang/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 99,
+      "top": 81,
+      "width": 158,
+      "height": 142
+    },
+    {
+      "left": 399,
+      "top": 34,
+      "width": 235,
+      "height": 205
+    },
+    {
+      "left": 736,
+      "top": 25,
+      "width": 280,
+      "height": 219
+    },
+    {
+      "left": 1112,
+      "top": 61,
+      "width": 240,
+      "height": 174
+    },
+    {
+      "left": 105,
+      "top": 284,
+      "width": 151,
+      "height": 170
+    },
+    {
+      "left": 432,
+      "top": 274,
+      "width": 186,
+      "height": 187
+    },
+    {
+      "left": 758,
+      "top": 273,
+      "width": 218,
+      "height": 196
+    },
+    {
+      "left": 1118,
+      "top": 274,
+      "width": 203,
+      "height": 190
+    },
+    {
+      "left": 50,
+      "top": 510,
+      "width": 239,
+      "height": 139
+    },
+    {
+      "left": 399,
+      "top": 500,
+      "width": 264,
+      "height": 149
+    },
+    {
+      "left": 744,
+      "top": 499,
+      "width": 294,
+      "height": 151
+    },
+    {
+      "left": 1113,
+      "top": 508,
+      "width": 248,
+      "height": 147
+    },
+    {
+      "left": 77,
+      "top": 715,
+      "width": 210,
+      "height": 190
+    },
+    {
+      "left": 391,
+      "top": 675,
+      "width": 274,
+      "height": 238
+    },
+    {
+      "left": 731,
+      "top": 675,
+      "width": 280,
+      "height": 239
+    },
+    {
+      "left": 1109,
+      "top": 714,
+      "width": 245,
+      "height": 190
+    },
+    {
+      "left": 73,
+      "top": 975,
+      "width": 214,
+      "height": 84
+    },
+    {
+      "left": 400,
+      "top": 963,
+      "width": 252,
+      "height": 100
+    },
+    {
+      "left": 752,
+      "top": 966,
+      "width": 242,
+      "height": 104
+    },
+    {
+      "left": 1113,
+      "top": 977,
+      "width": 225,
+      "height": 77
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "beastId": "loi-ma",
+  "source": "art/beasts/effects-v2/ancient/loi-ma-source.png",
+  "name": "Lôi Mã",
+  "skillMotion": "beam",
+  "travelSpeed": 0,
+  "origin": {
+    "x": 96,
+    "y": 73
+  },
+  "attackOffset": {
+    "x": 109,
+    "y": 87
+  },
+  "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge đặt tại origin; melee đặt tại attackOffset. Lật x thành128-x khi quay trái. Tạo travel/impact/field độc lập; metadata gợi ý, chưa tích hợp sát thương. Đặt đầu trái tia lôi tại origin, kéo dài các nhánh điện về phía mục tiêu.",
+  "version": 1,
+  "skillName": "Thiên Lôi Dẫn",
+  "image": "/assets/beasts/effects-v1/loi-ma/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/loi-ma/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/loi-ma/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/loi-ma/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/loi-ma/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 8,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/loi-ma/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/loi-ma/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 72,
+      "top": 104,
+      "width": 174,
+      "height": 145
+    },
+    {
+      "left": 325,
+      "top": 95,
+      "width": 209,
+      "height": 162
+    },
+    {
+      "left": 600,
+      "top": 82,
+      "width": 199,
+      "height": 169
+    },
+    {
+      "left": 888,
+      "top": 109,
+      "width": 179,
+      "height": 137
+    },
+    {
+      "left": 68,
+      "top": 350,
+      "width": 176,
+      "height": 178
+    },
+    {
+      "left": 330,
+      "top": 351,
+      "width": 190,
+      "height": 193
+    },
+    {
+      "left": 602,
+      "top": 352,
+      "width": 191,
+      "height": 193
+    },
+    {
+      "left": 886,
+      "top": 350,
+      "width": 184,
+      "height": 193
+    },
+    {
+      "left": 42,
+      "top": 647,
+      "width": 226,
+      "height": 122
+    },
+    {
+      "left": 311,
+      "top": 644,
+      "width": 232,
+      "height": 133
+    },
+    {
+      "left": 582,
+      "top": 644,
+      "width": 242,
+      "height": 130
+    },
+    {
+      "left": 863,
+      "top": 646,
+      "width": 228,
+      "height": 128
+    },
+    {
+      "left": 80,
+      "top": 895,
+      "width": 146,
+      "height": 160
+    },
+    {
+      "left": 326,
+      "top": 872,
+      "width": 191,
+      "height": 199
+    },
+    {
+      "left": 588,
+      "top": 855,
+      "width": 229,
+      "height": 237
+    },
+    {
+      "left": 873,
+      "top": 895,
+      "width": 179,
+      "height": 170
+    },
+    {
+      "left": 66,
+      "top": 1159,
+      "width": 176,
+      "height": 178
+    },
+    {
+      "left": 328,
+      "top": 1149,
+      "width": 199,
+      "height": 192
+    },
+    {
+      "left": 595,
+      "top": 1146,
+      "width": 203,
+      "height": 200
+    },
+    {
+      "left": 873,
+      "top": 1162,
+      "width": 197,
+      "height": 177
+    }
+  ]
+}
