@@ -86,8 +86,11 @@ Bộ lọc Loại bổ sung Vũ khí tấn công, Trang bị phòng thủ, Trậ
 
 ## Bộ sưu tập yêu thú
 
-Bộ sưu tập có bộ chọn Danh mục giữa vật phẩm và 50 yêu thú. Yêu thú dùng ảnh trong suốt pixel 128px, phóng nguyên hai lần ở khung xem; thẻ có tên và thuộc tính, tìm không dấu và lọc thuộc tính. Chi tiết cho đổi bảy động tác, tạm dừng và phát lại, xem tên/đặc điểm đòn thường cùng chiêu riêng. Reduced motion mặc định dừng, nút có focus và báo lỗi ảnh bằng chữ. Trang `/beasts.html` cho xem đồng thời 50 atlas, bố cục cuộn từ mobile đến desktop. Nguồn ImageGen cùng prompt trong `art/beasts`; đây là thư viện asset, chưa phải quái có AI trong màn chơi.
+Bộ sưu tập có bộ chọn Danh mục giữa vật phẩm và 70 yêu thú. Yêu thú dùng ảnh trong suốt pixel 128px, phóng nguyên hai lần ở khung xem; thẻ có tên và thuộc tính, tìm không dấu và lọc thuộc tính. Chi tiết cho đổi bảy động tác, tạm dừng và phát lại, xem tên/đặc điểm đòn thường cùng chiêu riêng. Reduced motion mặc định dừng, nút có focus và báo lỗi ảnh bằng chữ. Trang `/beasts.html` cho xem đồng thời 70 atlas, bố cục cuộn từ mobile đến desktop. Nguồn ImageGen cùng prompt trong `art/beasts`; đây là thư viện asset, chưa phải quái có AI trong màn chơi.
 
 ## Hiệu ứng chiêu tách lớp
 
-Bộ FX độc lập cho 50 yêu thú gồm năm clip bốn frame trong suốt, không chứa thân quái. Trang `/beast-effects.html` minh họa chuyển động, hướng trái/phải, tìm kiếm, tạm dừng và phát lại, có link PNG từng pha cùng manifest. Reduced motion mặc định dừng; lỗi tải ảnh báo bằng chữ. Atlas tách lớp giúp hiệu ứng tiếp tục di chuyển sau khi quái đã kết thúc pose thi triển. Chưa ghép vào renderer màn chơi.
+Bộ FX độc lập cho 70 yêu thú gồm năm clip bốn frame trong suốt, không chứa thân quái. Trang `/beast-effects.html` minh họa chuyển động, hướng trái/phải, tìm kiếm, tạm dừng và phát lại, có link PNG từng pha cùng manifest. Reduced motion mặc định dừng; lỗi tải ảnh báo bằng chữ. Atlas tách lớp giúp hiệu ứng tiếp tục di chuyển sau khi quái đã kết thúc pose thi triển. Chưa ghép vào renderer màn chơi.
+
+
+Bộ bay v1 bổ sung 20 silhouette từ tí hon đến khổng lồ. Bộ sưu tập và trang `/beasts.html` có bộ lọc Biết bay, nhãn kích thước; chi tiết trong game gọi động tác bay là Lơ lửng, Bay và Vọt cao / hạ cánh. Atlas giữ kích thước thật khác nhau trong ô 128px, hiển thị nearest-neighbor như bộ cũ.

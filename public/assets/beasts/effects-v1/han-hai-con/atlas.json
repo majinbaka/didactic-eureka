@@ -1,0 +1,255 @@
+{
+  "beastId": "han-hai-con",
+  "source": "art/beasts/effects-flying-v1/large/han-hai-con-source.png",
+  "name": "Hàn Hải Côn",
+  "skillMotion": "linear",
+  "travelSpeed": 350,
+  "origin": {
+    "x": 104,
+    "y": 65
+  },
+  "attackOffset": {
+    "x": 107,
+    "y": 79
+  },
+  "notes": "Tọa độ trong ô thân128×128, x sang phải, y xuống dưới. Charge tại origin; melee tại attackOffset. Lật x thành128-x khi quay trái. Neo đã tính thân bay cao12px. Chiêu travel/impact/field độc lập; metadata thiết kế, chưa tích hợp sát thương.",
+  "version": 1,
+  "skillName": "Hàn Hải Tam Hoàn",
+  "image": "/assets/beasts/effects-v1/han-hai-con/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/han-hai-con/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/han-hai-con/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/han-hai-con/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/han-hai-con/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/han-hai-con/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/han-hai-con/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 91,
+      "top": 133,
+      "width": 148,
+      "height": 127
+    },
+    {
+      "left": 342,
+      "top": 104,
+      "width": 186,
+      "height": 172
+    },
+    {
+      "left": 603,
+      "top": 91,
+      "width": 212,
+      "height": 196
+    },
+    {
+      "left": 888,
+      "top": 98,
+      "width": 169,
+      "height": 182
+    },
+    {
+      "left": 79,
+      "top": 385,
+      "width": 157,
+      "height": 174
+    },
+    {
+      "left": 342,
+      "top": 381,
+      "width": 162,
+      "height": 184
+    },
+    {
+      "left": 602,
+      "top": 372,
+      "width": 185,
+      "height": 199
+    },
+    {
+      "left": 883,
+      "top": 372,
+      "width": 176,
+      "height": 201
+    },
+    {
+      "left": 74,
+      "top": 682,
+      "width": 174,
+      "height": 104
+    },
+    {
+      "left": 335,
+      "top": 672,
+      "width": 192,
+      "height": 128
+    },
+    {
+      "left": 586,
+      "top": 659,
+      "width": 212,
+      "height": 156
+    },
+    {
+      "left": 866,
+      "top": 662,
+      "width": 199,
+      "height": 147
+    },
+    {
+      "left": 86,
+      "top": 921,
+      "width": 145,
+      "height": 151
+    },
+    {
+      "left": 334,
+      "top": 897,
+      "width": 180,
+      "height": 181
+    },
+    {
+      "left": 586,
+      "top": 866,
+      "width": 222,
+      "height": 235
+    },
+    {
+      "left": 885,
+      "top": 902,
+      "width": 179,
+      "height": 183
+    },
+    {
+      "left": 57,
+      "top": 1179,
+      "width": 180,
+      "height": 129
+    },
+    {
+      "left": 317,
+      "top": 1175,
+      "width": 196,
+      "height": 133
+    },
+    {
+      "left": 570,
+      "top": 1169,
+      "width": 239,
+      "height": 153
+    },
+    {
+      "left": 867,
+      "top": 1176,
+      "width": 206,
+      "height": 143
+    }
+  ]
+}

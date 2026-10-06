@@ -9,7 +9,7 @@ const clips = {
   travel: { fps: 12, loop: true }, impact: { fps: 12, loop: false }, field: { fps: 6, loop: true },
 }
 const beasts = JSON.parse(await readFile(new URL('public/assets/beasts/roster-v1.json', root)))
-const groups = ['effects-v1/forest', 'effects-v1/mystic', 'effects-v1/ancient', 'effects-v2/forest', 'effects-v2/mystic', 'effects-v2/ancient']
+const groups = ['effects-v1/forest', 'effects-v1/mystic', 'effects-v1/ancient', 'effects-v2/forest', 'effects-v2/mystic', 'effects-v2/ancient', 'effects-flying-v1/small', 'effects-flying-v1/medium', 'effects-flying-v1/large']
 let inputs = (await Promise.all(groups.map(async group => {
   try { return JSON.parse(await readFile(new URL(`art/beasts/${group}/roster.json`, root))) }
   catch (error) { if (partial && error.code === 'ENOENT') return []; throw error }
@@ -17,7 +17,7 @@ let inputs = (await Promise.all(groups.map(async group => {
 if (partial) inputs = (await Promise.all(inputs.map(async entry => {
   try { await access(new URL(entry.source, root)); return entry } catch { return null }
 }))).filter(Boolean)
-if (!partial && (inputs.length !== 50 || new Set(inputs.map(e => e.beastId)).size !== 50)) throw new Error('Expected 50 unique VFX sets')
+if (!partial && (inputs.length !== 70 || new Set(inputs.map(e => e.beastId)).size !== 70)) throw new Error('Expected 70 unique VFX sets')
 const catalog = [], previews = []
 for (const entry of inputs) {
   const beast = beasts.find(beast => beast.id === entry.beastId)

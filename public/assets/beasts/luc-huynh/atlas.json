@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/luc-huynh/sheet.png",
+  "source": "art/beasts/flying-small-v1/luc-huynh-source.png",
+  "sourceCuts": [
+    {
+      "left": 18,
+      "top": 32,
+      "width": 256,
+      "height": 237
+    },
+    {
+      "left": 304,
+      "top": 115,
+      "width": 246,
+      "height": 171
+    },
+    {
+      "left": 572,
+      "top": 51,
+      "width": 253,
+      "height": 197
+    },
+    {
+      "left": 852,
+      "top": 115,
+      "width": 252,
+      "height": 143
+    },
+    {
+      "left": 10,
+      "top": 343,
+      "width": 278,
+      "height": 203
+    },
+    {
+      "left": 338,
+      "top": 397,
+      "width": 230,
+      "height": 133
+    },
+    {
+      "left": 589,
+      "top": 337,
+      "width": 207,
+      "height": 182
+    },
+    {
+      "left": 870,
+      "top": 291,
+      "width": 237,
+      "height": 258
+    },
+    {
+      "left": 24,
+      "top": 595,
+      "width": 256,
+      "height": 219
+    },
+    {
+      "left": 304,
+      "top": 630,
+      "width": 228,
+      "height": 165
+    },
+    {
+      "left": 565,
+      "top": 599,
+      "width": 281,
+      "height": 222
+    },
+    {
+      "left": 863,
+      "top": 626,
+      "width": 229,
+      "height": 169
+    },
+    {
+      "left": 27,
+      "top": 889,
+      "width": 247,
+      "height": 190
+    },
+    {
+      "left": 304,
+      "top": 850,
+      "width": 230,
+      "height": 247
+    },
+    {
+      "left": 564,
+      "top": 873,
+      "width": 299,
+      "height": 218
+    },
+    {
+      "left": 863,
+      "top": 882,
+      "width": 249,
+      "height": 224
+    },
+    {
+      "left": 33,
+      "top": 1162,
+      "width": 253,
+      "height": 194
+    },
+    {
+      "left": 306,
+      "top": 1156,
+      "width": 226,
+      "height": 194
+    },
+    {
+      "left": 581,
+      "top": 1142,
+      "width": 221,
+      "height": 214
+    },
+    {
+      "left": 851,
+      "top": 1255,
+      "width": 250,
+      "height": 96
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "tiny",
+  "spriteExtentPx": 42,
+  "flightHeightPx": 12
+}

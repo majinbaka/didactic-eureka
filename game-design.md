@@ -107,12 +107,15 @@ Nhập định tự bật cho nhân vật mới; mỗi 15 phút tích 1 linh kh�
 
 Cuộc tuyển chọn có hàng trăm thí sinh trong cốt truyện; màn chạy chỉ hiển thị người chơi và bốn NPC. Người chơi chọn một trong năm diện mạo và đặt tên khi vào game, có thể sửa lại từ hồ sơ. Tuổi khởi đầu và thọ nguyên khác nhau theo diện mạo. NPC phải dừng ở mỗi bia, giải đúng với xác suất 80% mỗi lượt; giải sai chờ thêm năm giây rồi thử lại. Hạng 1–3 trong nhóm hiển thị được nhận vào Nội môn. Nếu bốn NPC về trước, màn End tạm thời xuất hiện. Màn đầu có đúng một Thanh Trúc Diệp, chỉ nhặt khi nhân vật chạm trực tiếp. Bước nhảy hiện đạt các bậc lơ lửng cao hơn, tối đa ba bậc liền nhau. Luyện Khí có 13 kỳ; từ Trúc Cơ trở lên có Sơ kỳ, Trung kỳ, Hậu kỳ, Viên mãn. Mỗi lần đột phá thành công tăng hai điểm thuộc tính; chi phí và tỷ lệ đang giữ theo cảnh giới lớn.
 
-## Thư viện 50 yêu thú
+## Thư viện 70 yêu thú
 
 Ba nhóm yêu thú rừng, linh thú và cổ thú gồm 30 con ban đầu và 20 con mở rộng có silhouette, thuộc tính, đòn thường và chiêu riêng; danh mục `src/game/beastRoster.json`. Mỗi atlas 4×5 ô 128px có 20 frame cho bảy động tác; manifest định nghĩa frames, fps, loop và neo. `src/game/beasts.js` chọn frame thuần, các chiêu dừng ở frame cuối. Tầm và hồi chiêu trong danh mục là trị số thiết kế; chưa có sát thương, hitbox, AI hoặc spawn trong chương nhập môn. Bộ sưu tập chỉ xem tư liệu, không đổi schema save hoặc thống kê đã nhặt. Chi tiết và nguồn ở `art/beasts/README.md`.
 
 ## Asset mechanic yêu thú độc lập
 
-`public/assets/beasts/effects-v1/` có clip melee/charge/travel/impact/field riêng cho cả 50 yêu thú, mỗi clip bốn frame; metadata nối bằng beastId và định nghĩa neo, hướng, điểm phát cùng nhóm chuyển động. `src/game/beastEffects.js` chỉ lookup/chọn frame. Đây là bộ ảnh để ghép sau; entity đạn, hitbox, lifetime, sát thương và AI chưa được thêm. Thân quái v1 vẫn giữ hiệu ứng gắn trong pose; khi dùng FX tách lớp cần tránh vẽ trùng. Chi tiết tại `art/beasts/effects-v1/README.md`.
+`public/assets/beasts/effects-v1/` có clip melee/charge/travel/impact/field riêng cho cả 70 yêu thú, mỗi clip bốn frame; metadata nối bằng beastId và định nghĩa neo, hướng, điểm phát cùng nhóm chuyển động. `src/game/beastEffects.js` chỉ lookup/chọn frame. Đây là bộ ảnh để ghép sau; entity đạn, hitbox, lifetime, sát thương và AI chưa được thêm. Thân quái v1 vẫn giữ hiệu ứng gắn trong pose; khi dùng FX tách lớp cần tránh vẽ trùng. Chi tiết tại `art/beasts/effects-v1/README.md`.
 
 Bộ mở rộng v2 thêm 7 yêu thú rừng, 7 linh thú và 6 cổ thú; giữ schema atlas và save hiện tại. Bộ 20 con mới có đủ FX tách lớp cho chiêu tầm xa: tụ lực, chiêu di chuyển, va chạm và dư chấn, cùng vệt đòn thường.
+
+
+Bộ bay v1 thêm 20 yêu thú (7 nhỏ, 7 vừa, 6 lớn), nâng thư viện lên 70 con. Mỗi con có chu kỳ lơ lửng/bay, vọt cao/hạ cánh, đòn thường, chiêu, bị thương và gục; 20 FX riêng cho năm pha. Metadata kích thước giữ tỷ lệ 40–100% của khung tối đa 120×100px và neo bay cao hơn mặt đất 12px. Các nhóm kích thước từ tí hon tới khổng lồ khác nhau ngay trong atlas, không chỉ trong mô tả. Đây là asset để tích hợp về sau, chưa phải cơ chế AI bay trong chương đầu.

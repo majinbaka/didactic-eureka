@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/nham-van-quy/sheet.png",
+  "source": "art/beasts/flying-large-v1/nham-van-quy-source.png",
+  "sourceCuts": [
+    {
+      "left": 24,
+      "top": 86,
+      "width": 238,
+      "height": 181
+    },
+    {
+      "left": 299,
+      "top": 89,
+      "width": 250,
+      "height": 184
+    },
+    {
+      "left": 582,
+      "top": 94,
+      "width": 253,
+      "height": 173
+    },
+    {
+      "left": 864,
+      "top": 24,
+      "width": 244,
+      "height": 251
+    },
+    {
+      "left": 15,
+      "top": 355,
+      "width": 258,
+      "height": 190
+    },
+    {
+      "left": 297,
+      "top": 377,
+      "width": 253,
+      "height": 166
+    },
+    {
+      "left": 577,
+      "top": 339,
+      "width": 240,
+      "height": 223
+    },
+    {
+      "left": 868,
+      "top": 289,
+      "width": 235,
+      "height": 277
+    },
+    {
+      "left": 26,
+      "top": 609,
+      "width": 246,
+      "height": 211
+    },
+    {
+      "left": 300,
+      "top": 622,
+      "width": 248,
+      "height": 205
+    },
+    {
+      "left": 573,
+      "top": 641,
+      "width": 282,
+      "height": 184
+    },
+    {
+      "left": 872,
+      "top": 609,
+      "width": 223,
+      "height": 211
+    },
+    {
+      "left": 21,
+      "top": 892,
+      "width": 244,
+      "height": 192
+    },
+    {
+      "left": 304,
+      "top": 878,
+      "width": 223,
+      "height": 213
+    },
+    {
+      "left": 558,
+      "top": 893,
+      "width": 298,
+      "height": 185
+    },
+    {
+      "left": 869,
+      "top": 868,
+      "width": 239,
+      "height": 221
+    },
+    {
+      "left": 33,
+      "top": 1148,
+      "width": 239,
+      "height": 198
+    },
+    {
+      "left": 306,
+      "top": 1135,
+      "width": 222,
+      "height": 217
+    },
+    {
+      "left": 574,
+      "top": 1158,
+      "width": 247,
+      "height": 195
+    },
+    {
+      "left": 856,
+      "top": 1234,
+      "width": 241,
+      "height": 108
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "large",
+  "spriteExtentPx": 86,
+  "flightHeightPx": 12
+}

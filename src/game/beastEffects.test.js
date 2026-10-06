@@ -7,8 +7,8 @@ import { beastCatalog } from './beasts.js'
 import { beastEffectCatalog, BEAST_EFFECT_PHASES, getBeastEffect, beastEffectFrame } from './beastEffects.js'
 
 test('every beast has detached FX, five transparent strips and matching atlas pixels', async () => {
-  assert.equal(beastEffectCatalog.length, 50)
-  assert.equal(new Set(beastEffectCatalog.map(effect => effect.beastId)).size, 50)
+  assert.equal(beastEffectCatalog.length, 70)
+  assert.equal(new Set(beastEffectCatalog.map(effect => effect.beastId)).size, 70)
   const allHashes = new Set()
   assert.deepEqual(new Set(beastEffectCatalog.map(effect => effect.beastId)), new Set(beastCatalog.map(beast => beast.id)))
   for (const beast of beastCatalog) {
@@ -17,6 +17,10 @@ test('every beast has detached FX, five transparent strips and matching atlas pi
     assert.equal(effect.skillName, beast.skill.name)
     assert.ok(['linear', 'ground', 'beam', 'orbit', 'falling'].includes(effect.skillMotion))
     assert.ok(effect.travelSpeed >= 0 && effect.notes)
+    for (const point of [effect.origin, effect.attackOffset]) {
+      assert.ok(Number.isInteger(point.x) && point.x >= 0 && point.x < 128, beast.id)
+      assert.ok(Number.isInteger(point.y) && point.y >= 0 && point.y < 128, beast.id)
+    }
     const atlas = JSON.parse(await readFile(new URL(`../../public${effect.atlas}`, import.meta.url)))
     assert.deepEqual(atlas.animations, effect.animations)
     const imagePath = new URL(`../../public${effect.image}`, import.meta.url).pathname

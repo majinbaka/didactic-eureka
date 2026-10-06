@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/nguyet-phi-tho/sheet.png",
+  "source": "art/beasts/flying-medium-v1/nguyet-phi-tho-source.png",
+  "sourceCuts": [
+    {
+      "left": 53,
+      "top": 4,
+      "width": 302,
+      "height": 237
+    },
+    {
+      "left": 370,
+      "top": 39,
+      "width": 332,
+      "height": 202
+    },
+    {
+      "left": 740,
+      "top": 10,
+      "width": 234,
+      "height": 231
+    },
+    {
+      "left": 1030,
+      "top": 60,
+      "width": 287,
+      "height": 181
+    },
+    {
+      "left": 56,
+      "top": 241,
+      "width": 292,
+      "height": 229
+    },
+    {
+      "left": 395,
+      "top": 276,
+      "width": 256,
+      "height": 155
+    },
+    {
+      "left": 732,
+      "top": 241,
+      "width": 250,
+      "height": 229
+    },
+    {
+      "left": 1085,
+      "top": 241,
+      "width": 219,
+      "height": 229
+    },
+    {
+      "left": 45,
+      "top": 470,
+      "width": 325,
+      "height": 228
+    },
+    {
+      "left": 372,
+      "top": 503,
+      "width": 296,
+      "height": 195
+    },
+    {
+      "left": 702,
+      "top": 470,
+      "width": 345,
+      "height": 228
+    },
+    {
+      "left": 1056,
+      "top": 471,
+      "width": 288,
+      "height": 227
+    },
+    {
+      "left": 47,
+      "top": 698,
+      "width": 284,
+      "height": 219
+    },
+    {
+      "left": 371,
+      "top": 706,
+      "width": 276,
+      "height": 223
+    },
+    {
+      "left": 678,
+      "top": 698,
+      "width": 376,
+      "height": 231
+    },
+    {
+      "left": 1068,
+      "top": 698,
+      "width": 257,
+      "height": 223
+    },
+    {
+      "left": 56,
+      "top": 930,
+      "width": 258,
+      "height": 208
+    },
+    {
+      "left": 380,
+      "top": 929,
+      "width": 277,
+      "height": 184
+    },
+    {
+      "left": 728,
+      "top": 929,
+      "width": 269,
+      "height": 198
+    },
+    {
+      "left": 1037,
+      "top": 987,
+      "width": 310,
+      "height": 131
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "medium",
+  "spriteExtentPx": 65,
+  "flightHeightPx": 12
+}

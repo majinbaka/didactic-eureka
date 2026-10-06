@@ -1,0 +1,255 @@
+{
+  "beastId": "thiet-phi-dieu",
+  "source": "art/beasts/effects-flying-v1/medium/thiet-phi-dieu-source.png",
+  "name": "Thiết Phi Điểu",
+  "skillMotion": "linear",
+  "travelSpeed": 440,
+  "origin": {
+    "x": 88,
+    "y": 64
+  },
+  "attackOffset": {
+    "x": 91,
+    "y": 70
+  },
+  "notes": "Tụ lực trước đầu khi bay; đạn thuộc tính tách thân và bay theo hướng nhìn. Vệt đòn thường không chứa chân, mỏ hoặc cánh; impact và field đặt tại vị trí đích.",
+  "version": 1,
+  "skillName": "Phi Thiết Vũ",
+  "image": "/assets/beasts/effects-v1/thiet-phi-dieu/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/thiet-phi-dieu/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/thiet-phi-dieu/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/thiet-phi-dieu/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/thiet-phi-dieu/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/thiet-phi-dieu/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/thiet-phi-dieu/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 83,
+      "top": 68,
+      "width": 141,
+      "height": 139
+    },
+    {
+      "left": 392,
+      "top": 55,
+      "width": 284,
+      "height": 168
+    },
+    {
+      "left": 697,
+      "top": 40,
+      "width": 313,
+      "height": 184
+    },
+    {
+      "left": 1059,
+      "top": 51,
+      "width": 264,
+      "height": 161
+    },
+    {
+      "left": 100,
+      "top": 318,
+      "width": 122,
+      "height": 116
+    },
+    {
+      "left": 420,
+      "top": 293,
+      "width": 168,
+      "height": 160
+    },
+    {
+      "left": 752,
+      "top": 277,
+      "width": 203,
+      "height": 188
+    },
+    {
+      "left": 1075,
+      "top": 266,
+      "width": 245,
+      "height": 206
+    },
+    {
+      "left": 64,
+      "top": 547,
+      "width": 241,
+      "height": 99
+    },
+    {
+      "left": 391,
+      "top": 535,
+      "width": 263,
+      "height": 118
+    },
+    {
+      "left": 718,
+      "top": 530,
+      "width": 271,
+      "height": 127
+    },
+    {
+      "left": 1044,
+      "top": 537,
+      "width": 291,
+      "height": 126
+    },
+    {
+      "left": 102,
+      "top": 731,
+      "width": 147,
+      "height": 121
+    },
+    {
+      "left": 400,
+      "top": 685,
+      "width": 217,
+      "height": 204
+    },
+    {
+      "left": 697,
+      "top": 687,
+      "width": 302,
+      "height": 232
+    },
+    {
+      "left": 1079,
+      "top": 712,
+      "width": 236,
+      "height": 176
+    },
+    {
+      "left": 95,
+      "top": 966,
+      "width": 150,
+      "height": 125
+    },
+    {
+      "left": 409,
+      "top": 934,
+      "width": 235,
+      "height": 178
+    },
+    {
+      "left": 733,
+      "top": 950,
+      "width": 247,
+      "height": 163
+    },
+    {
+      "left": 1088,
+      "top": 954,
+      "width": 222,
+      "height": 145
+    }
+  ]
+}

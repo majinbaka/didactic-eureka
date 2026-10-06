@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/xich-thien-phuong/sheet.png",
+  "source": "art/beasts/flying-large-v1/xich-thien-phuong-source.png",
+  "sourceCuts": [
+    {
+      "left": 26,
+      "top": 15,
+      "width": 250,
+      "height": 262
+    },
+    {
+      "left": 308,
+      "top": 64,
+      "width": 221,
+      "height": 215
+    },
+    {
+      "left": 578,
+      "top": 68,
+      "width": 263,
+      "height": 208
+    },
+    {
+      "left": 851,
+      "top": 12,
+      "width": 246,
+      "height": 265
+    },
+    {
+      "left": 27,
+      "top": 319,
+      "width": 262,
+      "height": 225
+    },
+    {
+      "left": 302,
+      "top": 331,
+      "width": 290,
+      "height": 199
+    },
+    {
+      "left": 599,
+      "top": 301,
+      "width": 219,
+      "height": 248
+    },
+    {
+      "left": 876,
+      "top": 289,
+      "width": 220,
+      "height": 264
+    },
+    {
+      "left": 25,
+      "top": 567,
+      "width": 247,
+      "height": 217
+    },
+    {
+      "left": 323,
+      "top": 565,
+      "width": 199,
+      "height": 228
+    },
+    {
+      "left": 561,
+      "top": 566,
+      "width": 302,
+      "height": 238
+    },
+    {
+      "left": 876,
+      "top": 579,
+      "width": 221,
+      "height": 220
+    },
+    {
+      "left": 35,
+      "top": 817,
+      "width": 231,
+      "height": 252
+    },
+    {
+      "left": 310,
+      "top": 833,
+      "width": 206,
+      "height": 232
+    },
+    {
+      "left": 533,
+      "top": 826,
+      "width": 332,
+      "height": 254
+    },
+    {
+      "left": 865,
+      "top": 822,
+      "width": 243,
+      "height": 264
+    },
+    {
+      "left": 35,
+      "top": 1111,
+      "width": 248,
+      "height": 229
+    },
+    {
+      "left": 317,
+      "top": 1096,
+      "width": 225,
+      "height": 255
+    },
+    {
+      "left": 558,
+      "top": 1101,
+      "width": 259,
+      "height": 257
+    },
+    {
+      "left": 830,
+      "top": 1240,
+      "width": 272,
+      "height": 95
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "huge",
+  "spriteExtentPx": 98,
+  "flightHeightPx": 12
+}

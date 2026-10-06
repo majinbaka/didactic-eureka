@@ -1,0 +1,255 @@
+{
+  "beastId": "hoa-khong-tuoc",
+  "source": "art/beasts/effects-flying-v1/medium/hoa-khong-tuoc-source.png",
+  "name": "Hỏa Khổng Tước",
+  "skillMotion": "linear",
+  "travelSpeed": 370,
+  "origin": {
+    "x": 88,
+    "y": 64
+  },
+  "attackOffset": {
+    "x": 91,
+    "y": 70
+  },
+  "notes": "Tụ lực trước đầu khi bay; đạn thuộc tính tách thân và bay theo hướng nhìn. Vệt đòn thường không chứa chân, mỏ hoặc cánh; impact và field đặt tại vị trí đích.",
+  "version": 1,
+  "skillName": "Tam Hỏa Vũ",
+  "image": "/assets/beasts/effects-v1/hoa-khong-tuoc/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/hoa-khong-tuoc/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-khong-tuoc/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-khong-tuoc/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-khong-tuoc/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-khong-tuoc/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-khong-tuoc/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 82,
+      "top": 68,
+      "width": 157,
+      "height": 139
+    },
+    {
+      "left": 422,
+      "top": 34,
+      "width": 223,
+      "height": 190
+    },
+    {
+      "left": 755,
+      "top": 16,
+      "width": 286,
+      "height": 230
+    },
+    {
+      "left": 1139,
+      "top": 34,
+      "width": 210,
+      "height": 190
+    },
+    {
+      "left": 100,
+      "top": 319,
+      "width": 122,
+      "height": 97
+    },
+    {
+      "left": 452,
+      "top": 271,
+      "width": 160,
+      "height": 177
+    },
+    {
+      "left": 774,
+      "top": 274,
+      "width": 214,
+      "height": 191
+    },
+    {
+      "left": 1132,
+      "top": 290,
+      "width": 185,
+      "height": 161
+    },
+    {
+      "left": 74,
+      "top": 508,
+      "width": 197,
+      "height": 153
+    },
+    {
+      "left": 398,
+      "top": 514,
+      "width": 227,
+      "height": 143
+    },
+    {
+      "left": 741,
+      "top": 514,
+      "width": 248,
+      "height": 143
+    },
+    {
+      "left": 1109,
+      "top": 510,
+      "width": 231,
+      "height": 147
+    },
+    {
+      "left": 67,
+      "top": 757,
+      "width": 179,
+      "height": 153
+    },
+    {
+      "left": 396,
+      "top": 705,
+      "width": 266,
+      "height": 222
+    },
+    {
+      "left": 734,
+      "top": 692,
+      "width": 301,
+      "height": 240
+    },
+    {
+      "left": 1131,
+      "top": 738,
+      "width": 209,
+      "height": 176
+    },
+    {
+      "left": 74,
+      "top": 970,
+      "width": 194,
+      "height": 117
+    },
+    {
+      "left": 405,
+      "top": 967,
+      "width": 251,
+      "height": 125
+    },
+    {
+      "left": 763,
+      "top": 994,
+      "width": 235,
+      "height": 98
+    },
+    {
+      "left": 1122,
+      "top": 999,
+      "width": 228,
+      "height": 80
+    }
+  ]
+}

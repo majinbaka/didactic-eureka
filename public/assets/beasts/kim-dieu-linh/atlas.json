@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/kim-dieu-linh/sheet.png",
+  "source": "art/beasts/flying-small-v1/kim-dieu-linh-source.png",
+  "sourceCuts": [
+    {
+      "left": 33,
+      "top": 27,
+      "width": 216,
+      "height": 232
+    },
+    {
+      "left": 308,
+      "top": 106,
+      "width": 221,
+      "height": 153
+    },
+    {
+      "left": 567,
+      "top": 58,
+      "width": 242,
+      "height": 185
+    },
+    {
+      "left": 850,
+      "top": 143,
+      "width": 237,
+      "height": 119
+    },
+    {
+      "left": 24,
+      "top": 320,
+      "width": 272,
+      "height": 204
+    },
+    {
+      "left": 316,
+      "top": 402,
+      "width": 245,
+      "height": 109
+    },
+    {
+      "left": 591,
+      "top": 334,
+      "width": 210,
+      "height": 219
+    },
+    {
+      "left": 865,
+      "top": 288,
+      "width": 222,
+      "height": 239
+    },
+    {
+      "left": 31,
+      "top": 596,
+      "width": 231,
+      "height": 222
+    },
+    {
+      "left": 297,
+      "top": 559,
+      "width": 262,
+      "height": 230
+    },
+    {
+      "left": 571,
+      "top": 580,
+      "width": 302,
+      "height": 230
+    },
+    {
+      "left": 877,
+      "top": 561,
+      "width": 224,
+      "height": 244
+    },
+    {
+      "left": 20,
+      "top": 872,
+      "width": 238,
+      "height": 188
+    },
+    {
+      "left": 296,
+      "top": 888,
+      "width": 223,
+      "height": 179
+    },
+    {
+      "left": 532,
+      "top": 896,
+      "width": 286,
+      "height": 185
+    },
+    {
+      "left": 832,
+      "top": 872,
+      "width": 278,
+      "height": 214
+    },
+    {
+      "left": 33,
+      "top": 1127,
+      "width": 224,
+      "height": 198
+    },
+    {
+      "left": 300,
+      "top": 1117,
+      "width": 226,
+      "height": 236
+    },
+    {
+      "left": 607,
+      "top": 1115,
+      "width": 191,
+      "height": 233
+    },
+    {
+      "left": 835,
+      "top": 1261,
+      "width": 270,
+      "height": 88
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "small",
+  "spriteExtentPx": 52,
+  "flightHeightPx": 12
+}

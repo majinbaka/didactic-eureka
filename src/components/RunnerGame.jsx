@@ -401,7 +401,7 @@ export default function RunnerGame() {
       frame = requestAnimationFrame(tick)
     }
     const key = (e, down) => {
-      if (e.target instanceof HTMLButtonElement) return
+      if (e.target instanceof HTMLElement && (e.target.isContentEditable || e.target.closest('button, input, select, textarea'))) return
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'a', 'd', 'w', 's', 'Shift'].includes(e.key)) e.preventDefault()
       if (['ArrowLeft', 'a'].includes(e.key)) input.current.move = down ? -1 : input.current.move === -1 ? 0 : input.current.move
       if (['ArrowRight', 'd'].includes(e.key)) input.current.move = down ? 1 : input.current.move === 1 ? 0 : input.current.move

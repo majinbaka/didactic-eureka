@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/loi-duc-long/sheet.png",
+  "source": "art/beasts/flying-large-v1/loi-duc-long-source.png",
+  "sourceCuts": [
+    {
+      "left": 16,
+      "top": 67,
+      "width": 260,
+      "height": 203
+    },
+    {
+      "left": 303,
+      "top": 87,
+      "width": 233,
+      "height": 176
+    },
+    {
+      "left": 540,
+      "top": 125,
+      "width": 305,
+      "height": 134
+    },
+    {
+      "left": 865,
+      "top": 37,
+      "width": 238,
+      "height": 231
+    },
+    {
+      "left": 13,
+      "top": 344,
+      "width": 286,
+      "height": 185
+    },
+    {
+      "left": 315,
+      "top": 380,
+      "width": 259,
+      "height": 156
+    },
+    {
+      "left": 590,
+      "top": 338,
+      "width": 244,
+      "height": 219
+    },
+    {
+      "left": 871,
+      "top": 289,
+      "width": 239,
+      "height": 256
+    },
+    {
+      "left": 25,
+      "top": 600,
+      "width": 240,
+      "height": 185
+    },
+    {
+      "left": 304,
+      "top": 613,
+      "width": 224,
+      "height": 196
+    },
+    {
+      "left": 552,
+      "top": 624,
+      "width": 298,
+      "height": 195
+    },
+    {
+      "left": 872,
+      "top": 613,
+      "width": 222,
+      "height": 199
+    },
+    {
+      "left": 22,
+      "top": 855,
+      "width": 226,
+      "height": 221
+    },
+    {
+      "left": 282,
+      "top": 857,
+      "width": 275,
+      "height": 218
+    },
+    {
+      "left": 557,
+      "top": 869,
+      "width": 308,
+      "height": 208
+    },
+    {
+      "left": 865,
+      "top": 848,
+      "width": 251,
+      "height": 241
+    },
+    {
+      "left": 25,
+      "top": 1135,
+      "width": 250,
+      "height": 196
+    },
+    {
+      "left": 301,
+      "top": 1123,
+      "width": 241,
+      "height": 206
+    },
+    {
+      "left": 574,
+      "top": 1108,
+      "width": 235,
+      "height": 240
+    },
+    {
+      "left": 809,
+      "top": 1232,
+      "width": 294,
+      "height": 130
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "huge",
+  "spriteExtentPx": 96,
+  "flightHeightPx": 12
+}

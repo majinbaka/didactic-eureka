@@ -1,0 +1,255 @@
+{
+  "beastId": "kim-dieu-linh",
+  "source": "art/beasts/effects-flying-v1/small/kim-dieu-linh-source.png",
+  "name": "Kim Điêu Linh",
+  "skillMotion": "linear",
+  "travelSpeed": 480,
+  "origin": {
+    "x": 82,
+    "y": 85
+  },
+  "attackOffset": {
+    "x": 90,
+    "y": 88
+  },
+  "notes": "Tọa độ tính từ góc trên trái ô thân 128px, đã theo kích thước atlas và độ cao bay 12px. Hướng trái: x = 128 - x. Melee bám attackOffset, charge bám origin; travel bay độc lập, impact tại va chạm, field tại điểm kết thúc; đây là điểm ghép thiết kế, chưa phải hitbox.",
+  "version": 1,
+  "skillName": "Ngân Dực Tiễn",
+  "image": "/assets/beasts/effects-v1/kim-dieu-linh/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/kim-dieu-linh/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/kim-dieu-linh/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/kim-dieu-linh/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/kim-dieu-linh/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/kim-dieu-linh/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/kim-dieu-linh/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 101,
+      "top": 122,
+      "width": 95,
+      "height": 106
+    },
+    {
+      "left": 307,
+      "top": 82,
+      "width": 202,
+      "height": 159
+    },
+    {
+      "left": 579,
+      "top": 54,
+      "width": 238,
+      "height": 220
+    },
+    {
+      "left": 857,
+      "top": 77,
+      "width": 232,
+      "height": 189
+    },
+    {
+      "left": 98,
+      "top": 408,
+      "width": 86,
+      "height": 82
+    },
+    {
+      "left": 341,
+      "top": 361,
+      "width": 163,
+      "height": 162
+    },
+    {
+      "left": 586,
+      "top": 325,
+      "width": 212,
+      "height": 220
+    },
+    {
+      "left": 867,
+      "top": 312,
+      "width": 225,
+      "height": 235
+    },
+    {
+      "left": 26,
+      "top": 662,
+      "width": 187,
+      "height": 94
+    },
+    {
+      "left": 290,
+      "top": 659,
+      "width": 238,
+      "height": 97
+    },
+    {
+      "left": 567,
+      "top": 657,
+      "width": 258,
+      "height": 115
+    },
+    {
+      "left": 873,
+      "top": 660,
+      "width": 209,
+      "height": 108
+    },
+    {
+      "left": 65,
+      "top": 903,
+      "width": 137,
+      "height": 142
+    },
+    {
+      "left": 304,
+      "top": 871,
+      "width": 217,
+      "height": 190
+    },
+    {
+      "left": 568,
+      "top": 837,
+      "width": 251,
+      "height": 258
+    },
+    {
+      "left": 871,
+      "top": 853,
+      "width": 221,
+      "height": 223
+    },
+    {
+      "left": 27,
+      "top": 1164,
+      "width": 226,
+      "height": 156
+    },
+    {
+      "left": 294,
+      "top": 1144,
+      "width": 247,
+      "height": 220
+    },
+    {
+      "left": 569,
+      "top": 1190,
+      "width": 251,
+      "height": 142
+    },
+    {
+      "left": 865,
+      "top": 1159,
+      "width": 227,
+      "height": 163
+    }
+  ]
+}

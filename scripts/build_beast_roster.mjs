@@ -11,14 +11,14 @@ const animations = {
   hurt: { frames: [17], fps: 6, loop: false },
   collapse: { frames: [18, 19], fps: 4, loop: false },
 }
-const groups = ['forest-v1', 'mystic-v1', 'ancient-v1', 'forest-v2', 'mystic-v2', 'ancient-v2']
+const groups = ['forest-v1', 'mystic-v1', 'ancient-v1', 'forest-v2', 'mystic-v2', 'ancient-v2', 'flying-small-v1', 'flying-medium-v1', 'flying-large-v1']
 let roster = (await Promise.all(groups.map(async group =>
   JSON.parse(await readFile(new URL(`art/beasts/${group}/roster.json`, root)).catch(error => { if (process.argv.includes('--partial') && error.code === 'ENOENT') return '[]'; throw error }))))).flat()
 if (process.argv.includes('--partial')) {
   const available = await Promise.all(roster.map(async beast => { try { await access(new URL(beast.source, root)); return beast } catch { return null } }))
   roster = available.filter(Boolean)
 }
-if (!process.argv.includes('--partial') && (roster.length !== 50 || new Set(roster.map(b => b.id)).size !== 50)) throw new Error('Expected 50 unique beasts')
+if (!process.argv.includes('--partial') && (roster.length !== 70 || new Set(roster.map(b => b.id)).size !== 70)) throw new Error('Expected 70 unique beasts')
 const catalog = [], previews = []
 for (const beast of roster) {
   const source = new URL(beast.source, root)
@@ -64,14 +64,17 @@ for (const beast of roster) {
     }
   }
   // One scale preserves body proportions; special airborne pose sits above the ground.
-  const scale = Math.min(...crops.map(crop => Math.min(120 / crop.width, 100 / crop.height)))
+  const extent = beast.spriteExtentPx ?? 100
+  const flightHeight = beast.locomotion === 'flying' ? beast.flightHeightPx : 0
+  if (!(extent >= 40 && extent <= 100) || !Number.isInteger(flightHeight) || flightHeight < 0 || flightHeight > 12) throw new Error(`Invalid size/flight metadata: ${beast.id}`)
+  const scale = extent / 100 * Math.min(...crops.map(crop => Math.min(120 / crop.width, 100 / crop.height)))
   const frames = []
   for (const [index, crop] of crops.entries()) {
     const width = Math.max(1, Math.round(crop.width * scale)), height = Math.max(1, Math.round(crop.height * scale))
     const input = await sharp(source.pathname).extract(crop)
       .resize(width, height, { kernel: 'nearest' }).png().toBuffer()
     frames.push(await sharp({ create: { width: 128, height: 128, channels: 4, background: '#00000000' } })
-      .composite([{ input, left: Math.floor((128 - width) / 2), top: 116 - height - (index === 7 ? 12 : 0) }]).png().toBuffer())
+      .composite([{ input, left: Math.floor((128 - width) / 2), top: 116 - height - (beast.locomotion === 'flying' && index < 18 ? flightHeight : index === 7 ? 12 : 0) }]).png().toBuffer())
   }
   const base = `/assets/beasts/${beast.id}`
   const output = new URL(`public${base}/`, root)
@@ -81,7 +84,7 @@ for (const beast of roster) {
     .png().toFile(new URL('sheet.png', output).pathname)
   await writeFile(new URL('preview.png', output), frames[0])
   const atlas = { version: 1, cellWidth: 128, cellHeight: 128, columns: 4, rows: 5,
-    sheetWidth: 512, sheetHeight: 640, frameCount: 20, anchor: { x: 64, y: 116 }, image: `${base}/sheet.png`, source: beast.source, sourceCuts: crops, animations }
+    sheetWidth: 512, sheetHeight: 640, frameCount: 20, anchor: { x: 64, y: 116 }, image: `${base}/sheet.png`, source: beast.source, sourceCuts: crops, animations, ...(beast.locomotion === 'flying' ? { locomotion: beast.locomotion, size: beast.size, spriteExtentPx: extent, flightHeightPx: flightHeight } : {}) }
   await writeFile(new URL('atlas.json', output), JSON.stringify(atlas, null, 2) + '\n')
   catalog.push({ ...beast, image: atlas.image, preview: `${base}/preview.png`, atlas: `${base}/atlas.json`, animations })
   previews.push(frames[0])

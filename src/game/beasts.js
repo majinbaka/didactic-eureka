@@ -7,3 +7,9 @@ export function beastFrame(beast, action, seconds) {
   const step = Math.floor(Math.max(0, Number.isFinite(seconds) ? seconds : 0) * animation.fps)
   return animation.frames[animation.loop ? step % animation.frames.length : Math.min(step, animation.frames.length - 1)]
 }
+
+export const BEAST_SIZES = { tiny: 'Tí hon', small: 'Nhỏ', medium: 'Vừa', large: 'Lớn', huge: 'Khổng lồ' }
+export function beastActionLabel(beast, action) {
+  if (beast.locomotion === 'flying') return { idle: 'Lơ lửng', walk: 'Bay', jump: 'Vọt cao / hạ cánh' }[action] || BEAST_ACTIONS[action]
+  return BEAST_ACTIONS[action]
+}

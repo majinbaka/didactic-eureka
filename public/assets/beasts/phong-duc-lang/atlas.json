@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "sheetWidth": 512,
+  "sheetHeight": 640,
+  "frameCount": 20,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "image": "/assets/beasts/phong-duc-lang/sheet.png",
+  "source": "art/beasts/flying-medium-v1/phong-duc-lang-source.png",
+  "sourceCuts": [
+    {
+      "left": 64,
+      "top": 11,
+      "width": 257,
+      "height": 251
+    },
+    {
+      "left": 376,
+      "top": 73,
+      "width": 261,
+      "height": 189
+    },
+    {
+      "left": 695,
+      "top": 10,
+      "width": 303,
+      "height": 252
+    },
+    {
+      "left": 1045,
+      "top": 95,
+      "width": 309,
+      "height": 167
+    },
+    {
+      "left": 19,
+      "top": 262,
+      "width": 310,
+      "height": 212
+    },
+    {
+      "left": 368,
+      "top": 262,
+      "width": 293,
+      "height": 193
+    },
+    {
+      "left": 726,
+      "top": 262,
+      "width": 274,
+      "height": 224
+    },
+    {
+      "left": 1056,
+      "top": 262,
+      "width": 299,
+      "height": 224
+    },
+    {
+      "left": 44,
+      "top": 487,
+      "width": 273,
+      "height": 231
+    },
+    {
+      "left": 383,
+      "top": 556,
+      "width": 279,
+      "height": 141
+    },
+    {
+      "left": 719,
+      "top": 486,
+      "width": 311,
+      "height": 232
+    },
+    {
+      "left": 1031,
+      "top": 486,
+      "width": 324,
+      "height": 211
+    },
+    {
+      "left": 36,
+      "top": 718,
+      "width": 280,
+      "height": 192
+    },
+    {
+      "left": 377,
+      "top": 719,
+      "width": 274,
+      "height": 192
+    },
+    {
+      "left": 682,
+      "top": 718,
+      "width": 365,
+      "height": 187
+    },
+    {
+      "left": 1047,
+      "top": 723,
+      "width": 308,
+      "height": 183
+    },
+    {
+      "left": 32,
+      "top": 922,
+      "width": 285,
+      "height": 205
+    },
+    {
+      "left": 371,
+      "top": 911,
+      "width": 273,
+      "height": 212
+    },
+    {
+      "left": 729,
+      "top": 922,
+      "width": 266,
+      "height": 203
+    },
+    {
+      "left": 1058,
+      "top": 993,
+      "width": 297,
+      "height": 116
+    }
+  ],
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "jump": {
+      "frames": [
+        6,
+        7,
+        8
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "fps": 8,
+      "loop": false
+    },
+    "skill": {
+      "frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "hurt": {
+      "frames": [
+        17
+      ],
+      "fps": 6,
+      "loop": false
+    },
+    "collapse": {
+      "frames": [
+        18,
+        19
+      ],
+      "fps": 4,
+      "loop": false
+    }
+  },
+  "locomotion": "flying",
+  "size": "medium",
+  "spriteExtentPx": 80,
+  "flightHeightPx": 12
+}

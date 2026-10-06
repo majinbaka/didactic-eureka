@@ -1,0 +1,255 @@
+{
+  "beastId": "suong-hac",
+  "source": "art/beasts/effects-flying-v1/medium/suong-hac-source.png",
+  "name": "Sương Hạc",
+  "skillMotion": "linear",
+  "travelSpeed": 350,
+  "origin": {
+    "x": 88,
+    "y": 64
+  },
+  "attackOffset": {
+    "x": 91,
+    "y": 70
+  },
+  "notes": "Tụ lực trước đầu khi bay; đạn thuộc tính tách thân và bay theo hướng nhìn. Vệt đòn thường không chứa chân, mỏ hoặc cánh; impact và field đặt tại vị trí đích.",
+  "version": 1,
+  "skillName": "Vụ Thủy Thương",
+  "image": "/assets/beasts/effects-v1/suong-hac/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/suong-hac/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/suong-hac/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/suong-hac/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/suong-hac/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/suong-hac/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/suong-hac/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 79,
+      "top": 91,
+      "width": 165,
+      "height": 133
+    },
+    {
+      "left": 392,
+      "top": 45,
+      "width": 252,
+      "height": 192
+    },
+    {
+      "left": 702,
+      "top": 17,
+      "width": 319,
+      "height": 224
+    },
+    {
+      "left": 1049,
+      "top": 46,
+      "width": 293,
+      "height": 195
+    },
+    {
+      "left": 103,
+      "top": 319,
+      "width": 138,
+      "height": 102
+    },
+    {
+      "left": 423,
+      "top": 286,
+      "width": 180,
+      "height": 163
+    },
+    {
+      "left": 744,
+      "top": 277,
+      "width": 214,
+      "height": 177
+    },
+    {
+      "left": 1039,
+      "top": 264,
+      "width": 295,
+      "height": 227
+    },
+    {
+      "left": 82,
+      "top": 544,
+      "width": 175,
+      "height": 77
+    },
+    {
+      "left": 381,
+      "top": 520,
+      "width": 267,
+      "height": 122
+    },
+    {
+      "left": 701,
+      "top": 517,
+      "width": 304,
+      "height": 127
+    },
+    {
+      "left": 1037,
+      "top": 518,
+      "width": 320,
+      "height": 125
+    },
+    {
+      "left": 93,
+      "top": 744,
+      "width": 134,
+      "height": 121
+    },
+    {
+      "left": 372,
+      "top": 703,
+      "width": 250,
+      "height": 203
+    },
+    {
+      "left": 705,
+      "top": 676,
+      "width": 312,
+      "height": 261
+    },
+    {
+      "left": 1061,
+      "top": 690,
+      "width": 275,
+      "height": 233
+    },
+    {
+      "left": 76,
+      "top": 993,
+      "width": 182,
+      "height": 102
+    },
+    {
+      "left": 358,
+      "top": 955,
+      "width": 305,
+      "height": 159
+    },
+    {
+      "left": 721,
+      "top": 977,
+      "width": 278,
+      "height": 133
+    },
+    {
+      "left": 1060,
+      "top": 985,
+      "width": 281,
+      "height": 125
+    }
+  ]
+}

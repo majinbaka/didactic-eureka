@@ -1,0 +1,255 @@
+{
+  "beastId": "ngoc-phi-ho",
+  "source": "art/beasts/effects-flying-v1/medium/ngoc-phi-ho-source.png",
+  "name": "Ngọc Phi Hồ",
+  "skillMotion": "linear",
+  "travelSpeed": 330,
+  "origin": {
+    "x": 88,
+    "y": 64
+  },
+  "attackOffset": {
+    "x": 91,
+    "y": 70
+  },
+  "notes": "Tụ lực trước đầu khi bay; đạn thuộc tính tách thân và bay theo hướng nhìn. Vệt đòn thường không chứa chân, mỏ hoặc cánh; impact và field đặt tại vị trí đích.",
+  "version": 1,
+  "skillName": "Ngọc Diệp Phi",
+  "image": "/assets/beasts/effects-v1/ngoc-phi-ho/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/ngoc-phi-ho/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-phi-ho/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-phi-ho/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-phi-ho/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-phi-ho/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/ngoc-phi-ho/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 94,
+      "top": 63,
+      "width": 147,
+      "height": 148
+    },
+    {
+      "left": 392,
+      "top": 39,
+      "width": 254,
+      "height": 190
+    },
+    {
+      "left": 749,
+      "top": 61,
+      "width": 286,
+      "height": 180
+    },
+    {
+      "left": 1126,
+      "top": 71,
+      "width": 237,
+      "height": 146
+    },
+    {
+      "left": 105,
+      "top": 313,
+      "width": 152,
+      "height": 120
+    },
+    {
+      "left": 414,
+      "top": 286,
+      "width": 205,
+      "height": 182
+    },
+    {
+      "left": 784,
+      "top": 281,
+      "width": 205,
+      "height": 185
+    },
+    {
+      "left": 1117,
+      "top": 273,
+      "width": 220,
+      "height": 191
+    },
+    {
+      "left": 83,
+      "top": 514,
+      "width": 206,
+      "height": 146
+    },
+    {
+      "left": 402,
+      "top": 514,
+      "width": 274,
+      "height": 142
+    },
+    {
+      "left": 746,
+      "top": 531,
+      "width": 289,
+      "height": 125
+    },
+    {
+      "left": 1103,
+      "top": 523,
+      "width": 252,
+      "height": 138
+    },
+    {
+      "left": 77,
+      "top": 712,
+      "width": 194,
+      "height": 172
+    },
+    {
+      "left": 391,
+      "top": 701,
+      "width": 274,
+      "height": 201
+    },
+    {
+      "left": 743,
+      "top": 713,
+      "width": 285,
+      "height": 179
+    },
+    {
+      "left": 1111,
+      "top": 728,
+      "width": 246,
+      "height": 161
+    },
+    {
+      "left": 64,
+      "top": 958,
+      "width": 243,
+      "height": 118
+    },
+    {
+      "left": 389,
+      "top": 950,
+      "width": 274,
+      "height": 138
+    },
+    {
+      "left": 753,
+      "top": 963,
+      "width": 273,
+      "height": 124
+    },
+    {
+      "left": 1108,
+      "top": 987,
+      "width": 250,
+      "height": 89
+    }
+  ]
+}
