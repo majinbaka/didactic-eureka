@@ -1,0 +1,11 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "assetType": "stylized-concept cultivation RPG treasure atlas",
+  "originalArtwork": true,
+  "externalAssets": false,
+  "sourceFiles": ["source-1.png", "source-2.png", "source-3.png", "source-4.png", "source-5.png"],
+  "prompts": ["prompt-1.txt", "prompt-2.txt", "prompt-3.txt", "prompt-4.txt", "prompt-5.txt"],
+  "layout": { "columns": 10, "rows": 5, "cellSize": 64, "itemsPerAtlas": 50 },
+  "packing": "Sharp largest connected alpha component to remove neighboring spill, trim, resize fit inside 52px nearest-neighbor, preserve alpha, center in 64px cells",
+  "availability": "Collection lore only; no drops or active equipment effects."
+}

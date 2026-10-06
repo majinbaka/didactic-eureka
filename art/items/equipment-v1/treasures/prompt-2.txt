@@ -1,0 +1,51 @@
+Use case: stylized-concept. Asset type: cultivation fantasy RPG inventory sprite atlas. Create exactly 50 different magical TREASURES, no weapons or clothing. Perfect regular 10-column by 5-row grid read left to right top to bottom, identical cells, each item fully centered with generous empty padding and no touching between cells. TRUE TRANSPARENT BACKGROUND. Pixel art with hard edges, readable small silhouettes, Japanese inspired fantasy craftsmanship, handmade carved details, no letters numbers text labels frames gridlines shadows backgrounds or watermark. Color family cinnabar red and warm gold; theme Xích Hà. Each icon unique construction not a repeated recolor. Interpret these 50 subjects in EXACT order:
+1. gourd vessels, variant 1: Trúc (Vietnamese design cue), vary silhouette, carvings and fittings
+2. gourd vessels, variant 2: Ngọc (Vietnamese design cue), vary silhouette, carvings and fittings
+3. gourd vessels, variant 3: Đồng (Vietnamese design cue), vary silhouette, carvings and fittings
+4. gourd vessels, variant 4: Thạch (Vietnamese design cue), vary silhouette, carvings and fittings
+5. gourd vessels, variant 5: Lưu Ly (Vietnamese design cue), vary silhouette, carvings and fittings
+6. magic hand mirrors, variant 1: Bát Giác (Vietnamese design cue), vary silhouette, carvings and fittings
+7. magic hand mirrors, variant 2: Liên Hoa (Vietnamese design cue), vary silhouette, carvings and fittings
+8. magic hand mirrors, variant 3: Nhật Luân (Vietnamese design cue), vary silhouette, carvings and fittings
+9. magic hand mirrors, variant 4: Nguyệt Luân (Vietnamese design cue), vary silhouette, carvings and fittings
+10. magic hand mirrors, variant 5: Song Ngư (Vietnamese design cue), vary silhouette, carvings and fittings
+11. hanging bells, variant 1: Cổ Đồng (Vietnamese design cue), vary silhouette, carvings and fittings
+12. hanging bells, variant 2: Bạch Ngọc (Vietnamese design cue), vary silhouette, carvings and fittings
+13. hanging bells, variant 3: Kim Sa (Vietnamese design cue), vary silhouette, carvings and fittings
+14. hanging bells, variant 4: Thiết Tâm (Vietnamese design cue), vary silhouette, carvings and fittings
+15. hanging bells, variant 5: Ngân Văn (Vietnamese design cue), vary silhouette, carvings and fittings
+16. miniature pagoda towers, variant 1: Tam Tầng (Vietnamese design cue), vary silhouette, carvings and fittings
+17. miniature pagoda towers, variant 2: Ngũ Tầng (Vietnamese design cue), vary silhouette, carvings and fittings
+18. miniature pagoda towers, variant 3: Thất Tầng (Vietnamese design cue), vary silhouette, carvings and fittings
+19. miniature pagoda towers, variant 4: Cửu Tầng (Vietnamese design cue), vary silhouette, carvings and fittings
+20. miniature pagoda towers, variant 5: Liên Đài (Vietnamese design cue), vary silhouette, carvings and fittings
+21. carved jade pendants, variant 1: Long Văn (Vietnamese design cue), vary silhouette, carvings and fittings
+22. carved jade pendants, variant 2: Phượng Văn (Vietnamese design cue), vary silhouette, carvings and fittings
+23. carved jade pendants, variant 3: Hạc Văn (Vietnamese design cue), vary silhouette, carvings and fittings
+24. carved jade pendants, variant 4: Quy Văn (Vietnamese design cue), vary silhouette, carvings and fittings
+25. carved jade pendants, variant 5: Hổ Văn (Vietnamese design cue), vary silhouette, carvings and fittings
+26. spirit pearls in ornate settings, variant 1: Minh Quang (Vietnamese design cue), vary silhouette, carvings and fittings
+27. spirit pearls in ornate settings, variant 2: Huyền Quang (Vietnamese design cue), vary silhouette, carvings and fittings
+28. spirit pearls in ornate settings, variant 3: Tịnh Quang (Vietnamese design cue), vary silhouette, carvings and fittings
+29. spirit pearls in ornate settings, variant 4: Lưu Quang (Vietnamese design cue), vary silhouette, carvings and fittings
+30. spirit pearls in ornate settings, variant 5: Ẩn Quang (Vietnamese design cue), vary silhouette, carvings and fittings
+31. tripod alchemy cauldrons, variant 1: Tam Túc (Vietnamese design cue), vary silhouette, carvings and fittings
+32. tripod alchemy cauldrons, variant 2: Tứ Túc (Vietnamese design cue), vary silhouette, carvings and fittings
+33. tripod alchemy cauldrons, variant 3: Long Nhĩ (Vietnamese design cue), vary silhouette, carvings and fittings
+34. tripod alchemy cauldrons, variant 4: Hạc Nhĩ (Vietnamese design cue), vary silhouette, carvings and fittings
+35. tripod alchemy cauldrons, variant 5: Liên Nhĩ (Vietnamese design cue), vary silhouette, carvings and fittings
+36. folding fans, variant 1: Trúc Cốt (Vietnamese design cue), vary silhouette, carvings and fittings
+37. folding fans, variant 2: Ngọc Cốt (Vietnamese design cue), vary silhouette, carvings and fittings
+38. folding fans, variant 3: Vũ Hạc (Vietnamese design cue), vary silhouette, carvings and fittings
+39. folding fans, variant 4: Tơ Tằm (Vietnamese design cue), vary silhouette, carvings and fittings
+40. folding fans, variant 5: Kim Diệp (Vietnamese design cue), vary silhouette, carvings and fittings
+41. carved stamp seals, variant 1: Sơn Hình (Vietnamese design cue), vary silhouette, carvings and fittings
+42. carved stamp seals, variant 2: Vân Hình (Vietnamese design cue), vary silhouette, carvings and fittings
+43. carved stamp seals, variant 3: Long Hình (Vietnamese design cue), vary silhouette, carvings and fittings
+44. carved stamp seals, variant 4: Liên Hình (Vietnamese design cue), vary silhouette, carvings and fittings
+45. carved stamp seals, variant 5: Tinh Hình (Vietnamese design cue), vary silhouette, carvings and fittings
+46. ritual lamps, variant 1: Đồng Tâm (Vietnamese design cue), vary silhouette, carvings and fittings
+47. ritual lamps, variant 2: Ngọc Tâm (Vietnamese design cue), vary silhouette, carvings and fittings
+48. ritual lamps, variant 3: Liên Tâm (Vietnamese design cue), vary silhouette, carvings and fittings
+49. ritual lamps, variant 4: Thạch Tâm (Vietnamese design cue), vary silhouette, carvings and fittings
+50. ritual lamps, variant 5: Lưu Ly Tâm (Vietnamese design cue), vary silhouette, carvings and fittings

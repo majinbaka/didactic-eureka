@@ -1,0 +1,51 @@
+Use case: stylized-concept. Asset type: pixel RPG inventory sprite atlas. Generate exactly FIFTY DISTINCT cultivation fantasy defensive equipment icons in a strictly regular 10 COLUMN by 5 ROW grid, read left to right then top to bottom. Wide 2:1 canvas. TRUE TRANSPARENT alpha background. Each identical cell contains one isolated centered item, with generous transparent margins; no items crossing cells. Empty equipment only, no people or body parts. Crisp Japanese-inspired 16-bit pixel art with hard edges, compact shapes, forest/jade/ivory/bronze palette plus relevant material accents. Each item is structurally distinct, not a recolor. No text, labels, numbers, frames, grid lines, shadows, ground, background, watermark. Each complete silhouette visible. Respect exact order:
+1. short green cloud embroidered robe
+2. long white lotus hem robe
+3. purple bamboo leaf sleeved robe
+4. red sunset layered cloak
+5. black star dotted hooded cloak
+6. sand colored desert mantle
+7. icy orchid petal collar robe
+8. lightning stitched narrow sleeved robe
+9. crane wing draped white robe
+10. leaf layered poncho
+11. pine needle fringed cloak
+12. silver frost fur trimmed coat
+13. gold thread crossed sash robe
+14. blue wave scalloped robe
+15. flame lotus split hem robe
+16. cloud brocade cape
+17. cinnamon red asymmetrical robe
+18. butterfly wing midnight cloak
+19. rainproof straw shoulder cape
+20. earth colored quilted coat
+21. white feather edged mantle
+22. bamboo reed rain cape
+23. ink landscape painted robe
+24. sky ribbon floating sleeved robe
+25. jade plaque belted robe
+26. plum flower winter padded gown
+27. swallow tail navy coat
+28. willow tassel sleeve robe
+29. milky way dotted high collar cloak
+30. lantern patterned festival mantle
+31. rock orchid shoulder shawl
+32. rose frost gauze cloak
+33. black silk cocoon hood
+34. phoenix tail flame hem robe
+35. antique scroll clasp cloak
+36. autumn rain droplet mantle
+37. seaweed ribbon fringed gown
+38. desert lotus hooded tunic
+39. blue butterfly split cape
+40. moon silk crescent collar robe
+41. ginkgo fan leaf brocade robe
+42. aster flower wide sleeve dress
+43. snow pine thick shawl
+44. arched cloud doorway chest pattern robe
+45. white sand gauze long vest
+46. mushroom canopy cape
+47. peach blossom layered mantle
+48. mountain river stitched traveling robe
+49. snow crane fur collared gown
+50. root knot clasp forest robe

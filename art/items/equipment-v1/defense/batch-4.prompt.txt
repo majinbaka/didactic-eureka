@@ -1,0 +1,51 @@
+Use case: stylized-concept. Asset type: pixel RPG inventory sprite atlas. Generate exactly FIFTY DISTINCT cultivation fantasy defensive equipment icons in a strictly regular 10 COLUMN by 5 ROW grid, read left to right then top to bottom. Wide 2:1 canvas. TRUE TRANSPARENT alpha background. Each identical cell contains one isolated centered item, with generous transparent margins; no items crossing cells. Empty equipment only, no people or body parts. Crisp Japanese-inspired 16-bit pixel art with hard edges, compact shapes, forest/jade/ivory/bronze palette plus relevant material accents. Each item is structurally distinct, not a recolor. No text, labels, numbers, frames, grid lines, shadows, ground, background, watermark. Each complete silhouette visible. Respect exact order:
+1. bamboo woven conical hat
+2. turtle shell helmet
+3. crane feather crown
+4. red scale crested helmet
+5. black stone angular helmet
+6. silver crescent circlet
+7. gold lotus crown
+8. ice crystal tiara
+9. lightning antler helmet
+10. flame crest helm
+11. bark plated hood
+12. coral branch crown
+13. dragon skull helmet
+14. amber bead diadem
+15. purple crystal forehead guard
+16. iron leaf cap
+17. bronze mountain crest helmet
+18. snowflake fur hat
+19. desert turban with shell brooch
+20. jade seaweed crown
+21. whale fin helmet
+22. phoenix feather headdress
+23. silver chain coif
+24. earthen vein engraved helmet
+25. black pearl circlet
+26. stepped cloud ritual cap
+27. knotted bamboo headband
+28. red raven beak helmet
+29. stone forehead medallion band
+30. asymmetric moon crown
+31. celestial mesh hood
+32. articulated neck guard helmet
+33. dry lotus seedpod cap
+34. blue fish scale hood
+35. root woven crown
+36. cat eared metal helmet
+37. white antler crown
+38. spiral shell helmet
+39. pine cone crown
+40. black sand cloth hood
+41. gold silk wrapped turban
+42. square jade plaque circlet
+43. rain veil conical hat
+44. bell edged traveling hat
+45. red bark crest helm
+46. arched bridge forehead guard
+47. ice antler crown
+48. iron gate shaped helmet
+49. spiral cloud bun cover
+50. star pointed diadem

@@ -1,0 +1,51 @@
+Use case: stylized-concept. Asset type: pixel RPG inventory sprite atlas. Generate exactly FIFTY DISTINCT cultivation fantasy defensive equipment icons in a strictly regular 10 COLUMN by 5 ROW grid, read left to right then top to bottom. Wide 2:1 canvas. TRUE TRANSPARENT alpha background. Each identical cell contains one isolated centered item, with generous transparent margins; no items crossing cells. Empty equipment only, no people or body parts. Crisp Japanese-inspired 16-bit pixel art with hard edges, compact shapes, forest/jade/ivory/bronze palette plus relevant material accents. Each item is structurally distinct, not a recolor. No text, labels, numbers, frames, grid lines, shadows, ground, background, watermark. Each complete silhouette visible. Respect exact order:
+1. rectangular bamboo shield
+2. hexagonal turtle shell shield
+3. lotus petal round shield
+4. red fish scale kite shield
+5. rough black stone slab shield
+6. silver crescent shield
+7. gold sun wheel shield
+8. faceted ice mirror shield
+9. lightning horn buckler
+10. flame wing shield
+11. ancient tree trunk shield
+12. coral branch oval shield
+13. dragon tooth bordered shield
+14. amber insect round shield
+15. purple crystal star shield
+16. iron leaf shield
+17. bronze drum face shield
+18. snowflake hexagonal shield
+19. sandstone battlement shield
+20. jade woven seaweed shield
+21. whale vertebra round shield
+22. phoenix wing shaped shield
+23. silver mesh rim shield
+24. earth fissure tower shield
+25. black pearl boss shield
+26. cloud ring shield
+27. mountain silhouette bamboo shield
+28. red bird head shaped shield
+29. heart shaped stone shield
+30. moon gate oval shield
+31. interlocking ring shield
+32. folded articulated fan shield
+33. lotus pod buckler
+34. blue fish tail shield
+35. twisted root round shield
+36. cat face buckler
+37. antler edge ivory shield
+38. spiral conch shield
+39. pine cone shaped shield
+40. black sand hourglass shield
+41. gold cocoon oval shield
+42. stitched jade tile shield
+43. rain drop shaped shield
+44. bell rim round shield
+45. red bark shield
+46. bridge arch shield
+47. iceberg triangular shield
+48. steel fist relief shield
+49. spiral cloud shield
+50. star chart circular shield

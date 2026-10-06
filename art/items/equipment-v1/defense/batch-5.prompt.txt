@@ -1,0 +1,51 @@
+Use case: stylized-concept. Asset type: pixel RPG inventory sprite atlas. Generate exactly FIFTY DISTINCT cultivation fantasy defensive equipment icons in a strictly regular 10 COLUMN by 5 ROW grid, read left to right then top to bottom. Wide 2:1 canvas. TRUE TRANSPARENT alpha background. Each identical cell contains one isolated centered item, with generous transparent margins; no items crossing cells. Empty equipment only, no people or body parts. Crisp Japanese-inspired 16-bit pixel art with hard edges, compact shapes, forest/jade/ivory/bronze palette plus relevant material accents. Each item is structurally distinct, not a recolor. No text, labels, numbers, frames, grid lines, shadows, ground, background, watermark. Each complete silhouette visible. Respect exact order:
+1. paired bamboo bracers
+2. turtle shell wrist guards
+3. white feather cuffs
+4. red scale vambraces
+5. black stone forearm guards
+6. silver crescent wrist guards
+7. gold lotus cuffs
+8. ice crystal bracers
+9. lightning etched bracers
+10. flame shaped gauntlets
+11. bark wrapped forearm guards
+12. coral branch cuffs
+13. dragon bone vambraces
+14. amber bead wrist guards
+15. purple crystal forearm guards
+16. iron leaf overlapping bracers
+17. bronze mountain wrist guards
+18. snow fur cuffs
+19. sandcloth wrapped bracers
+20. jade seaweed woven wrist guards
+21. whale bone gauntlets
+22. phoenix feather cuffs
+23. fine silver chain bracers
+24. stone copper vein forearm guards
+25. black pearl clasp cuffs
+26. bamboo sole sandals
+27. turtle shell toe boots
+28. crane wing ankled boots
+29. red scale armored boots
+30. black stone plated boots
+31. silver crescent ankled boots
+32. gold lotus tip shoes
+33. ice crystal heel boots
+34. lightning buckled greaves
+35. flame curled toe boots
+36. bark plated forest boots
+37. coral decorated sea boots
+38. dragon bone shin guards boots
+39. amber clasp soft shoes
+40. purple crystal toe shoes
+41. iron leaf plated greaves
+42. bronze mountain tall boots
+43. snow fur winter boots
+44. sandcloth desert shoes
+45. jade seaweed woven slippers
+46. whale rib armored boots
+47. phoenix feather wing boots
+48. silver mesh high boots
+49. stone vein plated greaves
+50. black pearl ankle clasp shoes

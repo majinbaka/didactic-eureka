@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { collectibleCatalog, RARITIES, STAGE_COLLECTIBLES } from '../game/collectibles'
+import { collectibleCatalog, COLLECTIBLE_KINDS, RARITIES, STAGE_COLLECTIBLES } from '../game/collectibles'
 
 const searchText = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
 
@@ -22,24 +22,24 @@ export default function CollectiblePanel({ counts = {}, onClose }) {
   useEffect(() => { panel.current?.focus() }, [])
   useEffect(() => {
     let active = true
-    const images = [...new Set(collectibleCatalog.map(item => item.image || '/assets/items/forest-collectibles-v1.png'))].map(src => {
+    const images = [...new Set(collectibleCatalog.filter(item => item.kind === kind).map(item => item.image || '/assets/items/forest-collectibles-v1.png'))].map(src => {
       const image = new Image()
       image.onerror = () => { if (active) setImageError(true) }
       image.src = src
       return image
     })
     return () => { active = false; images.forEach(image => { image.onerror = null }) }
-  }, [])
+  }, [kind])
   const visible = collectibleCatalog.filter(item => item.kind === kind && (rarity === 'all' || item.rarity === rarity) && searchText(`${item.name} ${item.description}`).includes(searchText(query.trim())))
   const total = collectibleCatalog.filter(item => item.kind === kind).length
   const discovered = collectibleCatalog.filter(item => item.kind === kind && counts[item.id] > 0).length
   const locations = selected ? Object.values(STAGE_COLLECTIBLES).filter(stage => stage.itemIds.includes(selected.id)).map(stage => stage.name) : []
   return <section ref={panel} tabIndex={-1} className="cultivation-panel collectible-panel" aria-label="Bộ sưu tập vật phẩm" onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation(); onClose() } }}>
     <header><strong>BỘ SƯU TẬP VẬT PHẨM</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
-    <p className="collection-summary">{total} {kind === 'herb' ? 'linh thảo' : 'linh thạch'} · Đã tìm thấy {discovered}/{total}</p>
+    <p className="collection-summary">{total} {COLLECTIBLE_KINDS[kind].toLowerCase()} · Đã tìm thấy {discovered}/{total}</p>
     <div className="collection-filters">
       <label>Tìm kiếm<input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Tên hoặc mô tả vật phẩm…" /></label>
-      <label>Loại<select aria-label="Loại" value={kind} onChange={event => { setKind(event.target.value); setSelected(null) }}><option value="herb">Linh thảo</option><option value="stone">Linh thạch</option></select></label>
+      <label>Loại<select aria-label="Loại" value={kind} onChange={event => { setKind(event.target.value); setSelected(null); setImageError(false) }}>{Object.entries(COLLECTIBLE_KINDS).map(([id, name]) => <option key={id} value={id}>{name}</option>)}</select></label>
       <label>Độ hiếm<select aria-label="Độ hiếm" value={rarity} onChange={event => setRarity(event.target.value)}><option value="all">Tất cả</option>{Object.entries(RARITIES).map(([id, entry]) => <option key={id} value={id}>{entry.name}</option>)}</select></label>
     </div>
     <p className="collection-results" role="status">Hiển thị {visible.length}/{total} loại{imageError ? ' · Không tải được một số ảnh. Hãy thử tải lại khi có kết nối.' : ''}</p>

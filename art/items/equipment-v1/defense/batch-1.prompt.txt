@@ -1,0 +1,51 @@
+Use case: stylized-concept. Asset type: pixel RPG inventory sprite atlas. Generate exactly FIFTY DISTINCT cultivation fantasy defensive equipment icons in a strictly regular 10 COLUMN by 5 ROW grid, read left to right then top to bottom. Wide 2:1 canvas. TRUE TRANSPARENT alpha background. Each identical cell contains one isolated centered item, with generous transparent margins; no items crossing cells. Empty equipment only, no people or body parts. Crisp Japanese-inspired 16-bit pixel art with hard edges, compact shapes, forest/jade/ivory/bronze palette plus relevant material accents. Each item is structurally distinct, not a recolor. No text, labels, numbers, frames, grid lines, shadows, ground, background, watermark. Each complete silhouette visible. Respect exact order:
+1. bamboo slat vest
+2. tortoise shell cuirass
+3. white feather shoulder armor
+4. overlapping red carp scales
+5. basalt stone breastplate
+6. crescent silver plates
+7. gold lotus chestplate
+8. angular ice crystal armor
+9. lightning zigzag pauldrons
+10. flame shaped shoulder plates
+11. oak bark layered vest
+12. branching coral shoulder armor
+13. ribbed dragon bone cuirass
+14. amber resin chestplate
+15. purple crystal shard armor
+16. iron leaf lamellar vest
+17. bronze mountain relief armor
+18. snowflake engraved high collar armor
+19. sandstone segmented armor
+20. jade seaweed woven vest
+21. whale rib chest guard
+22. phoenix feather wing shoulder armor
+23. fine silver mesh armor
+24. stone armor with branching copper veins
+25. black pearl studded cuirass
+26. stepped cloud shaped breastplate
+27. knotted bamboo ring armor
+28. bird beak shaped red shoulder plates
+29. central heart shaped stone breastplate
+30. asymmetric crescent torso armor
+31. interlocking celestial chainmail
+32. many narrow articulated iron bands
+33. dry lotus seed pod armor
+34. blue fishbone lamellar breastplate
+35. twisted root rib armor
+36. cat mask chest insignia armor
+37. antler framed ivory cuirass
+38. spiral seashell chest armor
+39. pine cone scale chestplate
+40. black sand woven padded vest
+41. gold cocoon wrapped cuirass
+42. jade stitched square plated armor
+43. rain droplet studded armor
+44. small bronze bells on shoulder armor
+45. red cinnamon bark cuirass
+46. arched bridge shaped breastplate
+47. ice stalactite studded cuirass
+48. angular fist relief steel armor
+49. spiral cloud embossed bronze armor
+50. astral disc mounted breastplate

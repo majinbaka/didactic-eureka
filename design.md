@@ -79,3 +79,7 @@ Lớp chọn nhân vật hiện trước thoại mở đầu, hiển thị năm 
 ## Bộ sưu tập linh thảo
 
 Bộ sưu tập có 100 linh thảo và hai linh thạch, mặc định mở nhóm linh thảo. Thẻ hiển thị ảnh pixel, tên tiếng Việt, độ hiếm và số đã nhặt. Tìm kiếm hỗ trợ không dấu, bộ lọc loại/độ hiếm co thành hai cột trên màn nhỏ. Chi tiết xuất hiện trước lưới để dễ đọc trong bảng cuộn, có mô tả và điểm rơi hoặc nhãn chưa có điểm rơi. Nút chọn có trạng thái aria-pressed, focus rõ; Escape đóng bảng. Ba atlas mở rộng có ô 64px trong suốt, dùng nearest-neighbor và nguồn ImageGen lưu trong art/items/herbs-expansion-v1.
+
+## Bộ sưu tập vật phẩm tu tiên
+
+Bộ lọc Loại bổ sung Vũ khí tấn công, Trang bị phòng thủ, Trận pháp và Pháp bảo, mỗi nhóm 250 món. Tổng danh mục gồm 1.102 mục khi tính cả linh thảo và linh thạch. Giữ lưới, tìm kiếm không dấu, độ hiếm, focus và Escape của bách khoa hiện có. Mỗi ảnh mới nằm trong atlas 10×5 ô, ô 64px trong suốt; nguồn và prompt lưu tại `art/items/equipment-v1/`. Các vật phẩm mới được ghi rõ chưa có điểm rơi và mô tả chỉ là tư liệu thiết kế, chưa phải hiệu ứng trang bị có thể sử dụng.

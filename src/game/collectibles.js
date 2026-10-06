@@ -1,6 +1,15 @@
 import { herbsA } from './herbs-a.js'
 import { herbsB } from './herbs-b.js'
 import { herbsC } from './herbs-c.js'
+import { weapons } from './collection-weapons.js'
+import { defenses } from './collection-defense.js'
+import { formations } from './collection-formations.js'
+import { treasures } from './collection-treasures.js'
+
+export const COLLECTIBLE_KINDS = {
+  herb: 'Linh thảo', stone: 'Linh thạch', weapon: 'Vũ khí tấn công',
+  defense: 'Trang bị phòng thủ', formation: 'Trận pháp', treasure: 'Pháp bảo',
+}
 
 export const RARITIES = {
   common: { name: 'Phổ thông', color: '#b7c493' },
@@ -21,6 +30,10 @@ export const collectibleCatalog = [
   ...herbsC,
   { id: 'thanh-linh-thach', name: 'Thanh Linh Thạch', kind: 'stone', rarity: 'common', sprite: 6, description: 'Tinh thạch xanh dùng trong tu luyện.' },
   { id: 'tu-tinh-thach', name: 'Tử Tinh Thạch', kind: 'stone', rarity: 'rare', sprite: 7, description: 'Tinh thể tím cô đọng linh lực mạnh.' },
+  ...weapons,
+  ...defenses,
+  ...formations,
+  ...treasures,
 ]
 
 const FIRST_STAGE_SPAWNS = [['thanh-truc-diep', 270]]
@@ -52,5 +65,6 @@ export function collectNearby(collectibles, playerX, playerY = 0, radius = 30) {
 export function collectibleReward(item) {
   if (!item) return { herbs: 0, stones: 0 }
   if (item.kind === 'herb') return { herbs: item.rarity === 'epic' ? 2 : 1, stones: 0 }
-  return { herbs: 0, stones: item.rarity === 'rare' ? 3 : 1 }
+  if (item.kind === 'stone') return { herbs: 0, stones: item.rarity === 'rare' ? 3 : 1 }
+  return { herbs: 0, stones: 0 }
 }

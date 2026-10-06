@@ -1,7 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
-import { collectibleCatalog, collectibleReward, collectNearby, createStageCollectibles, RARITIES, STAGE_COLLECTIBLES } from './collectibles.js'
+import { createHash } from 'node:crypto'
+import { fileURLToPath } from 'node:url'
+import sharp from 'sharp'
+import { collectibleCatalog, collectibleReward, collectNearby, createStageCollectibles, COLLECTIBLE_KINDS, RARITIES, STAGE_COLLECTIBLES } from './collectibles.js'
 
 test('collection contains 100 distinct herbs and preserves both stones', () => {
   assert.equal(collectibleCatalog.filter(item => item.kind === 'herb').length, 100)
@@ -18,6 +21,41 @@ test('collection contains 100 distinct herbs and preserves both stones', () => {
     const slot = `${image}:${item.sprite}`
     assert.ok(!slots.has(slot), `Duplicate image slot: ${slot}`)
     slots.add(slot)
+  }
+})
+
+test('equipment collection contains exactly 1000 catalog-only items in four groups', () => {
+  const kinds = ['weapon', 'defense', 'formation', 'treasure']
+  assert.equal(collectibleCatalog.length, 1102)
+  for (const kind of kinds) {
+    const entries = collectibleCatalog.filter(item => item.kind === kind)
+    assert.equal(entries.length, 250, kind)
+    assert.ok(COLLECTIBLE_KINDS[kind])
+    for (const item of entries) {
+      assert.deepEqual(collectibleReward(item), { herbs: 0, stones: 0 })
+      assert.ok(!Object.values(STAGE_COLLECTIBLES).some(stage => stage.itemIds.includes(item.id)))
+    }
+  }
+})
+
+test('equipment atlases have transparent, nonempty and distinct 64px icons', async () => {
+  const items = collectibleCatalog.filter(item => ['weapon', 'defense', 'formation', 'treasure'].includes(item.kind))
+  const hashes = new Set()
+  for (const image of new Set(items.map(item => item.image))) {
+    const path = fileURLToPath(new URL(`../../public${image}`, import.meta.url))
+    const metadata = await sharp(path).metadata()
+    assert.equal(metadata.width, 640, image)
+    assert.equal(metadata.height, 320, image)
+    assert.ok(metadata.hasAlpha, image)
+    for (const item of items.filter(entry => entry.image === image)) {
+      const { data } = await sharp(path).extract({ left: item.sprite % 10 * 64, top: Math.floor(item.sprite / 10) * 64, width: 64, height: 64 }).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+      const alpha = data.filter((_, index) => index % 4 === 3)
+      assert.ok(alpha.some(value => value > 0), `Empty icon: ${item.id}`)
+      assert.ok(alpha.some(value => value === 0), `Opaque background: ${item.id}`)
+      const hash = createHash('sha256').update(data).digest('hex')
+      assert.ok(!hashes.has(hash), `Repeated icon: ${item.id}`)
+      hashes.add(hash)
+    }
   }
 })
 
