@@ -83,9 +83,9 @@ Không tiêu hao khi máu/linh khí đầy. Hiệu quả hồi bị chặn ở n
 
 ### Linh vật thu thập theo bản đồ
 
-Mỗi bản đồ có bảng vật phẩm riêng; các màn sau có thể mở rộng danh mục. Vật phẩm xuất hiện ở vị trí cố định theo màn, phân thành Phổ thông, Ít gặp, Quý hiếm và Cực phẩm; nhân vật tự nhặt khi chạy chạm qua. Bách khoa thu thập hiển thị ảnh pixel, mô tả, độ hiếm và số điểm xuất hiện đã nhặt trong phiên.
+Mỗi bản đồ có bảng vật phẩm riêng; các màn sau có thể mở rộng danh mục. Vật phẩm xuất hiện ở vị trí cố định theo màn, phân thành Phổ thông, Ít gặp, Quý hiếm và Cực phẩm; nhân vật tự nhặt khi chạy chạm qua. Bách khoa thu thập hiển thị ảnh pixel, mô tả, độ hiếm và tổng số từng nhặt từ bản lưu. Có tìm kiếm tên/mô tả không dấu, lọc loại và độ hiếm, cùng bộ đếm loại đã tìm thấy. Các linh thảo chưa được gắn với màn chơi ghi rõ chưa có điểm rơi; mở rộng danh mục không tự thêm vật phẩm vào bản đồ.
 
-Danh mục có 6 loại linh thảo và 2 loại linh thạch, nhưng Rừng Trúc U Tinh hiện chỉ rơi một Thanh Trúc Diệp. Linh thảo thường quy đổi +1 linh thảo, Tử Vân Chi +2; Thanh Linh Thạch +1 linh thạch, Tử Tinh Thạch +3. Phần thưởng cộng ngay vào tài nguyên save v3 hiện có; trạng thái từng điểm nhặt chỉ tồn tại trong phiên màn chơi và được đặt lại khi chơi lại chương.
+Danh mục có 100 loại linh thảo và 2 loại linh thạch, nhưng Rừng Trúc U Tinh hiện chỉ rơi một Thanh Trúc Diệp. Linh thảo thường quy đổi +1 linh thảo, Tử Vân Chi +2; Thanh Linh Thạch +1 linh thạch, Tử Tinh Thạch +3. Phần thưởng cộng ngay vào tài nguyên save v3 hiện có; trạng thái từng điểm nhặt chỉ tồn tại trong phiên màn chơi và được đặt lại khi chơi lại chương.
 
 ## Vật cản trong chương nhập môn
 

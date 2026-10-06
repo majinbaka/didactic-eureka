@@ -1,0 +1,183 @@
+{
+  "tool": "built-in image_gen",
+  "created": "2026-10-06",
+  "source": "source.png",
+  "prompt": "prompt.txt",
+  "output": "../../../../public/assets/items/herbs-v1/group-a.png",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "atlasSize": [
+    512,
+    256
+  ],
+  "grid": {
+    "columns": 8,
+    "rows": 4,
+    "cell": 64
+  },
+  "packaging": "node scripts/build_herbs_a.mjs; transparent row gaps [0,364,674,952,1254], equal source columns, per-icon trim, 56px contain, nearest-neighbor, preserve alpha",
+  "subjects": [
+    {
+      "id": "kim-lo-thao",
+      "name": "Kim Lộ Thảo",
+      "sprite": 0
+    },
+    {
+      "id": "nguyet-tam-lan",
+      "name": "Nguyệt Tâm Lan",
+      "sprite": 1
+    },
+    {
+      "id": "hoa-phuong-hoa",
+      "name": "Hỏa Phượng Hoa",
+      "sprite": 2
+    },
+    {
+      "id": "bich-tuyen-lien",
+      "name": "Bích Tuyền Liên",
+      "sprite": 3
+    },
+    {
+      "id": "han-tinh-mai",
+      "name": "Hàn Tinh Mai",
+      "sprite": 4
+    },
+    {
+      "id": "huyet-ngoc-qua",
+      "name": "Huyết Ngọc Quả",
+      "sprite": 5
+    },
+    {
+      "id": "phong-linh-diep",
+      "name": "Phong Linh Diệp",
+      "sprite": 6
+    },
+    {
+      "id": "dia-hoang-can",
+      "name": "Địa Hoàng Căn",
+      "sprite": 7
+    },
+    {
+      "id": "ngan-ti-dang",
+      "name": "Ngân Ti Đằng",
+      "sprite": 8
+    },
+    {
+      "id": "thanh-vu-duong-xi",
+      "name": "Thanh Vũ Dương Xỉ",
+      "sprite": 9
+    },
+    {
+      "id": "luu-ly-cuc",
+      "name": "Lưu Ly Cúc",
+      "sprite": 10
+    },
+    {
+      "id": "tu-diep-lan",
+      "name": "Tử Điệp Lan",
+      "sprite": 11
+    },
+    {
+      "id": "xich-diem-chi",
+      "name": "Xích Diễm Chi",
+      "sprite": 12
+    },
+    {
+      "id": "bach-van-nhi",
+      "name": "Bạch Vân Nhĩ",
+      "sprite": 13
+    },
+    {
+      "id": "hoang-sa-sam",
+      "name": "Hoàng Sa Sâm",
+      "sprite": 14
+    },
+    {
+      "id": "hac-truc-nha",
+      "name": "Hắc Trúc Nha",
+      "sprite": 15
+    },
+    {
+      "id": "loi-quang-thao",
+      "name": "Lôi Quang Thảo",
+      "sprite": 16
+    },
+    {
+      "id": "suong-ngan-lien",
+      "name": "Sương Ngân Liên",
+      "sprite": 17
+    },
+    {
+      "id": "tinh-ha-hoa",
+      "name": "Tinh Hà Hoa",
+      "sprite": 18
+    },
+    {
+      "id": "cuu-diep-linh",
+      "name": "Cửu Diệp Linh",
+      "sprite": 19
+    },
+    {
+      "id": "long-tu-can",
+      "name": "Long Tu Căn",
+      "sprite": 20
+    },
+    {
+      "id": "phi-thuy-dang",
+      "name": "Phỉ Thúy Đằng",
+      "sprite": 21
+    },
+    {
+      "id": "hong-nguyet-chi",
+      "name": "Hồng Nguyệt Chi",
+      "sprite": 22
+    },
+    {
+      "id": "tuyet-phach-qua",
+      "name": "Tuyết Phách Quả",
+      "sprite": 23
+    },
+    {
+      "id": "da-minh-lan",
+      "name": "Dạ Minh Lan",
+      "sprite": 24
+    },
+    {
+      "id": "thai-duong-cuc",
+      "name": "Thái Dương Cúc",
+      "sprite": 25
+    },
+    {
+      "id": "mac-lien-thao",
+      "name": "Mặc Liên Thảo",
+      "sprite": 26
+    },
+    {
+      "id": "thien-thanh-tung",
+      "name": "Thiên Thanh Tùng",
+      "sprite": 27
+    },
+    {
+      "id": "ngoc-ho-lo",
+      "name": "Ngọc Hồ Lô",
+      "sprite": 28
+    },
+    {
+      "id": "chu-sa-diep",
+      "name": "Chu Sa Diệp",
+      "sprite": 29
+    },
+    {
+      "id": "lam-hoa-nhi",
+      "name": "Lam Hỏa Nhĩ",
+      "sprite": 30
+    },
+    {
+      "id": "kim-long-sam",
+      "name": "Kim Long Sâm",
+      "sprite": 31
+    }
+  ]
+}

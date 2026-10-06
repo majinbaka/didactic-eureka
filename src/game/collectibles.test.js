@@ -1,6 +1,25 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { collectibleCatalog, collectibleReward, collectNearby, createStageCollectibles, STAGE_COLLECTIBLES } from './collectibles.js'
+import { existsSync } from 'node:fs'
+import { collectibleCatalog, collectibleReward, collectNearby, createStageCollectibles, RARITIES, STAGE_COLLECTIBLES } from './collectibles.js'
+
+test('collection contains 100 distinct herbs and preserves both stones', () => {
+  assert.equal(collectibleCatalog.filter(item => item.kind === 'herb').length, 100)
+  assert.equal(collectibleCatalog.filter(item => item.kind === 'stone').length, 2)
+  assert.equal(new Set(collectibleCatalog.map(item => item.id)).size, collectibleCatalog.length)
+  assert.equal(new Set(collectibleCatalog.map(item => item.name)).size, collectibleCatalog.length)
+  const slots = new Set()
+  for (const item of collectibleCatalog) {
+    assert.ok(item.description && RARITIES[item.rarity], item.id)
+    const columns = item.columns || 4, rows = item.rows || 2
+    const image = item.image || '/assets/items/forest-collectibles-v1.png'
+    assert.ok(Number.isInteger(item.sprite) && item.sprite >= 0 && item.sprite < columns * rows, item.id)
+    assert.ok(existsSync(new URL(`../../public${image}`, import.meta.url)), image)
+    const slot = `${image}:${item.sprite}`
+    assert.ok(!slots.has(slot), `Duplicate image slot: ${slot}`)
+    slots.add(slot)
+  }
+})
 
 test('first stage spawns exactly one herb', () => {
   assert.equal(createStageCollectibles().length, 1)

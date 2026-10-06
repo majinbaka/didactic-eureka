@@ -24,7 +24,7 @@ npm run preview
 ## Bản game hiện có gì?
 
 - Chương mở đầu “Trúc Linh Phong — Thử thách nhập môn” với thoại, vượt Rừng Trúc U Tinh, giải bia đá trận pháp và cuộc đua lên đỉnh núi.
-- Một linh thảo trong màn Rừng Trúc U Tinh; phải chạm trực tiếp mới nhặt và lưu tài nguyên. Bộ sưu tập vẫn mô tả các vật phẩm dự kiến cho màn sau.
+- Một linh thảo trong màn Rừng Trúc U Tinh; phải chạm trực tiếp mới nhặt và lưu tài nguyên. Bộ sưu tập có ảnh và mô tả cho 100 linh thảo cùng 2 linh thạch, hỗ trợ tìm kiếm/lọc; các loại chưa có điểm rơi được ghi rõ.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
 Khi vào game, người chơi chọn diện mạo có sẵn và đặt tên; mỗi nhân vật có tuổi và thọ nguyên riêng. Chương đầu cho đi bộ/chạy, nhảy và ngồi bằng chạm hoặc bàn phím; cụm hành động mobile nằm ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.

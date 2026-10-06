@@ -14,6 +14,8 @@ Thư mục này là bản đọc và tra cứu các chương **đã có trong ga
 
 Ý tưởng thế giới và nội dung dự kiến nằm ở [game-design.md](../../game-design.md).
 
-## Thiết kế cốt truyện dài hạn — đề xuất
+## Thiết kế cốt truyện dài hạn
 
-[STORY FOUNDATION v0.1](planning/foundation-v0.1.md) và [Story Bible Initialization Package](bible/initialization-v0.1.md) là tài liệu Phase 1 đang đề xuất, đã có [critique và một vòng revision](planning/foundation-review-v0.1.md). Tra cứu nguồn/IDs tại [Story Bible](bible/README.md). Nội dung này chưa thay chương chơi được, chưa khóa canon và chưa triển khai.
+[STORY FOUNDATION v0.1/r1](planning/foundation-v0.1.md) đã được người dùng duyệt ở cấp thiết kế ngày 2026-10-05. [Approval và context Arc 1](bible/arc-1-context-v0.1.md) ghi nhận bằng chứng mới, supersede trạng thái chưa duyệt trong snapshot Phase 1. [Initialization Package](bible/initialization-v0.1.md) và [review foundation](planning/foundation-review-v0.1.md) giữ lịch sử nguồn.
+
+[ARC 1 v0.1 — Một nghề để sống](planning/arc-1-v0.1.md) có 17 mục kiến trúc và ba chương, đã qua [review và một vòng revision](planning/arc-1-review-v0.1.md); Arc 1 vẫn là đề xuất chờ duyệt. Tra cứu nguồn/IDs tại [Story Bible](bible/README.md). Chưa viết cảnh chi tiết, chưa thay chương chơi được, chưa canon commit hoặc triển khai.

@@ -1,0 +1,16 @@
+{
+  "generator": "Built-in image_gen",
+  "useCase": "stylized-concept",
+  "generatedSource": "/home/anhnv/.codex/generated_images/01a10eb9-0e7e-7611-b7ce-b2d419f4fee7/exec-7e28934d-28dc-444b-a86b-09671fea0049.png",
+  "source": "source.png",
+  "prompt": "prompt.md",
+  "catalog": "src/game/herbs-c.js",
+  "layout": { "columns": 6, "rows": 5, "cellSize": 64 },
+  "final": "public/assets/items/herbs-v1/group-c.png",
+  "packaging": "node scripts/build_herbs_c.mjs",
+  "processing": "Equal-cell extraction, transparent trim, nearest-neighbor fit within 52px, centered in 64px cells. Generated alpha preserved.",
+  "namingNote": "Second sprite is named Kim Sa Lộ Thảo to distinguish it from the collection's existing Kim Lộ Thảo.",
+  "sourceDimensions": { "width": 1374, "height": 1145 },
+  "finalDimensions": { "width": 384, "height": 320 },
+  "review": "All 30 cells visually inspected; distinct complete plant silhouettes match row-major subjects. No labels or borders."
+}

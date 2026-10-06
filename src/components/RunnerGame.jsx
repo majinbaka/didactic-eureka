@@ -5,10 +5,11 @@ import { joystickInput } from '../game/runnerControls'
 import { accrueOfflineQi, recordStory, breakthroughCosts, characterAge, characterLifespan, characterOption, playableCharacters, realmLabel, createInitialState, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, endingScenes, prologuePhase } from '../game/prologue'
 import { items, itemBlockedReason } from '../game/items'
-import { collectibleCatalog, collectibleReward, RARITIES, STAGE_COLLECTIBLES } from '../game/collectibles'
+import { collectibleCatalog, collectibleReward, RARITIES } from '../game/collectibles'
 import { DECORATIVE_VARIANT_SPRITES, FLOATING_OBSTACLE_SPRITES, OBSTACLE_ATLASES, OBSTACLE_SPRITES, OBSTACLE_TYPE_SPRITES } from '../game/scenerySprites'
 import PwaControls from './PwaControls'
 import StorySpeech from './StorySpeech'
+import CollectiblePanel from './CollectiblePanel'
 
 const SCENERY_ASSETS = {
   background: '/assets/scenery/underworld-bamboo-v1/bamboo-forest-background.webp',
@@ -18,19 +19,6 @@ const SCENERY_ASSETS = {
   obstacleTypes: OBSTACLE_ATLASES.types,
   floatingObstacle: '/assets/scenery/floating-obstacle-v1/floating-platform.webp',
   collectibles: '/assets/items/forest-collectibles-v1.png',
-}
-
-function CollectibleIcon({ item }) {
-  return <i className="collectible-icon" aria-hidden="true" style={{ backgroundPosition: `${(item.sprite % 4) * 100 / 3}% ${Math.floor(item.sprite / 4) * 100}%` }} />
-}
-
-function CollectiblePanel({ counts, onClose }) {
-  const [selected, setSelected] = useState(null)
-  return <section className="cultivation-panel collectible-panel" aria-label="Bộ sưu tập vật phẩm">
-    <header><strong>BỘ SƯU TẬP VẬT PHẨM</strong><button onClick={onClose} aria-label="Đóng bảng">×</button></header>
-    <div className="collectible-list">{collectibleCatalog.map(item => <button type="button" key={item.id} className="collection-tile" onClick={() => setSelected(item)}><CollectibleIcon item={item} /><strong>{item.name}</strong></button>)}</div>
-    {selected && <div className="collection-detail"><CollectibleIcon item={selected} /><div><h3>{selected.name}</h3><p>{selected.description}</p><p>Có thể nhặt tại: {Object.values(STAGE_COLLECTIBLES).filter(stage => stage.itemIds.includes(selected.id)).map(stage => stage.name).join(', ')}</p><p>Tổng số đã từng nhặt: <b>{counts[selected.id] || 0}</b></p></div></div>}
-  </section>
 }
 
 function ElementRadar({ progress }) {

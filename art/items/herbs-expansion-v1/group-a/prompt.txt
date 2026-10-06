@@ -1,0 +1,36 @@
+Use case: stylized-concept. Asset type: pixel-art fantasy herb inventory sprite atlas for a Vietnamese cultivation JRPG.
+Create ONE 1024x1024 PNG with genuinely transparent background, EXACTLY 8 columns and 4 rows, 32 different isolated complete plant icons. Equal cells 128 pixels wide and 256 pixels tall, row-major order. Each sprite centered in its assigned cell with generous transparent margins, occupies approximately 90 pixels wide and 130 pixels high. Keep every sprite wholly inside its own cell; no overlaps. No titles, labels, numbers, borders, grid lines, ground tiles, pots, scenery or watermark.
+Style: traditional Japanese 16-bit JRPG pixel art, clearly visible square pixels, hard dark pixel outlines, compact readable silhouettes, small palette with forest greens, jade, ivory, copper, gold and gem-color accents. Herbs, flowers, roots and fungi look distinct. Avoid smooth vector, painterly shading, blur, soft gradients.
+The exact 32 subjects in row-major order, numbered only for instructions (DO NOT draw the numbers):
+1. golden dewy grass with narrow green blades
+2. white moon orchid with curved green leaves
+3. orange phoenix-shaped flower
+4. turquoise lotus with round leaves
+5. icy blue plum blossom sprig
+6. red ruby berry cluster
+7. spiral lime-green leaf sprig
+8. ochre knotted medicinal root
+9. silver curling vine
+10. feathery teal fern
+11. blue crystalline chrysanthemum
+12. purple butterfly orchid
+13. red flame bracket fungus
+14. cloudlike white ear mushroom
+15. golden desert ginseng root
+16. black bamboo shoot
+17. electric yellow zigzag grass
+18. silver frosted lotus
+19. dark blue flower with star-shaped petals
+20. nine distinct emerald leaves on one plant
+21. branching amber dragon-whisker roots
+22. jade vine with three heart leaves
+23. pink crescent-shaped fungus
+24. white frost berry cluster
+25. luminous pale cyan orchid
+26. gold and red sunflower
+27. black lotus with purple highlights
+28. small sky-blue pine sprig
+29. green pear-shaped gourd with vine
+30. crimson leaf branch
+31. bright blue flame ear mushroom
+32. golden dragon-shaped ginseng root

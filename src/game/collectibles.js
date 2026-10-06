@@ -1,3 +1,7 @@
+import { herbsA } from './herbs-a.js'
+import { herbsB } from './herbs-b.js'
+import { herbsC } from './herbs-c.js'
+
 export const RARITIES = {
   common: { name: 'Phổ thông', color: '#b7c493' },
   uncommon: { name: 'Ít gặp', color: '#79c9a5' },
@@ -12,6 +16,9 @@ export const collectibleCatalog = [
   { id: 'u-minh-co', name: 'U Minh Cô', kind: 'herb', rarity: 'uncommon', sprite: 3, description: 'Nấm lam phát sáng dưới bóng trúc.' },
   { id: 'bach-ngoc-sam', name: 'Bạch Ngọc Sâm', kind: 'herb', rarity: 'rare', sprite: 4, description: 'Linh sâm trắng có rễ như ngọc.' },
   { id: 'tu-van-chi', name: 'Tử Vân Chi', kind: 'herb', rarity: 'epic', sprite: 5, description: 'Linh chi tím chỉ hiện giữa mây núi.' },
+  ...herbsA,
+  ...herbsB,
+  ...herbsC,
   { id: 'thanh-linh-thach', name: 'Thanh Linh Thạch', kind: 'stone', rarity: 'common', sprite: 6, description: 'Tinh thạch xanh dùng trong tu luyện.' },
   { id: 'tu-tinh-thach', name: 'Tử Tinh Thạch', kind: 'stone', rarity: 'rare', sprite: 7, description: 'Tinh thể tím cô đọng linh lực mạnh.' },
 ]

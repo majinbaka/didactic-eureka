@@ -75,3 +75,7 @@ Bộ sưu tập là lưới ảnh/tên vật phẩm; chọn ô mở nơi nhặt 
 ## Chọn nhân vật
 
 Lớp chọn nhân vật hiện trước thoại mở đầu, hiển thị năm diện mạo, tuổi và thọ nguyên khởi đầu; tên có thể sửa trong ô nhập. Hồ sơ có nút chỉnh lại nhân vật. Trên màn hẹp, lưới chuyển thành ba cột và nội dung cuộn trong viewport.
+
+## Bộ sưu tập linh thảo
+
+Bộ sưu tập có 100 linh thảo và hai linh thạch, mặc định mở nhóm linh thảo. Thẻ hiển thị ảnh pixel, tên tiếng Việt, độ hiếm và số đã nhặt. Tìm kiếm hỗ trợ không dấu, bộ lọc loại/độ hiếm co thành hai cột trên màn nhỏ. Chi tiết xuất hiện trước lưới để dễ đọc trong bảng cuộn, có mô tả và điểm rơi hoặc nhãn chưa có điểm rơi. Nút chọn có trạng thái aria-pressed, focus rõ; Escape đóng bảng. Ba atlas mở rộng có ô 64px trong suốt, dùng nearest-neighbor và nguồn ImageGen lưu trong art/items/herbs-expansion-v1.
