@@ -1,0 +1,255 @@
+{
+  "beastId": "nguyet-tho",
+  "source": "art/beasts/effects-v1/mystic/nguyet-tho-source.png",
+  "name": "Nguyệt Thố",
+  "skillMotion": "linear",
+  "travelSpeed": 320,
+  "origin": {
+    "x": 89,
+    "y": 62
+  },
+  "attackOffset": {
+    "x": 86,
+    "y": 71
+  },
+  "notes": "Vệt quyền gắn trước chân trước; nguyệt nha sinh ở trước trán rồi bay theo đường cong do gameplay quyết định. Vòng trăng đặt tại vùng dư ảnh.",
+  "version": 1,
+  "skillName": "Hồi Nguyệt Nha",
+  "image": "/assets/beasts/effects-v1/nguyet-tho/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/nguyet-tho/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/nguyet-tho/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/nguyet-tho/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/nguyet-tho/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/nguyet-tho/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/nguyet-tho/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 58,
+      "top": 60,
+      "width": 219,
+      "height": 143
+    },
+    {
+      "left": 371,
+      "top": 48,
+      "width": 303,
+      "height": 184
+    },
+    {
+      "left": 707,
+      "top": 18,
+      "width": 319,
+      "height": 219
+    },
+    {
+      "left": 1087,
+      "top": 32,
+      "width": 280,
+      "height": 185
+    },
+    {
+      "left": 120,
+      "top": 297,
+      "width": 122,
+      "height": 121
+    },
+    {
+      "left": 430,
+      "top": 276,
+      "width": 213,
+      "height": 177
+    },
+    {
+      "left": 764,
+      "top": 249,
+      "width": 226,
+      "height": 214
+    },
+    {
+      "left": 1114,
+      "top": 249,
+      "width": 246,
+      "height": 211
+    },
+    {
+      "left": 59,
+      "top": 500,
+      "width": 188,
+      "height": 113
+    },
+    {
+      "left": 371,
+      "top": 504,
+      "width": 296,
+      "height": 117
+    },
+    {
+      "left": 709,
+      "top": 507,
+      "width": 309,
+      "height": 132
+    },
+    {
+      "left": 1064,
+      "top": 495,
+      "width": 311,
+      "height": 144
+    },
+    {
+      "left": 55,
+      "top": 673,
+      "width": 225,
+      "height": 195
+    },
+    {
+      "left": 359,
+      "top": 644,
+      "width": 317,
+      "height": 224
+    },
+    {
+      "left": 722,
+      "top": 673,
+      "width": 318,
+      "height": 211
+    },
+    {
+      "left": 1098,
+      "top": 678,
+      "width": 270,
+      "height": 202
+    },
+    {
+      "left": 55,
+      "top": 902,
+      "width": 225,
+      "height": 197
+    },
+    {
+      "left": 412,
+      "top": 898,
+      "width": 245,
+      "height": 208
+    },
+    {
+      "left": 773,
+      "top": 916,
+      "width": 230,
+      "height": 188
+    },
+    {
+      "left": 1124,
+      "top": 914,
+      "width": 215,
+      "height": 183
+    }
+  ]
+}

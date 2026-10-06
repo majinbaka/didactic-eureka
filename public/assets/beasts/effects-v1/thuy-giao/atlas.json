@@ -1,0 +1,255 @@
+{
+  "beastId": "thuy-giao",
+  "source": "art/beasts/effects-v1/mystic/thuy-giao-source.png",
+  "name": "Thủy Giao",
+  "skillMotion": "linear",
+  "travelSpeed": 220,
+  "origin": {
+    "x": 94,
+    "y": 69
+  },
+  "attackOffset": {
+    "x": 88,
+    "y": 82
+  },
+  "notes": "Tụ nước trước chân; xoáy nước là đối tượng riêng tiến theo hướng ngắm. Vệt đuôi gắn cạnh thân, impact dùng tại tâm xoáy.",
+  "version": 1,
+  "skillName": "Thăng Long Thủy",
+  "image": "/assets/beasts/effects-v1/thuy-giao/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/thuy-giao/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/thuy-giao/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/thuy-giao/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/thuy-giao/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/thuy-giao/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/thuy-giao/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 63,
+      "top": 60,
+      "width": 216,
+      "height": 136
+    },
+    {
+      "left": 377,
+      "top": 59,
+      "width": 296,
+      "height": 158
+    },
+    {
+      "left": 716,
+      "top": 33,
+      "width": 304,
+      "height": 192
+    },
+    {
+      "left": 1089,
+      "top": 41,
+      "width": 268,
+      "height": 167
+    },
+    {
+      "left": 127,
+      "top": 301,
+      "width": 117,
+      "height": 114
+    },
+    {
+      "left": 432,
+      "top": 282,
+      "width": 198,
+      "height": 155
+    },
+    {
+      "left": 773,
+      "top": 256,
+      "width": 217,
+      "height": 196
+    },
+    {
+      "left": 1112,
+      "top": 241,
+      "width": 237,
+      "height": 209
+    },
+    {
+      "left": 63,
+      "top": 507,
+      "width": 178,
+      "height": 116
+    },
+    {
+      "left": 370,
+      "top": 507,
+      "width": 290,
+      "height": 119
+    },
+    {
+      "left": 715,
+      "top": 499,
+      "width": 296,
+      "height": 133
+    },
+    {
+      "left": 1070,
+      "top": 487,
+      "width": 299,
+      "height": 145
+    },
+    {
+      "left": 52,
+      "top": 675,
+      "width": 240,
+      "height": 190
+    },
+    {
+      "left": 361,
+      "top": 645,
+      "width": 315,
+      "height": 235
+    },
+    {
+      "left": 728,
+      "top": 679,
+      "width": 312,
+      "height": 200
+    },
+    {
+      "left": 1098,
+      "top": 682,
+      "width": 259,
+      "height": 194
+    },
+    {
+      "left": 68,
+      "top": 886,
+      "width": 223,
+      "height": 212
+    },
+    {
+      "left": 421,
+      "top": 901,
+      "width": 230,
+      "height": 193
+    },
+    {
+      "left": 783,
+      "top": 924,
+      "width": 205,
+      "height": 155
+    },
+    {
+      "left": 1132,
+      "top": 921,
+      "width": 198,
+      "height": 176
+    }
+  ]
+}

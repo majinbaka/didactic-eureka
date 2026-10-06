@@ -1,0 +1,255 @@
+{
+  "beastId": "bach-mi-vien",
+  "source": "art/beasts/effects-v1/ancient/bach-mi-vien-source.png",
+  "name": "Bạch Mi Viên",
+  "skillMotion": "beam",
+  "travelSpeed": 0,
+  "origin": {
+    "x": 96,
+    "y": 62
+  },
+  "attackOffset": {
+    "x": 110,
+    "y": 65
+  },
+  "notes": "Tọa độ tương đối trong ô thân 128×128, trục x sang phải và y xuống dưới. Đặt tâm charge tại origin (96, 62); đặt tâm melee tại attackOffset (110, 65). Lật x quanh 64 khi quái quay trái. Tách projectile, hit và residual thành đối tượng hiệu ứng riêng; metadata gợi ý, chưa tích hợp sát thương. Kéo dài đoạn tia/vách theo tầm chiêu, đặt điểm bắt đầu tại origin; travelSpeed 0.",
+  "version": 1,
+  "skillName": "Bạch Mi Bích",
+  "image": "/assets/beasts/effects-v1/bach-mi-vien/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/bach-mi-vien/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/bach-mi-vien/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/bach-mi-vien/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/bach-mi-vien/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 8,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/bach-mi-vien/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/bach-mi-vien/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 27,
+      "top": 108,
+      "width": 234,
+      "height": 149
+    },
+    {
+      "left": 294,
+      "top": 86,
+      "width": 259,
+      "height": 187
+    },
+    {
+      "left": 562,
+      "top": 72,
+      "width": 272,
+      "height": 212
+    },
+    {
+      "left": 865,
+      "top": 100,
+      "width": 238,
+      "height": 163
+    },
+    {
+      "left": 48,
+      "top": 356,
+      "width": 201,
+      "height": 192
+    },
+    {
+      "left": 312,
+      "top": 348,
+      "width": 217,
+      "height": 204
+    },
+    {
+      "left": 586,
+      "top": 342,
+      "width": 222,
+      "height": 231
+    },
+    {
+      "left": 870,
+      "top": 346,
+      "width": 215,
+      "height": 219
+    },
+    {
+      "left": 61,
+      "top": 642,
+      "width": 185,
+      "height": 158
+    },
+    {
+      "left": 323,
+      "top": 644,
+      "width": 234,
+      "height": 164
+    },
+    {
+      "left": 594,
+      "top": 646,
+      "width": 256,
+      "height": 165
+    },
+    {
+      "left": 895,
+      "top": 645,
+      "width": 194,
+      "height": 155
+    },
+    {
+      "left": 75,
+      "top": 918,
+      "width": 137,
+      "height": 130
+    },
+    {
+      "left": 312,
+      "top": 874,
+      "width": 200,
+      "height": 205
+    },
+    {
+      "left": 569,
+      "top": 858,
+      "width": 272,
+      "height": 262
+    },
+    {
+      "left": 882,
+      "top": 888,
+      "width": 204,
+      "height": 193
+    },
+    {
+      "left": 66,
+      "top": 1141,
+      "width": 169,
+      "height": 208
+    },
+    {
+      "left": 313,
+      "top": 1134,
+      "width": 231,
+      "height": 222
+    },
+    {
+      "left": 594,
+      "top": 1133,
+      "width": 225,
+      "height": 224
+    },
+    {
+      "left": 895,
+      "top": 1145,
+      "width": 184,
+      "height": 205
+    }
+  ]
+}

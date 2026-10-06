@@ -1,0 +1,162 @@
+[
+  {
+    "beastId": "loi-ung",
+    "source": "art/beasts/effects-v1/mystic/loi-ung-source.png",
+    "name": "Lôi Ưng",
+    "skillMotion": "beam",
+    "travelSpeed": 0,
+    "origin": {
+      "x": 91,
+      "y": 51
+    },
+    "attackOffset": {
+      "x": 94,
+      "y": 76
+    },
+    "notes": "Gắn tụ lực trước mỏ; kéo đoạn sét theo hướng ngắm. Vết trảo đặt trước chân, impact tại điểm trúng; không vẽ thêm thân chim."
+  },
+  {
+    "beastId": "han-quy",
+    "source": "art/beasts/effects-v1/mystic/han-quy-source.png",
+    "name": "Hàn Quy",
+    "skillMotion": "beam",
+    "travelSpeed": 0,
+    "origin": {
+      "x": 96,
+      "y": 64
+    },
+    "attackOffset": {
+      "x": 90,
+      "y": 88
+    },
+    "notes": "Gắn tụ lực và luồng sương trước miệng. Impact đặt ở đầu vùng lạnh; dư ảnh băng neo gần mặt đất."
+  },
+  {
+    "beastId": "hoa-thiem",
+    "source": "art/beasts/effects-v1/mystic/hoa-thiem-source.png",
+    "name": "Hỏa Thiềm",
+    "skillMotion": "ground",
+    "travelSpeed": 250,
+    "origin": {
+      "x": 92,
+      "y": 72
+    },
+    "attackOffset": {
+      "x": 93,
+      "y": 80
+    },
+    "notes": "Đặt roi lửa trước miệng; tạo từng Dung Châu riêng theo hướng nhìn rồi dùng quỹ đạo nảy. Impact và tàn lửa neo tại chỗ chạm."
+  },
+  {
+    "beastId": "kim-xa",
+    "source": "art/beasts/effects-v1/mystic/kim-xa-source.png",
+    "name": "Kim Xà",
+    "skillMotion": "linear",
+    "travelSpeed": 510,
+    "origin": {
+      "x": 93,
+      "y": 55
+    },
+    "attackOffset": {
+      "x": 94,
+      "y": 65
+    },
+    "notes": "Tụ lực trước đầu; châm kim sinh từ miệng và bay thẳng. Vệt nanh chỉ là ánh kim, không kèm đầu rắn."
+  },
+  {
+    "beastId": "thuy-giao",
+    "source": "art/beasts/effects-v1/mystic/thuy-giao-source.png",
+    "name": "Thủy Giao",
+    "skillMotion": "linear",
+    "travelSpeed": 220,
+    "origin": {
+      "x": 94,
+      "y": 69
+    },
+    "attackOffset": {
+      "x": 88,
+      "y": 82
+    },
+    "notes": "Tụ nước trước chân; xoáy nước là đối tượng riêng tiến theo hướng ngắm. Vệt đuôi gắn cạnh thân, impact dùng tại tâm xoáy."
+  },
+  {
+    "beastId": "nham-te",
+    "source": "art/beasts/effects-v1/mystic/nham-te-source.png",
+    "name": "Nham Tê",
+    "skillMotion": "ground",
+    "travelSpeed": 190,
+    "origin": {
+      "x": 82,
+      "y": 105
+    },
+    "attackOffset": {
+      "x": 92,
+      "y": 83
+    },
+    "notes": "Vệt sừng neo trước đầu; khe lửa đặt sát mặt đứng rồi phát đoạn nối theo hướng nhìn. Impact dùng tại đoạn cuối, tránh nâng cả quái theo FX."
+  },
+  {
+    "beastId": "nguyet-tho",
+    "source": "art/beasts/effects-v1/mystic/nguyet-tho-source.png",
+    "name": "Nguyệt Thố",
+    "skillMotion": "linear",
+    "travelSpeed": 320,
+    "origin": {
+      "x": 89,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 86,
+      "y": 71
+    },
+    "notes": "Vệt quyền gắn trước chân trước; nguyệt nha sinh ở trước trán rồi bay theo đường cong do gameplay quyết định. Vòng trăng đặt tại vùng dư ảnh."
+  },
+  {
+    "beastId": "anh-mieu",
+    "source": "art/beasts/effects-v1/mystic/anh-mieu-source.png",
+    "name": "Ảnh Miêu",
+    "skillMotion": "linear",
+    "travelSpeed": 370,
+    "origin": {
+      "x": 92,
+      "y": 69
+    },
+    "attackOffset": {
+      "x": 95,
+      "y": 82
+    },
+    "notes": "Tụ ảnh trước ngực; làn khói bay dùng cho Ảnh Tập, gameplay có thể ghép thân phân ảnh riêng. FX không chứa hình mèo."
+  },
+  {
+    "beastId": "sa-hat",
+    "source": "art/beasts/effects-v1/mystic/sa-hat-source.png",
+    "name": "Sa Hạt",
+    "skillMotion": "ground",
+    "travelSpeed": 170,
+    "origin": {
+      "x": 87,
+      "y": 105
+    },
+    "attackOffset": {
+      "x": 93,
+      "y": 67
+    },
+    "notes": "Vệt châm neo trên đầu và phía trước; ụ cát đặt sát mặt đất, dịch từng đoạn theo hướng nhìn. Impact và bụi dư ở vị trí phun."
+  },
+  {
+    "beastId": "van-hau",
+    "source": "art/beasts/effects-v1/mystic/van-hau-source.png",
+    "name": "Vân Hầu",
+    "skillMotion": "linear",
+    "travelSpeed": 280,
+    "origin": {
+      "x": 88,
+      "y": 65
+    },
+    "attackOffset": {
+      "x": 87,
+      "y": 77
+    },
+    "notes": "Tụ mây trước hai tay; khối mây sinh trước ngực rồi bay độc lập. Vệt quyền và impact đặt tại chỗ nện, tàn mây cuộn riêng."
+  }
+]

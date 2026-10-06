@@ -1,0 +1,255 @@
+{
+  "beastId": "hoa-thiem",
+  "source": "art/beasts/effects-v1/mystic/hoa-thiem-source.png",
+  "name": "Hỏa Thiềm",
+  "skillMotion": "ground",
+  "travelSpeed": 250,
+  "origin": {
+    "x": 92,
+    "y": 72
+  },
+  "attackOffset": {
+    "x": 93,
+    "y": 80
+  },
+  "notes": "Đặt roi lửa trước miệng; tạo từng Dung Châu riêng theo hướng nhìn rồi dùng quỹ đạo nảy. Impact và tàn lửa neo tại chỗ chạm.",
+  "version": 1,
+  "skillName": "Dung Châu",
+  "image": "/assets/beasts/effects-v1/hoa-thiem/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/hoa-thiem/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-thiem/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-thiem/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-thiem/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 112
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-thiem/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-thiem/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 112
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 30,
+      "top": 51,
+      "width": 294,
+      "height": 139
+    },
+    {
+      "left": 371,
+      "top": 43,
+      "width": 288,
+      "height": 152
+    },
+    {
+      "left": 711,
+      "top": 18,
+      "width": 319,
+      "height": 185
+    },
+    {
+      "left": 1064,
+      "top": 14,
+      "width": 317,
+      "height": 193
+    },
+    {
+      "left": 97,
+      "top": 257,
+      "width": 153,
+      "height": 143
+    },
+    {
+      "left": 436,
+      "top": 244,
+      "width": 187,
+      "height": 161
+    },
+    {
+      "left": 775,
+      "top": 238,
+      "width": 204,
+      "height": 180
+    },
+    {
+      "left": 1110,
+      "top": 231,
+      "width": 256,
+      "height": 191
+    },
+    {
+      "left": 20,
+      "top": 478,
+      "width": 309,
+      "height": 133
+    },
+    {
+      "left": 397,
+      "top": 467,
+      "width": 278,
+      "height": 160
+    },
+    {
+      "left": 717,
+      "top": 465,
+      "width": 300,
+      "height": 162
+    },
+    {
+      "left": 1058,
+      "top": 459,
+      "width": 325,
+      "height": 168
+    },
+    {
+      "left": 84,
+      "top": 685,
+      "width": 188,
+      "height": 174
+    },
+    {
+      "left": 385,
+      "top": 669,
+      "width": 263,
+      "height": 206
+    },
+    {
+      "left": 720,
+      "top": 644,
+      "width": 309,
+      "height": 247
+    },
+    {
+      "left": 1063,
+      "top": 644,
+      "width": 322,
+      "height": 251
+    },
+    {
+      "left": 64,
+      "top": 937,
+      "width": 213,
+      "height": 137
+    },
+    {
+      "left": 386,
+      "top": 921,
+      "width": 271,
+      "height": 167
+    },
+    {
+      "left": 706,
+      "top": 928,
+      "width": 311,
+      "height": 176
+    },
+    {
+      "left": 1063,
+      "top": 931,
+      "width": 317,
+      "height": 174
+    }
+  ]
+}

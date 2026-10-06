@@ -110,3 +110,7 @@ Cuộc tuyển chọn có hàng trăm thí sinh trong cốt truyện; màn chạ
 ## Thư viện 30 yêu thú v1
 
 Ba nhóm yêu thú rừng, linh thú và cổ thú có silhouette, thuộc tính, đòn thường và chiêu riêng; danh mục `src/game/beastRoster.json`. Mỗi atlas 4×5 ô 128px có 20 frame cho bảy động tác; manifest định nghĩa frames, fps, loop và neo. `src/game/beasts.js` chọn frame thuần, các chiêu dừng ở frame cuối. Tầm và hồi chiêu trong danh mục là trị số thiết kế; chưa có sát thương, hitbox, AI hoặc spawn trong chương nhập môn. Bộ sưu tập chỉ xem tư liệu, không đổi schema save hoặc thống kê đã nhặt. Chi tiết và nguồn ở `art/beasts/README.md`.
+
+## Asset mechanic yêu thú độc lập
+
+`public/assets/beasts/effects-v1/` có clip melee/charge/travel/impact/field riêng cho cả 30 yêu thú, mỗi clip bốn frame; metadata nối bằng beastId và định nghĩa neo, hướng, điểm phát cùng nhóm chuyển động. `src/game/beastEffects.js` chỉ lookup/chọn frame. Đây là bộ ảnh để ghép sau; entity đạn, hitbox, lifetime, sát thương và AI chưa được thêm. Thân quái v1 vẫn giữ hiệu ứng gắn trong pose; khi dùng FX tách lớp cần tránh vẽ trùng. Chi tiết tại `art/beasts/effects-v1/README.md`.

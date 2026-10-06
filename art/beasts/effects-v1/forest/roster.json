@@ -1,0 +1,162 @@
+[
+  {
+    "beastId": "truc-lang",
+    "source": "art/beasts/effects-v1/forest/truc-lang-source.png",
+    "name": "Hiệu ứng Trúc Lang",
+    "skillMotion": "linear",
+    "travelSpeed": 440,
+    "origin": {
+      "x": 110,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 82
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "moc-ho",
+    "source": "art/beasts/effects-v1/forest/moc-ho-source.png",
+    "name": "Hiệu ứng Mộc Hồ",
+    "skillMotion": "linear",
+    "travelSpeed": 280,
+    "origin": {
+      "x": 110,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 106
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "thach-tru",
+    "source": "art/beasts/effects-v1/forest/thach-tru-source.png",
+    "name": "Hiệu ứng Thạch Trư",
+    "skillMotion": "ground",
+    "travelSpeed": 240,
+    "origin": {
+      "x": 110,
+      "y": 118
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 96
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập sinh nối sát đất trên tuyến. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "doc-chu",
+    "source": "art/beasts/effects-v1/forest/doc-chu-source.png",
+    "name": "Hiệu ứng Độc Chu",
+    "skillMotion": "linear",
+    "travelSpeed": 320,
+    "origin": {
+      "x": 110,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 98
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "linh-loc",
+    "source": "art/beasts/effects-v1/forest/linh-loc-source.png",
+    "name": "Hiệu ứng Linh Lộc",
+    "skillMotion": "ground",
+    "travelSpeed": 250,
+    "origin": {
+      "x": 110,
+      "y": 118
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 70
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập sinh nối sát đất trên tuyến. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "son-hung",
+    "source": "art/beasts/effects-v1/forest/son-hung-source.png",
+    "name": "Hiệu ứng Sơn Hùng",
+    "skillMotion": "ground",
+    "travelSpeed": 390,
+    "origin": {
+      "x": 110,
+      "y": 118
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 108
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập sinh nối sát đất trên tuyến. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "phong-duong",
+    "source": "art/beasts/effects-v1/forest/phong-duong-source.png",
+    "name": "Hiệu ứng Phong Dương",
+    "skillMotion": "linear",
+    "travelSpeed": 300,
+    "origin": {
+      "x": 110,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 86
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "hoa-dieu",
+    "source": "art/beasts/effects-v1/forest/hoa-dieu-source.png",
+    "name": "Hiệu ứng Hỏa Điêu",
+    "skillMotion": "linear",
+    "travelSpeed": 510,
+    "origin": {
+      "x": 110,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 60
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "bang-ho",
+    "source": "art/beasts/effects-v1/forest/bang-ho-source.png",
+    "name": "Hiệu ứng Băng Hổ",
+    "skillMotion": "ground",
+    "travelSpeed": 360,
+    "origin": {
+      "x": 110,
+      "y": 118
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 90
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập sinh nối sát đất trên tuyến. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  },
+  {
+    "beastId": "am-buc",
+    "source": "art/beasts/effects-v1/forest/am-buc-source.png",
+    "name": "Hiệu ứng Âm Bức",
+    "skillMotion": "linear",
+    "travelSpeed": 460,
+    "origin": {
+      "x": 110,
+      "y": 62
+    },
+    "attackOffset": {
+      "x": 118,
+      "y": 84
+    },
+    "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị."
+  }
+]

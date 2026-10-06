@@ -1,0 +1,255 @@
+{
+  "beastId": "thach-tru",
+  "source": "art/beasts/effects-v1/forest/thach-tru-source.png",
+  "name": "Thạch Trư",
+  "skillMotion": "ground",
+  "travelSpeed": 240,
+  "origin": {
+    "x": 110,
+    "y": 118
+  },
+  "attackOffset": {
+    "x": 118,
+    "y": 96
+  },
+  "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập sinh nối sát đất trên tuyến. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị.",
+  "version": 1,
+  "skillName": "Địa Trụ Trồi",
+  "image": "/assets/beasts/effects-v1/thach-tru/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/thach-tru/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/thach-tru/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/thach-tru/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/thach-tru/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 112
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/thach-tru/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/thach-tru/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 112
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 73,
+      "top": 123,
+      "width": 149,
+      "height": 133
+    },
+    {
+      "left": 326,
+      "top": 93,
+      "width": 188,
+      "height": 170
+    },
+    {
+      "left": 593,
+      "top": 75,
+      "width": 224,
+      "height": 209
+    },
+    {
+      "left": 899,
+      "top": 113,
+      "width": 161,
+      "height": 151
+    },
+    {
+      "left": 81,
+      "top": 396,
+      "width": 123,
+      "height": 126
+    },
+    {
+      "left": 328,
+      "top": 366,
+      "width": 187,
+      "height": 179
+    },
+    {
+      "left": 602,
+      "top": 367,
+      "width": 198,
+      "height": 181
+    },
+    {
+      "left": 876,
+      "top": 350,
+      "width": 203,
+      "height": 215
+    },
+    {
+      "left": 61,
+      "top": 650,
+      "width": 184,
+      "height": 136
+    },
+    {
+      "left": 323,
+      "top": 652,
+      "width": 205,
+      "height": 128
+    },
+    {
+      "left": 588,
+      "top": 653,
+      "width": 219,
+      "height": 134
+    },
+    {
+      "left": 884,
+      "top": 658,
+      "width": 192,
+      "height": 124
+    },
+    {
+      "left": 63,
+      "top": 921,
+      "width": 160,
+      "height": 143
+    },
+    {
+      "left": 317,
+      "top": 872,
+      "width": 210,
+      "height": 198
+    },
+    {
+      "left": 578,
+      "top": 862,
+      "width": 250,
+      "height": 224
+    },
+    {
+      "left": 886,
+      "top": 888,
+      "width": 181,
+      "height": 179
+    },
+    {
+      "left": 58,
+      "top": 1188,
+      "width": 182,
+      "height": 136
+    },
+    {
+      "left": 323,
+      "top": 1156,
+      "width": 206,
+      "height": 170
+    },
+    {
+      "left": 612,
+      "top": 1200,
+      "width": 178,
+      "height": 125
+    },
+    {
+      "left": 897,
+      "top": 1188,
+      "width": 169,
+      "height": 137
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "beastId": "hoa-dieu",
+  "source": "art/beasts/effects-v1/forest/hoa-dieu-source.png",
+  "name": "Hỏa Điêu",
+  "skillMotion": "linear",
+  "travelSpeed": 510,
+  "origin": {
+    "x": 110,
+    "y": 62
+  },
+  "attackOffset": {
+    "x": 118,
+    "y": 60
+  },
+  "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị.",
+  "version": 1,
+  "skillName": "Hỏa Vũ Liên",
+  "image": "/assets/beasts/effects-v1/hoa-dieu/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/hoa-dieu/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-dieu/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-dieu/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-dieu/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-dieu/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/hoa-dieu/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 60,
+      "top": 93,
+      "width": 147,
+      "height": 171
+    },
+    {
+      "left": 306,
+      "top": 78,
+      "width": 233,
+      "height": 194
+    },
+    {
+      "left": 598,
+      "top": 45,
+      "width": 232,
+      "height": 247
+    },
+    {
+      "left": 882,
+      "top": 80,
+      "width": 205,
+      "height": 190
+    },
+    {
+      "left": 82,
+      "top": 397,
+      "width": 102,
+      "height": 116
+    },
+    {
+      "left": 311,
+      "top": 345,
+      "width": 188,
+      "height": 197
+    },
+    {
+      "left": 595,
+      "top": 345,
+      "width": 215,
+      "height": 210
+    },
+    {
+      "left": 875,
+      "top": 319,
+      "width": 211,
+      "height": 249
+    },
+    {
+      "left": 48,
+      "top": 671,
+      "width": 188,
+      "height": 83
+    },
+    {
+      "left": 303,
+      "top": 656,
+      "width": 245,
+      "height": 114
+    },
+    {
+      "left": 581,
+      "top": 645,
+      "width": 264,
+      "height": 141
+    },
+    {
+      "left": 882,
+      "top": 668,
+      "width": 213,
+      "height": 103
+    },
+    {
+      "left": 56,
+      "top": 914,
+      "width": 154,
+      "height": 164
+    },
+    {
+      "left": 293,
+      "top": 869,
+      "width": 234,
+      "height": 208
+    },
+    {
+      "left": 568,
+      "top": 856,
+      "width": 273,
+      "height": 236
+    },
+    {
+      "left": 842,
+      "top": 873,
+      "width": 234,
+      "height": 204
+    },
+    {
+      "left": 44,
+      "top": 1162,
+      "width": 193,
+      "height": 176
+    },
+    {
+      "left": 320,
+      "top": 1135,
+      "width": 214,
+      "height": 227
+    },
+    {
+      "left": 609,
+      "top": 1155,
+      "width": 205,
+      "height": 199
+    },
+    {
+      "left": 907,
+      "top": 1140,
+      "width": 164,
+      "height": 201
+    }
+  ]
+}

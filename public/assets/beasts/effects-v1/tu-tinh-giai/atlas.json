@@ -1,0 +1,255 @@
+{
+  "beastId": "tu-tinh-giai",
+  "source": "art/beasts/effects-v1/ancient/tu-tinh-giai-source.png",
+  "name": "Tử Tinh Giải",
+  "skillMotion": "linear",
+  "travelSpeed": 460,
+  "origin": {
+    "x": 98,
+    "y": 78
+  },
+  "attackOffset": {
+    "x": 108,
+    "y": 88
+  },
+  "notes": "Tọa độ tương đối trong ô thân 128×128, trục x sang phải và y xuống dưới. Đặt tâm charge tại origin (98, 78); đặt tâm melee tại attackOffset (108, 88). Lật x quanh 64 khi quái quay trái. Tách projectile, hit và residual thành đối tượng hiệu ứng riêng; metadata gợi ý, chưa tích hợp sát thương. Sinh đạn tại origin, đi ngang theo hướng quay của quái.",
+  "version": 1,
+  "skillName": "Tử Tinh Thương",
+  "image": "/assets/beasts/effects-v1/tu-tinh-giai/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/tu-tinh-giai/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/tu-tinh-giai/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/tu-tinh-giai/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/tu-tinh-giai/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/tu-tinh-giai/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/tu-tinh-giai/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 49,
+      "top": 53,
+      "width": 204,
+      "height": 215
+    },
+    {
+      "left": 306,
+      "top": 58,
+      "width": 231,
+      "height": 223
+    },
+    {
+      "left": 582,
+      "top": 62,
+      "width": 233,
+      "height": 221
+    },
+    {
+      "left": 872,
+      "top": 71,
+      "width": 206,
+      "height": 189
+    },
+    {
+      "left": 58,
+      "top": 341,
+      "width": 187,
+      "height": 188
+    },
+    {
+      "left": 311,
+      "top": 337,
+      "width": 224,
+      "height": 195
+    },
+    {
+      "left": 591,
+      "top": 333,
+      "width": 213,
+      "height": 206
+    },
+    {
+      "left": 868,
+      "top": 326,
+      "width": 215,
+      "height": 219
+    },
+    {
+      "left": 67,
+      "top": 599,
+      "width": 170,
+      "height": 198
+    },
+    {
+      "left": 323,
+      "top": 600,
+      "width": 212,
+      "height": 191
+    },
+    {
+      "left": 593,
+      "top": 598,
+      "width": 232,
+      "height": 197
+    },
+    {
+      "left": 885,
+      "top": 602,
+      "width": 202,
+      "height": 195
+    },
+    {
+      "left": 48,
+      "top": 880,
+      "width": 200,
+      "height": 192
+    },
+    {
+      "left": 308,
+      "top": 868,
+      "width": 222,
+      "height": 212
+    },
+    {
+      "left": 572,
+      "top": 854,
+      "width": 252,
+      "height": 243
+    },
+    {
+      "left": 871,
+      "top": 858,
+      "width": 205,
+      "height": 226
+    },
+    {
+      "left": 44,
+      "top": 1130,
+      "width": 215,
+      "height": 212
+    },
+    {
+      "left": 307,
+      "top": 1146,
+      "width": 233,
+      "height": 202
+    },
+    {
+      "left": 578,
+      "top": 1130,
+      "width": 239,
+      "height": 213
+    },
+    {
+      "left": 864,
+      "top": 1135,
+      "width": 223,
+      "height": 208
+    }
+  ]
+}

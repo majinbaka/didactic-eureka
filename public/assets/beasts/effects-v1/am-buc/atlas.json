@@ -1,0 +1,255 @@
+{
+  "beastId": "am-buc",
+  "source": "art/beasts/effects-v1/forest/am-buc-source.png",
+  "name": "Âm Bức",
+  "skillMotion": "linear",
+  "travelSpeed": 460,
+  "origin": {
+    "x": 110,
+    "y": 62
+  },
+  "attackOffset": {
+    "x": 118,
+    "y": 84
+  },
+  "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị.",
+  "version": 1,
+  "skillName": "Âm Hoàn Chấn",
+  "image": "/assets/beasts/effects-v1/am-buc/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/am-buc/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/am-buc/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/am-buc/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/am-buc/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/am-buc/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/am-buc/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 70,
+      "top": 114,
+      "width": 128,
+      "height": 92
+    },
+    {
+      "left": 302,
+      "top": 78,
+      "width": 230,
+      "height": 157
+    },
+    {
+      "left": 579,
+      "top": 51,
+      "width": 248,
+      "height": 202
+    },
+    {
+      "left": 866,
+      "top": 71,
+      "width": 223,
+      "height": 186
+    },
+    {
+      "left": 87,
+      "top": 366,
+      "width": 116,
+      "height": 136
+    },
+    {
+      "left": 326,
+      "top": 344,
+      "width": 191,
+      "height": 172
+    },
+    {
+      "left": 599,
+      "top": 334,
+      "width": 201,
+      "height": 195
+    },
+    {
+      "left": 859,
+      "top": 321,
+      "width": 236,
+      "height": 225
+    },
+    {
+      "left": 57,
+      "top": 650,
+      "width": 181,
+      "height": 102
+    },
+    {
+      "left": 314,
+      "top": 633,
+      "width": 213,
+      "height": 136
+    },
+    {
+      "left": 572,
+      "top": 626,
+      "width": 251,
+      "height": 151
+    },
+    {
+      "left": 850,
+      "top": 614,
+      "width": 261,
+      "height": 174
+    },
+    {
+      "left": 36,
+      "top": 890,
+      "width": 208,
+      "height": 170
+    },
+    {
+      "left": 294,
+      "top": 878,
+      "width": 246,
+      "height": 194
+    },
+    {
+      "left": 571,
+      "top": 828,
+      "width": 264,
+      "height": 283
+    },
+    {
+      "left": 880,
+      "top": 864,
+      "width": 203,
+      "height": 225
+    },
+    {
+      "left": 43,
+      "top": 1171,
+      "width": 198,
+      "height": 151
+    },
+    {
+      "left": 308,
+      "top": 1159,
+      "width": 224,
+      "height": 177
+    },
+    {
+      "left": 603,
+      "top": 1162,
+      "width": 199,
+      "height": 170
+    },
+    {
+      "left": 884,
+      "top": 1172,
+      "width": 178,
+      "height": 148
+    }
+  ]
+}

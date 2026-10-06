@@ -1,0 +1,255 @@
+{
+  "beastId": "van-hau",
+  "source": "art/beasts/effects-v1/mystic/van-hau-source.png",
+  "name": "Vân Hầu",
+  "skillMotion": "linear",
+  "travelSpeed": 280,
+  "origin": {
+    "x": 88,
+    "y": 65
+  },
+  "attackOffset": {
+    "x": 87,
+    "y": 77
+  },
+  "notes": "Tụ mây trước hai tay; khối mây sinh trước ngực rồi bay độc lập. Vệt quyền và impact đặt tại chỗ nện, tàn mây cuộn riêng.",
+  "version": 1,
+  "skillName": "Vân Nham",
+  "image": "/assets/beasts/effects-v1/van-hau/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/van-hau/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/van-hau/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/van-hau/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/van-hau/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/van-hau/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/van-hau/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 52,
+      "top": 62,
+      "width": 228,
+      "height": 144
+    },
+    {
+      "left": 363,
+      "top": 56,
+      "width": 313,
+      "height": 172
+    },
+    {
+      "left": 712,
+      "top": 19,
+      "width": 328,
+      "height": 214
+    },
+    {
+      "left": 1083,
+      "top": 34,
+      "width": 287,
+      "height": 180
+    },
+    {
+      "left": 111,
+      "top": 305,
+      "width": 130,
+      "height": 114
+    },
+    {
+      "left": 426,
+      "top": 282,
+      "width": 228,
+      "height": 173
+    },
+    {
+      "left": 758,
+      "top": 258,
+      "width": 248,
+      "height": 207
+    },
+    {
+      "left": 1099,
+      "top": 244,
+      "width": 273,
+      "height": 219
+    },
+    {
+      "left": 53,
+      "top": 491,
+      "width": 194,
+      "height": 135
+    },
+    {
+      "left": 369,
+      "top": 487,
+      "width": 311,
+      "height": 154
+    },
+    {
+      "left": 707,
+      "top": 488,
+      "width": 316,
+      "height": 164
+    },
+    {
+      "left": 1048,
+      "top": 481,
+      "width": 330,
+      "height": 162
+    },
+    {
+      "left": 44,
+      "top": 663,
+      "width": 253,
+      "height": 205
+    },
+    {
+      "left": 355,
+      "top": 656,
+      "width": 331,
+      "height": 225
+    },
+    {
+      "left": 712,
+      "top": 677,
+      "width": 341,
+      "height": 209
+    },
+    {
+      "left": 1098,
+      "top": 675,
+      "width": 280,
+      "height": 211
+    },
+    {
+      "left": 58,
+      "top": 907,
+      "width": 231,
+      "height": 195
+    },
+    {
+      "left": 404,
+      "top": 906,
+      "width": 261,
+      "height": 187
+    },
+    {
+      "left": 761,
+      "top": 915,
+      "width": 251,
+      "height": 176
+    },
+    {
+      "left": 1124,
+      "top": 920,
+      "width": 230,
+      "height": 177
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "beastId": "truc-lang",
+  "source": "art/beasts/effects-v1/forest/truc-lang-source.png",
+  "name": "Trúc Lang",
+  "skillMotion": "linear",
+  "travelSpeed": 440,
+  "origin": {
+    "x": 110,
+    "y": 62
+  },
+  "attackOffset": {
+    "x": 118,
+    "y": 82
+  },
+  "notes": "Mọi tọa độ và tốc độ là gợi ý để ghép thủ công, không phải hitbox. origin và attackOffset đều là điểm neo từ góc trên trái sprite thân 128px khi quay phải; attackOffset là điểm, dù tên trường có chữ Offset. Khi quay trái dùng x mới = 128 - x. Cận chiến 0–3 bám điểm công kích; tụ lực 4–7 bám origin; chuyển động 8–11 là đối tượng độc lập bay về mục tiêu. Trúng đòn 12–15 đặt tại va chạm, dư chấn 16–19 tại điểm kết thúc. Điều chỉnh các điểm neo khi đổi tỷ lệ hiển thị.",
+  "version": 1,
+  "skillName": "Phong Nguyệt Nhận",
+  "image": "/assets/beasts/effects-v1/truc-lang/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/truc-lang/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/truc-lang/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/truc-lang/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/truc-lang/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/truc-lang/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/truc-lang/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 97,
+      "top": 137,
+      "width": 95,
+      "height": 84
+    },
+    {
+      "left": 342,
+      "top": 99,
+      "width": 164,
+      "height": 137
+    },
+    {
+      "left": 601,
+      "top": 81,
+      "width": 192,
+      "height": 180
+    },
+    {
+      "left": 905,
+      "top": 106,
+      "width": 133,
+      "height": 136
+    },
+    {
+      "left": 97,
+      "top": 408,
+      "width": 96,
+      "height": 93
+    },
+    {
+      "left": 343,
+      "top": 374,
+      "width": 153,
+      "height": 158
+    },
+    {
+      "left": 626,
+      "top": 373,
+      "width": 162,
+      "height": 173
+    },
+    {
+      "left": 898,
+      "top": 373,
+      "width": 162,
+      "height": 177
+    },
+    {
+      "left": 67,
+      "top": 681,
+      "width": 174,
+      "height": 71
+    },
+    {
+      "left": 329,
+      "top": 655,
+      "width": 193,
+      "height": 108
+    },
+    {
+      "left": 597,
+      "top": 637,
+      "width": 216,
+      "height": 144
+    },
+    {
+      "left": 889,
+      "top": 664,
+      "width": 177,
+      "height": 102
+    },
+    {
+      "left": 82,
+      "top": 892,
+      "width": 141,
+      "height": 157
+    },
+    {
+      "left": 338,
+      "top": 880,
+      "width": 167,
+      "height": 179
+    },
+    {
+      "left": 594,
+      "top": 867,
+      "width": 210,
+      "height": 206
+    },
+    {
+      "left": 907,
+      "top": 886,
+      "width": 149,
+      "height": 178
+    },
+    {
+      "left": 81,
+      "top": 1172,
+      "width": 148,
+      "height": 152
+    },
+    {
+      "left": 350,
+      "top": 1158,
+      "width": 162,
+      "height": 171
+    },
+    {
+      "left": 644,
+      "top": 1162,
+      "width": 122,
+      "height": 164
+    },
+    {
+      "left": 936,
+      "top": 1176,
+      "width": 90,
+      "height": 148
+    }
+  ]
+}

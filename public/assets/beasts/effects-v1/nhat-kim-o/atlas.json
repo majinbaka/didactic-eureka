@@ -1,0 +1,255 @@
+{
+  "beastId": "nhat-kim-o",
+  "source": "art/beasts/effects-v1/ancient/nhat-kim-o-source.png",
+  "name": "Nhật Kim Ô",
+  "skillMotion": "falling",
+  "travelSpeed": 350,
+  "origin": {
+    "x": 66,
+    "y": 28
+  },
+  "attackOffset": {
+    "x": 102,
+    "y": 80
+  },
+  "notes": "Tọa độ tương đối trong ô thân 128×128, trục x sang phải và y xuống dưới. Đặt tâm charge tại origin (66, 28); đặt tâm melee tại attackOffset (102, 80). Lật x quanh 64 khi quái quay trái. Tách projectile, hit và residual thành đối tượng hiệu ứng riêng; metadata gợi ý, chưa tích hợp sát thương. Sinh quả cầu phía trên mục tiêu, vận tốc rơi xuống dương y.",
+  "version": 1,
+  "skillName": "Lạc Nhật Châu",
+  "image": "/assets/beasts/effects-v1/nhat-kim-o/sheet.png",
+  "atlas": "/assets/beasts/effects-v1/nhat-kim-o/atlas.json",
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 5,
+  "frameCount": 20,
+  "facing": "right",
+  "animations": {
+    "melee": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "image": "/assets/beasts/effects-v1/nhat-kim-o/melee.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "charge": {
+      "fps": 8,
+      "loop": false,
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "image": "/assets/beasts/effects-v1/nhat-kim-o/charge.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "travel": {
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "image": "/assets/beasts/effects-v1/nhat-kim-o/travel.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "impact": {
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "image": "/assets/beasts/effects-v1/nhat-kim-o/impact.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    "field": {
+      "fps": 6,
+      "loop": true,
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "image": "/assets/beasts/effects-v1/nhat-kim-o/field.png",
+      "stripFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "anchor": {
+        "x": 64,
+        "y": 112
+      }
+    }
+  },
+  "sourceCuts": [
+    {
+      "left": 51,
+      "top": 100,
+      "width": 182,
+      "height": 150
+    },
+    {
+      "left": 320,
+      "top": 55,
+      "width": 229,
+      "height": 217
+    },
+    {
+      "left": 581,
+      "top": 35,
+      "width": 247,
+      "height": 241
+    },
+    {
+      "left": 877,
+      "top": 72,
+      "width": 211,
+      "height": 198
+    },
+    {
+      "left": 50,
+      "top": 380,
+      "width": 193,
+      "height": 148
+    },
+    {
+      "left": 318,
+      "top": 345,
+      "width": 210,
+      "height": 191
+    },
+    {
+      "left": 595,
+      "top": 335,
+      "width": 215,
+      "height": 205
+    },
+    {
+      "left": 856,
+      "top": 310,
+      "width": 232,
+      "height": 250
+    },
+    {
+      "left": 72,
+      "top": 586,
+      "width": 171,
+      "height": 250
+    },
+    {
+      "left": 353,
+      "top": 592,
+      "width": 163,
+      "height": 245
+    },
+    {
+      "left": 610,
+      "top": 591,
+      "width": 166,
+      "height": 240
+    },
+    {
+      "left": 890,
+      "top": 594,
+      "width": 164,
+      "height": 245
+    },
+    {
+      "left": 50,
+      "top": 942,
+      "width": 174,
+      "height": 131
+    },
+    {
+      "left": 295,
+      "top": 883,
+      "width": 234,
+      "height": 198
+    },
+    {
+      "left": 560,
+      "top": 863,
+      "width": 272,
+      "height": 232
+    },
+    {
+      "left": 864,
+      "top": 939,
+      "width": 230,
+      "height": 155
+    },
+    {
+      "left": 32,
+      "top": 1167,
+      "width": 228,
+      "height": 173
+    },
+    {
+      "left": 299,
+      "top": 1166,
+      "width": 240,
+      "height": 183
+    },
+    {
+      "left": 577,
+      "top": 1167,
+      "width": 248,
+      "height": 185
+    },
+    {
+      "left": 865,
+      "top": 1195,
+      "width": 225,
+      "height": 149
+    }
+  ]
+}

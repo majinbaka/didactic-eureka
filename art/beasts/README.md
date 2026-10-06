@@ -25,3 +25,7 @@ Mỗi yêu thú có đòn thường và chiêu riêng (tên, pattern, tín hiệ
 - Trang xem: `/beasts.html`; trong game: Hồ sơ → Bộ sưu tập → Danh mục → Yêu thú.
 
 `sourceCuts` trong manifest ghi crop của từng pose để kiểm tra lại. Khi thay nguồn, chạy lại bộ đóng gói và `npm run lint`, `npm test`, `npm run build`.
+
+## FX tách khỏi thân quái
+
+Bộ bổ sung [effects-v1](effects-v1/README.md) cung cấp riêng vệt đánh gần, tụ lực, chiêu di chuyển, va chạm và hiệu ứng lưu lại cho 30 yêu thú. Xem `/beast-effects.html`; chạy `npm run assets:beast-effects` để tái đóng gói. Thân quái và các pose v1 vẫn giữ nguyên; việc ghép gameplay thực hiện sau.
