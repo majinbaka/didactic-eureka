@@ -1,3 +1,5 @@
+import { drawCharacter, loadCharacterLocomotion } from './rendering/drawCharacter.js'
+
 const actions = { idle: 'Đứng', walk: 'Đi bộ', run: 'Chạy', jump: 'Nhảy', fly: 'Bay', hello: 'Xin chào', scratch: 'Gãi đầu', doze: 'Ngủ gật', sit: 'Ngồi', crawl: 'Bò', hurt: 'Bị thương', collapse: 'Nằm xuống' }
 const select = document.querySelector('#action')
 const pause = document.querySelector('#pause')
@@ -27,17 +29,18 @@ function animate(time) {
     const step = Math.floor(elapsed * action.fps / 1000)
     const frame = action.frames[action.loop ? step % action.frames.length : Math.min(step, action.frames.length - 1)]
     context.clearRect(0, 0, 128, 128)
-    context.drawImage(image, frame % 4 * 128, Math.floor(frame / 4) * 128, 128, 128, 0, 0, 128, 128)
+    drawCharacter(context, image, frame, 64, 116, 1, { animation: select.value, elapsed: elapsed / 1000 })
   }
   requestAnimationFrame(animate)
 }
 try {
-  const roster = await json('/assets/characters/roster-v2.json')
+  const roster = await json('/assets/characters/roster-all.json')
   const loaded = await Promise.allSettled(roster.map(async character => {
     const atlas = await json(character.atlas)
     const image = new Image()
     image.src = character.image
     await image.decode()
+    await loadCharacterLocomotion(image)
     return { character, atlas, image }
   }))
   for (const result of loaded) {
@@ -49,7 +52,8 @@ try {
     canvas.setAttribute('role', 'img'); canvas.setAttribute('aria-label', `Nhân vật ${character.name}`)
     const context = canvas.getContext('2d'); context.imageSmoothingEnabled = false
     const link = document.createElement('a'); link.href = character.image; link.textContent = 'Xem đủ 16 tư thế'
-    card.append(canvas, heading, link); grid.append(card)
+    const movementLink = document.createElement('a'); movementLink.href = character.image.replace(/[^/]+$/, 'locomotion-v1.png'); movementLink.textContent = 'Xem spritesheet đi / chạy'
+    card.append(canvas, heading, link, movementLink); grid.append(card)
     characters.push({ context, image, atlas })
   }
   if (!characters.length) throw new Error('Không có ảnh tải thành công')

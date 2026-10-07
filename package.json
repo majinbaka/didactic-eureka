@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "node --test src/game/*.test.js",
+    "assets:character-locomotion": "node scripts/build_character_locomotion.mjs",
     "assets:character": "node scripts/build_character_atlas.mjs",
     "assets:character-variants": "node scripts/build_character_variants.mjs",
     "assets:character-roster": "node scripts/build_character_roster.mjs",

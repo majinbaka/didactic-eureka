@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  build: { rollupOptions: { input: { game: 'index.html', characters: 'characters.html' } } },
   plugins: [react(), VitePWA({
     registerType: 'prompt',
     includeAssets: ['icons/*.png'],

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { createRun, raceRank, rivalsFinished, sceneryForChunk, SCENERY_CHUNK, OBSTACLES } from '../game/runner'
 import { animationFrame, characterBaseline, CHARACTER_ATLAS, selectCharacterAnimation } from '../game/characterAnimations'
+import { advanceCharacterMotion } from '../game/characterMotion'
+import { drawCharacter, loadCharacterLocomotion } from '../rendering/drawCharacter'
 import { joystickInput } from '../game/runnerControls'
 import { accrueOfflineQi, recordStory, breakthroughCosts, characterAge, characterLifespan, characterOption, playableCharacters, realmLabel, createInitialState, cultivationGain, elements, loadLocalSave, qiRequired, realms, saveLocal, transition } from '../game/state'
 import { SUMMIT_GATE, puzzles, trigrams, directions, createTrial, answerTrial, tickTrial, stepTrialRun, openingScenes, endingScenes, prologuePhase } from '../game/prologue'
@@ -103,15 +105,6 @@ function ActionSprite({ animation, elapsed = 0, image = CHARACTER_ATLAS.image })
     aria-hidden="true"
     style={{ backgroundImage: `url(${image})`, backgroundPosition: `${column * 100 / (CHARACTER_ATLAS.columns - 1)}% ${row * 100 / (CHARACTER_ATLAS.columns - 1)}%` }}
   />
-}
-
-function drawCharacter(ctx, image, frame, x, y, facing) {
-  if (!image?.complete || !image.naturalWidth) return
-  const sourceX = (frame % CHARACTER_ATLAS.columns) * CHARACTER_ATLAS.cell
-  const sourceY = Math.floor(frame / CHARACTER_ATLAS.columns) * CHARACTER_ATLAS.cell
-  ctx.save(); ctx.translate(Math.round(x), Math.round(y)); ctx.scale(facing, 1)
-  ctx.drawImage(image, sourceX, sourceY, 128, 128, -CHARACTER_ATLAS.anchor.x, -CHARACTER_ATLAS.anchor.y, 128, 128)
-  ctx.restore()
 }
 
 function drawObject(ctx, image, index, x, base, width, height, alpha = 1) {
@@ -252,20 +245,23 @@ function draw(ctx, s, width, height, input, sprites, staged = false, stone = fal
     drawCharacter(ctx, sprites.character, frame, castCenter, ground + 1, 1)
     return
   }
-  const rivalFrame = animationFrame('run', s.time)
+  const motion = sprites.motion ||= {}
   for (const racer of [...s.racers].sort((a, b) => a.lane - b.lane)) {
     const x = racer.x - camera + 64
+    const requested = selectCharacterAnimation(racer, { move: !racer.finished && !racer.puzzleWait, run: true })
+    const movement = motion[racer.id] = advanceCharacterMotion(motion[racer.id], racer, requested)
     if (x < -128 || x > width + 128) continue
-    const frame = racer.y > 0 ? animationFrame('jump', s.time) : rivalFrame
+    const frame = animationFrame(movement.animation, s.time)
     const baseline = characterBaseline(racer, ground, frame)
-    drawCharacter(ctx, sprites.rivals[racer.id], frame, x, baseline, 1)
+    drawCharacter(ctx, sprites.rivals[racer.id], frame, x, baseline, 1, movement)
     ctx.font = '10px system-ui'; ctx.textAlign = 'center'
     ctx.fillStyle = '#10241edb'; ctx.fillRect(Math.round(x - 31), baseline - 119, 62, 15)
     ctx.fillStyle = '#f1ead4'; ctx.fillText(racer.name, Math.round(x), baseline - 108)
   }
-  const animation = selectCharacterAnimation(s, input)
+  const movement = motion.player = advanceCharacterMotion(motion.player, s, selectCharacterAnimation(s, input))
+  const animation = movement.animation
   const frame = animationFrame(animation, s.action ? s.actionTime : s.time)
-  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, characterBaseline(s, ground, frame), s.facing)
+  drawCharacter(ctx, sprites.character, frame, s.x - camera + 64, characterBaseline(s, ground, frame), s.facing, movement)
   for (const b of s.shots) { ctx.fillStyle = '#f6de94'; ctx.fillRect(b.x - camera - 8, ground - b.y, 20, 8) }
 }
 export default function RunnerGame() {
@@ -329,7 +325,7 @@ export default function RunnerGame() {
     const assetCount = 9 + Object.keys(rivals).length
     const loaded = () => { loadedCount += 1; if (loadedCount === assetCount) setSpriteStatus('ready') }
     const failed = () => setSpriteStatus('error')
-    character.onload = loaded
+    character.onload = () => { loadCharacterLocomotion(character).then(loaded, failed) }
     character.onerror = failed
     character.src = playableCharacters.find(option => option.id === progress.characterId)?.image || CHARACTER_ATLAS.image
     elder.onload = loaded
@@ -357,7 +353,7 @@ export default function RunnerGame() {
     collectibles.onerror = failed
     collectibles.src = SCENERY_ASSETS.collectibles
     for (const [id, image] of Object.entries(rivals)) {
-      image.onload = loaded
+      image.onload = () => { loadCharacterLocomotion(image).then(loaded, failed) }
       image.onerror = failed
       image.src = RIVAL_CHARACTERS[id]
     }

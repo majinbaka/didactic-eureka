@@ -1,0 +1,184 @@
+[
+  {
+    "id": "bald-monk-v1",
+    "name": "Minh Không",
+    "image": "/assets/characters/bald-monk-v1/character-bald-monk-v1-sheet.png",
+    "atlas": "/assets/characters/bald-monk-v1/atlas.json",
+    "preview": "/assets/characters/bald-monk-v1/preview-idle.png"
+  },
+  {
+    "id": "broad-guardian-v1",
+    "name": "Hộ Sơn",
+    "image": "/assets/characters/broad-guardian-v1/character-broad-guardian-v1-sheet.png",
+    "atlas": "/assets/characters/broad-guardian-v1/atlas.json",
+    "preview": "/assets/characters/broad-guardian-v1/preview-idle.png"
+  },
+  {
+    "id": "chubby-novice-v1",
+    "name": "Tiểu Bảo",
+    "image": "/assets/characters/chubby-novice-v1/character-chubby-novice-v1-sheet.png",
+    "atlas": "/assets/characters/chubby-novice-v1/atlas.json",
+    "preview": "/assets/characters/chubby-novice-v1/preview-idle.png"
+  },
+  {
+    "id": "curly-traveler-v1",
+    "name": "Vân Du",
+    "image": "/assets/characters/curly-traveler-v1/character-curly-traveler-v1-sheet.png",
+    "atlas": "/assets/characters/curly-traveler-v1/atlas.json",
+    "preview": "/assets/characters/curly-traveler-v1/preview-idle.png"
+  },
+  {
+    "id": "elder-healer-v1",
+    "name": "Dược Ông",
+    "image": "/assets/characters/elder-healer-v1/character-elder-healer-v1-sheet.png",
+    "atlas": "/assets/characters/elder-healer-v1/atlas.json",
+    "preview": "/assets/characters/elder-healer-v1/preview-idle.png"
+  },
+  {
+    "id": "elder-v1",
+    "name": "Bạch Tùng",
+    "image": "/assets/characters/elder-v1/character-elder-v1-sheet.png",
+    "atlas": "/assets/characters/elder-v1/atlas.json",
+    "preview": "/assets/characters/elder-v1/preview-idle.png"
+  },
+  {
+    "id": "female-v1",
+    "name": "Linh Nhi",
+    "image": "/assets/characters/female-v1/character-female-v1-sheet.png",
+    "atlas": "/assets/characters/female-v1/atlas.json",
+    "preview": "/assets/characters/female-v1/preview-idle.png"
+  },
+  {
+    "id": "grey-haired-tailor-v1",
+    "name": "Cẩm Nương",
+    "image": "/assets/characters/grey-haired-tailor-v1/character-grey-haired-tailor-v1-sheet.png",
+    "atlas": "/assets/characters/grey-haired-tailor-v1/atlas.json",
+    "preview": "/assets/characters/grey-haired-tailor-v1/preview-idle.png"
+  },
+  {
+    "id": "jade-v2",
+    "name": "Vô Danh",
+    "image": "/assets/characters/jade-v2/character-jade-sheet.png",
+    "atlas": "/assets/characters/jade-v2/atlas.json",
+    "preview": "/assets/characters/jade-v2/preview-idle.png"
+  },
+  {
+    "id": "lean-scholar-v1",
+    "name": "Mặc Sinh",
+    "image": "/assets/characters/lean-scholar-v1/character-lean-scholar-v1-sheet.png",
+    "atlas": "/assets/characters/lean-scholar-v1/atlas.json",
+    "preview": "/assets/characters/lean-scholar-v1/preview-idle.png"
+  },
+  {
+    "id": "old-fisherman-v1",
+    "name": "Lão Giang",
+    "image": "/assets/characters/old-fisherman-v1/character-old-fisherman-v1-sheet.png",
+    "atlas": "/assets/characters/old-fisherman-v1/atlas.json",
+    "preview": "/assets/characters/old-fisherman-v1/preview-idle.png"
+  },
+  {
+    "id": "redhead-alchemist-v1",
+    "name": "Đan Hà",
+    "image": "/assets/characters/redhead-alchemist-v1/character-redhead-alchemist-v1-sheet.png",
+    "atlas": "/assets/characters/redhead-alchemist-v1/atlas.json",
+    "preview": "/assets/characters/redhead-alchemist-v1/preview-idle.png"
+  },
+  {
+    "id": "round-merchant-v1",
+    "name": "Kim Phúc",
+    "image": "/assets/characters/round-merchant-v1/character-round-merchant-v1-sheet.png",
+    "atlas": "/assets/characters/round-merchant-v1/atlas.json",
+    "preview": "/assets/characters/round-merchant-v1/preview-idle.png"
+  },
+  {
+    "id": "scarred-veteran-v1",
+    "name": "Lôi Chấn",
+    "image": "/assets/characters/scarred-veteran-v1/character-scarred-veteran-v1-sheet.png",
+    "atlas": "/assets/characters/scarred-veteran-v1/atlas.json",
+    "preview": "/assets/characters/scarred-veteran-v1/preview-idle.png"
+  },
+  {
+    "id": "sect-master-v1",
+    "name": "Trưởng lão",
+    "image": "/assets/characters/sect-master-v1/character-sect-master-v1-sheet.png",
+    "atlas": "/assets/characters/sect-master-v1/atlas.json",
+    "preview": "/assets/characters/sect-master-v1/preview-idle.png"
+  },
+  {
+    "id": "short-courier-v1",
+    "name": "Tiểu Yến",
+    "image": "/assets/characters/short-courier-v1/character-short-courier-v1-sheet.png",
+    "atlas": "/assets/characters/short-courier-v1/atlas.json",
+    "preview": "/assets/characters/short-courier-v1/preview-idle.png"
+  },
+  {
+    "id": "silver-grandmother-v1",
+    "name": "Ngân Bà",
+    "image": "/assets/characters/silver-grandmother-v1/character-silver-grandmother-v1-sheet.png",
+    "atlas": "/assets/characters/silver-grandmother-v1/atlas.json",
+    "preview": "/assets/characters/silver-grandmother-v1/preview-idle.png"
+  },
+  {
+    "id": "stocky-smith-v1",
+    "name": "Thiết Hùng",
+    "image": "/assets/characters/stocky-smith-v1/character-stocky-smith-v1-sheet.png",
+    "atlas": "/assets/characters/stocky-smith-v1/atlas.json",
+    "preview": "/assets/characters/stocky-smith-v1/preview-idle.png"
+  },
+  {
+    "id": "stout-innkeeper-v1",
+    "name": "Hồng Đào",
+    "image": "/assets/characters/stout-innkeeper-v1/character-stout-innkeeper-v1-sheet.png",
+    "atlas": "/assets/characters/stout-innkeeper-v1/atlas.json",
+    "preview": "/assets/characters/stout-innkeeper-v1/preview-idle.png"
+  },
+  {
+    "id": "strongman-v1",
+    "name": "Thiết Sơn",
+    "image": "/assets/characters/strongman-v1/character-strongman-v1-sheet.png",
+    "atlas": "/assets/characters/strongman-v1/atlas.json",
+    "preview": "/assets/characters/strongman-v1/preview-idle.png"
+  },
+  {
+    "id": "tall-swordswoman-v1",
+    "name": "Thanh Trúc",
+    "image": "/assets/characters/tall-swordswoman-v1/character-tall-swordswoman-v1-sheet.png",
+    "atlas": "/assets/characters/tall-swordswoman-v1/atlas.json",
+    "preview": "/assets/characters/tall-swordswoman-v1/preview-idle.png"
+  },
+  {
+    "id": "village-boy-v1",
+    "name": "A Nam",
+    "image": "/assets/characters/village-boy-v1/character-village-boy-v1-sheet.png",
+    "atlas": "/assets/characters/village-boy-v1/atlas.json",
+    "preview": "/assets/characters/village-boy-v1/preview-idle.png"
+  },
+  {
+    "id": "village-girl-v1",
+    "name": "A Lan",
+    "image": "/assets/characters/village-girl-v1/character-village-girl-v1-sheet.png",
+    "atlas": "/assets/characters/village-girl-v1/atlas.json",
+    "preview": "/assets/characters/village-girl-v1/preview-idle.png"
+  },
+  {
+    "id": "white-haired-matriarch-v1",
+    "name": "Bạch Liên",
+    "image": "/assets/characters/white-haired-matriarch-v1/character-white-haired-matriarch-v1-sheet.png",
+    "atlas": "/assets/characters/white-haired-matriarch-v1/atlas.json",
+    "preview": "/assets/characters/white-haired-matriarch-v1/preview-idle.png"
+  },
+  {
+    "id": "young-apprentice-v1",
+    "name": "Tiểu Mai",
+    "image": "/assets/characters/young-apprentice-v1/character-young-apprentice-v1-sheet.png",
+    "atlas": "/assets/characters/young-apprentice-v1/atlas.json",
+    "preview": "/assets/characters/young-apprentice-v1/preview-idle.png"
+  },
+  {
+    "id": "young-nun-v1",
+    "name": "Tịnh Tâm",
+    "image": "/assets/characters/young-nun-v1/character-young-nun-v1-sheet.png",
+    "atlas": "/assets/characters/young-nun-v1/atlas.json",
+    "preview": "/assets/characters/young-nun-v1/preview-idle.png"
+  }
+]

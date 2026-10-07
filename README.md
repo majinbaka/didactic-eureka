@@ -27,7 +27,7 @@ npm run preview
 - Một linh thảo trong màn Rừng Trúc U Tinh; phải chạm trực tiếp mới nhặt và lưu tài nguyên. Bộ sưu tập có ảnh và mô tả cho 100 linh thảo, 2 linh thạch cùng 1.000 vật phẩm tu tiên (250 vũ khí tấn công, 250 trang bị phòng thủ, 250 trận pháp và 250 pháp bảo), hỗ trợ tìm kiếm/lọc; các loại chưa có điểm rơi được ghi rõ.
 - PWA manifest, icon thường/maskable, cache app shell offline, thông báo cập nhật.
 
-Khi vào game, người chơi chọn diện mạo có sẵn và đặt tên; mỗi nhân vật có tuổi và thọ nguyên riêng. Chương đầu cho đi bộ/chạy, nhảy và ngồi bằng chạm hoặc bàn phím; cụm hành động mobile nằm ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose chưa phải animation nhiều frame đầy đủ. Chưa có chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
+Khi vào game, người chơi chọn diện mạo có sẵn và đặt tên; mỗi nhân vật có tuổi và thọ nguyên riêng. Chương đầu cho đi bộ/chạy, nhảy và ngồi bằng chạm hoặc bàn phím; cụm hành động mobile nằm ở góc phải. Nhân vật dùng spritesheet liền thân 128px, mặc sẵn áo xanh ngọc, có tóc búi và đầy đủ khuôn mặt. Trên mobile, PWA ưu tiên toàn màn hình ngang; trình duyệt không cho khóa hướng tự động sẽ yêu cầu một lần chạm trước khi vào game. Bộ 16 key pose gốc giữ các động tác; đi bộ và chạy dùng spritesheet riêng cho cả 26 nhân vật, mỗi động tác có bốn frame liền thân vẽ sẵn, gồm sải chân và thu chân. Renderer chỉ chọn frame theo quãng đường, không bẻ khớp hay biến dạng ảnh. Chưa có chiến đấu với AI, multiplayer hay hệ thống kinh tế hoàn chỉnh. Chưa deploy dịch vụ thật.
 
 ## Firebase
 
@@ -72,7 +72,7 @@ Override `@grpc/grpc-js` lên nhánh 1.14.5 để xử lý advisory trong depend
 
 ## Bộ 20 nhân vật mở rộng
 
-Mở `/characters.html` trên dev server để xem 20 nhân vật mới: nam/nữ cao thấp, đầy đặn/gầy, ông bà và trẻ em, với nhiều kiểu tóc, râu và trang phục. Mỗi nhân vật có atlas trong suốt 512×512 gồm 16 key pose, manifest và ảnh đứng xem trước. Bốn nhân vật trong bộ đã được chọn làm diện mạo người chơi; các nhân vật còn lại vẫn ở trang xem thử.
+Mở `/characters.html` trên dev server để xem đủ 26 nhân vật, gồm sáu nhân vật gốc và 20 nhân vật mới: nam/nữ cao thấp, đầy đặn/gầy, ông bà và trẻ em, với nhiều kiểu tóc, râu và trang phục. Mỗi nhân vật có atlas trong suốt 512×512 gồm 16 key pose, manifest và ảnh đứng xem trước. Bốn nhân vật trong bộ đã được chọn làm diện mạo người chơi; các nhân vật còn lại vẫn ở trang xem thử.
 
 - Danh mục: `public/assets/characters/roster-v2.json`.
 - Ảnh tổng hợp: [roster-v2-preview.png](art/characters/roster-v2-preview.png).
@@ -95,3 +95,7 @@ Bổ sung 70 atlas VFX tách khỏi thân quái: vệt đánh gần, tụ lực,
 ### 20 yêu thú biết bay
 
 Thêm 20 yêu thú mới từ tí hon đến khổng lồ, có 20 frame mỗi con và đầy đủ FX tách lớp như bộ cũ; tổng cộng 70 yêu thú. Chọn bộ lọc **Biết bay** trong Bộ sưu tập hoặc `/beasts.html`; xem chiêu tại `/beast-effects.html`. Nguồn và prompt ImageGen nằm trong các nhóm `art/beasts/flying-*-v1/` và `art/beasts/effects-flying-v1/`. Đây là thư viện asset, chưa có AI bay hay chiến đấu trong màn chơi.
+
+## Spritesheet đi bộ / chạy
+
+Cả 26 nhân vật có thêm `locomotion-v1.png` (512×256, tám frame) và manifest cạnh atlas gốc. Nguồn ImageGen tích hợp, prompt và ảnh kiểm tra ở [art/characters/locomotion-v1](art/characters/locomotion-v1/prompts.md). Đóng gói bằng `npm run assets:character-locomotion`; chỉ crop/scale nearest-neighbor, giữ tỷ lệ và neo chân. Trang `/characters.html` dùng cùng renderer với người chơi và NPC.

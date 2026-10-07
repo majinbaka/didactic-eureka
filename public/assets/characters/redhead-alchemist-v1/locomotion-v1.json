@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "cellWidth": 128,
+  "cellHeight": 128,
+  "columns": 4,
+  "rows": 2,
+  "sheetWidth": 512,
+  "sheetHeight": 256,
+  "anchor": {
+    "x": 64,
+    "y": 116
+  },
+  "frameCount": 8,
+  "image": "/assets/characters/redhead-alchemist-v1/locomotion-v1.png",
+  "animations": {
+    "walk": {
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "fps": 8,
+      "loop": true
+    },
+    "run": {
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "fps": 12,
+      "loop": true
+    }
+  }
+}
